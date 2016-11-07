@@ -5,7 +5,7 @@ public class clsMain {
 		// TODO Auto-generated method stub
 
 		
-		System.out.println("prjobando");
+		System.out.println("probando...");
 		
 	}
 

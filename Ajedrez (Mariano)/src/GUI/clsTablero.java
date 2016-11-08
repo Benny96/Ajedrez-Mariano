@@ -22,6 +22,7 @@ public class clsTablero extends JFrame
 	public clsTablero() 
 	{
 	
+		System.out.println("El amo ha llegado 2");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1360, 720);
 		pPrincipal = new JPanel();

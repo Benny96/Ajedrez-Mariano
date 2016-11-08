@@ -1,6 +1,8 @@
 package GUI;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+
 
 public class clsCasilla extends JButton {
 
@@ -8,11 +10,13 @@ public class clsCasilla extends JButton {
 	private int x;
 	private int y;
 	
-	public clsCasilla(int a, int b)
+	public clsCasilla(int a, int b, String i)
 	{
 		super();
 		y=a;
 		x=b;
+		this.setIcon(new ImageIcon(i));
+
 	}
 
 	public int getX() {

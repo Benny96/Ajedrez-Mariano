@@ -14,7 +14,6 @@ import javax.swing.border.EmptyBorder;
 public class clsTablero extends JFrame
 {
 	
-	
 	JPanel pPrincipal;
 	clsCasilla [][] casilla;
 	
@@ -37,7 +36,12 @@ public class clsTablero extends JFrame
 		{
 			for(int j=0;j<8;j++)
 			{
-				casilla[i][j]=new clsCasilla(i,j);
+				String t="img/torre_b.png";
+//				ImageIcon torre=new ImageIcon("img/torre_b.png");
+				casilla[i][j]=new clsCasilla(i, j, t);
+				
+//				casilla[i][j].setIcon(new ImageIcon(clsTablero.class.getResource("img/torre_b.png")));
+
 				casilla[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 				{
@@ -54,6 +58,8 @@ public class clsTablero extends JFrame
 				
 			}
 		}
+		
+	
 	}
 
 		

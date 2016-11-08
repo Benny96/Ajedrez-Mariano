@@ -14,11 +14,12 @@ public class clsPieza {
 	private ImageIcon icon;
 	
 	
-	public clsPieza(int x,int y, Boolean color)
+	public clsPieza(int x, int y, Boolean color)
 	{
 		this.y=x;
 		this.x=y;
 		this.color=color;
+		
 	}
 	
 	public int getX() {

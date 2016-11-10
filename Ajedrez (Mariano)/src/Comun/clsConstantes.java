@@ -13,4 +13,11 @@ public class clsConstantes {
 		Reina
 	}
 	
+	
+	public enum enFicDatos
+	{
+		FICHERO_USUARIOS,
+	
+	}
+	
 }

@@ -1,5 +1,6 @@
 import java.awt.EventQueue;
 
+import GUI.clsPaginaPrincipal;
 import GUI.clsTablero;
 
 
@@ -15,10 +16,8 @@ public class clsMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
-					clsTablero tab=new clsTablero();
-
-					tab.setVisible(true);
+					clsPaginaPrincipal p=new clsPaginaPrincipal();
+					p.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

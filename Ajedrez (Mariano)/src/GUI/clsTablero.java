@@ -15,7 +15,7 @@ public class clsTablero extends JFrame
 {
 	
 	JPanel pPrincipal;
-	clsCasilla [][] casilla;
+	clsCasilla [][] tablero;
 	
 	
 
@@ -29,7 +29,7 @@ public class clsTablero extends JFrame
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
 		
-		casilla= new clsCasilla[8][8];
+		tablero= new clsCasilla[8][8];
 
 		for(int i=0;i<8;i++)
 		{
@@ -37,23 +37,23 @@ public class clsTablero extends JFrame
 			{
 				String t="img/torre_b.png";
 //				ImageIcon torre=new ImageIcon("img/torre_b.png");
-				casilla[i][j]=new clsCasilla(i, j, t);
+				tablero[i][j]=new clsCasilla(i, j);
 				
 //				casilla[i][j].setIcon(new ImageIcon(clsTablero.class.getResource("img/torre_b.png")));
 
-				casilla[i][j].setText(Integer.toString(i)+Integer.toString(j));
+				tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 				{
-					casilla[i][j].setBackground(Color.WHITE);
+					tablero[i][j].setBackground(Color.WHITE);
 				}
 				else
 				{
-					casilla[i][j].setBackground(Color.BLACK);
+					tablero[i][j].setBackground(Color.BLACK);
 				}				
 
-				casilla[i][j].setBounds(500-j*60, 540-i*60, 60, 60);
+				tablero[i][j].setBounds(500-j*60, 540-i*60, 60, 60);
 //				casilla[i][j].addActionListener(this);
-				pPrincipal.add(casilla[i][j]);
+				pPrincipal.add(tablero[i][j]);
 				
 			}
 		}

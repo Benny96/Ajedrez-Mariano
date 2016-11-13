@@ -37,6 +37,7 @@ public class clsPaginaPrincipal extends JFrame {
 	private Border borderUsuario;
 	private Border borderContraseña;
 	private JLabel img;
+	private JFrame miVentana;
 	
 	final int posImgX=440;
 	final int posImgY=120;
@@ -53,7 +54,6 @@ public class clsPaginaPrincipal extends JFrame {
 		
 		
 		panel=new JPanel();
-//		this.setBounds(450, 225, 450, 300);
 		this.setBounds(350, 200, 500, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.setLayout(null);
@@ -96,16 +96,14 @@ public class clsPaginaPrincipal extends JFrame {
 		lblLogin.setFont (lblLogin.getFont ().deriveFont (24.0f));
 		panel.add(lblLogin);
 		
-		
-		
+		miVentana = this;
 		
 		img=new JLabel();
 		img.setSize(229, 186);
 		img.setLocation(47, 21);
 		img=CogerImagen(img);
 		panel.add(img);
-		
-		
+			
 		setResizable(false);
 		
 		//Escuchadores
@@ -116,21 +114,25 @@ public class clsPaginaPrincipal extends JFrame {
 				
 				clsGestor objGestor=new clsGestor();
 				usus=objGestor.ListaUsuarios();
-				int g=0;
+				boolean existe = false;
 				
 				for(clsUsuario aux:usus)
 				{
 					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContraseña.getText().equals(aux.getContraseña())))
 					{
-						g++;
+						existe = true;
 						
-						clsTablero frame = new clsTablero();
-			            frame.setVisible(true);//necessary as of 1.3
-			            txtContraseña.setText("");
+						clsEleccion ventanaEleccion = new clsEleccion(aux);
+						ventanaEleccion.setVisible(true);
+						miVentana.dispose();
+						//TODO: A añadir en la ventana de Elección.
+//						clsTablero frame = new clsTablero();
+//			            frame.setVisible(true);
+//			            txtContraseña.setText("");
 					}
 				}
 
-				if(g==0)
+				if(!existe)
 				{
 					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
 				}

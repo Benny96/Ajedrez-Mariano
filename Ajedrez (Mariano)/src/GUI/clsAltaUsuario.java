@@ -42,23 +42,6 @@ public class clsAltaUsuario extends JFrame {
 	
 	private JButton btnAceptar;
 	private JButton btnCancelar;
-	
-
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					clsAltaUsuario window = new clsAltaUsuario();
-//					window.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
@@ -134,11 +117,6 @@ public class clsAltaUsuario extends JFrame {
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(314, 228, 89, 23);
 		panel.add(btnCancelar);
-		
-		
-		
-		
-		
 		
 		//Escuchadores
 		btnAceptar.addActionListener(new ActionListener() 

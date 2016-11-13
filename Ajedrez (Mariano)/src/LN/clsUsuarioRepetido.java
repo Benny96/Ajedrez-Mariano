@@ -5,7 +5,7 @@ public class clsUsuarioRepetido extends Exception
 {
 	private static final long serialVersionUID = 1L;
 	
-	private final String mensaje = "Ya existe un usuario con ese nickname. Tendrá que introducir una nueva opción";
+	private final String mensaje = "Ya existe un usuario con ese nickname. Tendrá que introducir una nueva opción.";
 
 	public String getMessage()
 	{	

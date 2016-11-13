@@ -203,8 +203,7 @@ public class clsBinarios implements itfDatos {
 		{
 			while((o=(Serializable)ois.readObject())!=null)
 			{
-				lista.add(o);
-				
+				lista.add(o);	
 			}
 		}
 		catch(NullPointerException e)

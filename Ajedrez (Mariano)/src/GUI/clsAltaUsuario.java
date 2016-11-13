@@ -42,6 +42,8 @@ public class clsAltaUsuario extends JFrame
 	private JLabel lblNickname;
 	private JLabel lblContrasenya1;
 	private JLabel lblContrasenya2;
+	private JLabel lblFrase;
+
 
 	JButton btnAceptar;
 	JButton btnCancelar;
@@ -71,56 +73,56 @@ public class clsAltaUsuario extends JFrame
 		panel.setBackground(Color.WHITE);
 		
 		lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 43, 81, 14);
+		lblNombre.setBounds(10, 68, 81, 14);
 		panel.add(lblNombre);
 		
 		lblApe1 = new JLabel("Apellido 1:");
-		lblApe1.setBounds(10, 68, 81, 14);
+		lblApe1.setBounds(10, 93, 81, 14);
 		panel.add(lblApe1);
 		
 		lblApe2 = new JLabel("Apellido 2:");
-		lblApe2.setBounds(10, 93, 81, 14);
+		lblApe2.setBounds(10, 118, 81, 14);
 		panel.add(lblApe2);
 		
 		lblNickname = new JLabel("Nickname:");
-		lblNickname.setBounds(10, 118, 81, 14);
+		lblNickname.setBounds(10, 143, 81, 14);
 		panel.add(lblNickname);
 		
 		lblContrasenya1 = new JLabel("Contraseña:");
-		lblContrasenya1.setBounds(10, 143, 81, 14);
+		lblContrasenya1.setBounds(10, 174, 81, 14);
 		panel.add(lblContrasenya1);
 		
 		lblContrasenya2 = new JLabel("Contraseña:");
-		lblContrasenya2.setBounds(10, 168, 81, 14);
+		lblContrasenya2.setBounds(10, 203, 81, 14);
 		panel.add(lblContrasenya2);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(101, 40, 86, 20);
+		txtNombre.setBounds(101, 62, 86, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtApe1 = new JTextField();
-		txtApe1.setBounds(101, 65, 86, 20);
+		txtApe1.setBounds(101, 90, 86, 20);
 		panel.add(txtApe1);
 		txtApe1.setColumns(10);
 		
 		txtApe2 = new JTextField();
-		txtApe2.setBounds(101, 90, 86, 20);
+		txtApe2.setBounds(101, 115, 86, 20);
 		panel.add(txtApe2);
 		txtApe2.setColumns(10);
 		
 		txtNickname = new JTextField();
-		txtNickname.setBounds(101, 115, 86, 20);
+		txtNickname.setBounds(101, 140, 86, 20);
 		panel.add(txtNickname);
 		txtNickname.setColumns(10);
 		
 		txtContrasenya1 = new JPasswordField();
-		txtContrasenya1.setBounds(101, 140, 86, 20);
+		txtContrasenya1.setBounds(101, 171, 86, 20);
 		panel.add(txtContrasenya1);
 		txtContrasenya1.setColumns(10);
 		
 		txtContrasenya2 = new JPasswordField();
-		txtContrasenya2.setBounds(101, 165, 86, 20);
+		txtContrasenya2.setBounds(101, 197, 86, 20);
 		panel.add(txtContrasenya2);
 		txtContrasenya2.setColumns(10);
 		
@@ -133,12 +135,18 @@ public class clsAltaUsuario extends JFrame
 		panel.add(btnCancelar);
 		
 		
+		lblFrase = new JLabel("¡Únete a nuestra comunidad!");
+		lblFrase.setBounds(27, 0, 272, 75);
+		lblFrase.setFont (lblFrase.getFont ().deriveFont (18.0f));
+		panel.add(lblFrase);
+		
+		
 		
 		miVentana = this;
 		
 		img=new JLabel();
 		img.setSize(229, 186);
-		img.setLocation(47, 21);
+		img.setLocation(215, 42);
 		img=CogerImagen(img);
 		panel.add(img);
 			
@@ -328,7 +336,7 @@ public class clsAltaUsuario extends JFrame
 	public JLabel CogerImagen(JLabel l)
 	{
 //		l.setIcon(new ImageIcon(new ImageIcon("C:/Users/ALUMNO/git/Ajedrez_Mariano/Ajedrez (Mariano)/src/img/pagina_principal.png").getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
-		l.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/img/pagina_principal.png")).getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
+		l.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/img/pagina_registro.png")).getImage().getScaledInstance(220, 170, Image.SCALE_DEFAULT)));
 
 		return l;
 	}

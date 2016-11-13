@@ -31,14 +31,14 @@ public class clsPaginaPrincipal extends JFrame
 	
 	private JPanel panel;
 	private JTextField txtNickname;
-	private JPasswordField txtContraseña;
+	private JPasswordField txtContrasenya;
 	private JLabel lblUsuario;
-	private JLabel lblContraseña;
+	private JLabel lblContrasenya;
 	private JButton btnRegistro;
 	private JButton btnAceptar;
 	private JLabel lblLogin;
 	private Border borderUsuario;
-	private Border borderContraseña;
+	private Border borderContrasenya;
 	private JLabel img;
 	private JFrame miVentana;
 	
@@ -64,20 +64,20 @@ public class clsPaginaPrincipal extends JFrame
 		panel.add(txtNickname);
 		txtNickname.setColumns(10);
 		
-		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(112, 217, 123, 20);
-		borderContraseña = BorderFactory.createLineBorder(Color.red, 1);
-		txtContraseña.setBorder(borderContraseña);
-		panel.add(txtContraseña);
-		txtContraseña.setColumns(10);
+		txtContrasenya = new JPasswordField();
+		txtContrasenya.setBounds(112, 217, 123, 20);
+		borderContrasenya = BorderFactory.createLineBorder(Color.red, 1);
+		txtContrasenya.setBorder(borderContrasenya);
+		panel.add(txtContrasenya);
+		txtContrasenya.setColumns(10);
 		
 		lblUsuario= new JLabel("Nickname:");
 		lblUsuario.setBounds(27, 189, 65, 14);
 		panel.add(lblUsuario);
 		
-		lblContraseña = new JLabel("Contraseña:");
-		lblContraseña.setBounds(27, 220, 75, 14);
-		panel.add(lblContraseña);
+		lblContrasenya = new JLabel("Contraseña:");
+		lblContrasenya.setBounds(27, 220, 75, 14);
+		panel.add(lblContrasenya);
 		
 		btnAceptar = new JButton("Entrar");
 		btnAceptar.setBounds(286, 199, 89, 23);
@@ -112,7 +112,7 @@ public class clsPaginaPrincipal extends JFrame
 				boolean existe = false;
 				for(clsUsuario aux:usus)
 				{
-					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContraseña.getText().equals(aux.getContraseña())))
+					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
 					{
 						existe = true;
 						clsEleccion ventanaEleccion = new clsEleccion(aux);

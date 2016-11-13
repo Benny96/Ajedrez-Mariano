@@ -29,15 +29,15 @@ public class clsAltaUsuario extends JFrame
 	JTextField txtApe1;
 	JTextField txtApe2;
 	JTextField txtNickname;
-	JPasswordField txtContraseña1;
-	JPasswordField txtContraseña2;
+	JPasswordField txtContrasenya1;
+	JPasswordField txtContrasenya2;
 	
 	private JLabel lblNombre;
 	private JLabel lblApe1;
 	private JLabel lblApe2;
 	private JLabel lblNickname;
-	private JLabel lblContraseña1;
-	private JLabel lblContraseña2;
+	private JLabel lblContrasenya1;
+	private JLabel lblContrasenya2;
 	
 	JButton btnAceptar;
 	JButton btnCancelar;
@@ -72,13 +72,13 @@ public class clsAltaUsuario extends JFrame
 		lblNickname.setBounds(10, 118, 81, 14);
 		panel.add(lblNickname);
 		
-		lblContraseña1 = new JLabel("Contraseña:");
-		lblContraseña1.setBounds(10, 143, 81, 14);
-		panel.add(lblContraseña1);
+		lblContrasenya1 = new JLabel("Contraseña:");
+		lblContrasenya1.setBounds(10, 143, 81, 14);
+		panel.add(lblContrasenya1);
 		
-		lblContraseña2 = new JLabel("Contraseña:");
-		lblContraseña2.setBounds(10, 168, 81, 14);
-		panel.add(lblContraseña2);
+		lblContrasenya2 = new JLabel("Contraseña:");
+		lblContrasenya2.setBounds(10, 168, 81, 14);
+		panel.add(lblContrasenya2);
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(101, 40, 86, 20);
@@ -100,15 +100,15 @@ public class clsAltaUsuario extends JFrame
 		panel.add(txtNickname);
 		txtNickname.setColumns(10);
 		
-		txtContraseña1 = new JPasswordField();
-		txtContraseña1.setBounds(101, 140, 86, 20);
-		panel.add(txtContraseña1);
-		txtContraseña1.setColumns(10);
+		txtContrasenya1 = new JPasswordField();
+		txtContrasenya1.setBounds(101, 140, 86, 20);
+		panel.add(txtContrasenya1);
+		txtContrasenya1.setColumns(10);
 		
-		txtContraseña2 = new JPasswordField();
-		txtContraseña2.setBounds(101, 165, 86, 20);
-		panel.add(txtContraseña2);
-		txtContraseña2.setColumns(10);
+		txtContrasenya2 = new JPasswordField();
+		txtContrasenya2.setBounds(101, 165, 86, 20);
+		panel.add(txtContrasenya2);
+		txtContrasenya2.setColumns(10);
 		
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(215, 228, 89, 23);
@@ -127,12 +127,12 @@ public class clsAltaUsuario extends JFrame
 				clsGestor objGestor=new clsGestor();
 				
 				
-				if(txtNombre.getText().length()>0&&txtApe1.getText().length()>0&&txtApe2.getText().length()>0&&txtNickname.getText().length()>0&&txtContraseña1.getText().length()>0&&txtContraseña2.getText().length()>0)
+				if(txtNombre.getText().length()>0&&txtApe1.getText().length()>0&&txtApe2.getText().length()>0&&txtNickname.getText().length()>0&&txtContrasenya1.getText().length()>0&&txtContrasenya2.getText().length()>0)
 				{		
 					
 					
 					
-					if(txtContraseña1.getText().equals(txtContraseña2.getText())==false)
+					if(txtContrasenya1.getText().equals(txtContrasenya2.getText())==false)
 					{
 						JOptionPane.showMessageDialog(null, "Introduzca la misma contraseña", "¡Contraseñas diferentes!", JOptionPane.ERROR_MESSAGE);
 					}
@@ -140,7 +140,7 @@ public class clsAltaUsuario extends JFrame
 					{
 						try
 						{
-							objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContraseña1.getText());//, frmFechas.getFec());
+							objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText());//, frmFechas.getFec());
 							dispose();
 						}
 						catch(clsUsuarioRepetido p)

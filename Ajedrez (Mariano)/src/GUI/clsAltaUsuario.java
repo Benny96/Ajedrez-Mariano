@@ -10,6 +10,8 @@ import javax.swing.JPasswordField;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -123,38 +125,167 @@ public class clsAltaUsuario extends JFrame
 		btnAceptar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
-			{				
-				clsGestor objGestor=new clsGestor();
-				
-				if(txtNombre.getText().length()>0&&txtApe1.getText().length()>0&&txtApe2.getText().length()>0&&txtNickname.getText().length()>0&&txtContrasenya1.getText().length()>0&&txtContrasenya2.getText().length()>0)
-				{		
-				
-					if(txtContrasenya1.getText().equals(txtContrasenya2.getText())==false)
-					{
-						JOptionPane.showMessageDialog(null, "Introduzca la misma contraseña", "¡Contraseñas diferentes!", JOptionPane.ERROR_MESSAGE);
-					}
-					else
-					{
-						try
-						{
-							objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText());//, frmFechas.getFec());
-							dispose();
-						}
-						catch(clsUsuarioRepetido p)
-						{
-								JOptionPane.showMessageDialog(null, p.getMessage(), "Nickname repetido", JOptionPane.WARNING_MESSAGE);
-						}
-						
-					}
-
-				}
-			
-				else
-				{
-					JOptionPane.showMessageDialog(null, "Introduzca todos los datos.", "Error", JOptionPane.ERROR_MESSAGE);
-				}
+			{		
+				Registrar();
 			}
 		});
+		
+		
+		txtNombre.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		txtApe1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		txtApe2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		
+		txtNickname.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		
+		txtContrasenya1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		
+		
+		txtContrasenya2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		
 		
 		
 		btnCancelar.addActionListener(new ActionListener() 
@@ -166,5 +297,41 @@ public class clsAltaUsuario extends JFrame
 		});
 	
 		
+	}
+	
+	private boolean controlPulsado = false;
+	
+	private void Registrar()
+	{
+		clsGestor objGestor=new clsGestor();
+		
+		if(txtNombre.getText().length()>0&&txtApe1.getText().length()>0&&txtApe2.getText().length()>0&&txtNickname.getText().length()>0&&txtContrasenya1.getText().length()>0&&txtContrasenya2.getText().length()>0)
+		{		
+		
+			if(txtContrasenya1.getText().equals(txtContrasenya2.getText())==false)
+			{
+				JOptionPane.showMessageDialog(null, "Introduzca la misma contraseña", "¡Contraseñas diferentes!", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				try
+				{
+					objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText());//, frmFechas.getFec());
+					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
+					dispose();
+				}
+				catch(clsUsuarioRepetido p)
+				{
+						JOptionPane.showMessageDialog(null, p.getMessage(), "Nickname repetido", JOptionPane.WARNING_MESSAGE);
+				}
+				
+			}
+
+		}
+	
+		else
+		{
+			JOptionPane.showMessageDialog(null, "Introduzca todos los datos.", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }

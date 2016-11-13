@@ -41,9 +41,9 @@ public class clsPaginaPrincipal extends JFrame
 	private JLabel lblContrasenya;
 	private JButton btnRegistro;
 	private JButton btnAceptar;
-	private JLabel lblLogin;
-	private Border borderUsuario;
-	private Border borderContrasenya;
+	private JLabel lblPregunta;
+//	private Border borderUsuario;
+//	private Border borderContrasenya;
 	private JLabel img;
 	private JFrame miVentana;
 	
@@ -63,19 +63,23 @@ public class clsPaginaPrincipal extends JFrame
 		panel.setBackground(Color.WHITE);
 		
 
-//		txtNickname.setBounds(112, 186, 123, 20);
-		txtNickname.setBounds(300, 176, 123, 20);
-
-		borderUsuario = BorderFactory.createLineBorder(Color.red, 1);
-		txtNickname.setBorder(borderUsuario);
+		txtNickname=new JTextField();
+		addWindowListener( new WindowAdapter() {		//ESTO PARA QUE
+		    public void windowOpened( WindowEvent e ){	//POR DEFECTO EL CURSOR
+		    	txtNickname.requestFocus();				//VAYA AL JTEXTFIELD
+		    }
+		}); 
+		txtNickname.setBounds(112, 186, 123, 20);
+//		borderUsuario = BorderFactory.createLineBorder(Color.red, 1);
+//		txtNickname.setBorder(borderUsuario);
 		panel.add(txtNickname);
 		txtNickname.setColumns(10);
 		
 		
 		txtContrasenya = new JPasswordField();
 		txtContrasenya.setBounds(112, 217, 123, 20);
-		borderContrasenya = BorderFactory.createLineBorder(Color.red, 1);
-		txtContrasenya.setBorder(borderContrasenya);
+//		borderContrasenya = BorderFactory.createLineBorder(Color.red, 1);
+//		txtContrasenya.setBorder(borderContrasenya);
 		panel.add(txtContrasenya);
 		txtContrasenya.setColumns(10);
 		
@@ -97,10 +101,10 @@ public class clsPaginaPrincipal extends JFrame
 		panel.add(btnRegistro);
 		
 
-		lblLogin = new JLabel("¿Te atreves a jugar contra Mariano?");
-		lblLogin.setBounds(27, 0, 573, 75);
-		lblLogin.setFont (lblLogin.getFont ().deriveFont (24.0f));
-		panel.add(lblLogin);
+		lblPregunta = new JLabel("¿Te atreves a jugar contra Mariano?");
+		lblPregunta.setBounds(27, 0, 573, 75);
+		lblPregunta.setFont (lblPregunta.getFont ().deriveFont (24.0f));
+		panel.add(lblPregunta);
 		
 		miVentana = this;
 		
@@ -120,28 +124,119 @@ public class clsPaginaPrincipal extends JFrame
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				clsGestor objGestor=new clsGestor();
-				usus=objGestor.ListaUsuarios();
-				boolean existe = false;
-				for(clsUsuario aux:usus)
-				{
-					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
-					{
-						existe = true;
-						clsEleccion ventanaEleccion = new clsEleccion(aux);
-						ventanaEleccion.setVisible(true);
-						miVentana.dispose();
-					}
-				}
-
-				if(!existe)
-				{
-					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
-				}			
+				Entrar();
 			}
 
 		});
 		
+		
+
+		txtNickname.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Entrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		
+		txtContrasenya.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Entrar();	
+					}
+					controlPulsado=false;	
+				}		
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+
+				}
+			}
+	
+		});
+		
+		
+		btnAceptar.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Entrar();			
+					}
+					controlPulsado=false;	
+				}		
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}
+				
+			}
+						
+		});
+		
+		
+		btnRegistro.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Entrar();		
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}	
+			}		
+		});
 
 		btnRegistro.addActionListener(new ActionListener()
 		{
@@ -158,15 +253,11 @@ public class clsPaginaPrincipal extends JFrame
 					w.printStackTrace();
 				}	
 			}
-			
 		});
-		
-						
-					
 			
 	}
 	
-
+	private boolean controlPulsado = false;
 	
 	public JLabel CogerImagen(JLabel l)
 	{
@@ -174,6 +265,28 @@ public class clsPaginaPrincipal extends JFrame
 		l.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/img/pagina_principal.png")).getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
 
 		return l;
+	}
+	
+	private void Entrar()
+	{
+		clsGestor objGestor=new clsGestor();
+		usus=objGestor.ListaUsuarios();
+		boolean existe = false;
+		for(clsUsuario aux:usus)
+		{
+			if((txtNickname.getText().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
+			{
+				existe = true;
+				clsEleccion ventanaEleccion = new clsEleccion(aux);
+				ventanaEleccion.setVisible(true);
+				miVentana.dispose();
+			}
+		}
+
+		if(!existe)
+		{
+			JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
 

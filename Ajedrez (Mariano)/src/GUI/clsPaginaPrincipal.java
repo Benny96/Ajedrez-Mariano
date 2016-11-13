@@ -28,39 +28,33 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-public class clsPaginaPrincipal extends JFrame {
+public class clsPaginaPrincipal extends JFrame 
+{
 
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel panel;
 	
 	private JTextField txtNickname;
-	private JPasswordField txtContraseña;
-	private Border borderUsuario;
-	private Border borderContraseña;
-	
-	private JLabel lblNickname;
-	private JLabel lblContraseña;
-	private JLabel lblPregunta;
-	
+	private JPasswordField txtContrasenya;
+	private JLabel lblUsuario;
+	private JLabel lblContrasenya;
 	private JButton btnRegistro;
 	private JButton btnAceptar;
-	
-
+	private JLabel lblLogin;
+	private Border borderUsuario;
+	private Border borderContrasenya;
 	private JLabel img;
+	private JFrame miVentana;
 	
 	final int posImgX=440;
 	final int posImgY=120;
 
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
 
-
-	/**
-	 * Create the application.
-	 */
-	public clsPaginaPrincipal() {
-	
-
+	public clsPaginaPrincipal() 
+	{
 		panel=new JPanel();
-//		this.setBounds(450, 225, 450, 300);
 		this.setBounds(350, 200, 500, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.setLayout(null);
@@ -68,38 +62,31 @@ public class clsPaginaPrincipal extends JFrame {
 		setTitle("¡Bienvenido al Ajedrez Mariano!");
 		panel.setBackground(Color.WHITE);
 		
-		lblNickname= new JLabel("Nickname:");
-		lblNickname.setBounds(27, 189, 65, 14);
-		panel.add(lblNickname);
-		
-		lblContraseña = new JLabel("Contraseña:");
-		lblContraseña.setBounds(27, 220, 75, 14);
-		panel.add(lblContraseña);
-		
-		lblPregunta = new JLabel("¿Te atreves a jugar contra Mariano?");
-		lblPregunta.setBounds(27, 0, 573, 75);
-		lblPregunta.setFont (lblPregunta.getFont ().deriveFont (24.0f));
-		panel.add(lblPregunta);
-		
-		txtNickname=new JTextField();
-		addWindowListener( new WindowAdapter() {		//ESTO PARA QUE
-		    public void windowOpened( WindowEvent e ){	//POR DEFECTO EL CURSOR
-		    	txtNickname.requestFocus();				//VAYA AL JTEXTFIELD
-		    }
-		}); 
-		txtNickname.setBounds(112, 186, 123, 20);
+
+//		txtNickname.setBounds(112, 186, 123, 20);
+		txtNickname.setBounds(300, 176, 123, 20);
+
 		borderUsuario = BorderFactory.createLineBorder(Color.red, 1);
 		txtNickname.setBorder(borderUsuario);
 		panel.add(txtNickname);
 		txtNickname.setColumns(10);
 		
 		
-		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(112, 217, 123, 20);
-		borderContraseña = BorderFactory.createLineBorder(Color.red, 1);
-		txtContraseña.setBorder(borderContraseña);
-		panel.add(txtContraseña);
-		txtContraseña.setColumns(10);
+		txtContrasenya = new JPasswordField();
+		txtContrasenya.setBounds(112, 217, 123, 20);
+		borderContrasenya = BorderFactory.createLineBorder(Color.red, 1);
+		txtContrasenya.setBorder(borderContrasenya);
+		panel.add(txtContrasenya);
+		txtContrasenya.setColumns(10);
+		
+
+		lblUsuario= new JLabel("Nickname:");
+		lblUsuario.setBounds(27, 189, 65, 14);
+		panel.add(lblUsuario);
+		
+		lblContrasenya = new JLabel("Contraseña:");
+		lblContrasenya.setBounds(27, 220, 75, 14);
+		panel.add(lblContrasenya);
 		
 		btnAceptar = new JButton("Entrar");
 		btnAceptar.setBounds(267, 238, 89, 23);
@@ -110,13 +97,19 @@ public class clsPaginaPrincipal extends JFrame {
 		panel.add(btnRegistro);
 		
 
+		lblLogin = new JLabel("¿Te atreves a jugar contra Mariano?");
+		lblLogin.setBounds(27, 0, 573, 75);
+		lblLogin.setFont (lblLogin.getFont ().deriveFont (24.0f));
+		panel.add(lblLogin);
+		
+		miVentana = this;
+		
 		img=new JLabel();
 		img.setSize(229, 186);
 		img.setLocation(47, 21);
 		img=CogerImagen(img);
 		panel.add(img);
-		
-		
+			
 		setResizable(false);
 		
 		
@@ -127,81 +120,34 @@ public class clsPaginaPrincipal extends JFrame {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
 				clsGestor objGestor=new clsGestor();
 				usus=objGestor.ListaUsuarios();
-				int g=0;
-				
+				boolean existe = false;
 				for(clsUsuario aux:usus)
 				{
-					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContraseña.getText().equals(aux.getContraseña())))
+					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
 					{
-						g++;
-						
-						clsTablero frame = new clsTablero();
-			            frame.setVisible(true);//necessary as of 1.3
-			            txtContraseña.setText("");
+						existe = true;
+						clsEleccion ventanaEleccion = new clsEleccion(aux);
+						ventanaEleccion.setVisible(true);
+						miVentana.dispose();
 					}
-				}
-				if(g==0)
-				{
-					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
 				}
 
+				if(!existe)
+				{
+					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
+				}			
 			}
+
 		});
 		
-		btnAceptar.addKeyListener(new KeyAdapter() {
-			
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//				
-//				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-//				{
-//				
-//				
-//				}
-//				
-//				
-//			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-					controlPulsado = true;
-					
-					
-					clsGestor objGestor=new clsGestor();
-					usus=objGestor.ListaUsuarios();
-					int g=0;
-					
-					for(clsUsuario aux:usus)
-					{
-						if((txtNickname.getText().equals(aux.getNickname()))&&(txtContraseña.getText().equals(aux.getContraseña())))
-						{
-							g++;
-							
-							clsTablero frame = new clsTablero();
-				            frame.setVisible(true);//necessary as of 1.3
-				            txtContraseña.setText("");
-						}
-					}
-					if(g==0)
-					{
-						JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-				
-			}
-			
-			
-		});
 
 		btnRegistro.addActionListener(new ActionListener()
 		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				try 
 				{
 					clsAltaUsuario window = new clsAltaUsuario();
@@ -215,9 +161,11 @@ public class clsPaginaPrincipal extends JFrame {
 			
 		});
 		
+						
+					
+			
 	}
 	
-	private boolean controlPulsado = false;
 
 	
 	public JLabel CogerImagen(JLabel l)

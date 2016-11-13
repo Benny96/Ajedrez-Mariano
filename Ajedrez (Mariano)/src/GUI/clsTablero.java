@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 
 public class clsTablero extends JFrame
 {
+	private static final long serialVersionUID = 1L;
 	
 	JPanel pPrincipal;
 	clsCasilla [][] tablero;

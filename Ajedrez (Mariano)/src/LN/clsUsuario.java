@@ -2,13 +2,12 @@ package LN;
 
 import java.io.Serializable;
 
-
-
 /**
  * 
- * @author Garikoitz.Bereciartua
- * Clase que implementa la interfaz Comparable<clsUsuario> y Serializable
- *
+ * @author Garikoitz.Bereciartua, Imanol.Echeverría, Beñat.Galdós
+ * Clase que implementa la interfaz Comparable<clsUsuario> y Serializable. <br>
+ * La ordenación natural se ha hecho mediante los nicknames. Se implementarán de
+ * manera externa otros tipos de ordenaciones.
  */
 public class clsUsuario implements Serializable, Comparable<clsUsuario> 
 {
@@ -129,7 +128,7 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	
 	public String toString()
 	{
-		String e="Nombre: "+this.getNombre()+" // Apellido 1: "+this.getApellido1()+" // Apellido 2: "+this.getApellido2()+" // Nicknmae: "+this.getNickname()+" // Contraseña: "+this.getContraseña();//+" // Fecha de matriculación: "+this.getFechamatricula();
+		String e="Nombre: "+this.getNombre()+" // Apellido 1: "+this.getApellido1()+" // Apellido 2: "+this.getApellido2()+" // Nickname: "+this.getNickname()+" // Contraseña: "+this.getContraseña();//+" // Fecha de matriculación: "+this.getFechamatricula();
 		
 		return e;
 	}

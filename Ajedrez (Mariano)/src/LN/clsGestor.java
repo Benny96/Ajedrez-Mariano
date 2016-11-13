@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
 
 import Comun.clsConstantes.enFicDatos;
 import LN.clsUsuario;
 import Persistencia.clsBinarios;
 
-public class clsGestor implements Serializable {
+public class clsGestor implements Serializable 
+{
+	private static final long serialVersionUID = 1L;
 
-	
-	
 	public ArrayList<clsUsuario> ListaUsuarios()	
 	{	
 		ArrayList<clsUsuario> lista = new ArrayList <clsUsuario>();
@@ -58,8 +57,6 @@ public class clsGestor implements Serializable {
 			{
 				throw new clsUsuarioRepetido();
 			}
-		
-		
 		}
 		
 			clsBinarios objDatos=new clsBinarios();

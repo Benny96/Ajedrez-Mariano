@@ -8,8 +8,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 
-public class clsCasilla extends JButton {
-		
+public class clsCasilla extends JButton 
+{
+	private static final long serialVersionUID = 1L;
+	
 		private clsPieza pieza;
 		private int x;
 		private int y;

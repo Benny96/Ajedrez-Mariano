@@ -1,8 +1,8 @@
 package Comun;
 
-public class clsConstantes {
+public class clsConstantes 
+{
 
-	
 	public enum piezas
 	{
 		Peon,
@@ -13,11 +13,9 @@ public class clsConstantes {
 		Reina
 	}
 	
-	
 	public enum enFicDatos
 	{
-		FICHERO_USUARIOS,
-	
+		FICHERO_USUARIOS
 	}
 	
 }

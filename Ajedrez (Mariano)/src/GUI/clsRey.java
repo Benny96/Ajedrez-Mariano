@@ -26,7 +26,7 @@ public class clsRey extends clsPieza
 		if(color)
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/rey_b.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/rey_b.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -36,7 +36,7 @@ public class clsRey extends clsPieza
 		else
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/rey_n.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/rey_n.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

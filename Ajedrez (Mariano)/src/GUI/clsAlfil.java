@@ -18,7 +18,7 @@ public class clsAlfil extends clsPieza
 		if(color)
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/alfil_b.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/alfil_b.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -28,7 +28,7 @@ public class clsAlfil extends clsPieza
 		else
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/alfil_n.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/alfil_n.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

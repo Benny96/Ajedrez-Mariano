@@ -17,7 +17,7 @@ public class clsPeon extends clsPieza
 		if(color)
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/peon_blanco.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/peon_blanco.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -27,7 +27,7 @@ public class clsPeon extends clsPieza
 		else
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/peon_negro.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/peon_negro.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

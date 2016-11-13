@@ -19,7 +19,7 @@ public class clsReina extends clsPieza
 		if(color)
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/reina_b.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/reina_b.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -29,7 +29,7 @@ public class clsReina extends clsPieza
 		else
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/Imagenes/reina_n.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/reina_n.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

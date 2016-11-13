@@ -1,7 +1,9 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,6 +45,16 @@ public class clsAltaUsuario extends JFrame
 
 	JButton btnAceptar;
 	JButton btnCancelar;
+	
+	
+	private JLabel img;
+	private JFrame miVentana;
+	
+	final int posImgX=440;
+	final int posImgY=120;
+	
+	
+	
 
 	/**
 	 * Create the application.
@@ -119,6 +131,18 @@ public class clsAltaUsuario extends JFrame
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(314, 228, 89, 23);
 		panel.add(btnCancelar);
+		
+		
+		
+		miVentana = this;
+		
+		img=new JLabel();
+		img.setSize(229, 186);
+		img.setLocation(47, 21);
+		img=CogerImagen(img);
+		panel.add(img);
+			
+		setResizable(false);
 		
 
 		//Escuchadores
@@ -300,6 +324,14 @@ public class clsAltaUsuario extends JFrame
 	}
 	
 	private boolean controlPulsado = false;
+	
+	public JLabel CogerImagen(JLabel l)
+	{
+//		l.setIcon(new ImageIcon(new ImageIcon("C:/Users/ALUMNO/git/Ajedrez_Mariano/Ajedrez (Mariano)/src/img/pagina_principal.png").getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
+		l.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/img/pagina_principal.png")).getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
+
+		return l;
+	}
 	
 	private void Registrar()
 	{

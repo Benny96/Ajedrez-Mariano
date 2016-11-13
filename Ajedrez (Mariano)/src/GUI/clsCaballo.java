@@ -37,5 +37,161 @@ public class clsCaballo extends clsPieza
 		}
 		
 	}
+	public void mov(clsCasilla[][] tablero)
+	{
 
+		int t1=this.getY();
+		int t2=this.getX();
+		
+		if(t1+2<8)
+		{
+			t1=t1+2;
+			
+			if(t2+1<8)
+			{
+				t2++;
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{	if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+			
+			t2=this.getX();
+			
+			if(t2-1>=0)
+			{
+				t2--;
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+		}
+		
+		t1=this.getY();
+		t2=this.getX();
+		
+		if(t1+1<8)
+		{
+			t1++;;
+			
+			if(t2+2<8)
+			{
+				
+				t2=t2+2;
+				
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{	
+					if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+			
+			t2=this.getX();
+			if(t2-2>=0)
+			{
+				t2=t2-2;
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+		}
+		
+		t1=this.getY();
+		t2=this.getX();
+		
+		if(t1-1>=0)
+		{
+			t1--;
+			
+			if(t2+2<8)
+			{
+				t2=t2+2;
+				
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+			
+			t2=this.getX();
+			if(t2-2>=0)
+			{
+				t2=t2-2;
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+		}
+		
+		t1=this.getY();
+		t2=this.getX();
+		
+		if(t1-2>=0)
+		{
+			t1=t1-2;
+			
+			if(t2+1<8)
+			{
+				t2++;
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					
+						this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+			
+			t2=this.getX();
+			if(t2-1>=0)
+			{
+				t2--;
+				if(tablero[t1][t2].getOcupado()!=null && tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado()==null)
+						this.movimientos.add(tablero[t1][t2]);
+				}
+			}
+			
+		}
+		
+	}
 }

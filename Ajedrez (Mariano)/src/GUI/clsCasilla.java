@@ -1,11 +1,15 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 
 
 public class clsCasilla extends JButton 
@@ -96,4 +100,5 @@ public class clsCasilla extends JButton
 				return false;
 			return true;
 		}
+	
 }

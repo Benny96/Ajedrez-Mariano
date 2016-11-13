@@ -35,5 +35,63 @@ public class clsPeon extends clsPieza
 			}
 		}
 	}
+	
+	public void mov(clsCasilla[][] tablero)
+	{
+		if(this.getColor())
+		{
+		
+		if(this.y!=1)
+		{
+			if(tablero[this.y+1][this.getX()].getOcupado()==null)
+				this.movimientos.add(tablero[this.y+1][this.getX()]);
+		}
+		else
+		{
+			if(tablero[this.y+1][this.getX()].getOcupado()==null)
+			{
+				this.movimientos.add(tablero[this.y+1][this.getX()]);
+			if(tablero[this.y+2][this.getX()].getOcupado()==null)
+				this.movimientos.add(tablero[this.y+2][this.getX()]);
+			}
+		}
+			if(this.y+1<8 && this.getX()+1<8 && tablero[this.y+1][this.getX()+1].getOcupado()!=null && tablero[this.y+1][this.getX()+1].getOcupado().getColor().equals(this.getColor()==false))
+			{
+				this.movimientos.add(tablero[this.y+1][this.getX()+1]);
+			}
+			if(this.y+1<8 && this.getX()-1>-1 && tablero[this.y+1][this.getX()-1].getOcupado()!=null && tablero[this.y+1][this.getX()-1].getOcupado().getColor().equals(this.getColor()==false))
+			{
+				this.movimientos.add(tablero[this.y+1][this.getX()-1]);
+			}
+			
+		}
+		else
+		{
+			if(this.y!=6)
+			{
+				if(tablero[this.y-1][this.getX()].getOcupado()==null)
+					this.movimientos.add(tablero[this.y-1][this.getX()]);
+				
+			}
+			else
+			{
+				
+				if(tablero[this.y-1][this.getX()].getOcupado()==null)
+				{
+					this.movimientos.add(tablero[this.y-1][this.getX()]);
+				if(tablero[this.y-2][this.getX()].getOcupado()==null)
+					this.movimientos.add(tablero[this.y-2][this.getX()]);
+				}
+			}
+			if(this.y-1>-1 && this.getX()+1<8 && tablero[this.y-1][this.getX()+1].getOcupado()!=null && tablero[this.y-1][this.getX()+1].getOcupado().getColor().equals(this.getColor()==false))
+			{
+				this.movimientos.add(tablero[this.y-1][this.getX()+1]);
+			}
+			if(this.y-1>-1 && this.getX()-1>-1 && tablero[this.y-1][this.getX()-1].getOcupado()!=null && tablero[this.y-1][this.getX()-1].getOcupado().getColor().equals(this.getColor()==false))
+			{
+				this.movimientos.add(tablero[this.y-1][this.getX()-1]);
+			}
+		}
+	}
 
 }

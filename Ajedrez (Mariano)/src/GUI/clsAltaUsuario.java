@@ -44,21 +44,6 @@ public class clsAltaUsuario extends JFrame {
 	private JButton btnCancelar;
 	
 
-//	/**
-//	 * Launch the application.
-//	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					clsAltaUsuario window = new clsAltaUsuario();
-//					window.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the application.
@@ -67,7 +52,7 @@ public class clsAltaUsuario extends JFrame {
 
 		panel = new JPanel();
 		this.setBounds(100, 100, 450, 300);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		panel.setLayout(null);
 		getContentPane().add( panel, BorderLayout.CENTER );
 		setTitle("Alta de usuario");
@@ -137,23 +122,17 @@ public class clsAltaUsuario extends JFrame {
 		
 		
 		
-		
-		
-		
+	
 		//Escuchadores
 		btnAceptar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
-			{
-				
+			{				
 				clsGestor objGestor=new clsGestor();
-				
 				
 				if(txtNombre.getText().length()>0&&txtApe1.getText().length()>0&&txtApe2.getText().length()>0&&txtNickname.getText().length()>0&&txtContraseña1.getText().length()>0&&txtContraseña2.getText().length()>0)
 				{		
-					
-					
-					
+	
 					if(txtContraseña1.getText().equals(txtContraseña2.getText())==false)
 					{
 						JOptionPane.showMessageDialog(null, "Introduzca la misma contraseña", "¡Contraseñas diferentes!", JOptionPane.ERROR_MESSAGE);
@@ -171,34 +150,13 @@ public class clsAltaUsuario extends JFrame {
 						}
 						
 					}
-					
 
-//					
-//				
-//					
-//				
-//				else
-//				{
-//				
-//							
-//				
-//				try {
-//					frmModificarUsuario.ActualizarTabla();
-//				} catch (NullPointerException e1) {
-//					// TODO Auto-generated catch block
-////					e1.printStackTrace();
-//				}
-//				
-//				}
-//				}
 				}
-//				
-//				
+			
 				else
 				{
 					JOptionPane.showMessageDialog(null, "Introduzca todos los datos.", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-//				break;
 			}
 		});
 		
@@ -210,11 +168,7 @@ public class clsAltaUsuario extends JFrame {
 				dispose();
 			}
 		});
-		
-		
-		
-		
-		
+	
 		
 	}
 }

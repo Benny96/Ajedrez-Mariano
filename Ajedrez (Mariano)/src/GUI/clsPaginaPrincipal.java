@@ -22,20 +22,29 @@ import LN.clsUsuario;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 public class clsPaginaPrincipal extends JFrame {
 
 	private JPanel panel;
+	
 	private JTextField txtNickname;
 	private JPasswordField txtContraseña;
-	private JLabel lblUsuario;
-	private JLabel lblContraseña;
-	private JButton btnRegistro;
-	private JButton btnAceptar;
-	private JLabel lblLogin;
 	private Border borderUsuario;
 	private Border borderContraseña;
+	
+	private JLabel lblNickname;
+	private JLabel lblContraseña;
+	private JLabel lblPregunta;
+	
+	private JButton btnRegistro;
+	private JButton btnAceptar;
+	
+
 	private JLabel img;
 	
 	final int posImgX=440;
@@ -50,8 +59,6 @@ public class clsPaginaPrincipal extends JFrame {
 	public clsPaginaPrincipal() {
 	
 
-		
-		
 		panel=new JPanel();
 //		this.setBounds(450, 225, 450, 300);
 		this.setBounds(350, 200, 500, 300);
@@ -61,12 +68,31 @@ public class clsPaginaPrincipal extends JFrame {
 		setTitle("¡Bienvenido al Ajedrez Mariano!");
 		panel.setBackground(Color.WHITE);
 		
-		txtNickname = new JTextField();
+		lblNickname= new JLabel("Nickname:");
+		lblNickname.setBounds(27, 189, 65, 14);
+		panel.add(lblNickname);
+		
+		lblContraseña = new JLabel("Contraseña:");
+		lblContraseña.setBounds(27, 220, 75, 14);
+		panel.add(lblContraseña);
+		
+		lblPregunta = new JLabel("¿Te atreves a jugar contra Mariano?");
+		lblPregunta.setBounds(27, 0, 573, 75);
+		lblPregunta.setFont (lblPregunta.getFont ().deriveFont (24.0f));
+		panel.add(lblPregunta);
+		
+		txtNickname=new JTextField();
+		addWindowListener( new WindowAdapter() {		//ESTO PARA QUE
+		    public void windowOpened( WindowEvent e ){	//POR DEFECTO EL CURSOR
+		    	txtNickname.requestFocus();				//VAYA AL JTEXTFIELD
+		    }
+		}); 
 		txtNickname.setBounds(112, 186, 123, 20);
 		borderUsuario = BorderFactory.createLineBorder(Color.red, 1);
 		txtNickname.setBorder(borderUsuario);
 		panel.add(txtNickname);
 		txtNickname.setColumns(10);
+		
 		
 		txtContraseña = new JPasswordField();
 		txtContraseña.setBounds(112, 217, 123, 20);
@@ -75,30 +101,15 @@ public class clsPaginaPrincipal extends JFrame {
 		panel.add(txtContraseña);
 		txtContraseña.setColumns(10);
 		
-		lblUsuario= new JLabel("Nickname:");
-		lblUsuario.setBounds(27, 189, 65, 14);
-		panel.add(lblUsuario);
-		
-		lblContraseña = new JLabel("Contraseña:");
-		lblContraseña.setBounds(27, 220, 75, 14);
-		panel.add(lblContraseña);
-		
 		btnAceptar = new JButton("Entrar");
-		btnAceptar.setBounds(286, 199, 89, 23);
+		btnAceptar.setBounds(267, 238, 89, 23);
 		panel.add(btnAceptar);
 		
 		btnRegistro = new JButton("¡Regístrate ahora!");
-		btnRegistro.setBounds(267, 110, 172, 23);
+		btnRegistro.setBounds(312, 114, 172, 23);
 		panel.add(btnRegistro);
 		
-		lblLogin = new JLabel("¿Te atreves a jugar contra Mariano?");
-		lblLogin.setBounds(27, 0, 573, 75);
-		lblLogin.setFont (lblLogin.getFont ().deriveFont (24.0f));
-		panel.add(lblLogin);
-		
-		
-		
-		
+
 		img=new JLabel();
 		img.setSize(229, 186);
 		img.setLocation(47, 21);
@@ -107,6 +118,9 @@ public class clsPaginaPrincipal extends JFrame {
 		
 		
 		setResizable(false);
+		
+		
+		
 		
 		//Escuchadores
 		btnAceptar.addActionListener(new ActionListener() 
@@ -129,21 +143,61 @@ public class clsPaginaPrincipal extends JFrame {
 			            txtContraseña.setText("");
 					}
 				}
-
 				if(g==0)
 				{
 					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
 				}
-				
-				
-				
+
 			}
 		});
 		
-		
-		
-		
-		
+		btnAceptar.addKeyListener(new KeyAdapter() {
+			
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//				
+//				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+//				{
+//				
+//				
+//				}
+//				
+//				
+//			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+					
+					
+					clsGestor objGestor=new clsGestor();
+					usus=objGestor.ListaUsuarios();
+					int g=0;
+					
+					for(clsUsuario aux:usus)
+					{
+						if((txtNickname.getText().equals(aux.getNickname()))&&(txtContraseña.getText().equals(aux.getContraseña())))
+						{
+							g++;
+							
+							clsTablero frame = new clsTablero();
+				            frame.setVisible(true);//necessary as of 1.3
+				            txtContraseña.setText("");
+						}
+					}
+					if(g==0)
+					{
+						JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+				
+			}
+			
+			
+		});
+
 		btnRegistro.addActionListener(new ActionListener()
 		{
 			@Override
@@ -156,14 +210,14 @@ public class clsPaginaPrincipal extends JFrame {
 				catch (Exception w) 
 				{
 					w.printStackTrace();
-				}
-				
+				}	
 			}
 			
 		});
-
 		
 	}
+	
+	private boolean controlPulsado = false;
 
 	
 	public JLabel CogerImagen(JLabel l)

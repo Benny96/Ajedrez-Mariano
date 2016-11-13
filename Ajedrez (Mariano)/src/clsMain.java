@@ -23,12 +23,7 @@ public class clsMain {
 			}
 		});
 
-				
-			
-				
-		
-		
-		
+
 	}
 
 }

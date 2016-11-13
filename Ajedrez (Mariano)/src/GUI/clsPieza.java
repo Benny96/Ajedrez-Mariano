@@ -3,69 +3,74 @@ package GUI;
 import javax.swing.ImageIcon;
 import Comun.clsConstantes.piezas;
 
-public class clsPieza {
-
-	
-	
+public class clsPieza 
+{
 	private int x;
 	private int y;
 	piezas a;
 	private Boolean color; //True--> blanco ///  False--> negro
 	private ImageIcon icon;
 	
-	
 	public clsPieza(int x, int y, Boolean color)
 	{
 		this.y=x;
 		this.x=y;
-		this.color=color;
-		
+		this.color=color;		
 	}
 	
-	public int getX() {
+	public int getX()
+	{
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(int x) 
+	{
 		this.x = x;
 	}
 
-	public int getY() {
+	public int getY() 
+	{
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(int y) 
+	{
 		this.y = y;
 	}
 
-	public Boolean getColor() {
+	public Boolean getColor()
+	{
 		return color;
 	}
 
-	public void setColor(Boolean color) {
+	public void setColor(Boolean color) 
+	{
 		this.color = color;
 	}
 
-	public ImageIcon getIcon() {
+	public ImageIcon getIcon() 
+	{
 		return icon;
 	}
 
-	public void setIcon(ImageIcon icon) {
+	public void setIcon(ImageIcon icon) 
+	{
 		this.icon = icon;
 	}
 
 	@Override
-	public String toString() {
+	public String toString()
+	{
 		return "clsPieza ["+x+", "+y+"]";
 	}
 
-	public piezas getA() {
+	public piezas getA() 
+	{
 		return a;
 	}
 
-	public void setA(piezas a) {
+	public void setA(piezas a) 
+	{
 		this.a = a;
 	}
-	
-	
 }

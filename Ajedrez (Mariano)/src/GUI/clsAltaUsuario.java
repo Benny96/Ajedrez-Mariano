@@ -1,10 +1,8 @@
 package GUI;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -20,18 +18,19 @@ import javax.swing.JButton;
 import LN.clsUsuarioRepetido;
 import LN.clsGestor;
 
+public class clsAltaUsuario extends JFrame 
+{
 
-
-public class clsAltaUsuario extends JFrame {
+	private static final long serialVersionUID = 1L;
 
 	private JPanel panel;
 	
-	private JTextField txtNombre;
-	private JTextField txtApe1;
-	private JTextField txtApe2;
-	private JTextField txtNickname;
-	private JPasswordField txtContraseña1;
-	private JPasswordField txtContraseña2;
+	JTextField txtNombre;
+	JTextField txtApe1;
+	JTextField txtApe2;
+	JTextField txtNickname;
+	JPasswordField txtContraseña1;
+	JPasswordField txtContraseña2;
 	
 	private JLabel lblNombre;
 	private JLabel lblApe1;
@@ -40,13 +39,14 @@ public class clsAltaUsuario extends JFrame {
 	private JLabel lblContraseña1;
 	private JLabel lblContraseña2;
 	
-	private JButton btnAceptar;
-	private JButton btnCancelar;
+	JButton btnAceptar;
+	JButton btnCancelar;
 
 	/**
 	 * Create the application.
 	 */
-	public clsAltaUsuario() {
+	public clsAltaUsuario() 
+	{
 
 		panel = new JPanel();
 		this.setBounds(100, 100, 450, 300);

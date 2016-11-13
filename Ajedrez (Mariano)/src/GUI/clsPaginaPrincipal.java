@@ -24,8 +24,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
-public class clsPaginaPrincipal extends JFrame {
+public class clsPaginaPrincipal extends JFrame 
+{
 
+	private static final long serialVersionUID = 1L;
+	
 	private JPanel panel;
 	private JTextField txtNickname;
 	private JPasswordField txtContraseña;
@@ -44,15 +47,8 @@ public class clsPaginaPrincipal extends JFrame {
 
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
 
-
-	/**
-	 * Create the application.
-	 */
-	public clsPaginaPrincipal() {
-	
-
-		
-		
+	public clsPaginaPrincipal() 
+	{
 		panel=new JPanel();
 		this.setBounds(350, 200, 500, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,45 +107,30 @@ public class clsPaginaPrincipal extends JFrame {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
 				clsGestor objGestor=new clsGestor();
 				usus=objGestor.ListaUsuarios();
 				boolean existe = false;
-				
 				for(clsUsuario aux:usus)
 				{
 					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContraseña.getText().equals(aux.getContraseña())))
 					{
 						existe = true;
-						
 						clsEleccion ventanaEleccion = new clsEleccion(aux);
 						ventanaEleccion.setVisible(true);
 						miVentana.dispose();
-						//TODO: A añadir en la ventana de Elección.
-//						clsTablero frame = new clsTablero();
-//			            frame.setVisible(true);
-//			            txtContraseña.setText("");
 					}
 				}
-
 				if(!existe)
 				{
 					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
-				}
-				
-				
-				
+				}			
 			}
-		});
-		
-		
-		
-		
-		
+		});	
 		btnRegistro.addActionListener(new ActionListener()
 		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				try 
 				{
 					clsAltaUsuario window = new clsAltaUsuario();
@@ -158,16 +139,10 @@ public class clsPaginaPrincipal extends JFrame {
 				catch (Exception w) 
 				{
 					w.printStackTrace();
-				}
-				
-			}
-			
-		});
-
-		
+				}		
+			}		
+		});	
 	}
-
-	
 	public JLabel CogerImagen(JLabel l)
 	{
 //		l.setIcon(new ImageIcon(new ImageIcon("C:/Users/ALUMNO/git/Ajedrez_Mariano/Ajedrez (Mariano)/src/img/pagina_principal.png").getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));

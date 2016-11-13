@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,6 +35,7 @@ public class clsAnyadirJugador extends JInternalFrame
 	public clsAnyadirJugador() 
 	{
 		getContentPane().setLayout(null);
+		this.setBounds(100, 150, 450, 300);
 		
 		txtNickname = new JTextField();
 		txtNickname.setBounds(50, 85, 345, 20);
@@ -43,7 +43,7 @@ public class clsAnyadirJugador extends JInternalFrame
 		txtNickname.setColumns(10);
 		
 		lblInformacion = new JLabel("Introduzca el nickname y contraseña del Jugador 2");
-		lblInformacion.setBounds(50, 22, 256, 14);
+		lblInformacion.setBounds(50, 22, 345, 14);
 		getContentPane().add(lblInformacion);
 		
 		lblNickname = new JLabel("Nickname");
@@ -63,7 +63,7 @@ public class clsAnyadirJugador extends JInternalFrame
 		getContentPane().add(btnEmpezar);
 		
 		btnRegistro = new JButton("Registrarse");
-		btnRegistro.setBounds(176, 219, 89, 23);
+		btnRegistro.setBounds(164, 219, 114, 23);
 		getContentPane().add(btnRegistro);
 		
 		btnSalir = new JButton("Salir");
@@ -76,12 +76,10 @@ public class clsAnyadirJugador extends JInternalFrame
 		btnEmpezar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
-			{
-						
+			{				
 				clsGestor objGestor=new clsGestor();
 				usus=objGestor.ListaUsuarios();
-				boolean existe = false;
-						
+				boolean existe = false;						
 				for(clsUsuario aux:usus)
 				{
 					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
@@ -94,7 +92,6 @@ public class clsAnyadirJugador extends JInternalFrame
 						clsEleccion.miVentana.dispose();
 					}
 				}
-
 				if(!existe)
 				{
 					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
@@ -124,8 +121,7 @@ public class clsAnyadirJugador extends JInternalFrame
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				miVentanaInterna.dispose();			
-			}
-			
+			}			
 		});
 	}
 }

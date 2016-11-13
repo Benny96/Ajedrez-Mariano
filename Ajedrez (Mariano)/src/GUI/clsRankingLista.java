@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import Comun.clsOrdenarPorAntiguedad;
 import Comun.clsOrdenarPorPuntuacion;
 import LN.clsGestor;
 import LN.clsUsuario;
@@ -43,6 +45,7 @@ public class clsRankingLista extends JFrame
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
+		textArea.setEditable(false);
 		
 		JLabel lblNewLabel = new JLabel("Ordenar por:");
 		lblNewLabel.setBounds(51, 326, 109, 14);
@@ -68,6 +71,9 @@ public class clsRankingLista extends JFrame
 		btnSalir = new JButton("Salir");
 		btnSalir.setBounds(419, 358, 89, 23);
 		getContentPane().add(btnSalir);
+		
+		this.setPreferredSize(new Dimension(580,475));
+		this.setResizable(false);
 
 		clsGestor objGestor = new clsGestor();
 		listaUsuarios = objGestor.ListaUsuarios();
@@ -79,12 +85,49 @@ public class clsRankingLista extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				textArea.setText("");
 				Collections.sort(listaUsuarios, new clsOrdenarPorPuntuacion());
 				StringBuffer strb = new StringBuffer();
-				
+				for (clsUsuario auxu: listaUsuarios)
+				{
+					strb.append(auxu.toString());
+					strb.append("\n");
+				}
+				textArea.setText(strb.toString());
 			}
 		});
-		
+		rdbtnOrdenNick.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				textArea.setText("");
+				Collections.sort(listaUsuarios);
+				StringBuffer strb = new StringBuffer();
+				for (clsUsuario auxu: listaUsuarios)
+				{
+					strb.append(auxu.toString());
+					strb.append("\n");
+				}
+				textArea.setText(strb.toString());
+			}
+		});
+		rdbtnOrdenAntig.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				textArea.setText("");
+				Collections.sort(listaUsuarios, new clsOrdenarPorAntiguedad());
+				StringBuffer strb = new StringBuffer();
+				for (clsUsuario auxu: listaUsuarios)
+				{
+					strb.append(auxu.toString());
+					strb.append("\n");
+				}
+				textArea.setText(strb.toString());
+			}			
+		});
 	}
 }
 

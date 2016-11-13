@@ -1,5 +1,6 @@
 package Persistencia;
 
-public class clsBD {
+public class clsBD 
+{
 
 }

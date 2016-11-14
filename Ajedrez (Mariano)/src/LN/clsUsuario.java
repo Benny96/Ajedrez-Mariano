@@ -135,7 +135,7 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	{
 		SimpleDateFormat formato = new SimpleDateFormat ("dd/MM/yyyy");
 		String e = "Nombre: "+this.getNombre()+" - Apellido 1: "+this.getApellido1()+" - Apellido 2: "+this.getApellido2()+
-				" - Nickname: "+this.getNickname()+" - Fecha de matriculación: "+formato.format(this.getFechadealta())+
+				" - Nickname: "+this.getNickname()+" - Fecha de registro: "+formato.format(this.getFechadealta())+
 				" - Elo: "+this.getElo();
 		return e;
 	}

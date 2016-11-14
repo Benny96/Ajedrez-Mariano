@@ -318,6 +318,58 @@ public class clsAltaUsuario extends JFrame
 		});
 		
 		
+		btnAceptar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
+		
+		
+		btnCancelar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+	
+		});
+		
 		
 		
 		btnCancelar.addActionListener(new ActionListener() 
@@ -356,7 +408,7 @@ public class clsAltaUsuario extends JFrame
 			{
 				try
 				{
-					objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText());//, frmFechas.getFec());
+					objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText().toUpperCase(), txtContrasenya1.getText());//, frmFechas.getFec());
 					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 					dispose();
 				}

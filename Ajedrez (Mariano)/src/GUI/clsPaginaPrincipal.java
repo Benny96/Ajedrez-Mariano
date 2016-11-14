@@ -274,7 +274,7 @@ public class clsPaginaPrincipal extends JFrame
 		boolean existe = false;
 		for(clsUsuario aux:usus)
 		{
-			if((txtNickname.getText().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
+			if((txtNickname.getText().toUpperCase().equals(aux.getNickname().toUpperCase()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
 			{
 				existe = true;
 				clsEleccion ventanaEleccion = new clsEleccion(aux);

@@ -193,6 +193,7 @@ public class clsTablero extends JFrame implements ActionListener
 		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(btiempo);
 		
+		//para que no meleste
 //		myTimer = new Timer1();
 //		
 //		Thread a= new Thread (myTimer);
@@ -211,6 +212,7 @@ public class clsTablero extends JFrame implements ActionListener
 				System.out.println("ERTYUI");
 				int i=aux.getx();
 				int j=aux.gety();
+				aux.provisional=false;
 			if((i+j)%2==0)
 				tablero[j][i].setBackground(Color.WHITE);
 			else
@@ -266,12 +268,22 @@ public class clsTablero extends JFrame implements ActionListener
 	
 			else
 			{
-				tablero[selec.getY()][selec.getX()].setOcupado(null);
+				
 				if(selec.getColor())
-					pblancas.remove(selec);
+					pblancas.remove(casilla.getOcupado());
 				else
-					pnegras.remove(selec);
+					pnegras.remove(casilla.getOcupado());
+				
+				tablero[selec.getY()][selec.getX()].setOcupado(null);
 				casilla.setOcupado(selec);
+				casilla.provisional=false;
+				int i=casilla.getx();
+				int j=casilla.gety();
+			if((i+j)%2==0)
+				casilla.setBackground(Color.WHITE);
+			else
+				casilla.setBackground(Color.GRAY);
+			
 				movact.remove(casilla);
 				selec=null;
 				clear(movact);

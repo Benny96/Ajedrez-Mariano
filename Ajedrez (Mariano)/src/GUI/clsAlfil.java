@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -35,6 +36,10 @@ public class clsAlfil extends clsPieza
 				e.printStackTrace();
 			}
 		}
+	}
+	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
+	{
+		return movimientos;
 	}
 	public void mov(clsCasilla[][] tablero)
 	{

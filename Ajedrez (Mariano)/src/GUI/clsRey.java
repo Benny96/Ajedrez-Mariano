@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 
+
 import Comun.clsConstantes;
 import Comun.clsConstantes.piezas;
 
@@ -45,6 +46,11 @@ public class clsRey extends clsPieza
 			}
 		}
 	
+	}
+	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
+	{
+		return movimientos;
+		
 	}
 	public void mov(clsCasilla[][] tablero)
 	{

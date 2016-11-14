@@ -43,6 +43,9 @@ public class clsTablero extends JFrame implements ActionListener
 	LinkedList<clsPieza> pnegras;
 	LinkedList<clsCasilla> movact;
 	
+	clsCasilla acasilla;
+	clsCasilla ncasilla;
+	
 	clsRey reyb;
 	clsRey reyn;
 	
@@ -206,7 +209,6 @@ public class clsTablero extends JFrame implements ActionListener
 	{
 		for(clsCasilla aux: borrar)
 		{
-			System.out.println(aux.provisional);
 			if(aux.provisional)
 			{
 				System.out.println("ERTYUI");
@@ -226,29 +228,90 @@ public class clsTablero extends JFrame implements ActionListener
 		}
 		borrar.clear();
 	}
+	
+	public void revisar()
+	{
+		LinkedList<clsPieza> todas = null;
+		todas.addAll(pblancas);
+		todas.addAll(pnegras);
+		for(clsPieza pieza: todas)
+		{
+			for(clsCasilla casilla: pieza.getMovimientos())
+			{
+				
+			}
+		}
+	}
 	public void actionPerformed(ActionEvent arg) {
 		// TODO Auto-generated method stub
-
-		clsCasilla casilla=(clsCasilla) arg.getSource();
+		 acasilla=ncasilla;
+		 ncasilla=(clsCasilla) arg.getSource();
 		
-		if(casilla.mov)
+		if(ncasilla.mov)
 		{
 			tablero[selec.getY()][selec.getX()].setOcupado(null);
-			casilla.setOcupado(selec);
-			movact.remove(casilla);
+			ncasilla.setOcupado(selec);
+			movact.remove(ncasilla);
 			selec=null;
 			clear(movact);
+			//revisar();
 		}
-		else if(casilla.getOcupado()==null)
+		else if(ncasilla.getOcupado()==null)
 		{
 			clear(movact);
 		}
-		else if(casilla.getOcupado()!=null)
+		else if(ncasilla.getOcupado()!=null)
 		{
-			if(casilla.provisional==false)
+			if(ncasilla.getOcupado().a.equals(Comun.clsConstantes.piezas.Rey))
+			{
+				selec=ncasilla.getOcupado();
+				selec.mov(tablero);
+				LinkedList<clsCasilla> lista=selec.movimientos;
+				if(selec.getColor())
+				{
+					for(clsPieza pieza: pnegras)
+					{
+						for(clsCasilla casilla: pieza.influencia(tablero))
+						{
+							lista.remove(casilla);
+						}
+					}
+				}
+				
+				else
+				{
+					
+						for(clsPieza pieza: pblancas)
+						{
+							for(clsCasilla casilla: pieza.influencia(tablero))
+							{
+								lista.remove(casilla);
+							}
+						}
+					
+				}
+				System.out.println("Hla");
+				selec.movimientos=lista;
+				for(clsCasilla aux: selec.movimientos)
+				{
+				if(aux.getOcupado()==null)
+				{
+					aux.imov();
+					movact.add(aux);
+				}
+				else
+				{
+				aux.provisional=true;
+				aux.setBackground(Color.red);
+				movact.add(aux);
+				}
+				}
+			}
+			else{
+			if(ncasilla.provisional==false)
 			{
 			clear(movact);
-			selec=casilla.getOcupado();
+			selec=ncasilla.getOcupado();
 			selec.mov(tablero);
 			for(clsCasilla aux: selec.getMovimientos())
 				{
@@ -270,24 +333,26 @@ public class clsTablero extends JFrame implements ActionListener
 			{
 				
 				if(selec.getColor())
-					pblancas.remove(casilla.getOcupado());
+					pblancas.remove(ncasilla.getOcupado());
 				else
-					pnegras.remove(casilla.getOcupado());
+					pnegras.remove(ncasilla.getOcupado());
 				
 				tablero[selec.getY()][selec.getX()].setOcupado(null);
-				casilla.setOcupado(selec);
-				casilla.provisional=false;
-				int i=casilla.getx();
-				int j=casilla.gety();
+				ncasilla.setOcupado(selec);
+				ncasilla.provisional=false;
+				int i=ncasilla.getx();
+				int j=ncasilla.gety();
 			if((i+j)%2==0)
-				casilla.setBackground(Color.WHITE);
+				ncasilla.setBackground(Color.WHITE);
 			else
-				casilla.setBackground(Color.GRAY);
+				ncasilla.setBackground(Color.GRAY);
 			
-				movact.remove(casilla);
+				movact.remove(ncasilla);
 				selec=null;
 				clear(movact);
+			//	revisar();
 			}
+		}
 		}
 		this.repaint();
 	}

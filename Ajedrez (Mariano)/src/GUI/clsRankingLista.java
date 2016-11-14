@@ -128,6 +128,14 @@ public class clsRankingLista extends JFrame
 				textArea.setText(strb.toString());
 			}			
 		});
+		btnSalir.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				dispose();	
+			}
+		});
 	}
 }
 

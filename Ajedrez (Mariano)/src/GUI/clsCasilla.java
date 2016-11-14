@@ -1,11 +1,16 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
+import Comun.OcupadoException;
 
 
 public class clsCasilla extends JButton 
@@ -17,6 +22,7 @@ public class clsCasilla extends JButton
 		private int y;
 		
 		public Boolean mov;
+		Boolean provisional;
 		public clsCasilla(int a,int b)
 		{
 			super();
@@ -24,6 +30,7 @@ public class clsCasilla extends JButton
 			pieza=null;
 			y=a;
 			x=b;
+			provisional=false;
 		}
 	//	
 		public clsPieza getOcupado() {
@@ -45,6 +52,43 @@ public class clsCasilla extends JButton
 				this.pieza = null;
 				mov=false;
 				this.setIcon(null);
+			}
+		}
+		
+		public boolean imov() 
+		{
+			
+			if(this.pieza==null)
+			{
+			try {
+				Image img = ImageIO.read(getClass().getResource("/img/mov.png"));
+				mov=true;
+				this.setIcon(new ImageIcon(img));
+				return true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
+			else
+			{
+				try {
+					throw new OcupadoException();
+				} catch (OcupadoException e) {
+					// TODO Auto-generated catch block
+					
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		public void clear(LinkedList <clsCasilla> borrar)
+		{
+			for(clsCasilla aux: borrar)
+			{
+				aux.mov=false;
+				aux.setIcon(null);
 			}
 		}
 		
@@ -96,4 +140,5 @@ public class clsCasilla extends JButton
 				return false;
 			return true;
 		}
+	
 }

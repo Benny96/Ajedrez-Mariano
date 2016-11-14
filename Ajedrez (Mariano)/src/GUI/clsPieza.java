@@ -1,23 +1,33 @@
 package GUI;
 
+import java.util.LinkedList;
+
 import javax.swing.ImageIcon;
+
 import Comun.clsConstantes.piezas;
 
 public class clsPieza 
 {
-	private int x;
-	private int y;
+	protected int x;
+	protected int y;
 	piezas a;
 	private Boolean color; //True--> blanco ///  False--> negro
 	private ImageIcon icon;
+	protected LinkedList<GUI.clsCasilla> movimientos;
 	
 	public clsPieza(int x, int y, Boolean color)
 	{
 		this.y=x;
 		this.x=y;
-		this.color=color;		
+		this.color=color;	
+
+		movimientos= new LinkedList<clsCasilla>();
 	}
 	
+	public clsCasilla sitio(clsCasilla[][] tablero)
+	{
+		return tablero[x][y];
+	}
 	public int getX()
 	{
 		return x;
@@ -72,5 +82,17 @@ public class clsPieza
 	public void setA(piezas a) 
 	{
 		this.a = a;
+	}
+	
+	public void mov(clsCasilla[][] tablero)
+	{
+	}
+
+	public LinkedList<GUI.clsCasilla> getMovimientos() {
+		return movimientos;
+	}
+
+	public void setMovimientos(LinkedList<GUI.clsCasilla> movimientos) {
+		this.movimientos = movimientos;
 	}
 }

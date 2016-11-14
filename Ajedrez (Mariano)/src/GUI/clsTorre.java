@@ -41,5 +41,111 @@ public class clsTorre extends clsPieza
 		}
 		
 	}
+	public void mov(clsCasilla[][] tablero)
+	{
+		movimientos.clear();
+
+		int t1=this.getY();
+		int t2=this.getX();
+		do
+		{
+		
+			if((t1+1)==8)
+				break;
+			t1++;
+		
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.movimientos.add(tablero[t1][t2]);
+			}
+			else
+			{
+				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				break;
+			}
+		}while(true);
+		
+		
+		
+		
+		t1=this.getY();
+		t2=this.getX();
+		
+		do
+		{
+			if(t1-1==-1)
+				break;
+			
+			t1--;
+			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.movimientos.add(tablero[t1][t2]);
+			}
+			else
+			{
+				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				break;
+			}
+			
+		}while(true);
+		
+		
+		t1=this.getY();
+		t2=this.getX();
+			do
+			{
+				if(t2+1==8)
+					break;
+				t2++;
+				
+				if(tablero[t1][t2].getOcupado()==null)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+					{
+						this.movimientos.add(tablero[t1][t2]);
+					}
+					break;
+				}
+				
+			}while(true);	
+			
+			
+			
+			t1=this.getY();
+			t2=this.getX();
+			
+			do
+			{
+				if(t2-1==-1)
+					break;
+				t2--;
+				
+				if(tablero[t1][t2].getOcupado()==null)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				else
+				{
+					if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+					{
+						this.movimientos.add(tablero[t1][t2]);
+					}
+					break;
+				}
+			}while(true);
+		
+	
+	}
 
 }

@@ -232,6 +232,7 @@ public class clsEleccion extends JFrame
 			{
 				JOptionPane.showMessageDialog(miVentana, "Esperemos que haya disfrutado de las partidas.");
 				miVentana.dispose();
+				
 			}
 		});
 	}

@@ -1,6 +1,5 @@
 package GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import LN.clsUsuario;
@@ -24,7 +22,6 @@ public class clsEleccion extends JFrame
 	
 	static JDesktopPane desktop;
 
-//	private JPanel desktop;
 	private JLabel lblBienvenida;
 	private JLabel lblModosJuego;
 	private JLabel lblOtros;
@@ -36,7 +33,7 @@ public class clsEleccion extends JFrame
 	private JButton btnRanking;
 	private JButton btnModificar;
 	private JButton btnHistorial;
-	private JButton btnSalir;
+	private JButton btnDeslogear;
 	
 	private JRadioButton rdbtnMarianoFacil;
 	private JRadioButton rdbtnMarianoMedio;
@@ -135,9 +132,9 @@ public class clsEleccion extends JFrame
 		btngrpRanking.add(rdbtnLista);
 		btngrpRanking.add(rdbtnGrafico);
 		
-		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(328, 387, 89, 23);
-		desktop.add(btnSalir);
+		btnDeslogear = new JButton("Deslogear");
+		btnDeslogear.setBounds(316, 387, 109, 23);
+		desktop.add(btnDeslogear);
 
 		miVentana = this;
 		
@@ -149,7 +146,7 @@ public class clsEleccion extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				clsAnyadirJugador internalframe = new clsAnyadirJugador();
+				clsAnyadirJugador internalframe = new clsAnyadirJugador(usuario);
 				internalframe.setVisible(true);
 				desktop.add(internalframe);
 				try 
@@ -225,14 +222,15 @@ public class clsEleccion extends JFrame
 				
 			}		
 		});
-		btnSalir.addActionListener(new ActionListener()
+		btnDeslogear.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				JOptionPane.showMessageDialog(miVentana, "Esperemos que haya disfrutado de las partidas.");
 				miVentana.dispose();
-				
+				clsPaginaPrincipal frame = new clsPaginaPrincipal();
+				frame.setVisible(true);
 			}
 		});
 	}

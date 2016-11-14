@@ -93,11 +93,11 @@ public class clsPaginaPrincipal extends JFrame
 		panel.add(lblContrasenya);
 		
 		btnAceptar = new JButton("Entrar");
-		btnAceptar.setBounds(267, 238, 89, 23);
+		btnAceptar.setBounds(312, 216, 172, 23);
 		panel.add(btnAceptar);
 		
 		btnRegistro = new JButton("¡Regístrate ahora!");
-		btnRegistro.setBounds(312, 114, 172, 23);
+		btnRegistro.setBounds(312, 183, 172, 23);
 		panel.add(btnRegistro);
 		
 
@@ -110,13 +110,11 @@ public class clsPaginaPrincipal extends JFrame
 		
 		img=new JLabel();
 		img.setSize(229, 186);
-		img.setLocation(47, 21);
+		img.setLocation(159, 20);
 		img=CogerImagen(img);
 		panel.add(img);
 			
 		setResizable(false);
-		
-		
 		
 		
 		//Escuchadores
@@ -128,8 +126,6 @@ public class clsPaginaPrincipal extends JFrame
 			}
 
 		});
-		
-		
 
 		txtNickname.addKeyListener(new KeyAdapter() {
 			@Override

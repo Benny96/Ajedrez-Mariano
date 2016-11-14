@@ -9,7 +9,6 @@ public class clsOrdenarPorAntiguedad implements Comparator <clsUsuario>
 	@Override
 	public int compare(clsUsuario o1, clsUsuario o2)
 	{
-		return 0;
+		return o1.getFechadealta().compareTo(o2.getFechadealta());
 	}
-
 }

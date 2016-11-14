@@ -32,7 +32,7 @@ public class clsAnyadirJugador extends JInternalFrame
 	
 	private JInternalFrame miVentanaInterna;
 	
-	public clsAnyadirJugador() 
+	public clsAnyadirJugador(clsUsuario usuactual) 
 	{
 		getContentPane().setLayout(null);
 		this.setBounds(100, 150, 450, 300);
@@ -82,7 +82,8 @@ public class clsAnyadirJugador extends JInternalFrame
 				boolean existe = false;						
 				for(clsUsuario aux:usus)
 				{
-					if((txtNickname.getText().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
+					if((txtNickname.getText().toUpperCase().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())
+							&&!(txtNickname.getText().toUpperCase().equals(usuactual.getNickname()))))
 					{
 						existe = true;
 						//TODO: Añadir un constructor de Tableros que pida 2 parámetros: jugador 1 y jugador 2.
@@ -94,7 +95,7 @@ public class clsAnyadirJugador extends JInternalFrame
 				}
 				if(!existe)
 				{
-					JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Su nickname o contraseña son incorrectos (Jugador repetido o inexistente).", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -120,7 +121,7 @@ public class clsAnyadirJugador extends JInternalFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				miVentanaInterna.dispose();			
+				miVentanaInterna.dispose();		
 			}			
 		});
 	}

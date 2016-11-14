@@ -1,6 +1,8 @@
 package LN;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * 
@@ -18,8 +20,8 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	private String apellido2;
 	private String nickname;
 	private String contraseña;
-//	private String fechadealta;
-	
+	private int elo;
+	private Date fechadealta;
 	
 
 	public String getNombre() {
@@ -40,12 +42,12 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
 	}
-//	public String getFechamatricula() {
-//		return fechadealta;
-//	}
-//	public void setFechamatricula(String fechamatricula) {
-//		this.fechadealta = fechamatricula;
-//	}
+	public Date getFechadealta() {
+		return fechadealta;
+	}
+	public void setFechadealta(Date fechadealta) {
+		this.fechadealta = fechadealta;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -59,8 +61,14 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		this.contraseña = contraseña;
 	}
 
-	
-	
+	public int getElo() 
+	{
+		return elo;
+	}
+	public void setElo(int elo)
+	{
+		this.elo = elo;
+	}
 	
 	/**
 	 * Constructor con parámetros
@@ -70,21 +78,21 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	 * @param String dni para fijar el DNI del usuario.
 	 * @param String nick para fijar el nickname del usuario.
 	 * @param String cont para fijar la contraseña del usuario.
-	 * @param String fec para fijar la fecha de matriculación del usuario.
 	 *
 	 */
-	public clsUsuario(String n, String ap1, String ap2, String nick, String cont)//, String fec)
+	public clsUsuario(String n, String ap1, String ap2, String nick, String cont)
 	{
 		nombre=n;
 		apellido1=ap1;
 		apellido2=ap2;
 		nickname=nick;
 		contraseña=cont;
-//		fechadealta=fec;
+		elo = 1000;
+		fechadealta=new Date();
 	}
 	
 	/**
-	 * Constructor sin parámetros
+	 * Constructor vacío para poder serializar.
 	 */
 	public clsUsuario()
 	{
@@ -93,14 +101,13 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		apellido2=null;
 		nickname=null;
 		contraseña=null;
-//		fechadealta=null;
-		
+		elo = 0;
+		fechadealta=null;		
 	}
 	
-	
-
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
@@ -123,30 +130,18 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 			return false;
 		return true;
 	}
-	
-	
-	
+
 	public String toString()
 	{
-		String e="Nombre: "+this.getNombre()+" // Apellido 1: "+this.getApellido1()+" // Apellido 2: "+this.getApellido2()+" // Nickname: "+this.getNickname()+" // Contraseña: "+this.getContraseña();//+" // Fecha de matriculación: "+this.getFechamatricula();
-		
+		SimpleDateFormat formato = new SimpleDateFormat ("dd/MM/yyyy");
+		String e = "Nombre: "+this.getNombre()+" - Apellido 1: "+this.getApellido1()+" - Apellido 2: "+this.getApellido2()+
+				" - Nickname: "+this.getNickname()+" - Fecha de registro: "+formato.format(this.getFechadealta())+
+				" - Elo: "+this.getElo();
 		return e;
 	}
 	
-	
-	
 	public int compareTo(clsUsuario arg0) 
 	{
-		// TODO Auto-generated method stub
 		return this.getNickname().compareTo(arg0.getNickname());
 	}
-	
-	
-	
-	
-	
-	
-
-	
-	
 }

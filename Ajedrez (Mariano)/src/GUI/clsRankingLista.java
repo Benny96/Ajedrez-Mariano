@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Comun.clsOrdenarPorAntiguedad;
-import Comun.clsOrdenarPorPuntuacion;
+import Comun.clsOrdenarPorElo;
 import LN.clsGestor;
 import LN.clsUsuario;
 
@@ -27,6 +27,7 @@ public class clsRankingLista extends JFrame
 	static ArrayList <clsUsuario> listaUsuarios;
 	
 	JTextArea textArea;
+	private JLabel lblInformacion;
 	private JScrollPane scrollPane;
 	private JRadioButton rdbtnOrdenPuntos;
 	private JRadioButton rdbtnOrdenNick;
@@ -40,27 +41,27 @@ public class clsRankingLista extends JFrame
 		getContentPane().setLayout(null);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(51, 27, 457, 288);
+		scrollPane.setBounds(51, 27, 650, 341);
 		getContentPane().add(scrollPane);
 		
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 		textArea.setEditable(false);
 		
-		JLabel lblNewLabel = new JLabel("Ordenar por:");
-		lblNewLabel.setBounds(51, 326, 109, 14);
-		getContentPane().add(lblNewLabel);
+		lblInformacion = new JLabel("Ordenar por:");
+		lblInformacion.setBounds(307, 379, 109, 14);
+		getContentPane().add(lblInformacion);
 		
-		rdbtnOrdenPuntos = new JRadioButton("Puntuación");
-		rdbtnOrdenPuntos.setBounds(51, 358, 109, 23);
+		rdbtnOrdenPuntos = new JRadioButton("Puntuación (Elo)");
+		rdbtnOrdenPuntos.setBounds(51, 400, 128, 23);
 		getContentPane().add(rdbtnOrdenPuntos);
 		
 		rdbtnOrdenNick = new JRadioButton("Nickname");
-		rdbtnOrdenNick.setBounds(162, 358, 109, 23);
+		rdbtnOrdenNick.setBounds(262, 400, 109, 23);
 		getContentPane().add(rdbtnOrdenNick);
 		
 		rdbtnOrdenAntig = new JRadioButton("Antigüedad");
-		rdbtnOrdenAntig.setBounds(274, 358, 109, 23);
+		rdbtnOrdenAntig.setBounds(426, 400, 109, 23);
 		getContentPane().add(rdbtnOrdenAntig);
 		
 		btngrp = new ButtonGroup();
@@ -69,24 +70,23 @@ public class clsRankingLista extends JFrame
 		btngrp.add(rdbtnOrdenAntig);
 		
 		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(419, 358, 89, 23);
+		btnSalir.setBounds(612, 400, 89, 23);
 		getContentPane().add(btnSalir);
 		
-		this.setPreferredSize(new Dimension(580,475));
+		this.setPreferredSize(new Dimension(750,500));
 		this.setResizable(false);
 
 		clsGestor objGestor = new clsGestor();
 		listaUsuarios = objGestor.ListaUsuarios();
 		
 		//Escuchadores.
-		//TODO: ORDENACIONES PENDIENTES DE IMPLEMENTACIÓN.
 		rdbtnOrdenPuntos.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				textArea.setText("");
-				Collections.sort(listaUsuarios, new clsOrdenarPorPuntuacion());
+				Collections.sort(listaUsuarios, new clsOrdenarPorElo());
 				StringBuffer strb = new StringBuffer();
 				for (clsUsuario auxu: listaUsuarios)
 				{

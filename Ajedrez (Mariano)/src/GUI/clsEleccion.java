@@ -66,7 +66,7 @@ public class clsEleccion extends JFrame
 		
 		usuario = usu;
 		
-		lblBienvenida = new JLabel("Bienvenido, "+usuario.getNickname()+". Elige lo que desees hacer.");
+		lblBienvenida = new JLabel("¡Bienvenido, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
 		lblBienvenida.setBounds(60, 35, 271, 34);
 		desktop.add(lblBienvenida);
 		

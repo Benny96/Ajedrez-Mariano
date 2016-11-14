@@ -13,7 +13,7 @@ public class clsPieza
 	piezas a;
 	private Boolean color; //True--> blanco ///  False--> negro
 	private ImageIcon icon;
-	protected LinkedList<GUI.clsCasilla> movimientos;
+	protected LinkedList<clsCasilla> movimientos;
 	
 	public clsPieza(int x, int y, Boolean color)
 	{
@@ -89,11 +89,11 @@ public class clsPieza
 	}
 	public LinkedList<clsCasilla> influencia(clsCasilla[][] tablero){
 		return movimientos;}
-	public LinkedList<GUI.clsCasilla> getMovimientos() {
+	public LinkedList<clsCasilla> getMovimientos() {
 		return movimientos;
 	}
 
-	public void setMovimientos(LinkedList<GUI.clsCasilla> movimientos) {
+	public void setMovimientos(LinkedList<clsCasilla> movimientos) {
 		this.movimientos = movimientos;
 	}
 }

@@ -24,6 +24,10 @@ public class clsPieza
 		movimientos= new LinkedList<clsCasilla>();
 	}
 	
+	public clsCasilla sitio(clsCasilla[][] tablero)
+	{
+		return tablero[x][y];
+	}
 	public int getX()
 	{
 		return x;
@@ -82,7 +86,6 @@ public class clsPieza
 	
 	public void mov(clsCasilla[][] tablero)
 	{
-		
 	}
 
 	public LinkedList<GUI.clsCasilla> getMovimientos() {

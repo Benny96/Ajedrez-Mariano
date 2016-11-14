@@ -38,6 +38,7 @@ public class clsPeon extends clsPieza
 	
 	public void mov(clsCasilla[][] tablero)
 	{
+		movimientos.clear();
 		if(this.getColor())
 		{
 		

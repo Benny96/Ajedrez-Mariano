@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
+
+
 import LN.clsUsuario;
 
 public class clsTablero extends JFrame implements ActionListener
@@ -39,6 +41,7 @@ public class clsTablero extends JFrame implements ActionListener
 
 	LinkedList<clsPieza> pblancas;
 	LinkedList<clsPieza> pnegras;
+	LinkedList<clsCasilla> movact;
 	
 	clsRey reyb;
 	clsRey reyn;
@@ -56,7 +59,7 @@ public class clsTablero extends JFrame implements ActionListener
 	private String bstr;
 	private JLabel btiempo;
 	
-	
+	clsPieza selec;
 	
 	public clsTablero() 
 	{
@@ -122,6 +125,7 @@ public class clsTablero extends JFrame implements ActionListener
 		
 		pblancas= new LinkedList<clsPieza>();
 		pnegras= new LinkedList<clsPieza>();
+		movact= new LinkedList<clsCasilla>();
 		
 		reyb=new clsRey(0,3,true);
 		reyn=new clsRey(7,3,false);
@@ -165,29 +169,11 @@ public class clsTablero extends JFrame implements ActionListener
 		for(clsPieza aux: pblancas)
 		{
 			tablero[aux.getY()][aux.getX()].setOcupado(aux);
-			aux.mov(tablero);
 		}
 		for(clsPieza aux: pnegras)
 		{
 			tablero[aux.getY()][aux.getX()].setOcupado(aux);
-			aux.mov(tablero);
 		}
-			
-		
-		myTimer = new Timer1();
-		
-		Thread a= new Thread (myTimer);
-		a.start();
-//		formatoHora = new SimpleDateFormat("mm:ss");
-//		
-//		
-//		Date n10= new Date();
-//		try {
-//			n10=formatoHora.parse("10:00");
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		
 		nmin=10;
 		nseg = 00;
@@ -203,117 +189,143 @@ public class clsTablero extends JFrame implements ActionListener
 		bstr = String.format("%d:%02d", bmin, bseg);
 		
 		btiempo= new JLabel(bstr);
-		btiempo.setBounds(160, 80, 430,595);
+		btiempo.setBounds(410, 595, 100,40);
 		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(btiempo);
 		
+//		myTimer = new Timer1();
+//		
+//		Thread a= new Thread (myTimer);
+//		a.start();
 		
 		
 	}	
+	
+	public void clear(LinkedList <clsCasilla> borrar)
+	{
+		for(clsCasilla aux: borrar)
+		{
+			System.out.println(aux.provisional);
+			if(aux.provisional)
+			{
+				System.out.println("ERTYUI");
+				int i=aux.getx();
+				int j=aux.gety();
+			if((i+j)%2==0)
+				tablero[j][i].setBackground(Color.WHITE);
+			else
+				tablero[j][i].setBackground(Color.GRAY);
+			}
+			else
+			{
+			aux.mov=false;
+			aux.setIcon(null);
+			}
+		}
+		borrar.clear();
+	}
 	public void actionPerformed(ActionEvent arg) {
 		// TODO Auto-generated method stub
 
 		clsCasilla casilla=(clsCasilla) arg.getSource();
 		
-		
-
-		}
-		
-	
-
-	class Timer implements Runnable
-	{
-		private boolean parado = true;
-		
-		@Override
-		public void run() 
+		if(casilla.mov)
 		{
-			while(true)
+			tablero[selec.getY()][selec.getX()].setOcupado(null);
+			casilla.setOcupado(selec);
+			movact.remove(casilla);
+			selec=null;
+			clear(movact);
+		}
+		else if(casilla.getOcupado()==null)
+		{
+			clear(movact);
+		}
+		else if(casilla.getOcupado()!=null)
+		{
+			if(casilla.provisional==false)
 			{
-				if(parado == false)
+			clear(movact);
+			selec=casilla.getOcupado();
+			selec.mov(tablero);
+			for(clsCasilla aux: selec.getMovimientos())
 				{
-					try 
-					{
-						Thread.sleep(1000);
-						System.out.println("algo");
-					}
-					catch (InterruptedException e) 
-					{
-						return;
-					}
+				if(aux.getOcupado()==null)
+				{
+					aux.imov();
+					movact.add(aux);
 				}
 				else
 				{
-					//si estamos parados, nada.		
-					System.out.println("nada");
+				aux.provisional=true;
+				aux.setBackground(Color.red);
+				movact.add(aux);
 				}
-
+				}
 			}
-			
-		}
-		
-		public void ArrancaPara()
-		{
-			parado=!parado;
-		}
 	
+			else
+			{
+				tablero[selec.getY()][selec.getX()].setOcupado(null);
+				if(selec.getColor())
+					pblancas.remove(selec);
+				else
+					pnegras.remove(selec);
+				casilla.setOcupado(selec);
+				movact.remove(casilla);
+				selec=null;
+				clear(movact);
+			}
+		}
+		this.repaint();
 	}
-	
+
 	
 	private void Conversor()
 	{
-
+		if(turno)
+		{
+			bseg--;
+			if (bseg==-1)
+			{
+				bseg=59;
+				bmin--;
+			}
+			bstr = String.format("%d:%02d", bmin, bseg);
+			btiempo.setText(bstr);
+		}
+		else
+		{
 		nseg--;
 		if (nseg==-1)
 		{
 			nseg=59;
-
 			nmin--;
 		}
-
 		nstr = String.format("%d:%02d", nmin, nseg);
 		ntiempo.setText(nstr);
+		}
 		this.repaint();
-		
-		
 	}
 	
 	
 	class Timer1 implements Runnable
 	{
-		private boolean parado = true;
-		
 		@Override
 		public void run() 
 		{
 			while(true)
 			{
-				if(parado == true)
-				{
 					try 
 					{
 						Thread.sleep(1000);
 						Conversor();
-						System.out.println("algo");
 					}
 					catch (InterruptedException e) 
 					{
 						return;
 					}
-				}
-				else
-				{
-					//si estamos parados, nada.		
-					System.out.println("nada");
-				}
-
 			}
-			
-		}
-		
-		public void ArrancaPara()
-		{
-			parado=!parado;
 		}
 	
 	}

@@ -42,7 +42,7 @@ public class clsReina extends clsPieza
 		int t1=this.getY();
 		int t2=this.getX();
 
-		
+		movimientos.clear();
 		do
 		{
 		

@@ -43,6 +43,7 @@ public class clsTorre extends clsPieza
 	}
 	public void mov(clsCasilla[][] tablero)
 	{
+		movimientos.clear();
 
 		int t1=this.getY();
 		int t2=this.getX();

@@ -50,6 +50,7 @@ public class clsRey extends clsPieza
 	{
 		LinkedList<clsCasilla> movrey=new LinkedList<clsCasilla>();
 	
+		movimientos.clear();
 		int t1=this.getY();
 		int t2=this.getX();
 		

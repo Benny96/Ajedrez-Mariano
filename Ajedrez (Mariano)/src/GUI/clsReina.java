@@ -17,6 +17,8 @@ public class clsReina extends clsPieza
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Reina;
 		
+		influencia= new LinkedList<clsCasilla>();
+		
 		if(color)
 		{
 			try {
@@ -40,8 +42,216 @@ public class clsReina extends clsPieza
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
-		mov(tablero);
-		return movimientos;
+		int t1=this.getY();
+		int t2=this.getX();
+
+		influencia.clear();
+		
+		clsTorre torre= new clsTorre(t1,t2,this.getColor());
+		clsAlfil alfil= new clsAlfil(t1,t2,this.getColor());
+		
+		influencia.addAll(torre.influencia(tablero));
+		influencia.addAll(alfil.influencia(tablero));
+		
+		return influencia;
+//		do
+//		{
+//		
+//			if((t1+1)==8 || (t2+1)==8 )
+//				break;
+//			t1++;
+//			t2++;
+//			
+//			if(tablero[t1][t2].getOcupado()==null)
+//			{
+//				this.influencia.add(tablero[t1][t2]);
+//			}
+//			else
+//			{
+//				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				break;
+//			}
+//		}while(true);
+//		
+//		
+//		t1=this.getY();
+//		t2=this.getX();
+//		do
+//		{
+//		
+//			if((t1+1)==8 || (t2-1)==-1 )
+//				break;
+//			t1++;
+//			t2--;
+//			
+//			if(tablero[t1][t2].getOcupado()==null)
+//			{
+//				this.influencia.add(tablero[t1][t2]);
+//			}
+//			else
+//			{
+//				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				break;
+//			}
+//		}while(true);
+//		
+//		t1=this.getY();
+//		t2=this.getX();
+//		do
+//		{
+//		
+//			if((t1-1)== -1|| (t2-1)==-1 )
+//				break;
+//			t1--;
+//			t2--;
+//			
+//			if(tablero[t1][t2].getOcupado()==null)
+//			{
+//				this.influencia.add(tablero[t1][t2]);
+//			}
+//			else
+//			{
+//				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				break;
+//			}
+//		}while(true);
+//		
+//		
+//		t1=this.getY();
+//		t2=this.getX();
+//		do
+//		{
+//		
+//			if((t1-1)== -1|| (t2+1)==8 )
+//				break;
+//			t1--;
+//			t2++;
+//			
+//			if(tablero[t1][t2].getOcupado()==null)
+//			{
+//				this.influencia.add(tablero[t1][t2]);
+//			}
+//			else
+//			{
+//				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				break;
+//			}
+//		}while(true);
+//		
+//		t1=this.getY();
+//		t2=this.getX();
+//		
+//		do
+//		{
+//		
+//			if((t1+1)==8)
+//				break;
+//			t1++;
+//		
+//			if(tablero[t1][t2].getOcupado()==null)
+//			{
+//				this.influencia.add(tablero[t1][t2]);
+//			}
+//			else
+//			{
+//				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				break;
+//			}
+//		}while(true);
+//		
+//		
+//		
+//		t1=this.getY();
+//		t2=this.getX();
+//		
+//		do
+//		{
+//			if(t1-1==-1)
+//				break;
+//			
+//			t1--;
+//			
+//			if(tablero[t1][t2].getOcupado()==null)
+//			{
+//				this.influencia.add(tablero[t1][t2]);
+//			}
+//			else
+//			{
+//				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				break;
+//			}
+//			
+//		}while(true);
+//		
+//		
+//		t1=this.getY();
+//		t2=this.getX();
+//			do
+//			{
+//				if(t2+1==8)
+//					break;
+//				t2++;
+//				
+//				if(tablero[t1][t2].getOcupado()==null)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				else
+//				{
+//					if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//					{
+//						this.influencia.add(tablero[t1][t2]);
+//					}
+//					break;
+//				}
+//				
+//			}while(true);	
+//			
+//			
+//			
+//			t1=this.getY();
+//			t2=this.getX();
+//			
+//			do
+//			{
+//				if(t2-1==-1)
+//					break;
+//				t2--;
+//				
+//				if(tablero[t1][t2].getOcupado()==null)
+//				{
+//					this.influencia.add(tablero[t1][t2]);
+//				}
+//				else
+//				{
+//					if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+//					{
+//						this.influencia.add(tablero[t1][t2]);
+//					}
+//					break;
+//				}
+//			}while(true);
+//			
+//	
+//		return influencia;
 	
 	}
 	public void mov(clsCasilla[][] tablero)

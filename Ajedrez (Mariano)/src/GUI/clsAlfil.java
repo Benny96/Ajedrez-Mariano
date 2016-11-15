@@ -16,6 +16,8 @@ public class clsAlfil extends clsPieza
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Alfil;
+		influencia= new LinkedList<clsCasilla>();
+		
 		if(color)
 		{
 			try {
@@ -39,7 +41,102 @@ public class clsAlfil extends clsPieza
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
-		return movimientos;
+		influencia.clear();
+		int t1=this.getY();
+		int t2=this.getX();
+		
+		do
+		{
+		
+			if((t1+1)==8 || (t2+1)==8 )
+				break;
+			t1++;
+			t2++;
+			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.influencia.add(tablero[t1][t2]);
+			}
+			else
+			{
+				
+					this.influencia.add(tablero[t1][t2]);
+				break;
+			}
+		}while(true);
+		
+		
+		t1=this.getY();
+		t2=this.getX();
+		do
+		{
+		
+			if((t1+1)==8 || (t2-1)==-1 )
+				break;
+			t1++;
+			t2--;
+			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.influencia.add(tablero[t1][t2]);
+			}
+			else
+			{
+				
+					this.influencia.add(tablero[t1][t2]);
+				
+				break;
+			}
+		}while(true);
+		
+		t1=this.getY();
+		t2=this.getX();
+		do
+		{
+		
+			if((t1-1)== -1|| (t2-1)==-1 )
+				break;
+			t1--;
+			t2--;
+			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.influencia.add(tablero[t1][t2]);
+			}
+			else
+			{
+				
+					this.influencia.add(tablero[t1][t2]);
+				
+				break;
+			}
+		}while(true);
+		
+		
+		t1=this.getY();
+		t2=this.getX();
+		do
+		{
+		
+			if((t1-1)== -1|| (t2+1)==8 )
+				break;
+			t1--;
+			t2++;
+			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.influencia.add(tablero[t1][t2]);
+			}
+			else
+			{
+				
+					this.influencia.add(tablero[t1][t2]);
+				
+				break;
+			}
+		}while(true);
+		
+		return influencia;
 	}
 	public void mov(clsCasilla[][] tablero)
 	{

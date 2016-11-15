@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 
 
+
 import Comun.clsConstantes;
 import Comun.clsConstantes.piezas;
 
@@ -21,6 +22,7 @@ public class clsRey extends clsPieza
 	{
 		super(x, y, color);
 		this.a=clsConstantes.piezas.Rey;
+		influencia= new LinkedList<clsCasilla>();
 	
 		jaque=false;
 		primera=false;
@@ -49,7 +51,57 @@ public class clsRey extends clsPieza
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
-		return movimientos;
+		LinkedList<clsCasilla> movrey=new LinkedList<clsCasilla>();
+		
+		influencia.clear();
+		int t1=this.getY();
+		int t2=this.getX();
+		
+		if(t1+1<8)
+		{
+			if(tablero[t1+1][t2].getOcupado()==null || tablero[t1+1][t2].getOcupado()!=null )
+			{
+			this.influencia.add(tablero[t1+1][t2]);
+			}
+			
+			if(t2+1<8 && tablero[t1+1][t2+1].getOcupado()==null || t2+1<8 && tablero[t1+1][t2+1].getOcupado()!=null )
+			{
+				this.influencia.add(tablero[t1+1][t2+1]);
+			}
+			if(t2-1>-1 && tablero[t1+1][t2-1].getOcupado()==null ||  t2-1>-1 && tablero[t1+1][t2-1].getOcupado()!=null )
+			{
+				this.influencia.add(tablero[t1+1][t2-1]);
+			}
+		}
+		
+		if(t1-1>=0)
+		{
+			if(tablero[t1-1][t2].getOcupado()==null || tablero[t1-1][t2].getOcupado()!=null )
+			{
+			this.influencia.add(tablero[t1-1][t2]);
+			}
+			if(t2+1<8 && tablero[t1-1][t2+1].getOcupado()==null|| t2+1<8 && tablero[t1-1][t2+1].getOcupado()!=null )
+			{
+				this.influencia.add(tablero[t1-1][t2+1]);
+			}
+			if(t2-1>-1 && tablero[t1-1][t2-1].getOcupado()==null|| t2-1>-1 && tablero[t1-1][t2-1].getOcupado()!=null)
+			{
+				this.influencia.add(tablero[t1-1][t2-1]);
+			}
+		}
+		
+		
+		if(t2-1>-1 && tablero[t1][t2-1].getOcupado()==null || t2-1>-1)
+		{
+			this.influencia.add(tablero[t1][t2-1]);
+			
+		}
+		if(t2+1<8 && tablero[t1][t2+1].getOcupado()==null || t2+1<8 && tablero[t1][t2+1].getOcupado()!=null )
+		{
+			this.influencia.add(tablero[t1][t2+1]);
+			
+		}	
+		return influencia;
 		
 	}
 	public void mov(clsCasilla[][] tablero)

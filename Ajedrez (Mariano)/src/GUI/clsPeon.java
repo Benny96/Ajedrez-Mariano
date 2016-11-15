@@ -9,7 +9,6 @@ import javax.swing.ImageIcon;
 
 public class clsPeon extends clsPieza
 {
-	private LinkedList<clsCasilla> influencia;
 	public clsPeon(int x, int y, Boolean color) {
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
@@ -43,11 +42,19 @@ public class clsPeon extends clsPieza
 		influencia.clear();
 		if(this.getColor())
 		{
-			if(this.y+1<8 && this.getX()+1<8 && tablero[this.y+1][this.getX()+1].getOcupado()!=null && tablero[this.y+1][this.getX()+1].getOcupado().getColor().equals(this.getColor()==false))
+//			if(this.y+1<8 && this.getX()+1<8 && tablero[this.y+1][this.getX()+1].getOcupado()!=null && tablero[this.y+1][this.getX()+1].getOcupado().getColor().equals(this.getColor()==false))
+//			{
+//				this.influencia.add(tablero[this.y+1][this.getX()+1]);
+//			}
+//			if(this.y+1<8 && this.getX()-1>-1 && tablero[this.y+1][this.getX()-1].getOcupado()!=null && tablero[this.y+1][this.getX()-1].getOcupado().getColor().equals(this.getColor()==false))
+//			{
+//				this.influencia.add(tablero[this.y+1][this.getX()-1]);
+//			}
+			if(this.y+1<8 && this.getX()+1<8)
 			{
 				this.influencia.add(tablero[this.y+1][this.getX()+1]);
 			}
-			if(this.y+1<8 && this.getX()-1>-1 && tablero[this.y+1][this.getX()-1].getOcupado()!=null && tablero[this.y+1][this.getX()-1].getOcupado().getColor().equals(this.getColor()==false))
+			if(this.y+1<8 && this.getX()-1>-1)
 			{
 				this.influencia.add(tablero[this.y+1][this.getX()-1]);
 			}
@@ -56,11 +63,19 @@ public class clsPeon extends clsPieza
 		else
 		{
 		
-			if(this.y-1>-1 && this.getX()+1<8 && tablero[this.y-1][this.getX()+1].getOcupado()!=null && tablero[this.y-1][this.getX()+1].getOcupado().getColor().equals(this.getColor()==false))
+//			if(this.y-1>-1 && this.getX()+1<8 && tablero[this.y-1][this.getX()+1].getOcupado()!=null && tablero[this.y-1][this.getX()+1].getOcupado().getColor().equals(this.getColor()==false))
+//			{
+//				this.influencia.add(tablero[this.y-1][this.getX()+1]);
+//			}
+//			if(this.y-1>-1 && this.getX()-1>-1 && tablero[this.y-1][this.getX()-1].getOcupado()!=null && tablero[this.y-1][this.getX()-1].getOcupado().getColor().equals(this.getColor()==false))
+//			{
+//				this.influencia.add(tablero[this.y-1][this.getX()-1]);
+//			}
+			if(this.y-1>-1 && this.getX()+1<8)
 			{
 				this.influencia.add(tablero[this.y-1][this.getX()+1]);
 			}
-			if(this.y-1>-1 && this.getX()-1>-1 && tablero[this.y-1][this.getX()-1].getOcupado()!=null && tablero[this.y-1][this.getX()-1].getOcupado().getColor().equals(this.getColor()==false))
+			if(this.y-1>-1 && this.getX()-1>-1)
 			{
 				this.influencia.add(tablero[this.y-1][this.getX()-1]);
 			}

@@ -197,10 +197,10 @@ public class clsTablero extends JFrame implements ActionListener
 		pPrincipal.add(btiempo);
 		
 		//para que no meleste
-//		myTimer = new Timer1();
-//		
-//		Thread a= new Thread (myTimer);
-//		a.start();
+		myTimer = new Timer1();
+		
+		Thread a= new Thread (myTimer);
+		a.start();
 		
 		
 	}	
@@ -209,6 +209,7 @@ public class clsTablero extends JFrame implements ActionListener
 	{
 		for(clsCasilla aux: borrar)
 		{
+			
 			if(aux.provisional)
 			{
 				System.out.println("ERTYUI");
@@ -222,8 +223,11 @@ public class clsTablero extends JFrame implements ActionListener
 			}
 			else
 			{
+				if(aux.getOcupado()==null)
+				{
 			aux.mov=false;
 			aux.setIcon(null);
+			}
 			}
 		}
 		borrar.clear();
@@ -242,8 +246,34 @@ public class clsTablero extends JFrame implements ActionListener
 			}
 		}
 	}
+	
+	public void dibujarmov(LinkedList<clsCasilla> lista)
+	{
+		for(clsCasilla aux: lista)
+		{
+		if(aux.getOcupado()==null)
+		{
+			aux.imov();
+			movact.add(aux);
+		}
+		else
+		{
+		aux.provisional=true;
+		aux.setBackground(Color.red);
+		movact.add(aux);
+		}
+		}
+	}
 	public void actionPerformed(ActionEvent arg) {
 		// TODO Auto-generated method stub
+		
+		//1. enroque
+		//2.comer al paso
+		//3. peon al final
+		//4.reloj 0 parar
+		//5.metodo terminar partida
+		//6. jaque
+		
 		 acasilla=ncasilla;
 		 ncasilla=(clsCasilla) arg.getSource();
 		
@@ -254,6 +284,7 @@ public class clsTablero extends JFrame implements ActionListener
 			movact.remove(ncasilla);
 			selec=null;
 			clear(movact);
+			turno=!turno;
 			//revisar();
 		}
 		else if(ncasilla.getOcupado()==null)
@@ -262,76 +293,75 @@ public class clsTablero extends JFrame implements ActionListener
 		}
 		else if(ncasilla.getOcupado()!=null)
 		{
+			//clear(movact);
+			
 			if(ncasilla.getOcupado().a.equals(Comun.clsConstantes.piezas.Rey))
 			{
+				clear(movact);
 				selec=ncasilla.getOcupado();
 				selec.mov(tablero);
-				LinkedList<clsCasilla> lista=selec.movimientos;
-				if(selec.getColor())
-				{
-					for(clsPieza pieza: pnegras)
-					{
-						for(clsCasilla casilla: pieza.influencia(tablero))
-						{
-							lista.remove(casilla);
-						}
-					}
-				}
+				LinkedList<clsCasilla> lista= new LinkedList<clsCasilla>();
+				selec.mov(tablero);
+				lista.addAll(selec.movimientos);//creo que tendríamos que tener cuidado con lo de clone (lo de clase)
 				
-				else
-				{
+//				if(selec.getColor()==turno)
+//				{
+//					for(clsPieza pieza: pnegras)
+//					{
+//						for(clsCasilla casilla: pieza.influencia(tablero))
+//						{
+//							lista.remove(casilla);
+//						}
+//					}
+//					dibujarmov(lista);
+//				}
+				
+				if(selec.getColor()== turno)
+				{	
+					System.out.println("DFGHJKLKGFGHJKkjvbvcvbnbvcvbnbvbnmnbv");
+					LinkedList<clsPieza> colorcete;
+					if(selec.getColor())
+						colorcete=pnegras;
+					else
+						colorcete=pblancas;
 					
-						for(clsPieza pieza: pblancas)
+						for(clsPieza pieza: colorcete)
 						{
 							for(clsCasilla casilla: pieza.influencia(tablero))
 							{
 								lista.remove(casilla);
 							}
 						}
+						dibujarmov(lista);
 					
 				}
-				System.out.println("Hla");
-				selec.movimientos=lista;
-				for(clsCasilla aux: selec.movimientos)
-				{
-				if(aux.getOcupado()==null)
-				{
-					aux.imov();
-					movact.add(aux);
-				}
-				else
-				{
-				aux.provisional=true;
-				aux.setBackground(Color.red);
-				movact.add(aux);
-				}
-				}
+				
+			
 			}
 			else{
+				
 			if(ncasilla.provisional==false)
 			{
 			clear(movact);
+			
 			selec=ncasilla.getOcupado();
-			selec.mov(tablero);
-			for(clsCasilla aux: selec.getMovimientos())
-				{
-				if(aux.getOcupado()==null)
-				{
-					aux.imov();
-					movact.add(aux);
-				}
-				else
-				{
-				aux.provisional=true;
-				aux.setBackground(Color.red);
-				movact.add(aux);
-				}
-				}
+			
+			if (selec.getColor()== turno)
+			{
+				selec.mov(tablero);
+				dibujarmov(selec.movimientos);
 			}
+//			if (selec.getColor()==turno){
+//				selec.mov(tablero);
+//				dibujarmov(selec.movimientos);
+//			}
+			}
+			
+	
 	
 			else
 			{
-				
+				//System.out.println("ERHJUGTYFG");
 				if(selec.getColor())
 					pblancas.remove(ncasilla.getOcupado());
 				else
@@ -350,6 +380,7 @@ public class clsTablero extends JFrame implements ActionListener
 				movact.remove(ncasilla);
 				selec=null;
 				clear(movact);
+				turno=!turno;
 			//	revisar();
 			}
 		}

@@ -14,6 +14,7 @@ public class clsPieza
 	private Boolean color; //True--> blanco ///  False--> negro
 	private ImageIcon icon;
 	protected LinkedList<GUI.clsCasilla> movimientos;
+	protected LinkedList<clsCasilla> influencia;
 	
 	public clsPieza(int x, int y, Boolean color)
 	{

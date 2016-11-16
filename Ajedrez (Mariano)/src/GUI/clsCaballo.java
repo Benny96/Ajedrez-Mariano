@@ -16,7 +16,7 @@ public class clsCaballo extends clsPieza
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Caballo;
-		influencia= new LinkedList<clsCasilla>();
+		
 		if(color)
 		{
 			try {

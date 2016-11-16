@@ -19,7 +19,6 @@ public class clsTorre extends clsPieza
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Torre;
 		
-		influencia= new LinkedList<clsCasilla>();
 		
 		primera=false;
 		if(color)

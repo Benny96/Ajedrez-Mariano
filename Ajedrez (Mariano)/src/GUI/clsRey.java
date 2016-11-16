@@ -16,13 +16,12 @@ import Comun.clsConstantes.piezas;
 public class clsRey extends clsPieza
 {
 	Boolean jaque;
-	Boolean primera;
 	
 	public clsRey(int x, int y, boolean color)
 	{
 		super(x, y, color);
 		this.a=clsConstantes.piezas.Rey;
-		influencia= new LinkedList<clsCasilla>();
+		
 	
 		jaque=false;
 		primera=false;

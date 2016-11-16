@@ -17,7 +17,7 @@ public class clsReina extends clsPieza
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Reina;
 		
-		influencia= new LinkedList<clsCasilla>();
+		
 		
 		if(color)
 		{

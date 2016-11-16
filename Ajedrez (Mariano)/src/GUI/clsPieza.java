@@ -15,14 +15,17 @@ public class clsPieza
 	private ImageIcon icon;
 	protected LinkedList<GUI.clsCasilla> movimientos;
 	protected LinkedList<clsCasilla> influencia;
+	protected Boolean primera;
 	
 	public clsPieza(int x, int y, Boolean color)
 	{
 		this.y=x;
 		this.x=y;
 		this.color=color;	
+		this.primera=false;
 
 		movimientos= new LinkedList<clsCasilla>();
+		influencia= new LinkedList<clsCasilla>();
 	}
 	
 	public clsCasilla sitio(clsCasilla[][] tablero)
@@ -96,5 +99,21 @@ public class clsPieza
 
 	public void setMovimientos(LinkedList<GUI.clsCasilla> movimientos) {
 		this.movimientos = movimientos;
+	}
+
+	public LinkedList<clsCasilla> getInfluencia() {
+		return influencia;
+	}
+
+	public void setInfluencia(LinkedList<clsCasilla> influencia) {
+		this.influencia = influencia;
+	}
+
+	public Boolean getPrimera() {
+		return primera;
+	}
+
+	public void setPrimera(Boolean primera) {
+		this.primera = primera;
 	}
 }

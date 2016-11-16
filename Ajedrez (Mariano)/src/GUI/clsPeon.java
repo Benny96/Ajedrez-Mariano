@@ -14,7 +14,7 @@ public class clsPeon extends clsPieza
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Peon;
 		
-		influencia= new LinkedList<clsCasilla>();
+		
 		
 		if(color)
 		{

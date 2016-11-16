@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
 import LN.clsUsuario;
 
 public class clsTablero extends JFrame implements ActionListener
@@ -32,7 +33,7 @@ public class clsTablero extends JFrame implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	JPanel pPrincipal;
-	static clsCasilla [][] tablero;
+	 clsCasilla [][] tablero;
 	
 	JLabel blanquito;
 	JLabel nigga;
@@ -259,6 +260,37 @@ public class clsTablero extends JFrame implements ActionListener
 		}
 	}
 	
+	public LinkedList<clsPieza> getpniegras()
+	{
+		return pnegras;
+	}
+	public void comprobarjaque( clsRey rey, clsCasilla[][] tablero)
+	{
+		LinkedList<clsPieza> colorcete;
+		
+		if(rey.getColor())
+			colorcete=pnegras;
+		else
+			colorcete=pblancas;
+		
+		rey.mov(tablero);//revisar a futuro
+		
+		for(clsPieza paux: colorcete )
+		{
+			paux.mov(tablero);
+			for(clsCasilla caux: paux.getMovimientos())
+			{
+				if(caux.equals(rey.sitio(tablero)))
+				{
+					rey.jaque=true;
+					return;
+				}
+			}
+		}
+			rey.jaque=false;
+			
+		
+	}
 	public void dibujarmov(LinkedList<clsCasilla> lista)
 	{
 		for(clsCasilla aux: lista)
@@ -334,11 +366,18 @@ public class clsTablero extends JFrame implements ActionListener
 						selec.setPrimera(true);
 						
 				}
+				System.out.println("SDFGHJKHGHFDFHJ");
+				System.out.println(selec.sitio(tablero));
 				ncasilla.setOcupado(selec);
 				movact.remove(ncasilla);
+				if(selec.getColor())
+					comprobarjaque(reyn,tablero);
+				else
+					comprobarjaque(reyb,tablero);
 				selec=null;
 				clear(movact);
 				turno=!turno;
+			
 				//revisar();
 			}
 			clear(movact);
@@ -360,6 +399,7 @@ public class clsTablero extends JFrame implements ActionListener
 				{	
 					System.out.println("DFGHJKLKGFGHJKkjvbvcvbnbvcvbnbvbnmnbv");
 					LinkedList<clsPieza> colorcete;
+					
 					if(selec.getColor())
 						colorcete=pnegras;
 					else
@@ -414,6 +454,10 @@ public class clsTablero extends JFrame implements ActionListener
 				ncasilla.setBackground(Color.GRAY);
 			
 				movact.remove(ncasilla);
+				if(selec.getColor())
+					comprobarjaque(reyn,tablero);
+				else
+					comprobarjaque(reyb,tablero);
 				selec=null;
 				clear(movact);
 				turno=!turno;
@@ -422,6 +466,10 @@ public class clsTablero extends JFrame implements ActionListener
 		}
 		}
 		this.repaint();
+		System.out.println("el rey nigro");
+		System.out.println(reyn.jaque);
+		System.out.println("el rey blanco");
+		System.out.println(reyb.jaque);
 	}
 
 	

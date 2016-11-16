@@ -30,7 +30,7 @@ public class clsPieza
 	
 	public clsCasilla sitio(clsCasilla[][] tablero)
 	{
-		return tablero[x][y];
+		return tablero[y][x];
 	}
 	public int getX()
 	{

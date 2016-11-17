@@ -18,17 +18,13 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-
-
-
-
 
 
 
@@ -39,15 +35,17 @@ public class clsTablero extends JFrame implements ActionListener
 	private static final long serialVersionUID = 1L;
 	
 	JPanel pPrincipal;
-	 clsCasilla [][] tablero;
+	clsCasilla [][] tablero;
 	
 	JLabel blanquito;
 	JLabel nigga;
 	
 	JLabel ntiempo;
+	
+	JList asd;
 
-	LinkedList<clsPieza> pblancas;
-	LinkedList<clsPieza> pnegras;
+	public LinkedList<clsPieza> pblancas;
+	public LinkedList<clsPieza> pnegras;
 	LinkedList<clsCasilla> movact;
 	
 	clsCasilla acasilla;
@@ -110,6 +108,8 @@ public class clsTablero extends JFrame implements ActionListener
 		pPrincipal.setLayout(null);
 		
 		tablero= new clsCasilla[8][8];
+		
+
 		
 		clsUsuario ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
 		clsUsuario unigga= new clsUsuario("nigga","b","b","nigga","b");
@@ -303,7 +303,7 @@ public class clsTablero extends JFrame implements ActionListener
 	{
 		return pnegras;
 	}
-	public void comprobarjaque( clsRey rey, clsCasilla[][] tablero)
+	public Boolean comprobarjaque( clsRey rey, clsCasilla[][] tablero)
 	{
 		LinkedList<clsPieza> colorcete;
 		
@@ -321,12 +321,11 @@ public class clsTablero extends JFrame implements ActionListener
 			{
 				if(caux.equals(rey.sitio(tablero)))
 				{
-					rey.jaque=true;
-					return;
+					return true;
 				}
 			}
 		}
-			rey.jaque=false;
+			return false;
 			
 		
 	}
@@ -410,9 +409,9 @@ public class clsTablero extends JFrame implements ActionListener
 				ncasilla.setOcupado(selec);
 				movact.remove(ncasilla);
 				if(selec.getColor())
-					comprobarjaque(reyn,tablero);
+					reyn.jaque=comprobarjaque(reyn,tablero);
 				else
-					comprobarjaque(reyb,tablero);
+					reyb.jaque=comprobarjaque(reyb,tablero);
 				selec=null;
 				clear(movact);
 				turno=!turno;
@@ -494,9 +493,9 @@ public class clsTablero extends JFrame implements ActionListener
 			
 				movact.remove(ncasilla);
 				if(selec.getColor())
-					comprobarjaque(reyn,tablero);
+					reyn.jaque=comprobarjaque(reyn,tablero);
 				else
-					comprobarjaque(reyb,tablero);
+					reyb.jaque=comprobarjaque(reyb,tablero);
 				selec=null;
 				clear(movact);
 				turno=!turno;

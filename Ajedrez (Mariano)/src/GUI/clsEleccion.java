@@ -167,21 +167,21 @@ public class clsEleccion extends JFrame
 				if(rdbtnMarianoFacil.isSelected())
 				{
 					//TODO: Redirigir a tablero de dificultad fácil. Veo añadir un constructor tipo clsTablero(jugador, dificultad).
-					clsTablero frame = new clsTablero();
+					tablerovisual frame = new tablerovisual();
 		            frame.setVisible(true);
 		            miVentana.dispose();
 				}
 				if(rdbtnMarianoMedio.isSelected())
 				{
 					//TODO: Redirigir a tablero de dificultad media.
-					clsTablero frame = new clsTablero();
+					tablerovisual frame = new tablerovisual();
 		            frame.setVisible(true);
 		            miVentana.dispose();
 				}
 				if(rdbtnMarianoDificil.isSelected())
 				{
 					//TODO: Redirigir a tablero de dificultad difícil.
-					clsTablero frame = new clsTablero();
+					tablerovisual frame = new tablerovisual();
 		            frame.setVisible(true);
 		            miVentana.dispose();
 				}

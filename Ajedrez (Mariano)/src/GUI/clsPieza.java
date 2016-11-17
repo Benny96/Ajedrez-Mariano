@@ -116,4 +116,34 @@ public class clsPieza
 	public void setPrimera(Boolean primera) {
 		this.primera = primera;
 	}
+	
+	public clsPieza clonar(clsPieza pieza)
+	{
+		//mejorar rey,torre atributos especiales
+		if(pieza instanceof clsPeon)
+		{
+			return (new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor()));
+		}
+		if(pieza instanceof clsTorre)
+		{
+			return(new clsTorre(pieza.getY(),pieza.getX(),pieza.getColor()));
+		}
+		if(pieza instanceof clsCaballo)
+		{
+			return(new clsCaballo(pieza.getY(),pieza.getX(),pieza.getColor()));
+		}
+		if(pieza instanceof clsAlfil)
+		{
+			return(new clsAlfil(pieza.getY(),pieza.getX(),pieza.getColor()));
+		}
+		if(pieza instanceof clsRey)
+		{
+			return(new clsRey(pieza.getY(),pieza.getX(),pieza.getColor()));
+		}
+		if(pieza instanceof clsReina)
+		{
+			return(new clsReina(pieza.getY(),pieza.getX(),pieza.getColor()));
+		}	
+		return null;
+	}
 }

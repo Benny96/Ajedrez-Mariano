@@ -90,6 +90,7 @@ public class clsPieza
 	
 	public void mov(clsCasilla[][] tablero)
 	{
+		System.out.println("WERT");
 	}
 	public LinkedList<clsCasilla> influencia(clsCasilla[][] tablero){
 		return movimientos;}
@@ -122,7 +123,7 @@ public class clsPieza
 		//mejorar rey,torre atributos especiales
 		if(pieza instanceof clsPeon)
 		{
-			return (new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor()));
+			return (new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor(),true));
 		}
 		if(pieza instanceof clsTorre)
 		{

@@ -204,20 +204,20 @@ public class tablerovisual extends JFrame implements ActionListener
 		 acasilla=ncasilla;
 		 ncasilla=(clsCasilla) arg.getSource();
 		 
-		 System.out.println(ncasilla);
+		// System.out.println(ncasilla);
 
 		tab.action(ncasilla);
 		
 		this.repaint();
-		System.out.println("el rey nigro");
-		System.out.println(reyn.jaque);
-		System.out.println("el rey blanco");
-		System.out.println(reyb.jaque);
+//		System.out.println("el rey nigro");
+//		System.out.println(reyn.jaque);
+//		System.out.println("el rey blanco");
+//		System.out.println(reyb.jaque);
 	}
 
 	private void Conversor()
 	{
-		System.out.println("SDFGHJKL"+ turno);
+		//System.out.println("SDFGHJKL"+ turno);
 		turno=tab.getTurno();
 		if(turno)
 		{

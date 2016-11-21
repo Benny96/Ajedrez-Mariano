@@ -37,6 +37,14 @@ public class clsPeon extends clsPieza
 			}
 		}
 	}
+	
+	public clsPeon(int x, int y, Boolean color,Boolean na) {
+		super(x, y, color);
+		// TODO Auto-generated constructor stub
+		this.a=Comun.clsConstantes.piezas.Peon;
+		
+
+	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
 		influencia.clear();

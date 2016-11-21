@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import LN.clsUsuario;
 
-public class tablerologico {
+public class tablerologico implements Cloneable{
 
 	clsCasilla [][] tablero;
 	
@@ -55,6 +55,16 @@ public class tablerologico {
 	{
 		tablero= new clsCasilla[8][8];
 		
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				tablero[i][j]=new clsCasilla(i, j);	
+				tablero[i][j].setVisible(false);
+				
+			}
+		}
+		
 		pblancas= new LinkedList<clsPieza>();
 		pnegras= new LinkedList<clsPieza>();
 		movact= new LinkedList<clsCasilla>();
@@ -100,14 +110,14 @@ public class tablerologico {
 		pblancas.add(new clsCaballo(0,6,true));
 		pblancas.add(btorrei);
 		
-		pblancas.add(new clsPeon(1,0,true));
-		pblancas.add(new clsPeon(1,1,true));
-		pblancas.add(new clsPeon(1,2,true));
-		pblancas.add(new clsPeon(1,3,true));
-		pblancas.add(new clsPeon(1,4,true));
-		pblancas.add(new clsPeon(1,5,true));
-		pblancas.add(new clsPeon(1,6,true));
-		pblancas.add(new clsPeon(1,7,true));
+//		pblancas.add(new clsPeon(1,0,true));
+//		pblancas.add(new clsPeon(1,1,true));
+//		pblancas.add(new clsPeon(1,2,true));
+//		pblancas.add(new clsPeon(1,3,true));
+//		pblancas.add(new clsPeon(1,4,true));
+//		pblancas.add(new clsPeon(1,5,true));
+//		pblancas.add(new clsPeon(1,6,true));
+//		pblancas.add(new clsPeon(1,7,true));
 		
 		pnegras.add(ntorred);
 		pnegras.add(new clsCaballo(7,1,false));
@@ -118,14 +128,14 @@ public class tablerologico {
 		pnegras.add(new clsCaballo(7,6,false));
 		pnegras.add(ntorrei);
 		
-		pnegras.add(new clsPeon(6,0,false));
-		pnegras.add(new clsPeon(6,1,false));
-		pnegras.add(new clsPeon(6,2,false));
-		pnegras.add(new clsPeon(6,3,false));
-		pnegras.add(new clsPeon(6,4,false));
-		pnegras.add(new clsPeon(6,5,false));
-		pnegras.add(new clsPeon(6,6,false));
-		pnegras.add(new clsPeon(6,7,false));
+//		pnegras.add(new clsPeon(6,0,false));
+//		pnegras.add(new clsPeon(6,1,false));
+//		pnegras.add(new clsPeon(6,2,false));
+//		pnegras.add(new clsPeon(6,3,false));
+//		pnegras.add(new clsPeon(6,4,false));
+//		pnegras.add(new clsPeon(6,5,false));
+//		pnegras.add(new clsPeon(6,6,false));
+//		pnegras.add(new clsPeon(6,7,false));
 		
 		for(clsPieza aux: pblancas)
 		{
@@ -157,12 +167,7 @@ public class tablerologico {
 	public tablerologico clonar(tablerologico tab)
 	{
 		tablerologico mewto = new tablerologico();
-		clsCasilla[][] tablero=mewto.getTablero();
 		
-//		LinkedList<clsPieza> piezas=new LinkedList<clsPieza>();
-//		
-//		piezas.addAll(tab.getPblancas());
-//		piezas.addAll(tab.getPnegras());
 		
 		for(clsPieza paux: tab.getPblancas())
 		{
@@ -175,21 +180,29 @@ public class tablerologico {
 		
 		for(clsPieza aux: mewto.getPblancas())
 		{
-			tablero[aux.getY()][aux.getX()].setOcupado(aux);
+			mewto.getTablero()[aux.getY()][aux.getX()].setOcupado(aux);
 		}
 		for(clsPieza aux:mewto.getPnegras())
 		{
-			tablero[aux.getY()][aux.getX()].setOcupado(aux);
+			mewto.getTablero()[aux.getY()][aux.getX()].setOcupado(aux);
 		}
 		
+		//LinkedList<clsCasilla> movact;
+		
+//		clsCasilla acasilla;
+//		clsCasilla ncasilla;
+		
+				
+		mewto.setReyb((clsRey) tab.getReyb().clonar(tab.getReyb()));
+				
+		mewto.setReyn((clsRey) tab.getReyn().clonar(tab.getReyn()));
+		
+		mewto.setBtorred((clsTorre) tab.getBtorred().clonar(tab.getBtorred()));
+		mewto.setBtorrei((clsTorre) tab.getBtorrei().clonar(tab.getBtorrei()));
+		mewto.setBtorred((clsTorre) tab.getNtorred().clonar(tab.getNtorred()));
+		mewto.setNtorrei((clsTorre) tab.getNtorrei().clonar(tab.getNtorrei()));
 
-		
-		
-		
-		
-		
-		
-		
+		mewto.setSelec(tab.getSelec().clonar(tab.getSelec()));
 		
 		
 		//clsPieza pieza= vtablero[t1][t2].getPieza();
@@ -231,7 +244,7 @@ public class tablerologico {
 			
 			if(aux.provisional)
 			{
-				System.out.println("ERTYUI");
+				//System.out.println("ERTYUI");
 				int i=aux.getx();
 				int j=aux.gety();
 				aux.provisional=false;
@@ -282,7 +295,7 @@ public class tablerologico {
 		else
 			colorcete=tab.getPblancas();
 		
-		rey.mov(tablero);//revisar a futuro
+		//rey.mov(tablero);//revisar a futuro
 		
 		for(clsPieza paux: colorcete )
 		{
@@ -316,6 +329,54 @@ public class tablerologico {
 		}
 		}
 	}
+	
+	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,tablerologico tab)
+	{
+		clsCasilla[][] tablero=tab.getTablero();
+		
+		Boolean retur=false;
+		
+		Original.setOcupado(null);
+		Final.setOcupado(movida);
+		
+		if(movida.getColor())
+		{
+			for(clsPieza p: tab.getPblancas())
+			{
+				if(p instanceof clsRey)
+					tab.setReyb((clsRey) p.clonar(p));
+			}
+			//System.out.println("aaaaaaaaaaaaablancoooooooo");
+			if(comprobarjaque(tab.getReyb(),tab))
+			{
+				//System.out.println("blancoooooooo");
+				retur=true;
+			}
+		}
+		else{
+			for(clsPieza p: tab.getPnegras())
+			{
+				if(p instanceof clsRey)
+					tab.setReyn((clsRey) p.clonar(p));
+			}
+			//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanegroooooooooooo");
+			if(comprobarjaque(tab.getReyn(),tab))
+			{
+				//System.out.println("negroooooooooooo");
+				retur=true;
+			}
+		}
+		
+		Original.setOcupado(movida);
+		Final.setOcupado(sitio);
+		
+		return retur;
+		
+		
+		
+		
+	}
+	
 	public void action(clsCasilla casilla) {
 		// TODO Auto-generated method stub
 		//2.comer al paso
@@ -327,7 +388,7 @@ public class tablerologico {
 				 acasilla=ncasilla;
 				 ncasilla=casilla;
 				 
-				 System.out.println(ncasilla);
+				// System.out.println(ncasilla);
 
 				if(ncasilla.getOcupado()==null)
 				{
@@ -373,8 +434,8 @@ public class tablerologico {
 								selec.setPrimera(true);
 								
 						}
-						System.out.println("SDFGHJKHGHFDFHJ");
-						System.out.println(selec.sitio(tablero));
+//						System.out.println("SDFGHJKHGHFDFHJ");
+//						System.out.println(selec.sitio(tablero));
 						ncasilla.setOcupado(selec);
 						movact.remove(ncasilla);
 						if(selec.getColor())
@@ -389,7 +450,7 @@ public class tablerologico {
 					}
 					clear(movact);
 				}
-				else if(ncasilla.getOcupado()!=null)
+				else 
 				{
 					//clear(movact);
 					
@@ -404,7 +465,7 @@ public class tablerologico {
 						
 						if(selec.getColor()== turno)
 						{	
-							System.out.println("DFGHJKLKGFGHJKkjvbvcvbnbvcvbnbvbnmnbv");
+							//System.out.println("DFGHJKLKGFGHJKkjvbvcvbnbvcvbnbvbnmnbv");
 							LinkedList<clsPieza> colorcete;
 							
 							if(selec.getColor())
@@ -437,10 +498,77 @@ public class tablerologico {
 					{
 						selec.mov(tablero);
 						
-						LinkedList aux;
+						LinkedList<clsCasilla> aux= new LinkedList<clsCasilla>();
+
+							tablerologico tablerete=clonar(this);
+							tablerete.getSelec().mov(tablerete.getTablero());
+							
+//							for(clsPieza p: tablerete.getPblancas())System.out.println("blancas "+p);
+//							for(clsPieza p: tablerete.getPnegras())System.out.println("negras "+p);
+							clsCasilla[][] tabaux=tablerete.getTablero();
+							
+						for(clsCasilla caux : tablerete.getSelec().getMovimientos())
+						{
+							
+						//	System.out.println("hola "+ caux );
+							
+							clsPieza okupada=null;
+							if(caux.getOcupado()!=null)
+							{
+							//	System.out.println("pene");
+								
+								okupada=caux.getOcupado();
+								
+								if(okupada.getColor())
+									tablerete.getPblancas().remove(okupada);
+								else
+									tablerete.getPnegras().remove(okupada);
+							}
+							//no estoy seguro orden 
+				
+//							tabaux[tablerete.getSelec().getY()][tablerete.getSelec().getX()].setOcupado(null);
+//							tabaux[caux.gety()][caux.getx()].setOcupado(tablerete.getSelec());
+							tabaux[tablerete.getSelec().getY()][tablerete.getSelec().getX()].setOcupado(null);
+							caux.setOcupado(tablerete.getSelec());
+							
+						
+							//mejorar con seleccionar una vez vale
+							
+							
+							if(tablerete.getSelec().getColor())
+							{								
+								if(comprobarjaque(tablerete.getReyb(),tablerete)==false)
+								{
+									System.out.println("B"+caux);
+					
+									aux.add(tablero[caux.gety()][caux.getx()]);
+								}
+							}
+							else{
+								if(comprobarjaque(tablerete.getReyn(),tablerete)==false)
+								{
+									System.out.println("N"+caux);
+									aux.add(tablero[caux.gety()][caux.getx()]);
+								}
+							}
+							
+							tabaux[selec.getY()][selec.getX()].setOcupado(tablerete.getSelec());
+							caux.setOcupado(okupada);
+							
+							if(okupada!=null)
+							{
+							if(okupada.getColor())
+								tablerete.getPblancas().add(okupada);
+							else
+								tablerete.getPnegras().add(okupada);
+							}
+						}
 						
 						
-						dibujarmov(selec.movimientos);
+						
+//						System.out.println(aux.size()+"SDFGHJKÑ");
+//						for(clsCasilla a: aux)System.out.println("QAZ"+a);
+						dibujarmov(aux);
 					}
 
 					}
@@ -449,10 +577,23 @@ public class tablerologico {
 			
 					else
 					{
+//						System.out.println("WERTYUI "+ncasilla.getOcupado());
+//						System.out.println(ncasilla.getOcupado().getColor());
+//						System.out.println(ncasilla.getOcupado().getClass());
+//						
+//						System.out.println("q "+ selec);
+//						System.out.println(selec.getColor());
+//						System.out.println(selec.getClass());
+						
+//						if(selec.getColor())
+//							pblancas.remove(ncasilla.getOcupado());
+//						else
+//							pnegras.remove(ncasilla.getOcupado());
+						
 						if(selec.getColor())
-							pblancas.remove(ncasilla.getOcupado());
-						else
 							pnegras.remove(ncasilla.getOcupado());
+						else
+							pblancas.remove(ncasilla.getOcupado());
 						
 						tablero[selec.getY()][selec.getX()].setOcupado(null);
 						ncasilla.setOcupado(selec);
@@ -466,9 +607,14 @@ public class tablerologico {
 					
 						movact.remove(ncasilla);
 						if(selec.getColor())
+						{
 							reyn.jaque=comprobarjaque(reyn,this);
+						}
+							
 						else
+						{
 							reyb.jaque=comprobarjaque(reyb,this);
+						}
 						selec=null;
 						clear(movact);
 						turno=!turno;
@@ -477,10 +623,10 @@ public class tablerologico {
 				}
 				}
 			
-				System.out.println("el rey nigro");
-				System.out.println(reyn.jaque);
-				System.out.println("el rey blanco");
-				System.out.println(reyb.jaque);
+//				System.out.println("el rey nigro");
+//				System.out.println(reyn.jaque);
+//				System.out.println("el rey blanco");
+//				System.out.println(reyb.jaque);
 	}
 
 	

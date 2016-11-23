@@ -133,7 +133,7 @@ public class tablerovisual extends JFrame implements ActionListener
 		{
 			for(int j=0;j<8;j++)
 			{
-				tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+				//tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 					tablero[i][j].setBackground(Color.WHITE);
 				else
@@ -192,6 +192,47 @@ public class tablerovisual extends JFrame implements ActionListener
 		
 		
 	}	
+	public tablerovisual(tablerologico tablerete) {
+		
+		// TODO Auto-generated constructor stub
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(0, 0, 1360, 720);
+		pPrincipal = new JPanel();
+		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(pPrincipal);
+		pPrincipal.setLayout(null);
+		clsCasilla[][] ctablero = tablerete.getTablero();
+		
+		for(clsPieza aux: tablerete.getPblancas())
+		{
+			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
+		}
+		for(clsPieza aux:tablerete.getPnegras())
+		{
+			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
+		}
+		
+		
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+			//	ctablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+				if((i+j)%2==0)
+					ctablero[i][j].setBackground(Color.WHITE);
+				else
+					ctablero[i][j].setBackground(Color.GRAY);			
+				
+				ctablero[i][j].setBounds(500-j*60, 540-i*60, 60, 60);
+				ctablero[i][j].addActionListener(this);
+				pPrincipal.add(ctablero[i][j]);
+				
+			}
+		}
+		
+		
+		pPrincipal.repaint();
+	}
 	public void actionPerformed(ActionEvent arg) {
 		// TODO Auto-generated method stub
 		
@@ -218,6 +259,7 @@ public class tablerovisual extends JFrame implements ActionListener
 	private void Conversor()
 	{
 		//System.out.println("SDFGHJKL"+ turno);
+		
 		turno=tab.getTurno();
 		if(turno)
 		{
@@ -247,13 +289,21 @@ public class tablerovisual extends JFrame implements ActionListener
 		
 		
 		this.repaint();
+		
+		
+			
+	}
+	
+	public void porque()
+	{
+		JOptionPane.showMessageDialog(this, "Jaquemate");
 	}
 	class Timer1 implements Runnable
 	{
 		@Override
 		public void run() 
 		{
-			while(true)
+			while(tab.jaquemate==false)
 			{
 					try 
 					{
@@ -267,6 +317,7 @@ public class tablerovisual extends JFrame implements ActionListener
 					}
 					
 			}
+			porque();
 		}
 	
 	}

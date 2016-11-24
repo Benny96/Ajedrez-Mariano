@@ -1,29 +1,16 @@
 package GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 
@@ -76,7 +63,6 @@ public class clsTablero extends JFrame implements ActionListener
 	
 	
 	private JScrollPane scrollPane;
-	JTextArea textArea;
 	
 	public static void main(String[] args) 
 	{
@@ -248,12 +234,6 @@ public class clsTablero extends JFrame implements ActionListener
 		scrollPane.setBounds(51, 27, 650, 341);
 		getContentPane().add(scrollPane);
 		
-		textArea = new JTextArea();
-//		scrollPane.setViewportView(textArea);
-		textArea.setEditable(false);
-		add(textArea, BorderLayout.EAST);
-		textArea.add(scrollPane);
-		textArea.setBounds(670, 82, 300, 500);
 		
 	}	
 	

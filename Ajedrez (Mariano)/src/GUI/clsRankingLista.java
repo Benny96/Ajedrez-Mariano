@@ -1,6 +1,9 @@
 package GUI;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -8,9 +11,8 @@ import java.util.Collections;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import Comun.clsOrdenarPorAntiguedad;
 import Comun.clsOrdenarPorElo;
@@ -26,43 +28,46 @@ public class clsRankingLista extends JFrame
 
 	static ArrayList <clsUsuario> listaUsuarios;
 	
-	JTextArea textArea;
 	private JLabel lblInformacion;
-	private JScrollPane scrollPane;
 	private JRadioButton rdbtnOrdenPuntos;
 	private JRadioButton rdbtnOrdenNick;
 	private JRadioButton rdbtnOrdenAntig;
 	private ButtonGroup btngrp;
 	private JButton btnSalir;
 	
+	private JPanel paneltabla;
+	private JPanel panelbotonera;
+	
 	public clsRankingLista(String titulo)
 	{
 		super(titulo);
-		getContentPane().setLayout(null);
+		getContentPane().setLayout(new BorderLayout());
 		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(51, 27, 650, 341);
-		getContentPane().add(scrollPane);
-		
-		textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
-		textArea.setEditable(false);
-		
+		paneltabla=new JPanel();
+	    panelbotonera=new JPanel();
+	    
+	    
+	    getContentPane().setBackground(Color.white);
+	    panelbotonera.setLayout(new FlowLayout());
+	    getContentPane().add(paneltabla, BorderLayout.NORTH);
+	    getContentPane().add(panelbotonera, BorderLayout.SOUTH);
+	    panelbotonera.setBackground(Color.white);
+
+	    
 		lblInformacion = new JLabel("Ordenar por:");
-		lblInformacion.setBounds(307, 379, 109, 14);
-		getContentPane().add(lblInformacion);
+		panelbotonera.add(lblInformacion, BorderLayout.CENTER);
 		
 		rdbtnOrdenPuntos = new JRadioButton("Puntuación (Elo)");
 		rdbtnOrdenPuntos.setBounds(51, 400, 128, 23);
-		getContentPane().add(rdbtnOrdenPuntos);
+		panelbotonera.add(rdbtnOrdenPuntos);
 		
 		rdbtnOrdenNick = new JRadioButton("Nickname");
 		rdbtnOrdenNick.setBounds(262, 400, 109, 23);
-		getContentPane().add(rdbtnOrdenNick);
+		panelbotonera.add(rdbtnOrdenNick);
 		
 		rdbtnOrdenAntig = new JRadioButton("Antigüedad");
 		rdbtnOrdenAntig.setBounds(426, 400, 109, 23);
-		getContentPane().add(rdbtnOrdenAntig);
+		panelbotonera.add(rdbtnOrdenAntig);
 		
 		btngrp = new ButtonGroup();
 		btngrp.add(rdbtnOrdenPuntos);
@@ -71,10 +76,9 @@ public class clsRankingLista extends JFrame
 		
 		btnSalir = new JButton("Salir");
 		btnSalir.setBounds(612, 400, 89, 23);
-		getContentPane().add(btnSalir);
+		panelbotonera.add(btnSalir);
 		
 		this.setPreferredSize(new Dimension(750,500));
-		this.setResizable(false);
 
 		clsGestor objGestor = new clsGestor();
 		listaUsuarios = objGestor.ListaUsuarios();
@@ -85,15 +89,19 @@ public class clsRankingLista extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				textArea.setText("");
 				Collections.sort(listaUsuarios, new clsOrdenarPorElo());
-				StringBuffer strb = new StringBuffer();
-				for (clsUsuario auxu: listaUsuarios)
-				{
-					strb.append(auxu.toString());
-					strb.append("\n");
-				}
-				textArea.setText(strb.toString());
+				
+				TablaOrden t=new TablaOrden(listaUsuarios);
+				t.setOpaque(true); //content panes must be opaque
+				getContentPane().add(t, BorderLayout.NORTH);
+				
+		        //Display the window.
+		        pack();
+		        setVisible(true);
+				
+				
+				
+
 			}
 		});
 		rdbtnOrdenNick.addActionListener(new ActionListener()
@@ -101,15 +109,14 @@ public class clsRankingLista extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				textArea.setText("");
 				Collections.sort(listaUsuarios);
-				StringBuffer strb = new StringBuffer();
-				for (clsUsuario auxu: listaUsuarios)
-				{
-					strb.append(auxu.toString());
-					strb.append("\n");
-				}
-				textArea.setText(strb.toString());
+				TablaOrden t=new TablaOrden(listaUsuarios);
+				t.setOpaque(true); //content panes must be opaque
+				getContentPane().add(t, BorderLayout.NORTH);
+		        
+		        //Display the window.
+		        pack();
+		        setVisible(true);
 			}
 		});
 		rdbtnOrdenAntig.addActionListener(new ActionListener()
@@ -117,15 +124,16 @@ public class clsRankingLista extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				textArea.setText("");
 				Collections.sort(listaUsuarios, new clsOrdenarPorAntiguedad());
-				StringBuffer strb = new StringBuffer();
-				for (clsUsuario auxu: listaUsuarios)
-				{
-					strb.append(auxu.toString());
-					strb.append("\n");
-				}
-				textArea.setText(strb.toString());
+				TablaOrden t=new TablaOrden(listaUsuarios);
+				t.setOpaque(true); //content panes must be opaque
+				getContentPane().add(t, BorderLayout.NORTH);
+				
+		        //Display the window.
+		        pack();
+		        setVisible(true);
+		        
+//		        paneltabla.add(t);		
 			}			
 		});
 		btnSalir.addActionListener(new ActionListener()
@@ -137,5 +145,8 @@ public class clsRankingLista extends JFrame
 			}
 		});
 	}
-}
+	
+	
 
+	
+}	

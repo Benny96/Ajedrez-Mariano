@@ -6,7 +6,11 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
+
+
 import LN.clsUsuario;
+
+
 
 public class tablerologico implements Cloneable{
 
@@ -36,6 +40,7 @@ public class tablerologico implements Cloneable{
 	
 	Boolean turno;
 	
+	 tablerovisual visual;
 	//private Runnable myTimer;
 	
 	int nmin;
@@ -56,6 +61,10 @@ public class tablerologico implements Cloneable{
 	boolean jaquemate;
 
 	private clsReina reinab;
+	
+	Runnable reloj;
+
+	private clsReina reinan;
 	
 	public tablerologico()
 	{
@@ -78,10 +87,13 @@ public class tablerologico implements Cloneable{
 		selec=null;
 		
 	}
-	public tablerologico(Boolean asd) 
+	public tablerologico(Boolean asd, tablerovisual tablerovisual, Runnable myTimer) 
 	{
 			
 		tablero= new clsCasilla[8][8];
+		
+		visual=tablerovisual;
+		
 		
 		ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
 		unigga= new clsUsuario("nigga","b","b","nigga","b");
@@ -107,6 +119,7 @@ public class tablerologico implements Cloneable{
 		reyn=new clsRey(7,3,false);
 		
 		reinab=new clsReina(0,4,true);
+		reinan=new clsReina(7,4,false);
 		
 		btorrei=new clsTorre(0,7,true);
 		btorred=new clsTorre(0,0,true);
@@ -135,8 +148,10 @@ public class tablerologico implements Cloneable{
 		pnegras.add(new clsCaballo(7,1,false));
 		pnegras.add(new clsAlfil(7,2,false));
 		pnegras.add(reyn);
-		pnegras.add(new clsReina(7,4,false));
+		//pnegras.add(new clsReina(7,4,false));
+		pnegras.add(reinan);
 		pnegras.add(new clsAlfil(7,5,false));
+		//pnegras.add(new clsAlfil(4,5,false));
 		pnegras.add(new clsCaballo(7,6,false));
 		pnegras.add(ntorrei);
 		
@@ -158,6 +173,15 @@ public class tablerologico implements Cloneable{
 			tablero[aux.getY()][aux.getX()].setOcupado(aux);
 		}
 		
+		for(clsPieza aux: pblancas)
+		{
+			aux.mov(tablero);
+		}
+		for(clsPieza aux: pnegras)
+		{
+			aux.mov(tablero);
+		}
+		
 		nmin=10;
 		nseg = 00;
 		nstr = String.format("%d:%02d", nmin, nseg);
@@ -165,17 +189,19 @@ public class tablerologico implements Cloneable{
 		bmin=10;
 		bseg = 00;
 		bstr = String.format("%d:%02d", bmin, bseg);
-
 		
-		//para que no meleste
-//		myTimer = new Timer();
+		
+//		reloj = new Timer1();
 //		
-//		Thread a= new Thread (myTimer);
+//		Thread a= new Thread (reloj);
 //		a.start();
-		
 		}	
 	
 
+//	public static void pintar()
+//	{
+//		visual.repaint();
+//	}
 	public tablerologico clonar(tablerologico tab)
 	{
 		tablerologico mewto = new tablerologico();
@@ -183,11 +209,26 @@ public class tablerologico implements Cloneable{
 		
 		for(clsPieza paux: tab.getPblancas())
 		{
-			mewto.getPblancas().add(paux.clonar(paux));
+			if(paux instanceof clsRey)
+			{
+				mewto.setReyb((clsRey) paux.clonar(tab.getReyb(),tab));
+				mewto.getPblancas().add(mewto.getReyb());
+			}
+			else
+			{
+			mewto.getPblancas().add(paux.clonar(paux,tab));
+			}
 		}
 		for(clsPieza paux: tab.getPnegras())
 		{
-			mewto.getPnegras().add(paux.clonar(paux));
+			if(paux instanceof clsRey)
+			{
+				mewto.setReyn((clsRey) paux.clonar(tab.getReyn(),tab));
+				mewto.getPnegras().add(mewto.getReyn());
+			}
+			else{
+			mewto.getPnegras().add(paux.clonar(paux,tab));
+			}
 		}
 		
 		for(clsPieza aux: mewto.getPblancas())
@@ -198,26 +239,11 @@ public class tablerologico implements Cloneable{
 		{
 			mewto.getTablero()[aux.getY()][aux.getX()].setOcupado(aux);
 		}
-		
-		//LinkedList<clsCasilla> movact;
-		
-//		clsCasilla acasilla;
-//		clsCasilla ncasilla;
-		
 				
-		mewto.setReyb((clsRey) tab.getReyb().clonar(tab.getReyb()));
-				
-		mewto.setReyn((clsRey) tab.getReyn().clonar(tab.getReyn()));
 		
-		mewto.setBtorred((clsTorre) tab.getBtorred().clonar(tab.getBtorred()));
-		mewto.setBtorrei((clsTorre) tab.getBtorrei().clonar(tab.getBtorrei()));
-		mewto.setBtorred((clsTorre) tab.getNtorred().clonar(tab.getNtorred()));
-		mewto.setNtorrei((clsTorre) tab.getNtorrei().clonar(tab.getNtorrei()));
-
+		//mewto.setSelec(tab.getSelec().clonar(tab.getSelec(),tab));
 		
-		mewto.setSelec(tab.getSelec().clonar(tab.getSelec()));
-		
-
+		mewto.setTurno(tab.getTurno());
 		
 		return mewto;
 		
@@ -265,94 +291,39 @@ public class tablerologico implements Cloneable{
 		}
 	}
 	
-//	
-//	public boolean jaquemate(Boolean turno)
-//	{
-//		tablerologico tablerete=clonar(this);
-//		tablerete.setTurno(false);
-//		for(clsPieza paux: this.pnegras)
-//			{
-//				paux.sitio(tablerete.getTablero()).doClick();
-//				if(tablerete.movact.size()!=0)
-//					return false;
-//			}
-//			
-//			return true;
-//		}
-//		
-	public boolean jaquematen()
+	
+	public boolean jaquematen(tablerologico tab)
 	{
 		//tablerologico tablerete=clonar(this);
 		
-		for(clsPieza paux: this.pnegras)
+		for(clsPieza paux: tab.pnegras)
 			{
-		
-				paux.sitio(tablero).doClick();
-				if(movact.size()!=0)
+				if(legales(paux,tab).size()!=0)
+				{
 					return false;
+				}
+				}
+			
+			return true;
+		}
+	public boolean jaquemateb(tablerologico tab)
+	{
+	
+		for(clsPieza paux: tab.pblancas)
+			{
+			
+			if(legales(paux,tab).size()!=0)
+			{
+				return false;
+			}
 			}
 			
 			return true;
 		}
-	public boolean jaquemateb()
-	{
-		//tablerologico tablerete=clonar(this);
-		
-		for(clsPieza paux: this.pblancas)
-			{
-			
-				paux.sitio(tablero).doClick();
-				if(movact.size()!=0)
-					return false;
-			}
-			
-			return true;
-		}
-//	public boolean jaquemate(Boolean turno)
-//	{
-//		for(clsPieza paux: this.pnegras)
-//		{
-//			clsPieza temp= paux.clonar(paux);
-//			paux.mov(this.tablero);
-//			
-//			clsPieza okupada=null;
-//			
-//			for(clsCasilla caux: paux.movimientos)
-//			{
-//				if(caux.getOcupado()!=null)
-//				{
-//					okupada=caux.getOcupado();
-//				}
-//				caux.setOcupado(paux);//Igual mejor de tablero
-//				temp.sitio(tablero).setOcupado(null);
-//				
-//				
-//				for(clsPieza p1: this.pblancas)
-//				{
-//					Boolean ayuda=false;
-//					p1.mov(tablero);
-//					for(clsCasilla c1: p1.movimientos)
-//					{
-//						if(c1.equals(reyn.sitio(tablero)))
-//						{
-//							ayuda=true;
-//							break;
-//						}
-//					}
-//					if(ayuda==false)
-//					{
-//						caux.setOcupado(okupada);
-//						temp.sitio(tablero).setOcupado(temp);
-//						return false;
-//					}
-//				}
-//			}
-//		}
-//		
-//		return true;
-//	}
-//	
+	
 	public Boolean comprobarjaque(clsRey rey,tablerologico tab)
+
+	
 	{
 		LinkedList<clsPieza> colorcete;
 		
@@ -368,6 +339,10 @@ public class tablerologico implements Cloneable{
 		
 		for(clsPieza paux: colorcete )
 		{
+//			if(paux instanceof clsReina)
+//			{
+//				System.out.println("ASDFGHJKLOIUYTREWAZXCVBNM;");
+//			}
 			paux.mov(tablero);
 			for(clsCasilla caux: paux.getMovimientos())
 			{
@@ -380,6 +355,256 @@ public class tablerologico implements Cloneable{
 			return false;
 			
 		
+	}
+	public void Inteligencia()
+	{
+		clsJugada definitiva= new clsJugada();
+		
+		for(clsPieza p: this.pnegras)
+		{
+			
+				System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+				System.out.println(p.getClass());
+				System.out.println(p);
+			int iy=p.getY();
+			int ix=p.getX();
+			
+			
+			LinkedList<clsCasilla> candidatos=legales(p,this);
+			
+			
+			for(clsCasilla caux: candidatos)
+			{
+				System.out.println("candidatos "+ caux);
+				clsJugada aux= new clsJugada(p,caux);
+				
+				aux.valor=Valorar(aux,this,1);
+				System.out.println(aux.valor);
+				if(aux.valor>definitiva.valor)
+				{
+					definitiva=aux;
+				}
+				
+			}
+		
+		}
+		
+		int x=definitiva.pieza.getX();
+		int y=definitiva.pieza.getY();
+		
+		tablero[y][x].setOcupado(null);
+		
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setPieza(definitiva.pieza);
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].mov=false;
+//		System.out.println("sssssssssssssssss " +definitiva.pieza.getClass());
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setIcon(definitiva.pieza.getIcon());
+//		definitiva.pieza.setY(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].gety());
+//		definitiva.pieza.setX(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getx());
+//		
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].paintComponents(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getGraphics());
+		
+		//System.out.println(this.tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado().getClass());
+		//this.tablero[0][1].setOcupado(null);
+		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setOcupado(definitiva.pieza);
+		if(definitiva.pieza.primera==false)
+			definitiva.pieza.primera=true;
+		//definitiva.cfinal.setOcupado(definitiva.pieza);
+		if(definitiva.pieza.getIcon()!=null)
+		{
+			System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+		}
+		System.out.println(definitiva.cfinal.getOcupado().getClass());
+		System.out.println(y);
+		System.out.println(x);
+		
+		
+		//pintar();
+//		jaquemate=jaquemateb(this);
+//		if(jaquemate)
+//		{
+//			visual.repaint();
+//			System.out.println("SoyDioooooooooooooooooooooooos");
+//		}
+		
+	}
+	public int Valorar(clsJugada jugada,tablerologico tablero, int numero)
+
+	{
+		
+		tablerologico tab=new tablerologico();
+		tab=clonar(tablero);
+		clsCasilla [][] tabaux=tab.getTablero();
+		
+		int valor=0;
+		
+		clsPieza pieza= jugada.pieza;
+		
+		int x= pieza.getX();
+		int y=pieza.getY();
+		
+		clsCasilla cfinal= jugada.cfinal;
+		
+		int cx= cfinal.getx();
+		int cy=cfinal.gety();
+
+		clsPieza okupada=null;//ya es hora de ponerlo en un metodo
+		if(cfinal.getOcupado()!=null)
+				{
+				okupada=cfinal.getOcupado();
+					
+				if(okupada.getColor())
+				{
+					tab.getPblancas().remove(okupada);
+				}
+				else
+				{
+					tab.getPnegras().remove(okupada);
+				}
+				}
+
+		if(tabaux[cy][cx].getOcupado()!=null && tabaux[cy][cx].getOcupado().getColor().equals(pieza.getColor())==false)
+		{
+			 valor= tabaux[cy][cx].getOcupado().getValor();
+		}
+		if(pieza.primera==false)
+		{
+			valor=valor+30;
+		}
+		if(pieza.getColor())
+			tab.getPblancas().remove(pieza);
+		else
+			tab.getPnegras().remove(pieza);
+		tabaux[cy][cx].setOcupado(pieza);
+		tabaux[y][x].setOcupado(null);
+		
+		//tab.setTurno(!tab.getTurno());
+
+//
+		if(pieza.getColor())
+		{
+			tab.getPblancas().add(pieza);
+			
+			for(clsPieza dfg: tab.getPblancas())
+			{
+				valor=valor+legales(dfg,tab).size();
+			}
+		}
+		else
+		{
+			tab.getPnegras().add(pieza);
+			for(clsPieza dfg: tab.getPnegras())
+			{
+				valor=valor+legales(dfg,tab).size();
+			}
+		}
+		
+		if(pieza.getColor())
+		{
+			if(jaquematen(tab))
+			{
+				valor=valor+90000;
+				if(okupada!=null)
+				{
+				if(okupada.getColor())
+					tab.getPblancas().add(okupada);
+				else
+					tab.getPnegras().add(okupada);
+				}
+				
+				tabaux[cy][cx].setOcupado(okupada);
+				tabaux[y][x].setOcupado(pieza);
+				
+				if(pieza.getColor())
+					tab.getPblancas().add(pieza);
+				else
+					tab.getPnegras().add(pieza);
+					System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeee");
+				return valor;
+			}
+		}
+		else
+		{
+//			 System.out.println("Blaancaaaaaaaaaaaaas");
+//			 for(clsPieza p: tab.pblancas)
+//			 {
+//				 System.out.println(p.getClass());
+//				 System.out.println(p);
+//			 }
+//			 System.out.println("Negraçaaaaaaaaaaaaas");
+//			 for(clsPieza p: tab.pnegras)
+//			 {
+//				 System.out.println(p.getClass());
+//				 System.out.println(p);
+//			 }
+			if(jaquemateb(tab))
+			{
+				valor=valor+100000;
+				if(okupada!=null)
+				{
+				if(okupada.getColor())
+					tab.getPblancas().add(okupada);
+				else
+					tab.getPnegras().add(okupada);
+				}
+				
+				tabaux[cy][cx].setOcupado(okupada);
+				tabaux[y][x].setOcupado(pieza);
+				
+				if(pieza.getColor())
+					tab.getPblancas().add(pieza);
+				else
+					tab.getPnegras().add(pieza);
+					System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+				return valor;
+			}
+		}
+		
+	if(numero==1)
+	{
+		System.out.println(valor);
+		clsJugada peor=new clsJugada();
+		
+		
+		for(clsPieza blanca: tab.getPblancas())
+		{
+			LinkedList<clsCasilla> candidatos=rlegales(blanca.clonar(blanca, tab),tab);
+			
+			for(clsCasilla contrin: candidatos)
+			{
+				clsJugada aux= new clsJugada(blanca,contrin);
+				aux.valor=Valorar(aux,tab,2);
+				if(aux.valor>peor.valor)
+					peor=aux;
+			}
+		}
+
+		System.out.println("erewerwe r "+peor.valor);
+		valor=valor-peor.valor;
+		
+	}
+		
+		
+	if(okupada!=null)
+	{
+	if(okupada.getColor())
+		tab.getPblancas().add(okupada);
+	else
+		tab.getPnegras().add(okupada);
+	}
+	
+	tabaux[cy][cx].setOcupado(okupada);
+	tabaux[y][x].setOcupado(pieza);
+	
+	if(pieza.getColor())
+		tab.getPblancas().add(pieza);
+	else
+		tab.getPnegras().add(pieza);
+		pieza.setX(x);
+		pieza.setY(y);
+		
+		
+	
+		return valor;
 	}
 	public void dibujarmov(LinkedList<clsCasilla> lista)
 	{
@@ -413,7 +638,7 @@ public class tablerologico implements Cloneable{
 			for(clsPieza p: tab.getPblancas())
 			{
 				if(p instanceof clsRey)
-					tab.setReyb((clsRey) p.clonar(p));
+					tab.setReyb((clsRey) p.clonar(p,this));
 			}
 			//System.out.println("aaaaaaaaaaaaablancoooooooo");
 			if(comprobarjaque(tab.getReyb(),tab))
@@ -426,7 +651,7 @@ public class tablerologico implements Cloneable{
 			for(clsPieza p: tab.getPnegras())
 			{
 				if(p instanceof clsRey)
-					tab.setReyn((clsRey) p.clonar(p));
+					tab.setReyn((clsRey) p.clonar(p,this));
 			}
 			//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanegroooooooooooo");
 			if(comprobarjaque(tab.getReyn(),tab))
@@ -446,6 +671,7 @@ public class tablerologico implements Cloneable{
 		
 	}
 	
+	
 	public void action(clsCasilla casilla) {
 		// TODO Auto-generated method stub
 		//2.comer al paso
@@ -457,6 +683,22 @@ public class tablerologico implements Cloneable{
 				 acasilla=ncasilla;
 				 ncasilla=casilla;
 				 
+				 tablerologico tab= new tablerologico();
+				 tab= clonar(this);
+				 
+//				 System.out.println("Blaancaaaaaaaaaaaaas");
+//				 for(clsPieza p: tab.pblancas)
+//				 {
+//					 System.out.println(p.getClass());
+//					 System.out.println(p);
+//				 }
+//				 System.out.println("Negraçaaaaaaaaaaaaas");
+//				 for(clsPieza p: tab.pnegras)
+//				 {
+//					 System.out.println(p.getClass());
+//					 System.out.println(p);
+//				 }
+				 
 				// System.out.println(ncasilla);
 
 				if(ncasilla.getOcupado()==null)
@@ -464,6 +706,7 @@ public class tablerologico implements Cloneable{
 					if(ncasilla.mov)
 					{
 						tablero[selec.getY()][selec.getX()].setOcupado(null);
+						tablero[selec.getY()][selec.getX()].paintImmediately(tablero[selec.getY()][selec.getX()].getBounds());
 						if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 						{
 							if(selec.getPrimera()==false)
@@ -476,23 +719,23 @@ public class tablerologico implements Cloneable{
 //							}
 							
 							//el enroque funciona mal si la casilla continua está en jaque
-							if(selec.getColor() && selec.primera==false && ncasilla.getx()==1 && ncasilla.gety()==0  )
+							if(selec.getColor() && ncasilla.getx()==1 && ncasilla.gety()==0  )
 							{
 								tablero[0][2].setOcupado(btorred);
 								tablero[0][0].setOcupado(null);
 							}
-							if(selec.getColor() &&  selec.primera==false&& ncasilla.getx()==5 && ncasilla.gety()==0  )
+							if(selec.getColor() && ncasilla.getx()==5 && ncasilla.gety()==0  )
 							{
 								tablero[0][4].setOcupado(btorrei);
 								tablero[0][7].setOcupado(null);
 							}
 							
-							if( selec.primera==false && selec.getColor()==false && ncasilla.getx()==1 && ncasilla.gety()==7  )
+							if(  selec.getColor()==false && ncasilla.getx()==1 && ncasilla.gety()==7  )
 							{
 								tablero[7][2].setOcupado(ntorred);
 								tablero[7][0].setOcupado(null);
 							}
-							if(selec.primera==false && selec.getColor()==false && ncasilla.getx()==5 && ncasilla.gety()==7 )
+							if( selec.getColor()==false && ncasilla.getx()==5 && ncasilla.gety()==7 )
 							{
 								tablero[7][4].setOcupado(ntorrei);
 								tablero[7][7].setOcupado(null);
@@ -510,173 +753,68 @@ public class tablerologico implements Cloneable{
 						ncasilla.setOcupado(selec);
 						movact.remove(ncasilla);
 						turno=!turno;
+//				
+//						for(int a=0;a>-1;a++)
+//						{
+//						System.out.println(a);
+//						}
+						ncasilla.paint(ncasilla.getGraphics());
+						
+						
 						if(selec.getColor())
 						{
 							if(comprobarjaque(reyn,this))
 							{
-							jaquemate=jaquematen();
+							jaquemate=jaquematen(this);
 							if(jaquemate)
-								System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+								porque();
 							}
 							}
-						else
-						{
-							if(comprobarjaque(reyb,this))
-							{
-							jaquemate=jaquemateb();
-							if(jaquemate)
-								System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-							}
-						}
+						
 						clear(movact);
 						
 						selec=null;
 						
+						Inteligencia();
 						
+						if(comprobarjaque(reyb,this))
+						{
+						visual.repaint();
+						jaquemate=jaquemateb(this);
+						
+						if(jaquemate)
+						{
+							System.out.println("llegas");
+							porque();
+						}
+						}
+						
+						turno=!turno;
+
 						//revisar();
 					}
 					clear(movact);
 				}
 				else 
 				{
-					//clear(movact);
-					
-//					if(ncasilla.getOcupado().a.equals(Comun.clsConstantes.piezas.Rey))
-//					{
-//						clear(movact);
-//						selec=ncasilla.getOcupado();
-//						selec.mov(tablero);
-//						LinkedList<clsCasilla> lista= new LinkedList<clsCasilla>();
-//						selec.mov(tablero);
-//						lista.addAll(selec.movimientos);
-//						
-//						if(selec.getColor()== turno)
-//						{	
-//							//System.out.println("DFGHJKLKGFGHJKkjvbvcvbnbvcvbnbvbnmnbv");
-//							LinkedList<clsPieza> colorcete;
-//							
-//							if(selec.getColor())
-//								colorcete=pnegras;
-//							else
-//								colorcete=pblancas;
-//							
-//								for(clsPieza pieza: colorcete)
-//								{
-//									for(clsCasilla caux: pieza.influencia(tablero))
-//									{
-//										lista.remove(caux);
-//									}
-//								}
-//								dibujarmov(lista);
-//							
-//						}
-//						
-//					
-//					}
-//					else{
-						
+
 					if(ncasilla.provisional==false)
 					{
 					clear(movact);
 					
 					selec=ncasilla.getOcupado();
 					
+					//System.out.println(selec.getClass());
+					for(clsCasilla k: legales(selec,this))
+					{
+						
+						//System.out.println(k);
+					}
 					if (selec.getColor()== turno)
 					{
-						selec.mov(tablero);
 						
-						LinkedList<clsCasilla> aux= new LinkedList<clsCasilla>();
+						LinkedList<clsCasilla> aux= legales(selec,this);
 
-							tablerologico tablerete=clonar(this);
-							tablerete.getSelec().mov(tablerete.getTablero());
-							
-//							for(clsPieza p: tablerete.getPblancas())System.out.println("blancas "+p);
-//							for(clsPieza p: tablerete.getPnegras())System.out.println("negras "+p);
-							clsCasilla[][] tabaux=tablerete.getTablero();
-							
-						for(clsCasilla caux : tablerete.getSelec().getMovimientos())
-						{
-							
-						//	System.out.println("hola "+ caux );
-							
-							clsPieza okupada=null;
-							if(caux.getOcupado()!=null)
-							{
-							//	System.out.println("pene");
-								
-								okupada=caux.getOcupado();
-								
-								if(okupada.getColor())
-									tablerete.getPblancas().remove(okupada);
-								else
-									tablerete.getPnegras().remove(okupada);
-							}
-							//no estoy seguro orden 
-				
-//							tabaux[tablerete.getSelec().getY()][tablerete.getSelec().getX()].setOcupado(null);
-//							tabaux[caux.gety()][caux.getx()].setOcupado(tablerete.getSelec());
-							tabaux[tablerete.getSelec().getY()][tablerete.getSelec().getX()].setOcupado(null);
-							caux.setOcupado(tablerete.getSelec());
-							
-						//Fijo que se puede evitar si se clona bien
-							if(tablerete.getSelec() instanceof clsRey)
-							{
-								if(tablerete.getSelec().getColor())
-								{
-									caux.setOcupado(tablerete.getReyb());
-								}
-								else
-								{
-									caux.setOcupado(tablerete.getReyn());
-								}
-							}
-							//mejorar con seleccionar una vez vale
-							
-							
-							if(tablerete.getSelec().getColor())
-							{								
-								if(comprobarjaque(tablerete.getReyb(),tablerete)==false)
-								{
-									//System.out.println("B"+caux);
-					
-									aux.add(tablero[caux.gety()][caux.getx()]);
-								}
-							}
-							else{
-								if(comprobarjaque(tablerete.getReyn(),tablerete)==false)
-								{
-									//System.out.println("N"+caux);
-									aux.add(tablero[caux.gety()][caux.getx()]);
-								}
-							}
-							
-							tabaux[selec.getY()][selec.getX()].setOcupado(tablerete.getSelec());
-							caux.setOcupado(okupada);
-							
-							if(tablerete.getSelec() instanceof clsRey)
-							{
-								if(tablerete.getSelec().getColor())
-								{
-									tabaux[selec.getY()][selec.getX()].setOcupado(tablerete.getReyb());
-								}
-								else
-								{
-									tabaux[selec.getY()][selec.getX()].setOcupado(tablerete.getReyn());
-								}
-							}
-							if(okupada!=null)
-							{
-							if(okupada.getColor())
-								tablerete.getPblancas().add(okupada);
-							else
-								tablerete.getPnegras().add(okupada);
-							}
-						}
-						
-						
-						
-//						System.out.println(aux.size()+"SDFGHJKÑ");
-//						for(clsCasilla a: aux)System.out.println("QAZ"+a);
 						dibujarmov(aux);
 					}
 
@@ -686,19 +824,7 @@ public class tablerologico implements Cloneable{
 			
 					else
 					{
-//						System.out.println("WERTYUI "+ncasilla.getOcupado());
-//						System.out.println(ncasilla.getOcupado().getColor());
-//						System.out.println(ncasilla.getOcupado().getClass());
-//						
-//						System.out.println("q "+ selec);
-//						System.out.println(selec.getColor());
-//						System.out.println(selec.getClass());
-						
-//						if(selec.getColor())
-//							pblancas.remove(ncasilla.getOcupado());
-//						else
-//							pnegras.remove(ncasilla.getOcupado());
-						
+
 						if(selec.getColor())
 							pnegras.remove(ncasilla.getOcupado());
 						else
@@ -721,37 +847,47 @@ public class tablerologico implements Cloneable{
 							if(selec.getPrimera()==false)
 								selec.setPrimera(true);
 						}
+//					
+						turno=!turno;
 //						if(selec.getColor())
 //						{
-//							reyn.jaque=comprobarjaque(reyn,this);
-//						}
-//							
+//							if(comprobarjaque(reyn,this))
+//							{
+//							jaquemate=jaquematen(this);
+//							if(jaquemate)
+//								System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+//							}
+//							}
 //						else
 //						{
-//							reyb.jaque=comprobarjaque(reyb,this);
+//							if(comprobarjaque(reyb,this))
+//							{
+//							jaquemate=jaquemateb(this);
+//							if(jaquemate)
+//								System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+//							}
 //						}
-						turno=!turno;
-						if(selec.getColor())
-						{
+						
+						
 							if(comprobarjaque(reyn,this))
 							{
-							jaquemate=jaquematen();
+							jaquemate=jaquematen(this);
 							if(jaquemate)
-								System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+								porque();
 							}
-							}
-						else
-						{
-							if(comprobarjaque(reyb,this))
-							{
-							jaquemate=jaquemateb();
-							if(jaquemate)
-								System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-							}
-						}
+						
 						selec=null;
 						clear(movact);
 						
+						Inteligencia();
+
+						if(comprobarjaque(reyb,this))
+						{
+						jaquemate=jaquemateb(this);
+						if(jaquemate)
+							porque();
+						}
+						turno=!turno;
 						
 					//	revisar();
 					}
@@ -763,6 +899,282 @@ public class tablerologico implements Cloneable{
 //				System.out.println("el rey blanco");
 //				System.out.println(reyb.jaque);
 	}
+	
+	
+	public LinkedList<clsCasilla> rlegales(clsPieza pieza,tablerologico tab) {
+		// TODO Auto-generated method stub
+		
+			//System.out.println(pieza.getClass());
+//			tablerologico atab=new tablerologico();
+//			atab=clonar(tab);
+//			clsCasilla [][] tabaux=atab.getTablero();
+		
+			LinkedList<clsPieza> op=(LinkedList<clsPieza>) tab.pblancas.clone();
+			LinkedList<clsCasilla> legales= new LinkedList<clsCasilla>();
+			if(pieza instanceof clsRey==false)
+			{
+				pieza.mov(tab.getTablero());
+				int y=pieza.getY();
+				int x=pieza.getX();
+				
+				for(clsCasilla caux: pieza.getMovimientos())
+				{
+					clsPieza okupada=null;
+					if(caux.getOcupado()!=null)
+							{
+							okupada=caux.getOcupado();
+								
+							if(okupada.getColor())
+								op.remove(okupada);
+							else
+								tab.getPnegras().remove(okupada);
+							}
+		
+					tab.getTablero()[y][x].setOcupado(null);
+					caux.setOcupado(pieza);
+					
+					if(pieza.getColor())
+					{		
+						if(comprobarjaque(tab.getReyb(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					else{
+						if(comprobarjaque(tab.getReyn(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					
+					tab.getTablero()[y][x].setOcupado(pieza);
+					caux.setOcupado(okupada);
+					
+					pieza.setY(y);
+					pieza.setX(x);
+			
+					if(okupada!=null)
+					{
+					if(okupada.getColor())
+						op.add(okupada);
+					else
+						tab.getPnegras().add(okupada);
+					}
+				}
+				
+			
+				pieza.setY(y);
+				pieza.setX(x);
+			}
+			else
+			{
+				pieza.mov(tab.getTablero());
+				int y=pieza.getY();
+				int x=pieza.getX();
+				
+				for(clsCasilla caux: pieza.getMovimientos())
+				{
+					clsPieza okupada=null;
+					if(caux.getOcupado()!=null)
+							{
+							okupada=caux.getOcupado();
+								
+							if(okupada.getColor())
+								op.remove(okupada);
+							else
+								tab.getPnegras().remove(okupada);
+							}
+		
+					tab.getTablero()[y][x].setOcupado(null);
+					caux.setOcupado(pieza);
+					
+					if(pieza.getColor())
+					{		
+						tab.getReyb().setY(pieza.getY());
+						tab.getReyb().setX(pieza.getX());
+						
+						if(comprobarjaque(tab.getReyb(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					else{
+						tab.getReyn().setY(pieza.getY());
+						tab.getReyn().setX(pieza.getX());
+						if(comprobarjaque(tab.getReyn(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					
+					tab.getTablero()[y][x].setOcupado(pieza);
+					caux.setOcupado(okupada);
+					
+					pieza.setY(y);
+					pieza.setX(x);
+					
+					if(pieza.getColor())
+					{		
+						tab.getReyb().setY(y);
+						tab.getReyb().setX(x);
+					}
+					else
+					{
+						tab.getReyn().setY(y);
+						tab.getReyn().setX(x);
+					}
+					if(okupada!=null)
+					{
+					if(okupada.getColor())
+						op.add(okupada);
+					else
+						tab.getPnegras().add(okupada);
+					}
+				}
+				
+			
+				pieza.setY(y);
+				pieza.setX(x);
+			}
+					return legales;
+
+					}
+
+	public LinkedList<clsCasilla> legales(clsPieza pieza,tablerologico tab) {
+		// TODO Auto-generated method stub
+		
+			//System.out.println(pieza.getClass());
+			LinkedList<clsCasilla> legales= new LinkedList<clsCasilla>();
+			if(pieza instanceof clsRey==false)
+			{
+				pieza.mov(tab.getTablero());
+				int y=pieza.getY();
+				int x=pieza.getX();
+				
+				for(clsCasilla caux: pieza.getMovimientos())
+				{
+					clsPieza okupada=null;
+					if(caux.getOcupado()!=null)
+							{
+							okupada=caux.getOcupado();
+								
+							if(okupada.getColor())
+								tab.getPblancas().remove(okupada);
+							else
+								tab.getPnegras().remove(okupada);
+							}
+		
+					tab.getTablero()[y][x].setOcupado(null);
+					caux.setOcupado(pieza);
+					
+					if(pieza.getColor())
+					{		
+						if(comprobarjaque(tab.getReyb(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					else{
+						if(comprobarjaque(tab.getReyn(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					
+					tab.getTablero()[y][x].setOcupado(pieza);
+					caux.setOcupado(okupada);
+					
+					pieza.setY(y);
+					pieza.setX(x);
+			
+					if(okupada!=null)
+					{
+					if(okupada.getColor())
+						tab.getPblancas().add(okupada);
+					else
+						tab.getPnegras().add(okupada);
+					}
+				}
+				
+			
+				pieza.setY(y);
+				pieza.setX(x);
+			}
+			else
+			{
+				pieza.mov(tab.getTablero());
+				
+				int y=pieza.getY();
+				int x=pieza.getX();
+				
+				for(clsCasilla caux: pieza.getMovimientos())
+				{
+					//System.out.println("casillllllllla "+ caux);
+					clsPieza okupada=null;
+					if(caux.getOcupado()!=null)
+							{
+							okupada=caux.getOcupado();
+								
+							if(okupada.getColor())
+								tab.getPblancas().remove(okupada);
+							else
+								tab.getPnegras().remove(okupada);
+							}
+		
+					tab.getTablero()[y][x].setOcupado(null);
+					caux.setOcupado(pieza);
+					
+					if(pieza.getColor())
+					{		
+						tab.getReyb().setY(pieza.getY());
+						tab.getReyb().setX(pieza.getX());
+						
+						if(comprobarjaque(tab.getReyb(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					else{
+						tab.getReyn().setY(pieza.getY());
+						tab.getReyn().setX(pieza.getX());
+						if(comprobarjaque(tab.getReyn(),tab)==false)
+						{
+							legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+						}
+					}
+					
+					tab.getTablero()[y][x].setOcupado(pieza);
+					caux.setOcupado(okupada);
+					
+					pieza.setY(y);
+					pieza.setX(x);
+					
+					if(pieza.getColor())
+					{		
+						tab.getReyb().setY(y);
+						tab.getReyb().setX(x);
+					}
+					else
+					{
+						tab.getReyn().setY(y);
+						tab.getReyn().setX(x);
+					}
+					if(okupada!=null)
+					{
+					if(okupada.getColor())
+						tab.getPblancas().add(okupada);
+					else
+						tab.getPnegras().add(okupada);
+					}
+				}
+				
+			
+				pieza.setY(y);
+				pieza.setX(x);
+			}
+					return legales;
+
+					}
 
 	
 //	private void Conversor()
@@ -813,7 +1225,80 @@ public class tablerologico implements Cloneable{
 //	
 //	}
 //
-
+	private void Conversor()
+	{
+		//System.out.println("SDFGHJKL"+ turno);
+		
+		
+		if(turno)
+		{
+			bseg--;
+			if (bseg==-1)
+			{
+				bseg=59;
+				bmin--;
+			}
+			bstr = String.format("%d:%02d", bmin, bseg);
+			
+			visual.btiempo.setText(bstr);
+		}
+		else
+		{
+		nseg--;
+		if (nseg==-1)
+		{
+			nseg=59;
+			nmin--;
+		}
+		nstr = String.format("%d:%02d", nmin, nseg);
+		
+		
+		visual.ntiempo.setText(nstr);
+		}
+		
+		
+		visual.repaint();
+		
+		
+			
+	}
+	public void repain()
+	{
+		visual.repaint();
+	}
+	public void porque()
+	{
+		JOptionPane.showMessageDialog(visual, "Jaquemate");
+	}
+	class Timer1 implements Runnable
+	{
+		@Override
+		public void run() 
+		{
+			
+			while(jaquemate==false)
+			{
+					try 
+					{
+						Thread.sleep(1000);
+						Conversor();
+						
+					}
+					catch (InterruptedException e) 
+					{
+						
+						return;
+					}
+					
+			}
+			System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+			repain();
+			porque();
+//			repain();
+//			porque();
+		}
+	
+	}
 	public clsCasilla[][] getTablero() {
 		return tablero;
 	}

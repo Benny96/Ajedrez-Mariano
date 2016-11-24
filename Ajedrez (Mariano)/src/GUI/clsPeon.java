@@ -14,7 +14,7 @@ public class clsPeon extends clsPieza
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Peon;
 		
-		
+		valor=100;
 		
 		if(color)
 		{
@@ -42,7 +42,7 @@ public class clsPeon extends clsPieza
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Peon;
-		
+		valor=100;
 
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)

@@ -16,7 +16,7 @@ public class clsCaballo extends clsPieza
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Caballo;
-		
+		valor=300;
 		if(color)
 		{
 			try {
@@ -38,6 +38,13 @@ public class clsCaballo extends clsPieza
 			}
 		}
 		
+	}
+	public clsCaballo(int x, int y, Boolean color,Boolean na) {
+		super(x, y, color);
+		// TODO Auto-generated constructor stub
+		this.a=Comun.clsConstantes.piezas.Caballo;
+		
+		valor=300;
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{

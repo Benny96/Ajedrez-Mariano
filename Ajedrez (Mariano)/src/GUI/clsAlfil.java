@@ -18,6 +18,7 @@ public class clsAlfil extends clsPieza
 		this.a=Comun.clsConstantes.piezas.Alfil;
 		influencia= new LinkedList<clsCasilla>();
 		
+		valor=300;
 		if(color)
 		{
 			try {
@@ -38,6 +39,14 @@ public class clsAlfil extends clsPieza
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public clsAlfil(int x, int y, Boolean color,Boolean na) {
+		super(x, y, color);
+		// TODO Auto-generated constructor stub
+		this.a=Comun.clsConstantes.piezas.Alfil;
+		valor=300;
+
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{

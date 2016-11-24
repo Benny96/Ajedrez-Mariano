@@ -17,7 +17,7 @@ public class clsReina extends clsPieza
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Reina;
 		
-		
+		valor=900;
 		
 		if(color)
 		{
@@ -39,6 +39,13 @@ public class clsReina extends clsPieza
 				e.printStackTrace();
 			}
 		}
+	}
+	public clsReina(int x, int y, Boolean color,Boolean na) {
+		super(x, y, color);
+		// TODO Auto-generated constructor stub
+		this.a=Comun.clsConstantes.piezas.Reina;
+		valor=900;
+
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{

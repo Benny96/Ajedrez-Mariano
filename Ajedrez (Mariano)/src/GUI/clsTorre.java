@@ -19,7 +19,7 @@ public class clsTorre extends clsPieza
 		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Torre;
 		
-		
+		valor=500;
 		primera=false;
 		if(color)
 		{
@@ -42,6 +42,13 @@ public class clsTorre extends clsPieza
 			}
 		}
 		
+	}
+	public clsTorre(int x, int y, Boolean color,Boolean na) {
+		super(x, y, color);
+		// TODO Auto-generated constructor stub
+		this.a=Comun.clsConstantes.piezas.Peon;
+		
+		valor=500;
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{

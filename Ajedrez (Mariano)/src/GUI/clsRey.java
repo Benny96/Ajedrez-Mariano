@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 
 
 
+
 import Comun.clsConstantes;
 import Comun.clsConstantes.piezas;
 
@@ -22,6 +23,7 @@ public class clsRey extends clsPieza
 		super(x, y, color);
 		this.a=clsConstantes.piezas.Rey;
 		
+		valor=10000;
 	
 		jaque=false;
 		primera=false;
@@ -47,6 +49,15 @@ public class clsRey extends clsPieza
 			}
 		}
 	
+	}
+	public clsRey(int x, int y, Boolean color,Boolean na) {
+		super(x, y, color);
+		// TODO Auto-generated constructor stub
+		this.a=Comun.clsConstantes.piezas.Rey;
+		valor=10000;
+		primera=false;
+		jaque=false;
+
 	}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
@@ -148,30 +159,30 @@ public class clsRey extends clsPieza
 		if(t2-1>-1 && tablero[t1][t2-1].getOcupado()==null || t2-1>-1 && tablero[t1][t2-1].getOcupado()!=null && tablero[t1][t2-1].getOcupado().getColor().equals(this.getColor()==false))
 		{
 			this.movimientos.add(tablero[t1][t2-1]);
-			try
-			{
-			if(this.primera==false && t2-2>-1 && tablero[t1][t2-2].getOcupado()==null   && t2-3>-1 && tablero[t1][t2-3].getOcupado()!=null && ((clsTorre)tablero[t1][t2-3].getOcupado()).primera==false)
-			{
-				this.movimientos.add(tablero[t1][t2-2]);
-			}
-			}catch(ClassCastException e)
-			{
-				
-			}
+//			try
+//			{
+//			if(this.primera==false && t2-2>-1 && tablero[t1][t2-2].getOcupado()==null   && t2-3>-1 && tablero[t1][t2-3].getOcupado()!=null && ((clsTorre)tablero[t1][t2-3].getOcupado()).primera==false)
+//			{
+//				this.movimientos.add(tablero[t1][t2-2]);
+//			}
+//			}catch(ClassCastException e)
+//			{
+//				
+//			}
 		}
 		if(t2+1<8 && tablero[t1][t2+1].getOcupado()==null || t2+1<8 && tablero[t1][t2+1].getOcupado()!=null && tablero[t1][t2+1].getOcupado().getColor().equals(this.getColor()==false))
 		{
 			this.movimientos.add(tablero[t1][t2+1]);
-			try
-			{
-			if(this.primera==false && t2+2<8 && tablero[t1][t2+2].getOcupado()==null && t2+3<8 && tablero[t1][t2+3].getOcupado()==null && t2+4<8 && tablero[t1][t2+4].getOcupado()!=null && ((clsTorre)tablero[t1][t2+4].getOcupado()).primera==false)
-			{
-				this.movimientos.add(tablero[t1][t2+2]);
-			}
-			}catch(ClassCastException e)
-			{
-				
-			}
+//			try
+//			{
+//			if(this.primera==false && t2+2<8 && tablero[t1][t2+2].getOcupado()==null && t2+3<8 && tablero[t1][t2+3].getOcupado()==null && t2+4<8 && tablero[t1][t2+4].getOcupado()!=null && ((clsTorre)tablero[t1][t2+4].getOcupado()).primera==false)
+//			{
+//				this.movimientos.add(tablero[t1][t2+2]);
+//			}
+//			}catch(ClassCastException e)
+//			{
+//				
+//			}
 		}	
 	}
 }

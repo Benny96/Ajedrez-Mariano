@@ -80,6 +80,7 @@ public class clsCasilla extends JButton
 					return false;
 				}
 			}
+//			tablerologico.pintar();
 			return true;
 		}
 		

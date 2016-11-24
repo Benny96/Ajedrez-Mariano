@@ -73,7 +73,8 @@ public class tablerovisual extends JFrame implements ActionListener
 	private int bmin;
 	private int bseg;
 	private String bstr;
-	private JLabel btiempo;
+	JLabel btiempo;
+	
 	
 	clsPieza selec;
 	
@@ -81,13 +82,13 @@ public class tablerovisual extends JFrame implements ActionListener
 	{
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1360, 720);
+		setBounds(0, 0, 700, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
 		
-		tab= new tablerologico(true);
+		tab= new tablerologico(true,this,myTimer);
 		
 		
 		tablero= tab.getTablero();
@@ -133,7 +134,7 @@ public class tablerovisual extends JFrame implements ActionListener
 		{
 			for(int j=0;j<8;j++)
 			{
-				//tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+				tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 					tablero[i][j].setBackground(Color.WHITE);
 				else
@@ -185,10 +186,10 @@ public class tablerovisual extends JFrame implements ActionListener
 		pPrincipal.add(btiempo);
 		
 		//para que no meleste
-		myTimer = new Timer1();
-		
-		Thread a= new Thread (myTimer);
-		a.start();
+//		myTimer = new Timer1();
+//		
+//		Thread a= new Thread (myTimer);
+//		a.start();
 		
 		
 	}	
@@ -217,7 +218,7 @@ public class tablerovisual extends JFrame implements ActionListener
 		{
 			for(int j=0;j<8;j++)
 			{
-			//	ctablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+				ctablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 					ctablero[i][j].setBackground(Color.WHITE);
 				else
@@ -256,70 +257,79 @@ public class tablerovisual extends JFrame implements ActionListener
 //		System.out.println(reyb.jaque);
 	}
 
-	private void Conversor()
-	{
-		//System.out.println("SDFGHJKL"+ turno);
-		
-		turno=tab.getTurno();
-		if(turno)
-		{
-			bseg--;
-			if (bseg==-1)
-			{
-				bseg=59;
-				bmin--;
-			}
-			bstr = String.format("%d:%02d", bmin, bseg);
-			tab.setBstr(bstr);
-			btiempo.setText(bstr);
-		}
-		else
-		{
-		nseg--;
-		if (nseg==-1)
-		{
-			nseg=59;
-			nmin--;
-		}
-		nstr = String.format("%d:%02d", nmin, nseg);
-		tab.setNstr(nstr);
-		
-		ntiempo.setText(nstr);
-		}
-		
-		
-		this.repaint();
-		
-		
-			
-	}
-	
-	public void porque()
-	{
-		JOptionPane.showMessageDialog(this, "Jaquemate");
-	}
-	class Timer1 implements Runnable
-	{
-		@Override
-		public void run() 
-		{
-			while(tab.jaquemate==false)
-			{
-					try 
-					{
-						Thread.sleep(1000);
-						Conversor();
-						
-					}
-					catch (InterruptedException e) 
-					{
-						return;
-					}
-					
-			}
-			porque();
-		}
-	
-	}
+//	private void Conversor()
+//	{
+//		//System.out.println("SDFGHJKL"+ turno);
+//		
+//		turno=tab.getTurno();
+//		if(turno)
+//		{
+//			bseg--;
+//			if (bseg==-1)
+//			{
+//				bseg=59;
+//				bmin--;
+//			}
+//			bstr = String.format("%d:%02d", bmin, bseg);
+//			tab.setBstr(bstr);
+//			btiempo.setText(bstr);
+//		}
+//		else
+//		{
+//		nseg--;
+//		if (nseg==-1)
+//		{
+//			nseg=59;
+//			nmin--;
+//		}
+//		nstr = String.format("%d:%02d", nmin, nseg);
+//		tab.setNstr(nstr);
+//		
+//		ntiempo.setText(nstr);
+//		}
+//		
+//		
+//		this.repaint();
+//		
+//		
+//			
+//	}
+//	public void repain()
+//	{
+//		this.repaint();
+//	}
+//	public void porque()
+//	{
+//		JOptionPane.showMessageDialog(this, "Jaquemate");
+//	}
+//	class Timer1 implements Runnable
+//	{
+//		@Override
+//		public void run() 
+//		{
+//			
+//			while(tab.jaquemate==false)
+//			{
+//					try 
+//					{
+//						Thread.sleep(1000);
+//						Conversor();
+//						
+//					}
+//					catch (InterruptedException e) 
+//					{
+//						
+//						return;
+//					}
+//					
+//			}
+//			System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+//			repain();
+//			porque();
+////			repain();
+////			porque();
+//		}
+//	
+//	}
 	
 	}

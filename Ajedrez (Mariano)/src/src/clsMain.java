@@ -17,7 +17,6 @@ public class clsMain {
 			{
 				try 
 				{
-					System.out.println("EFGHJKL");
 					tablerovisual a= new tablerovisual();
 					a.setVisible(true);
 				} 

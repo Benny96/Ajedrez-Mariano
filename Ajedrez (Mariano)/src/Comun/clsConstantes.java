@@ -17,5 +17,7 @@ public class clsConstantes
 	{
 		FICHERO_USUARIOS
 	}
-	
+	public static final String USUARIO = "USUARIO";
+	public static final String PARTIDA = "PARTIDA";
+	public static final String JUEGA = "JUEGA";
 }

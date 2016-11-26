@@ -20,7 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 
@@ -29,7 +31,11 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
+
 import LN.clsUsuario;
+
+import javax.swing.JTextArea;
 
 public class tablerovisual extends JFrame implements ActionListener
 {
@@ -74,6 +80,10 @@ public class tablerovisual extends JFrame implements ActionListener
 	private int bseg;
 	private String bstr;
 	private JLabel btiempo;
+	
+	private JTextArea textArea; 
+	private JLabel lblTextArea;
+	private JScrollPane scroll;
 	
 	clsPieza selec;
 	
@@ -184,6 +194,22 @@ public class tablerovisual extends JFrame implements ActionListener
 		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(btiempo);
 		
+		
+		
+		textArea = new JTextArea();
+		pPrincipal.add(textArea);
+		
+		lblTextArea = new JLabel("Movimientos: ");
+		lblTextArea.setFont(lblTextArea.getFont ().deriveFont (18.0f));
+		lblTextArea.setBounds(744, 69, 241, 51);
+		pPrincipal.add(lblTextArea);
+
+		scroll = new JScrollPane();
+		scroll.setBounds(727, 136, 300, 460);
+		pPrincipal.add(scroll);
+		scroll.setViewportView(textArea);
+		
+	
 		//para que no meleste
 		myTimer = new Timer1();
 		
@@ -321,5 +347,4 @@ public class tablerovisual extends JFrame implements ActionListener
 		}
 	
 	}
-	
 	}

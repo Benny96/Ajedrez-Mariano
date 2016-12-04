@@ -13,7 +13,7 @@ import LN.clsUsuario;
 
 
 
-public class tablerologico implements Cloneable{
+public class Plus implements Cloneable{
 
 	clsCasilla [][] tablero;
 	
@@ -67,7 +67,7 @@ public class tablerologico implements Cloneable{
 
 	private clsReina reinan;
 	
-	public tablerologico()
+	public Plus()
 	{
 	tablero= new clsCasilla[8][8];
 	
@@ -88,7 +88,7 @@ public class tablerologico implements Cloneable{
 	selec=null;
 	
 	}
-	public tablerologico(Boolean asd, tablerovisual tablerovisual, Runnable myTimer) 
+	public Plus(Boolean asd, tablerovisual tablerovisual, Runnable myTimer) 
 	{
 	
 	tablero= new clsCasilla[8][8];
@@ -176,11 +176,11 @@ public class tablerologico implements Cloneable{
 	
 	for(clsPieza aux: pblancas)
 	{
-	aux.setMovimientos(legales(aux,this));
+	aux.mov(tablero);
 	}
 	for(clsPieza aux: pnegras)
 	{
-		aux.setMovimientos(legales(aux,this));
+	aux.mov(tablero);
 	}
 	
 	nmin=10;
@@ -203,9 +203,9 @@ public class tablerologico implements Cloneable{
 //	{
 //	visual.repaint();
 //	}
-	public tablerologico clonar(tablerologico tab)
+	public Plus clonar(Plus tab)
 	{
-	tablerologico mewto = new tablerologico();
+	Plus mewto = new Plus();
 	
 	
 	for(clsPieza paux: tab.getPblancas())
@@ -278,52 +278,28 @@ public class tablerologico implements Cloneable{
 	borrar.clear();
 	}
 	
-	public void revisar(clsJugada jugada,tablerologico tab)
+	public void revisar()
 	{
-	LinkedList<clsPieza> todas = new LinkedList<clsPieza>();
-	
-	todas.addAll(tab.pblancas);
-	todas.addAll(tab.pnegras);
-	
-	if(comprobarjaque(tab.reyb,tab))
-	{
-		for(clsPieza pieza: tab.pblancas)
-		{
-			pieza.setMovimientos(legales(pieza,tab));
-		}
-	}
-	else if(comprobarjaque(tab.reyn,tab))
-	{
-		for(clsPieza pieza: tab.pnegras)
-		{
-			pieza.setMovimientos(legales(pieza,tab));
-		}
-	}
-	else
-	{
+	LinkedList<clsPieza> todas = null;
+	todas.addAll(pblancas);
+	todas.addAll(pnegras);
 	for(clsPieza pieza: todas)
 	{
-		//clsPieza hola=pieza.clonar(pieza, tab);
 	for(clsCasilla casilla: pieza.getMovimientos())
 	{
-		if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
-		{
-			pieza.setMovimientos(legales(pieza,tab));
-		}
-			
-	}
+	
 	}
 	}
 	}
 	
 	
-	public boolean jaquematen(tablerologico tab)
+	public boolean jaquematen(Plus tab)
 	{
 	//tablerologico tablerete=clonar(this);
 	
 	for(clsPieza paux: tab.pnegras)
 	{
-	if(paux.getMovimientos().size()!=0)
+	if(legales(paux,tab).size()!=0)
 	{
 	return false;
 	}
@@ -331,13 +307,13 @@ public class tablerologico implements Cloneable{
 	
 	return true;
 	}
-	public boolean jaquemateb(tablerologico tab)
+	public boolean jaquemateb(Plus tab)
 	{
 	
 	for(clsPieza paux: tab.pblancas)
 	{
 	
-	if(paux.getMovimientos().size()!=0)
+	if(legales(paux,tab).size()!=0)
 	{
 	return false;
 	}
@@ -346,7 +322,7 @@ public class tablerologico implements Cloneable{
 	return true;
 	}
 	
-	public Boolean comprobarjaque(clsRey rey,tablerologico tab)
+	public Boolean comprobarjaque(clsRey rey,Plus tab)
 
 	
 	{
@@ -457,11 +433,11 @@ public class tablerologico implements Cloneable{
 //	}
 	
 	}
-	public int Valorar(clsJugada jugada,tablerologico tablero, int numero)
+	public int Valorar(clsJugada jugada,Plus tablero, int numero)
 
 	{
 	
-	tablerologico tab=new tablerologico();
+	Plus tab=new Plus();
 	tab=clonar(tablero);
 	clsCasilla [][] tabaux=tab.getTablero();
 	
@@ -697,7 +673,7 @@ public class tablerologico implements Cloneable{
 	}
 	}
 	
-	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,tablerologico tab)
+	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,Plus tab)
 	{
 	clsCasilla[][] tablero=tab.getTablero();
 	
@@ -756,8 +732,8 @@ public class tablerologico implements Cloneable{
 	 acasilla=ncasilla;
 	 ncasilla=casilla;
 	 
-//	 tablerologico tab= new tablerologico();
-//	 tab= clonar(this);
+	 Plus tab= new Plus();
+	 tab= clonar(this);
 	 
 //	 System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
 //	 
@@ -846,8 +822,8 @@ public class tablerologico implements Cloneable{
 //	System.out.println(a);
 //	}
 	ncasilla.paint(ncasilla.getGraphics());
-	clear(movact);
-	revisar(new clsJugada(selec,acasilla),this);
+	
+	
 	if(selec.getColor())
 	{
 	if(comprobarjaque(reyn,this))
@@ -857,49 +833,35 @@ public class tablerologico implements Cloneable{
 	porque();
 	}
 	}
-	else
-	{
-		if(comprobarjaque(reyb,this))
-		{
-		visual.repaint();
-		jaquemate=jaquemateb(this);
-		
-		if(jaquemate)
-		{
-		System.out.println("llegas");
-		porque();
-		}
-		}
-	}
 	
-	
+	clear(movact);
 	
 	selec=null;
 	
-//	try {
-//		Thread.sleep(10000);
-//	} catch (InterruptedException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
-//	System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-//	Inteligencia();
+	try {
+		Thread.sleep(10000);
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+	Inteligencia();
 	
-//	if(comprobarjaque(reyb,this))
-//	{
-//	visual.repaint();
-//	jaquemate=jaquemateb(this);
-//	
-//	if(jaquemate)
-//	{
-//	System.out.println("llegas");
-//	porque();
-//	}
-//	}
+	if(comprobarjaque(reyb,this))
+	{
+	visual.repaint();
+	jaquemate=jaquemateb(this);
 	
-//	turno=!turno;
+	if(jaquemate)
+	{
+	System.out.println("llegas");
+	porque();
+	}
+	}
+	
+	turno=!turno;
 
-	
+	//revisar();
 	}
 	clear(movact);
 	}
@@ -913,13 +875,17 @@ public class tablerologico implements Cloneable{
 	selec=ncasilla.getOcupado();
 	
 	//System.out.println(selec.getClass());
+	for(clsCasilla k: legales(selec,this))
+	{
 	
+	//System.out.println(k);
+	}
 	if (selec.getColor()== turno)
 	{
 	
-	//LinkedList<clsCasilla> aux= legales(selec,this);
+	LinkedList<clsCasilla> aux= legales(selec,this);
 
-	dibujarmov(selec.getMovimientos());
+	dibujarmov(aux);
 	}
 
 	}
@@ -971,43 +937,27 @@ public class tablerologico implements Cloneable{
 //	System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 //	}
 //	}
-	clear(movact);
 	
-	revisar(new clsJugada(selec,acasilla),this);
 	
-	if(selec.getColor())
-	{
 	if(comprobarjaque(reyn,this))
 	{
 	jaquemate=jaquematen(this);
 	if(jaquemate)
 	porque();
 	}
-	}
-	else
-	{
-		if(comprobarjaque(reyb,this))
-		{
-		jaquemate=jaquemateb(this);
-		if(jaquemate)
-		porque();
-		}
-	}
 	
 	selec=null;
+	clear(movact);
 	
-	
-	//Inteligencia();
+	Inteligencia();
 
-//	if(comprobarjaque(reyb,this))
-//	{
-//	jaquemate=jaquemateb(this);
-//	if(jaquemate)
-//	porque();
-//	}
-	//turno=!turno;
-	
-	
+	if(comprobarjaque(reyb,this))
+	{
+	jaquemate=jaquemateb(this);
+	if(jaquemate)
+	porque();
+	}
+	turno=!turno;
 	
 	//	revisar();
 	}
@@ -1021,7 +971,7 @@ public class tablerologico implements Cloneable{
 	}
 	
 	
-	public LinkedList<clsCasilla> rlegales(clsPieza pieza,tablerologico tab) {
+	public LinkedList<clsCasilla> rlegales(clsPieza pieza,Plus tab) {
 	// TODO Auto-generated method stub
 	
 	//System.out.println(pieza.getClass());
@@ -1182,7 +1132,7 @@ public class tablerologico implements Cloneable{
 
 	}
 
-	public LinkedList<clsCasilla> legales(clsPieza pieza,tablerologico tab) {
+	public LinkedList<clsCasilla> legales(clsPieza pieza,Plus tab) {
 	// TODO Auto-generated method stub
 	
 	//System.out.println(pieza.getClass());

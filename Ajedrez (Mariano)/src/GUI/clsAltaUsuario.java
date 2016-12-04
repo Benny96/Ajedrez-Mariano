@@ -1,13 +1,19 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Image;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.SpringLayout;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -27,7 +33,11 @@ public class clsAltaUsuario extends JFrame
 
 	private static final long serialVersionUID = 1L;
 
-	private JPanel panel;
+	private JPanel panelprincipal;
+	private JPanel panelizda;
+	private JPanel panelbotonera;
+	private JPanel panelsuperior;
+	
 	
 	JTextField txtNombre;
 	JTextField txtApe1;
@@ -57,88 +67,99 @@ public class clsAltaUsuario extends JFrame
 	
 	
 	
+	
 
 	/**
 	 * Create the application.
 	 */
 	public clsAltaUsuario() 
 	{
-
-		panel = new JPanel();
-		this.setBounds(100, 100, 450, 300);
+		panelprincipal = new JPanel();
+		panelizda=new JPanel();
+		panelbotonera=new JPanel();
+		panelsuperior=new JPanel();
+		this.setBounds(100, 100, 380, 350);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		panel.setLayout(null);
-		getContentPane().add( panel, BorderLayout.CENTER );
+		panelprincipal.setLayout(new BorderLayout());
+//		panelizda.setLayout(new SpringLayout());
+//		panelizda.setLayout(new GridLayout());
+		panelizda.setLayout(new BoxLayout(panelizda, BoxLayout.Y_AXIS));
+		panelbotonera.setLayout(new FlowLayout());
+		panelsuperior.setLayout(new FlowLayout());
+		panelprincipal.add(panelizda, BorderLayout.WEST);
+		panelprincipal.add(panelbotonera, BorderLayout.SOUTH);
+		panelprincipal.add(panelsuperior, BorderLayout.NORTH);
 		setTitle("Alta de usuario");
-		panel.setBackground(Color.WHITE);
-		
-		lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(10, 68, 81, 14);
-		panel.add(lblNombre);
-		
-		lblApe1 = new JLabel("Apellido 1:");
-		lblApe1.setBounds(10, 93, 81, 14);
-		panel.add(lblApe1);
-		
-		lblApe2 = new JLabel("Apellido 2:");
-		lblApe2.setBounds(10, 118, 81, 14);
-		panel.add(lblApe2);
-		
-		lblNickname = new JLabel("Nickname:");
-		lblNickname.setBounds(10, 143, 81, 14);
-		panel.add(lblNickname);
-		
-		lblContrasenya1 = new JLabel("Contraseña:");
-		lblContrasenya1.setBounds(10, 174, 81, 14);
-		panel.add(lblContrasenya1);
-		
-		lblContrasenya2 = new JLabel("Contraseña:");
-		lblContrasenya2.setBounds(10, 203, 81, 14);
-		panel.add(lblContrasenya2);
+		panelprincipal.setBackground(Color.WHITE);
+		panelizda.setBackground(Color.WHITE);
+		panelbotonera.setBackground(Color.WHITE);
+		panelsuperior.setBackground(Color.WHITE);
+
+		lblNombre = new JLabel("        Nombre:           ");
+		lblNombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(lblNombre);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(101, 62, 86, 20);
-		panel.add(txtNombre);
-		txtNombre.setColumns(10);
+		txtNombre.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(txtNombre);
+		
+		lblApe1 = new JLabel("        Apellido 1:        ");
+		lblApe1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(lblApe1);
 		
 		txtApe1 = new JTextField();
-		txtApe1.setBounds(101, 90, 86, 20);
-		panel.add(txtApe1);
-		txtApe1.setColumns(10);
+		txtApe1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(txtApe1);
+		
+		lblApe2 = new JLabel("        Apellido 2:        ");
+		lblApe2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(lblApe2);
 		
 		txtApe2 = new JTextField();
-		txtApe2.setBounds(101, 115, 86, 20);
-		panel.add(txtApe2);
-		txtApe2.setColumns(10);
+		txtApe2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(txtApe2);
+		
+		
+		
+		lblNickname = new JLabel("         Nickname:         ");
+		lblNickname.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(lblNickname);
 		
 		txtNickname = new JTextField();
-		txtNickname.setBounds(101, 140, 86, 20);
-		panel.add(txtNickname);
-		txtNickname.setColumns(10);
+		txtNickname.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(txtNickname);
+		
+		
+		
+		lblContrasenya1 = new JLabel("        Contraseña:        ");
+		lblContrasenya1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(lblContrasenya1);
 		
 		txtContrasenya1 = new JPasswordField();
-		txtContrasenya1.setBounds(101, 171, 86, 20);
-		panel.add(txtContrasenya1);
-		txtContrasenya1.setColumns(10);
+		txtContrasenya1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(txtContrasenya1);
+		
+		
+		
+		lblContrasenya2 = new JLabel("        Contraseña:        ");
+		lblContrasenya2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(lblContrasenya2);
 		
 		txtContrasenya2 = new JPasswordField();
-		txtContrasenya2.setBounds(101, 197, 86, 20);
-		panel.add(txtContrasenya2);
-		txtContrasenya2.setColumns(10);
+		txtContrasenya2.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panelizda.add(txtContrasenya2);
 		
+
 		btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(215, 228, 89, 23);
-		panel.add(btnAceptar);
+		panelbotonera.add(btnAceptar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(314, 228, 89, 23);
-		panel.add(btnCancelar);
+		panelbotonera.add(btnCancelar);
 		
 		
 		lblFrase = new JLabel("¡Únete a nuestra comunidad!");
-		lblFrase.setBounds(27, 0, 272, 75);
 		lblFrase.setFont (lblFrase.getFont ().deriveFont (18.0f));
-		panel.add(lblFrase);
+		panelsuperior.add(lblFrase);
 		
 		
 		
@@ -146,11 +167,12 @@ public class clsAltaUsuario extends JFrame
 		
 		img=new JLabel();
 		img.setSize(229, 186);
-		img.setLocation(215, 42);
 		img=CogerImagen(img);
-		panel.add(img);
+		panelprincipal.add(img, BorderLayout.CENTER);
+		
+		
+		add(panelprincipal);
 			
-		setResizable(false);
 		
 
 		//Escuchadores
@@ -369,9 +391,7 @@ public class clsAltaUsuario extends JFrame
 			}
 	
 		});
-		
-		
-		
+				
 		btnCancelar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
@@ -380,7 +400,7 @@ public class clsAltaUsuario extends JFrame
 			}
 		});
 	
-		
+		pack();
 	}
 	
 	private boolean controlPulsado = false;
@@ -427,3 +447,4 @@ public class clsAltaUsuario extends JFrame
 		}
 	}
 }
+

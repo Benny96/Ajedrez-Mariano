@@ -20,7 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 
@@ -29,7 +31,11 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
+
 import LN.clsUsuario;
+
+import javax.swing.JTextArea;
 
 public class tablerovisual extends JFrame implements ActionListener
 {
@@ -73,9 +79,16 @@ public class tablerovisual extends JFrame implements ActionListener
 	private int bmin;
 	private int bseg;
 	private String bstr;
+
 	JLabel btiempo;
 	
+
+	//private JLabel btiempo;
 	
+	private JTextArea textArea; 
+	private JLabel lblTextArea;
+	private JScrollPane scroll;
+
 	clsPieza selec;
 	
 	public tablerovisual() 
@@ -185,6 +198,22 @@ public class tablerovisual extends JFrame implements ActionListener
 		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(btiempo);
 		
+		
+		
+		textArea = new JTextArea();
+		pPrincipal.add(textArea);
+		
+		lblTextArea = new JLabel("Movimientos: ");
+		lblTextArea.setFont(lblTextArea.getFont ().deriveFont (18.0f));
+		lblTextArea.setBounds(744, 69, 241, 51);
+		pPrincipal.add(lblTextArea);
+
+		scroll = new JScrollPane();
+		scroll.setBounds(727, 136, 300, 460);
+		pPrincipal.add(scroll);
+		scroll.setViewportView(textArea);
+		
+	
 		//para que no meleste
 //		myTimer = new Timer1();
 //		
@@ -257,79 +286,71 @@ public class tablerovisual extends JFrame implements ActionListener
 //		System.out.println(reyb.jaque);
 	}
 
-//	private void Conversor()
-//	{
-//		//System.out.println("SDFGHJKL"+ turno);
-//		
-//		turno=tab.getTurno();
-//		if(turno)
-//		{
-//			bseg--;
-//			if (bseg==-1)
-//			{
-//				bseg=59;
-//				bmin--;
-//			}
-//			bstr = String.format("%d:%02d", bmin, bseg);
-//			tab.setBstr(bstr);
-//			btiempo.setText(bstr);
-//		}
-//		else
-//		{
-//		nseg--;
-//		if (nseg==-1)
-//		{
-//			nseg=59;
-//			nmin--;
-//		}
-//		nstr = String.format("%d:%02d", nmin, nseg);
-//		tab.setNstr(nstr);
-//		
-//		ntiempo.setText(nstr);
-//		}
-//		
-//		
-//		this.repaint();
-//		
-//		
-//			
-//	}
-//	public void repain()
-//	{
-//		this.repaint();
-//	}
-//	public void porque()
-//	{
-//		JOptionPane.showMessageDialog(this, "Jaquemate");
-//	}
-//	class Timer1 implements Runnable
-//	{
-//		@Override
-//		public void run() 
-//		{
-//			
-//			while(tab.jaquemate==false)
-//			{
-//					try 
-//					{
-//						Thread.sleep(1000);
-//						Conversor();
-//						
-//					}
-//					catch (InterruptedException e) 
-//					{
-//						
-//						return;
-//					}
-//					
-//			}
-//			System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
-//			repain();
-//			porque();
-////			repain();
-////			porque();
-//		}
-//	
-//	}
+
+	private void Conversor()
+	{
+		//System.out.println("SDFGHJKL"+ turno);
+		
+		turno=tab.getTurno();
+		if(turno)
+		{
+			bseg--;
+			if (bseg==-1)
+			{
+				bseg=59;
+				bmin--;
+			}
+			bstr = String.format("%d:%02d", bmin, bseg);
+			tab.setBstr(bstr);
+			btiempo.setText(bstr);
+		}
+		else
+		{
+		nseg--;
+		if (nseg==-1)
+		{
+			nseg=59;
+			nmin--;
+		}
+		nstr = String.format("%d:%02d", nmin, nseg);
+		tab.setNstr(nstr);
+		
+		ntiempo.setText(nstr);
+		}
+		
+		
+		this.repaint();
+		
+		
+			
+	}
 	
+	public void porque()
+	{
+		JOptionPane.showMessageDialog(this, "Jaquemate");
+	}
+	class Timer1 implements Runnable
+	{
+		@Override
+		public void run() 
+		{
+			while(tab.jaquemate==false)
+			{
+					try 
+					{
+						Thread.sleep(1000);
+						Conversor();
+						
+					}
+					catch (InterruptedException e) 
+					{
+						return;
+					}
+					
+			}
+			porque();
+		}
+	
+	}
+
 	}

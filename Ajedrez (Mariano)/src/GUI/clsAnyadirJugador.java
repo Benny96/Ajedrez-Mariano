@@ -87,7 +87,7 @@ public class clsAnyadirJugador extends JInternalFrame
 					{
 						existe = true;
 						//TODO: Añadir un constructor de Tableros que pida 2 parámetros: jugador 1 y jugador 2.
-						clsTablero frame = new clsTablero();
+						tablerovisual frame = new tablerovisual();
 					    frame.setVisible(true);
 					    miVentanaInterna.dispose();
 						clsEleccion.miVentana.dispose();

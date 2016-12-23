@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import GUI.clsPaginaPrincipal;
 import GUI.clsTablero;
 import GUI.tablerovisual;
+import Persistencia.clsBD;
 
 
 public class clsMain {
@@ -17,6 +18,7 @@ public class clsMain {
 			{
 				try 
 				{
+					clsBD.initBD( "src/Data/mariano.bd" );
 					tablerovisual a= new tablerovisual();
 					a.setVisible(true);
 				} 

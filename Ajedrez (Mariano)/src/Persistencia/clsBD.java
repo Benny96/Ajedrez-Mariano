@@ -9,6 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import Comun.clsConstantes;
+import GUI.tablerologico;
 import LN.clsUsuario;
 
 public class clsBD 
@@ -82,7 +83,7 @@ public class clsBD
 			try 
 			{
 				statement.executeUpdate("CREATE TABLE USUARIO (NICKNAME STRING NOT NULL PRIMARY KEY,"+
-										"CONTRASENYA STRING NOT NULL,FEC_ALTA DATE NOT NULL,"+ 
+										"CONTRASENYA STRING NOT NULL, FEC_ALTA STRFTIME NOT NULL,"+ 
 										"ELO INT DEFAULT 1000, NOMBRE STRING, APELLIDO1 STRING, APELLIDO2 STRING)");
 			} 
 			catch (SQLException e1) 
@@ -93,23 +94,10 @@ public class clsBD
 		case clsConstantes.PARTIDA:
 			try 
 			{
-				statement.executeUpdate("CREATE TABLE PARTIDA (ID_PARTIDA INT NOT NULL PRIMARY KEY,"+
-										"DIA_COM DATE NOT NULL, DIA_FIN DATE)");
-			} 
-			catch (SQLException e1) 
-			{
-				e1.printStackTrace();
-			}
-			break;
-		case clsConstantes.JUEGA:
-			try 
-			{
-				statement.executeUpdate("CREATE TABLE JUEGA (ID_PART INT NOT NULL REFERENCES PARTIDA (ID_PARTIDA),"+
-										"NICKNAME1 STRING NOT NULL REFERENCES USUARIO (NICKNAME),"+
-										"NICKNAME2 STRING NOT NULL REFERENCES USUARIO (NICKNAME) DEFAULT 'MARIANO',"+
-										"RELOJMINNICK1 INT CHECK (RELOJMINNICK1 > 0), RELOJSEGNICK1 INT CHECK (RELOJSEGNICK1 > 0),"+
-										"RELOJMINNICK2 INT CHECK (RELOJMINNICK2 > 0), RELOJSEGNICK2 INT CHECK (RELOJSEGNICK2 > 0),"+
-										"PRIMARY KEY (ID_PART, NICKNAME1, NICKNAME2))");
+				statement.executeUpdate("CREATE TABLE IF NOT EXISTS PARTIDA (ID_PARTIDA INT NOT NULL,"+
+										"USUARIO1 STRING NOT NULL, USUARIO2 STRING NOT NULL,"+
+										"DIA_COM STRFTIME NOT NULL, DIA_FIN STRFTIME, GANADOR STRING,"+
+										"PRIMARY KEY (ID_PARTIDA, USUARIO1, USUARIO2))");
 			} 
 			catch (SQLException e1) 
 			{
@@ -126,41 +114,58 @@ public class clsBD
 			try 
 			{
 				statement.executeUpdate("INSERT INTO USUARIO VALUES ('"+((clsUsuario)obj).getNickname()+"','"
-						+ ((clsUsuario)obj).getContraseña()+"',"+((clsUsuario)obj).getFechadealta()+","
+						+ ((clsUsuario)obj).getContraseña()+"', strftime('%d/%m/%Y',"+((clsUsuario)obj).getFechadealta().getTime() / 1000+", 'unixepoch')"+","
 						+ ((clsUsuario)obj).getElo()+",'"+((clsUsuario)obj).getNombre()+"','"
-						+ ((clsUsuario)obj).getApellido1()+"','"+((clsUsuario)obj).getApellido2()+"'");
+						+ ((clsUsuario)obj).getApellido1()+"','"+((clsUsuario)obj).getApellido2()+"')");
 			} 
 			catch (SQLException e1) 
 			{
 				e1.printStackTrace();
 			}
-//			break;
-//		TODO: Crear clsPartida. if (obj instanceof clsPartida)
+		if (obj instanceof tablerologico)
 			try 
 			{
-				statement.executeUpdate("CREATE TABLE PARTIDA (ID_PARTIDA INT NOT NULL PRIMARY KEY,"+
-										"DIA_COM DATE NOT NULL, DIA_FIN DATE)");
+				//TODO: Espero que no muera por null...
+				statement.executeUpdate("INSERT INTO PARTIDA VALUES ("+ ((tablerologico)obj).getID_partida()+",'"
+						+ ((tablerologico)obj).getUblanco().getNickname()+"','"+((tablerologico)obj).getUnigga().getNickname()+"',"
+						+" strftime('%d/%m/%Y',"+((tablerologico)obj).getFec_com().getTime() / 1000+", 'unixepoch')"+","
+						+" strftime('%d/%m/%Y',"+((tablerologico)obj).getFec_fin().getTime() / 1000+", 'unixepoch')"+",'"
+						+ ((tablerologico)obj).getGanador()+"')");
 			} 
 			catch (SQLException e1) 
 			{
 				e1.printStackTrace();
 			}
-//			break;
-//TODO: 	case (obj instanceof clsJuega)
+	}
+	//TODO: Por simplicidad, voy a hacer 1 UPDATE que modifique todo (Elo inclusive), con lo que cada vez que se cambien los datos de un usuario, se modificará
+	//el Elo.
+	public static void modificarDatoTablaBD(Object obj)
+	{
+		if (statement==null) return;
+		if (obj instanceof clsUsuario)
 			try 
 			{
-				statement.executeUpdate("CREATE TABLE JUEGA (ID_PART INT NOT NULL REFERENCES PARTIDA (ID_PARTIDA),"+
-										"NICKNAME1 STRING NOT NULL REFERENCES USUARIO (NICKNAME),"+
-										"NICKNAME2 STRING NOT NULL REFERENCES USUARIO (NICKNAME) DEFAULT 'MARIANO',"+
-										"RELOJMINNICK1 INT CHECK (RELOJMINNICK1 > 0), RELOJSEGNICK1 INT CHECK (RELOJSEGNICK1 > 0),"+
-										"RELOJMINNICK2 INT CHECK (RELOJMINNICK2 > 0), RELOJSEGNICK2 INT CHECK (RELOJSEGNICK2 > 0),"+
-										"PRIMARY KEY (ID_PART, NICKNAME1, NICKNAME2))");
+				statement.executeUpdate("UPDATE USUARIO SET CONTRASENYA ='"+((clsUsuario)obj).getContraseña()+"',"
+						+ "ELO = "+ ((clsUsuario)obj).getElo()+", NOMBRE = '"+((clsUsuario)obj).getNombre()+"',"
+						+ "APELLIDO1 = '"+((clsUsuario)obj).getApellido1()+"', APELLIDO2 = '"+((clsUsuario)obj).getApellido2()+"'"
+						+ "WHERE NICKNAME = '"+((clsUsuario)obj).getNickname()+"')");
 			} 
 			catch (SQLException e1) 
 			{
 				e1.printStackTrace();
 			}
-//			break;
+		if (obj instanceof tablerologico)
+			try 
+			{
+				statement.executeUpdate("UPDATE PARTIDA SET DIA_FIN ="+
+						" strftime('%d/%m/%Y',"+((tablerologico)obj).getFec_fin().getTime() / 1000+", 'unixepoch')"+","
+						+ "GANADOR = '"+((tablerologico)obj).getGanador()+"'"
+						+ "WHERE ID_PARTIDA = "+((tablerologico)obj).getID_partida()+")");
+			} 
+			catch (SQLException e1) 
+			{
+				e1.printStackTrace();
+			}
 	}
 	public static ResultSet obtenerDatosTablaBD (String tipo_tabla)
 	{
@@ -172,12 +177,6 @@ public class clsBD
 			try 
 			{
 			     rs = statement.executeQuery("select * from USUARIO");
-//			     while(rs.next())
-//			     {
-//			       // Leer el resultset
-//			       System.out.println("name = " + rs.getString("name"));
-//			       System.out.println("id = " + rs.getInt("id"));
-//			     }
 			} 
 			catch (SQLException e1) 
 			{
@@ -194,33 +193,8 @@ public class clsBD
 				e1.printStackTrace();
 			}
 			break;
-		case clsConstantes.JUEGA:
-			try 
-			{
-				 rs = statement.executeQuery("select * from JUEGA");
-			} 
-			catch (SQLException e1) 
-			{
-				e1.printStackTrace();
-			}
-			break;
 		}
 		 return rs;
 	}
-//	 connection = DriverManager.getConnection("jdbc:sqlite:sample.db"); //sample.db es el nombre del archivo de la base de datos. (.db = Extensión de databases)
-//     Statement statement = connection.createStatement();
-//     statement.setQueryTimeout(30);  // poner timeout 30 msg - Corta la creación de la conexión si tarda más de 30 msg
-//
-//     statement.executeUpdate("drop table if exists person"); //Para que el ejemplo siempre funcione igual
-//     statement.executeUpdate("create table person (id integer, name string)"); //Create if not exists hace que se cree una tabla si no existe previamente
-//     statement.executeUpdate("insert into person values(1, 'leo')");
-//     statement.executeUpdate("insert into person values(2, 'yui')");
-//     ResultSet rs = statement.executeQuery("select * from person");
-//     while(rs.next())
-//     {
-//       // Leer el resultset
-//       System.out.println("name = " + rs.getString("name"));
-//       System.out.println("id = " + rs.getInt("id"));
-//     }
 
 }

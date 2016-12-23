@@ -1,7 +1,7 @@
 import java.awt.EventQueue;
 
 import GUI.clsPaginaPrincipal;
-import GUI.clsTablero;
+import Persistencia.clsBD;
 
 
 
@@ -14,6 +14,7 @@ public class clsMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					clsBD.initBD( "src/Data/mariano.bd" );
 					clsPaginaPrincipal p=new clsPaginaPrincipal();
 					p.setVisible(true);
 				} catch (Exception e) {

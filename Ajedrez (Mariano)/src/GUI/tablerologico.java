@@ -2,6 +2,9 @@ package GUI;
 
 
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -9,7 +12,14 @@ import javax.swing.JOptionPane;
 
 
 
+
+
+
+
+
+import Comun.clsConstantes;
 import LN.clsUsuario;
+import Persistencia.clsBD;
 
 
 
@@ -23,6 +33,12 @@ public class tablerologico implements Cloneable{
 //	JLabel ntiempo;
 //	
 //	JList asd;
+
+	private int ID_partida;
+	private Date fec_com;
+	private Date fec_fin;
+	private String ganador;
+
 
 	public LinkedList<clsPieza> pblancas;
 	public LinkedList<clsPieza> pnegras;
@@ -90,6 +106,28 @@ public class tablerologico implements Cloneable{
 	}
 	public tablerologico(Boolean asd, tablerovisual tablerovisual, Runnable myTimer) 
 	{
+	/*TODO: Añadir cargado de partida. La idea sería:
+	/* if(partidarecomenzada = true)
+	 * Asignar todos los valores a usuarios, piezas, tiempo y la partida.
+	 * else
+	 * Lo que ya está escrito aquí abajo.
+	 */
+	ganador = "";
+	clsBD.crearTablaBD(clsConstantes.PARTIDA);
+	ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
+	try 
+	{
+		while (rs.next())
+		{
+			ID_partida++;
+		}
+	} 
+	catch (SQLException e)
+	{
+		e.printStackTrace();
+	}
+	fec_com = new Date();
+	fec_fin = new Date (Long.MIN_VALUE);
 	
 	tablero= new clsCasilla[8][8];
 	
@@ -98,6 +136,8 @@ public class tablerologico implements Cloneable{
 	
 	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
 	unigga= new clsUsuario("nigga","b","b","nigga","b");
+	
+	clsBD.insertarDatoTablaBD(this);
 	
 	jaquemate=false;
 	
@@ -301,16 +341,25 @@ public class tablerologico implements Cloneable{
 	}
 	else
 	{
+	boolean llena;
 	for(clsPieza pieza: todas)
 	{
 		//clsPieza hola=pieza.clonar(pieza, tab);
+		//TODO: He hecho un cambio poniendo un boolean para que el set se haga fuera del bucle. Antes pasaba que se hacía un get y un set de lo mismo
+		//en el bucle -> O sea, bucle infinito. (ConcurrentModificationException)
+		llena = false;
 	for(clsCasilla casilla: pieza.getMovimientos())
 	{
 		if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
 		{
-			pieza.setMovimientos(legales(pieza,tab));
+			llena = true;
+//			pieza.setMovimientos(legales(pieza,tab));
 		}
 			
+	}
+	if (llena)
+	{
+		pieza.setMovimientos(legales(pieza,tab));
 	}
 	}
 	}
@@ -1411,6 +1460,8 @@ public class tablerologico implements Cloneable{
 	public void porque()
 	{
 	JOptionPane.showMessageDialog(visual, "Jaquemate");
+	//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+	clsBD.modificarDatoTablaBD(this);
 	}
 	class Timer1 implements Runnable
 	{
@@ -1623,5 +1674,37 @@ public class tablerologico implements Cloneable{
 
 	public void setUblanco(clsUsuario ublanco) {
 	this.ublanco = ublanco;
+	}
+	public int getID_partida() 
+	{
+		return ID_partida;
+	}
+	public void setID_partida(int iD_partida) 
+	{
+		ID_partida = iD_partida;
+	}
+	public Date getFec_com() 
+	{
+		return fec_com;
+	}
+	public void setFec_com(Date fec_com) {
+		
+		this.fec_com = fec_com;
+	}
+	public Date getFec_fin() 
+	{
+		return fec_fin;
+	}
+	public void setFec_fin(Date fec_fin) 
+	{
+		this.fec_fin = fec_fin;
+	}
+	
+	
+	public String getGanador() {
+		return ganador;
+	}
+	public void setGanador(String ganador) {
+		this.ganador = ganador;
 	}
 }

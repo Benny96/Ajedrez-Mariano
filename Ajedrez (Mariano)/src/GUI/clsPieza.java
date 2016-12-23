@@ -97,7 +97,7 @@ public class clsPieza
 	}
 	public LinkedList<clsCasilla> influencia(clsCasilla[][] tablero){
 		return movimientos;}
-	public LinkedList<GUI.clsCasilla> getMovimientos() {
+	public LinkedList<clsCasilla> getMovimientos() {
 		return movimientos;
 	}
 

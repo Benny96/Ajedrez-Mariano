@@ -843,6 +843,11 @@ public class tablerologico implements Cloneable{
 	//tablero[selec.getY()][selec.getX()].setBackground(Color.BLUE);
 	tablero[selec.getY()][selec.getX()].paintImmediately(tablero[selec.getY()][selec.getX()].getBounds());
 	
+	//Escribir en el JTextArea el movimiento hecho
+	visual.EscribirJTextArea(selec.getA(), selec.getColor(), selec.getX(), selec.getY(), ncasilla.getx(), ncasilla.gety());
+
+	
+	
 	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 	{
 	if(selec.getPrimera()==false)

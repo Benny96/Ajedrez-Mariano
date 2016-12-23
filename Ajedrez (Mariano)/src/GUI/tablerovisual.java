@@ -33,6 +33,8 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
+import Comun.clsConstantes.piezas;
 import LN.clsUsuario;
 
 import javax.swing.JTextArea;
@@ -201,6 +203,7 @@ public class tablerovisual extends JFrame implements ActionListener
 		
 		
 		textArea = new JTextArea();
+		textArea.setEditable(false);
 		pPrincipal.add(textArea);
 		
 		lblTextArea = new JLabel("Movimientos: ");
@@ -220,8 +223,51 @@ public class tablerovisual extends JFrame implements ActionListener
 //		Thread a= new Thread (myTimer);
 //		a.start();
 		
+	
+	}
+	
+	public void EscribirJTextArea(piezas pieza, boolean color, int pos_ini_x, int pos_ini_y, int pos_fin_x, int pos_fin_y)
+	{
+		String c;
 		
-	}	
+		String letra_ini="";
+		String letra_fin="";
+		
+		if(color)
+		{
+			c="blanco";
+		}
+		else
+		{
+			c="negro";
+		}
+		if(pos_ini_x==0)letra_ini="H";
+		if(pos_ini_x==1)letra_ini="G";
+		if(pos_ini_x==2)letra_ini="F";
+		if(pos_ini_x==3)letra_ini="E";
+		if(pos_ini_x==4)letra_ini="D";
+		if(pos_ini_x==5)letra_ini="C";
+		if(pos_ini_x==6)letra_ini="B";
+		if(pos_ini_x==7)letra_ini="A";
+		
+		if(pos_fin_x==0)letra_fin="H";
+		if(pos_fin_x==1)letra_fin="G";
+		if(pos_fin_x==2)letra_fin="F";
+		if(pos_fin_x==3)letra_fin="E";
+		if(pos_fin_x==4)letra_fin="D";
+		if(pos_fin_x==5)letra_fin="C";
+		if(pos_fin_x==6)letra_fin="B";
+		if(pos_fin_x==7)letra_fin="A";
+		
+		pos_ini_y++;
+		pos_fin_y++;
+		
+		textArea.append(pieza+" "+c+" movido de ["+letra_ini+", "+pos_ini_y+"] a ["+letra_fin+", "+pos_fin_y+"]");
+		textArea.append("\n");
+		
+	}
+	
+	
 	public tablerovisual(tablerologico tablerete) {
 		
 		// TODO Auto-generated constructor stub

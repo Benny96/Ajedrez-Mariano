@@ -49,12 +49,6 @@ public class clsTablaHistorial extends JPanel {
         //Add the scroll pane to this panel.
         add(scrollPane);
     }
-//    listaPartidas.add(new tablerologico (rs.getInt("ID_PARTIDA"),
-//			rs.getString("USUARIO1"),
-//			rs.getString("USUARIO2"),
-//			rs.getDate("DIA_COM"),
-//			rs.getDate("DIA_FIN"),
-//			rs.getString("GANADOR")));
 }
 
     class MyTableModel extends AbstractTableModel {  //TODO: Tiene que extender de AbstractTableModel 

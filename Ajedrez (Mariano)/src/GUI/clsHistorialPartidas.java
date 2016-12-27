@@ -59,7 +59,7 @@ public class clsHistorialPartidas extends JFrame
 		rdbtnOrdenID.setBounds(262, 400, 109, 23);
 		panelbotonera.add(rdbtnOrdenID);
 		
-		rdbtnOrdenGanador = new JRadioButton("Antigüedad");
+		rdbtnOrdenGanador = new JRadioButton("Ganador");
 		rdbtnOrdenGanador.setBounds(426, 400, 109, 23);
 		panelbotonera.add(rdbtnOrdenGanador);
 		

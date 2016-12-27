@@ -458,5 +458,6 @@ public class tablerovisual extends JFrame implements ActionListener, Serializabl
 public tablerologico getTab ()
 {
 	return tab;
+
 }
 	}

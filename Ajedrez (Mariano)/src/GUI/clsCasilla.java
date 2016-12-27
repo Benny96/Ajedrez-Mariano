@@ -1,19 +1,18 @@
 package GUI;
 
-import java.awt.Color;
 import java.awt.Image;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 
 import Comun.OcupadoException;
 
 
-public class clsCasilla extends JButton 
+public class clsCasilla extends JButton implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -32,6 +31,8 @@ public class clsCasilla extends JButton
 			x=b;
 			provisional=false;
 		}
+		public clsCasilla ()
+		{}
 	//	
 		public clsPieza getOcupado() {
 			

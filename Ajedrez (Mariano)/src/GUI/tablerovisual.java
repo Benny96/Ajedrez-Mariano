@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,21 +28,15 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
-
-
-
-
-
-
-
-
-
 import Comun.clsConstantes.piezas;
+import LN.clsGestor;
 import LN.clsUsuario;
+import Persistencia.clsBD;
 
 import javax.swing.JTextArea;
 
-public class tablerovisual extends JFrame implements ActionListener
+
+public class tablerovisual extends JFrame implements ActionListener, Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -95,20 +92,35 @@ public class tablerovisual extends JFrame implements ActionListener
 	
 	public tablerovisual() 
 	{
-	
+		tab= new tablerologico(false,this,myTimer);
+		CreateAndShowGUI();
+	}
+	public tablerovisual (clsUsuario a, clsUsuario b)
+	{
+		tab= new tablerologico(false,this,myTimer);
+		tab.setUblanco(a);
+		tab.setUnigga(b);
+		clsBD.insertarDatoTablaBD(tab);
+		CreateAndShowGUI();
+	}
+	public tablerovisual (tablerologico tablog, String a)
+	{
+		tab= new tablerologico(true,this,myTimer);
+		tab = tablog;
+		CreateAndShowGUI();
+		textArea.setText(a);
+	}
+	public void CreateAndShowGUI ()
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 700, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
-		
-		tab= new tablerologico(true,this,myTimer);
-		
-		
+				
 		tablero= tab.getTablero();
 		
-
 		bseg=tab.getBseg();
 		bmin=tab.getBmin();
 		
@@ -223,9 +235,30 @@ public class tablerovisual extends JFrame implements ActionListener
 //		Thread a= new Thread (myTimer);
 //		a.start();
 		
-	
+		addWindowListener( new WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				clsBD.close();
+				int x = JOptionPane.showConfirmDialog(null,"¿Deseas guardar la partida antes de volver al menú?", "Guardar la partida", JOptionPane.YES_NO_OPTION);
+				if (x == 0)
+				{
+					String a = textArea.getText();
+//					StringBuffer a = new StringBuffer();
+//					a.append(textArea.getText());
+					tablerovisual tabaguardar = new tablerovisual(tab, a);
+					clsGestor objGestor = new clsGestor();
+					objGestor.GuardarPartida(tabaguardar);
+					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.
+//					salvaProperties();  // Paso 6
+				}
+				dispose();
+				clsEleccion menu = new clsEleccion(tab.getUblanco());
+				menu.setVisible(true);
+			}
+		});
 	}
-	
 	public void EscribirJTextArea(piezas pieza, boolean color, int pos_ini_x, int pos_ini_y, int pos_fin_x, int pos_fin_y)
 	{
 		String c;
@@ -303,10 +336,33 @@ public class tablerovisual extends JFrame implements ActionListener
 				ctablero[i][j].addActionListener(this);
 				pPrincipal.add(ctablero[i][j]);
 				
+				
 			}
 		}
 		
-		
+		addWindowListener( new WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				clsBD.close();
+				int x = JOptionPane.showConfirmDialog(null,"¿Deseas guardar la partida antes de volver al menú?", "Guardar la partida", JOptionPane.YES_NO_OPTION);
+				if (x == 0)
+				{
+					String a = textArea.getText();
+//					StringBuffer a = new StringBuffer();
+//					a.append(textArea.getText());
+					tablerovisual tabaguardar = new tablerovisual(tab, a);
+					clsGestor objGestor = new clsGestor();
+					objGestor.GuardarPartida(tabaguardar);
+					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.
+//					salvaProperties();  // Paso 6
+				}
+				dispose();
+				clsEleccion menu = new clsEleccion(tab.getUblanco());
+				menu.setVisible(true);
+			}
+		});
 		pPrincipal.repaint();
 	}
 	public void actionPerformed(ActionEvent arg) {
@@ -399,4 +455,8 @@ public class tablerovisual extends JFrame implements ActionListener
 	
 	}
 
+public tablerologico getTab ()
+{
+	return tab;
+}
 	}

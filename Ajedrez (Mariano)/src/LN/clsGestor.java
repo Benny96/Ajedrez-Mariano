@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import Comun.clsConstantes.enFicDatos;
+import GUI.tablerovisual;
 import LN.clsUsuario;
 import Persistencia.clsBinarios;
 
@@ -70,6 +71,33 @@ public class clsGestor implements Serializable
 	return false;
 	
 	}
+	public void GuardarPartida(tablerovisual tabaguardar)
+	{	
+		
+		clsBinarios objDatos=new clsBinarios();
 	
+		objDatos.ComenzarSave(enFicDatos.FICHERO_PARTIDA);
+		objDatos.Save(tabaguardar);
+		objDatos.TerminarSave();
+	}
+	public tablerovisual CargarPartida()
+	{	
+		ArrayList <Serializable> guardado = new ArrayList <Serializable>();
+		clsBinarios objDatos=new clsBinarios();
+		try 
+		{
+			objDatos.ComenzarRead(enFicDatos.FICHERO_PARTIDA);
+		} 
+		catch (IOException e) 
+		{}
+		tablerovisual tabacargar = new tablerovisual();
+		guardado = objDatos.Read();
+		if (guardado.size()>0)
+		{
+			tabacargar = (tablerovisual)guardado.get(0);
+		}
+		objDatos.TerminarSave();
+		return tabacargar;
+	}
 	
 }

@@ -2,7 +2,6 @@ package src;
 import java.awt.EventQueue;
 
 import GUI.clsPaginaPrincipal;
-import GUI.clsTablero;
 import GUI.tablerovisual;
 import Persistencia.clsBD;
 

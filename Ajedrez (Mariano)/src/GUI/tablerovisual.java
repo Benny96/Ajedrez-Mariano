@@ -100,6 +100,7 @@ public class tablerovisual extends JFrame implements ActionListener, Serializabl
 		tab= new tablerologico(false,this,myTimer);
 		tab.setUblanco(a);
 		tab.setUnigga(b);
+		clsBD.insertarDatoTablaBD(tab);
 		CreateAndShowGUI();
 	}
 	public tablerovisual (tablerologico tablog, String a)

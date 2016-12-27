@@ -148,7 +148,7 @@ public class clsBD
 				statement.executeUpdate("UPDATE USUARIO SET CONTRASENYA ='"+((clsUsuario)obj).getContraseña()+"',"
 						+ "ELO = "+ ((clsUsuario)obj).getElo()+", NOMBRE = '"+((clsUsuario)obj).getNombre()+"',"
 						+ "APELLIDO1 = '"+((clsUsuario)obj).getApellido1()+"', APELLIDO2 = '"+((clsUsuario)obj).getApellido2()+"'"
-						+ "WHERE NICKNAME = '"+((clsUsuario)obj).getNickname()+"')");
+						+ "WHERE NICKNAME = '"+((clsUsuario)obj).getNickname()+"'");
 			} 
 			catch (SQLException e1) 
 			{
@@ -160,7 +160,7 @@ public class clsBD
 				statement.executeUpdate("UPDATE PARTIDA SET DIA_FIN ="+
 						" strftime('%d/%m/%Y',"+((tablerologico)obj).getFec_fin().getTime() / 1000+", 'unixepoch')"+","
 						+ "GANADOR = '"+((tablerologico)obj).getGanador()+"'"
-						+ "WHERE ID_PARTIDA = "+((tablerologico)obj).getID_partida()+")");
+						+ "WHERE ID_PARTIDA = "+((tablerologico)obj).getID_partida());
 			} 
 			catch (SQLException e1) 
 			{

@@ -848,6 +848,7 @@ public class tablerologico implements Cloneable, Serializable{
 	 
 	// System.out.println(ncasilla);
 
+	 //TODO: AL HACER EL CARGADO DE PARTIDA NO ENTRA AQUÍ. (NCASILLA.MOV LO TOMA A FALSE, DIRÍA)
 	if(ncasilla.getOcupado()==null)
 	{
 	if(ncasilla.mov)
@@ -1019,7 +1020,8 @@ public class tablerologico implements Cloneable, Serializable{
 	selec.setPrimera(true);
 	}
 //	
-	turno=!turno;
+	//TODO: CAMBIADO AQUÍ.
+//	turno=!turno;
 //	if(selec.getColor())
 //	{
 //	if(comprobarjaque(reyn,this))
@@ -1477,9 +1479,22 @@ public class tablerologico implements Cloneable, Serializable{
 	}
 	public void porque()
 	{
-	JOptionPane.showMessageDialog(visual, "Jaquemate");
+	String a = new String();
+	{
+		if (turno)
+		{
+			a = "blancas";
+		}
+		else
+		{
+			a = "negras";
+		}
+	}
+	JOptionPane.showMessageDialog(visual, "Jaquemate, las "+a+" han ganado.");
+	this.setFec_fin(new Date());
 	//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
 	clsBD.modificarDatoTablaBD(this);
+	visual.dispose();
 	}
 	class Timer1 implements Runnable
 	{

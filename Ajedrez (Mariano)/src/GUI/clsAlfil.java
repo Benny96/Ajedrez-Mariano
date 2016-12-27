@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -9,8 +10,10 @@ import javax.swing.ImageIcon;
 
 
 
-public class clsAlfil extends clsPieza
+public class clsAlfil extends clsPieza implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	public clsAlfil(int x, int y, Boolean color) 
 	{
 		super(x, y, color);
@@ -48,6 +51,8 @@ public class clsAlfil extends clsPieza
 		valor=300;
 
 	}
+	public clsAlfil()
+	{}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
 		influencia.clear();

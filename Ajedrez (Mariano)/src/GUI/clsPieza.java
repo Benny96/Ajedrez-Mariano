@@ -1,13 +1,17 @@
 package GUI;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
 import Comun.clsConstantes.piezas;
 
-public class clsPieza 
+public class clsPieza implements Serializable
 {
+
+	private static final long serialVersionUID = 1L;
+	
 	protected int x;
 	protected int y;
 	piezas a;
@@ -24,13 +28,12 @@ public class clsPieza
 		this.x=y;
 		this.color=color;	
 		this.primera=false;
-		
-		
 
 		movimientos= new LinkedList<clsCasilla>();
 		influencia= new LinkedList<clsCasilla>();
 	}
-	
+	public clsPieza()
+	{}
 	public clsCasilla sitio(clsCasilla[][] tablero)
 	{
 		return tablero[y][x];

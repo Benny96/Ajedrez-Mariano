@@ -2,13 +2,16 @@ package GUI;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class clsPeon extends clsPieza
+public class clsPeon extends clsPieza implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	public clsPeon(int x, int y, Boolean color) {
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
@@ -45,6 +48,8 @@ public class clsPeon extends clsPieza
 		valor=100;
 
 	}
+	public clsPeon()
+	{}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
 		influencia.clear();

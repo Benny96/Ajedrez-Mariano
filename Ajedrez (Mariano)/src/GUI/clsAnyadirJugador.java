@@ -79,19 +79,86 @@ public class clsAnyadirJugador extends JInternalFrame
 			{				
 				clsGestor objGestor=new clsGestor();
 				usus=objGestor.ListaUsuarios();
-				boolean existe = false;						
+				boolean existe = false;
+				int x = -1;
 				for(clsUsuario aux:usus)
 				{
 					if((txtNickname.getText().toUpperCase().equals(aux.getNickname()))&&(txtContrasenya.getText().equals(aux.getContraseña())
 							&&!(txtNickname.getText().toUpperCase().equals(usuactual.getNickname()))))
 					{
 						existe = true;
+						tablerovisual tab = objGestor.CargarPartida();
+//						if (tab != null && (tab.getTab().getUblanco().getNickname().compareTo(txtNickname.getText)==0)))
+						
+						if ((tab.getTab().getUblanco().getNickname().compareTo(txtNickname.getText().toUpperCase())==0) && 
+							tab.getTab().getUnigga().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0)
+						{
+						x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
+						if (x == 0)
+							{
+								tab.setVisible(true);
+							    miVentanaInterna.dispose();
+								clsEleccion.miVentana.dispose();
+							}
+							else
+							{
+								tablerovisual frame = new tablerovisual(usuactual, aux);
+							    frame.setVisible(true);
+							    miVentanaInterna.dispose();
+								clsEleccion.miVentana.dispose();
+							}
+						}
+						if ((tab.getTab().getUblanco().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0) && 
+						tab.getTab().getUnigga().getNickname().compareTo(txtNickname.getText().toUpperCase())==0)						
+						{
+						x = -1;
+						x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
+							if (x == 0)
+							{
+								tab.setVisible(true);
+							    miVentanaInterna.dispose();
+								clsEleccion.miVentana.dispose();
+							}
+							else
+							{
+								tablerovisual frame = new tablerovisual(usuactual, aux);
+							    frame.setVisible(true);
+							    miVentanaInterna.dispose();
+								clsEleccion.miVentana.dispose();
+							}
+						}
+						else
+						{
+							tablerovisual frame = new tablerovisual(usuactual, aux);
+						    frame.setVisible(true);
+						    miVentanaInterna.dispose();
+							clsEleccion.miVentana.dispose();
+						}
+//						
+//
+//						if ((tab.getTab().getUblanco().getNickname().compareTo("blanquito")==0)&& (tab.getTab().getUnigga().getNickname().compareTo("nigga")==0))
+//						{
+//							int x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
+//							if (x == 0)
+//							{
+//								tab.setVisible(true);
+//							    miVentanaInterna.dispose();
+//								clsEleccion.miVentana.dispose();
+//							}
+//							else
+//							{
+//								tablerovisual frame = new tablerovisual();
+//							    frame.setVisible(true);
+//							    miVentanaInterna.dispose();
+//								clsEleccion.miVentana.dispose();
+//							}
+//						}
 						//TODO: Añadir un constructor de Tableros que pida 2 parámetros: jugador 1 y jugador 2.
-						tablerovisual frame = new tablerovisual();
-					    frame.setVisible(true);
-					    miVentanaInterna.dispose();
-						clsEleccion.miVentana.dispose();
-					}
+//						tablerovisual frame = new tablerovisual();
+//					    frame.setVisible(true);
+//					    miVentanaInterna.dispose();
+//						clsEleccion.miVentana.dispose();
+					}			
 				}
 				if(!existe)
 				{

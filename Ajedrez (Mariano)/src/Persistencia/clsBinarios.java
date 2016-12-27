@@ -36,6 +36,7 @@ public class clsBinarios implements itfDatos {
 		switch(fichero)
 		{
 		case FICHERO_USUARIOS:  return "src/Data/usuarios.dat";
+		case FICHERO_PARTIDA: return "src/Data/partida.dat";
 		}
 		
 		

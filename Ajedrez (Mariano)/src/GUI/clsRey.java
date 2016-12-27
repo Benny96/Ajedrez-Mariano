@@ -59,6 +59,8 @@ public class clsRey extends clsPieza
 		jaque=false;
 
 	}
+	public clsRey()
+	{}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
 		LinkedList<clsCasilla> movrey=new LinkedList<clsCasilla>();

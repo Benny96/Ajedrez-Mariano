@@ -2,6 +2,7 @@ package GUI;
 
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -17,13 +18,16 @@ import javax.swing.JOptionPane;
 
 
 
+
 import Comun.clsConstantes;
 import LN.clsUsuario;
 import Persistencia.clsBD;
 
 
 
-public class tablerologico implements Cloneable{
+public class tablerologico implements Cloneable, Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	clsCasilla [][] tablero;
 	
@@ -104,14 +108,21 @@ public class tablerologico implements Cloneable{
 	selec=null;
 	
 	}
-	public tablerologico(Boolean asd, tablerovisual tablerovisual, Runnable myTimer) 
+	public tablerologico(Boolean cargado, tablerovisual tablerovisual, Runnable myTimer) 
 	{
 	/*TODO: Añadir cargado de partida. La idea sería:
 	/* if(partidarecomenzada = true)
-	 * Asignar todos los valores a usuarios, piezas, tiempo y la partida.
+	 * Asignar todos los valores a usuarios, piezas, tiempo y la partida -> O sea, asignar el tablero visual.
 	 * else
 	 * Lo que ya está escrito aquí abajo.
 	 */
+		if (cargado)
+		{
+			visual=tablerovisual;
+			//¿myTimer?
+		}
+		else
+		{
 	ganador = "";
 	clsBD.crearTablaBD(clsConstantes.PARTIDA);
 	ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
@@ -243,6 +254,7 @@ public class tablerologico implements Cloneable{
 //	{
 //	visual.repaint();
 //	}
+}
 	public tablerologico clonar(tablerologico tab)
 	{
 	tablerologico mewto = new tablerologico();

@@ -83,7 +83,7 @@ public class clsBD
 			try 
 			{
 				statement.executeUpdate("CREATE TABLE USUARIO (NICKNAME STRING NOT NULL PRIMARY KEY,"+
-										"CONTRASENYA STRING NOT NULL, FEC_ALTA STRFTIME NOT NULL,"+ 
+										"CONTRASENYA STRING NOT NULL, FEC_ALTA INTEGER(64) NOT NULL,"+ 
 										"ELO INT DEFAULT 1000, NOMBRE STRING, APELLIDO1 STRING, APELLIDO2 STRING)");
 			} 
 			catch (SQLException e1) 
@@ -96,7 +96,7 @@ public class clsBD
 			{
 				statement.executeUpdate("CREATE TABLE IF NOT EXISTS PARTIDA (ID_PARTIDA INT NOT NULL,"+
 										"USUARIO1 STRING NOT NULL, USUARIO2 STRING NOT NULL,"+
-										"DIA_COM STRFTIME NOT NULL, DIA_FIN STRFTIME, GANADOR STRING,"+
+										"DIA_COM INTEGER(64) NOT NULL, DIA_FIN INTEGER(64), GANADOR STRING,"+
 										"PRIMARY KEY (ID_PARTIDA, USUARIO1, USUARIO2))");
 			} 
 			catch (SQLException e1) 
@@ -114,7 +114,7 @@ public class clsBD
 			try 
 			{
 				statement.executeUpdate("INSERT INTO USUARIO VALUES ('"+((clsUsuario)obj).getNickname()+"','"
-						+ ((clsUsuario)obj).getContraseña()+"', strftime('%d/%m/%Y',"+((clsUsuario)obj).getFechadealta().getTime() / 1000+", 'unixepoch')"+","
+						+ ((clsUsuario)obj).getContraseña()+"',"+((clsUsuario)obj).getFechadealta().getTime()+","
 						+ ((clsUsuario)obj).getElo()+",'"+((clsUsuario)obj).getNombre()+"','"
 						+ ((clsUsuario)obj).getApellido1()+"','"+((clsUsuario)obj).getApellido2()+"')");
 			} 
@@ -128,8 +128,8 @@ public class clsBD
 				//TODO: Espero que no muera por null...
 				statement.executeUpdate("INSERT INTO PARTIDA VALUES ("+ ((tablerologico)obj).getID_partida()+",'"
 						+ ((tablerologico)obj).getUblanco().getNickname()+"','"+((tablerologico)obj).getUnigga().getNickname()+"',"
-						+" strftime('%d/%m/%Y',"+((tablerologico)obj).getFec_com().getTime() / 1000+", 'unixepoch')"+","
-						+" strftime('%d/%m/%Y',"+((tablerologico)obj).getFec_fin().getTime() / 1000+", 'unixepoch')"+",'"
+						+((tablerologico)obj).getFec_com().getTime()+","
+						+((tablerologico)obj).getFec_fin().getTime()+",'"
 						+ ((tablerologico)obj).getGanador()+"')");
 			} 
 			catch (SQLException e1) 
@@ -157,9 +157,9 @@ public class clsBD
 		if (obj instanceof tablerologico)
 			try 
 			{
-				statement.executeUpdate("UPDATE PARTIDA SET DIA_FIN ="+
-						" strftime('%d/%m/%Y',"+((tablerologico)obj).getFec_fin().getTime() / 1000+", 'unixepoch')"+","
-						+ "GANADOR = '"+((tablerologico)obj).getGanador()+"'"
+				statement.executeUpdate("UPDATE PARTIDA SET DIA_FIN ="
+						+((tablerologico)obj).getFec_fin().getTime()+","
+						+"GANADOR = '"+((tablerologico)obj).getGanador()+"'"
 						+ "WHERE ID_PARTIDA = "+((tablerologico)obj).getID_partida());
 			} 
 			catch (SQLException e1) 

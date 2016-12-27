@@ -1,6 +1,5 @@
 package GUI;
 
-
 import java.awt.Color;
 import java.io.Serializable;
 import java.sql.ResultSet;
@@ -12,20 +11,13 @@ import javax.swing.JOptionPane;
 
 
 
-
-
-
-
-
-
-
 import Comun.clsConstantes;
 import LN.clsUsuario;
 import Persistencia.clsBD;
 
 
 
-public class tablerologico implements Cloneable, Serializable{
+public class tablerologico implements Cloneable, Serializable, Comparable <tablerologico>{
 
 	private static final long serialVersionUID = 1L;
 
@@ -108,6 +100,30 @@ public class tablerologico implements Cloneable, Serializable{
 	selec=null;
 	
 	}
+//	statement.executeUpdate("CREATE TABLE IF NOT EXISTS PARTIDA (ID_PARTIDA INT NOT NULL,"+
+//	"USUARIO1 STRING NOT NULL, USUARIO2 STRING NOT NULL,"+
+//	"DIA_COM STRFTIME NOT NULL, DIA_FIN STRFTIME, GANADOR STRING,"+
+//	"PRIMARY KEY (ID_PARTIDA, USUARIO1, USUARIO2))");
+	
+//	private String nombre;
+//	private String apellido1;
+//	private String apellido2;
+//	private String nickname;
+//	private String contraseña;
+//	private int elo;
+//	private Date fechadealta;
+	
+	public tablerologico (int a, String b, String c, long d, long e, String f)
+	{
+		ID_partida = a;
+		ublanco = new clsUsuario ();
+		ublanco.setNickname(b);
+		unigga = new clsUsuario();
+		unigga.setNickname(c);
+		fec_com = new Date(d);
+		fec_fin = new Date(e);
+		ganador = f;
+	}
 	public tablerologico(Boolean cargado, tablerovisual tablerovisual, Runnable myTimer) 
 	{
 	/*TODO: Añadir cargado de partida. La idea sería:
@@ -138,7 +154,7 @@ public class tablerologico implements Cloneable, Serializable{
 		e.printStackTrace();
 	}
 	fec_com = new Date();
-	fec_fin = new Date (Long.MIN_VALUE);
+	fec_fin = new Date(new Long(0) );
 	
 	tablero= new clsCasilla[8][8];
 	
@@ -1484,10 +1500,12 @@ public class tablerologico implements Cloneable, Serializable{
 					if (turno)
 					{
 						a = "blancas";
+						this.setGanador(this.getUblanco().getNickname());
 					}
 					else
 					{
 						a = "negras";
+						this.setGanador(this.getUnigga().getNickname());
 					}
 				}
 				JOptionPane.showMessageDialog(visual, "Jaquemate, las "+a+" han ganado.");
@@ -1740,5 +1758,10 @@ public class tablerologico implements Cloneable, Serializable{
 				public void setGanador(String ganador) {
 					this.ganador = ganador;
 				}
+				public int compareTo(tablerologico arg0) 
+				{
+					return this.getID_partida()-arg0.getID_partida();
+				}
 			}
+
 			

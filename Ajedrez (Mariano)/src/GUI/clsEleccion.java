@@ -219,7 +219,9 @@ public class clsEleccion extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
+				clsHistorialPartidas frame = new clsHistorialPartidas("Historial de Partidas");
+				frame.pack();
+				frame.setVisible(true);
 			}		
 		});
 		btnDeslogear.addActionListener(new ActionListener()

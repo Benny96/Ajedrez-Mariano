@@ -1,7 +1,8 @@
-package Mariano;
+package LN;
 
 import java.awt.Image;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -9,8 +10,10 @@ import javax.swing.ImageIcon;
 
 
 
-public class clsCaballo extends clsPieza
+public class clsCaballo extends clsPieza implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	public clsCaballo(int x, int y, Boolean color) 
 	{
 		super(x, y, color);
@@ -46,6 +49,8 @@ public class clsCaballo extends clsPieza
 		
 		valor=300;
 	}
+	public clsCaballo()
+	{}
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
 		influencia.clear();

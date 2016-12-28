@@ -29,7 +29,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import Comun.clsConstantes.piezas;
+import LN.clsCasilla;
 import LN.clsGestor;
+import LN.clsPieza;
+import LN.clsRey;
+import LN.clsTorre;
 import LN.clsUsuario;
 import Persistencia.clsBD;
 
@@ -248,8 +252,8 @@ public class tablerovisual extends JFrame implements ActionListener, Serializabl
 //					StringBuffer a = new StringBuffer();
 //					a.append(textArea.getText());
 					tablerovisual tabaguardar = new tablerovisual(tab, a);
-					clsGestor objGestor = new clsGestor();
-					objGestor.GuardarPartida(tabaguardar);
+//					clsGestor objGestor = new clsGestor();
+//					objGestor.GuardarPartida(tabaguardar);
 					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.
 //					salvaProperties();  // Paso 6
 				}
@@ -352,9 +356,9 @@ public class tablerovisual extends JFrame implements ActionListener, Serializabl
 					String a = textArea.getText();
 //					StringBuffer a = new StringBuffer();
 //					a.append(textArea.getText());
-					tablerovisual tabaguardar = new tablerovisual(tab, a);
-					clsGestor objGestor = new clsGestor();
-					objGestor.GuardarPartida(tabaguardar);
+//					tablerovisual tabaguardar = new tablerovisual(tab, a);
+//					clsGestor objGestor = new clsGestor();
+//					objGestor.GuardarPartida(tabaguardar);
 					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.
 //					salvaProperties();  // Paso 6
 				}

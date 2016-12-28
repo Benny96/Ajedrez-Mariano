@@ -1,6 +1,7 @@
-package GUI;
+package LN;
 import java.awt.Image;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -10,12 +11,15 @@ import javax.swing.ImageIcon;
 
 
 
+
 import Comun.clsConstantes;
 import Comun.clsConstantes.piezas;
 
 
-public class clsRey extends clsPieza
+public class clsRey extends clsPieza implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	Boolean jaque;
 	
 	public clsRey(int x, int y, boolean color)
@@ -161,30 +165,31 @@ public class clsRey extends clsPieza
 		if(t2-1>-1 && tablero[t1][t2-1].getOcupado()==null || t2-1>-1 && tablero[t1][t2-1].getOcupado()!=null && tablero[t1][t2-1].getOcupado().getColor().equals(this.getColor()==false))
 		{
 			this.movimientos.add(tablero[t1][t2-1]);
-//			try
-//			{
-//			if(this.primera==false && t2-2>-1 && tablero[t1][t2-2].getOcupado()==null   && t2-3>-1 && tablero[t1][t2-3].getOcupado()!=null && ((clsTorre)tablero[t1][t2-3].getOcupado()).primera==false)
-//			{
-//				this.movimientos.add(tablero[t1][t2-2]);
-//			}
-//			}catch(ClassCastException e)
-//			{
-//				
-//			}
+			try
+			{
+			if(this.primera==false && t2-2>-1 && tablero[t1][t2-2].getOcupado()==null   && t2-3>-1 && tablero[t1][t2-3].getOcupado()!=null && ((clsTorre)tablero[t1][t2-3].getOcupado()).primera==false)
+			{
+				this.movimientos.add(tablero[t1][t2-2]);
+			}
+			}catch(ClassCastException e)
+			{
+				
+			}
 		}
 		if(t2+1<8 && tablero[t1][t2+1].getOcupado()==null || t2+1<8 && tablero[t1][t2+1].getOcupado()!=null && tablero[t1][t2+1].getOcupado().getColor().equals(this.getColor()==false))
 		{
 			this.movimientos.add(tablero[t1][t2+1]);
-//			try
-//			{
-//			if(this.primera==false && t2+2<8 && tablero[t1][t2+2].getOcupado()==null && t2+3<8 && tablero[t1][t2+3].getOcupado()==null && t2+4<8 && tablero[t1][t2+4].getOcupado()!=null && ((clsTorre)tablero[t1][t2+4].getOcupado()).primera==false)
-//			{
-//				this.movimientos.add(tablero[t1][t2+2]);
-//			}
-//			}catch(ClassCastException e)
-//			{
-//				
-//			}
+			try
+			{
+			if(this.primera==false && t2+2<8 && tablero[t1][t2+2].getOcupado()==null && t2+3<8 && tablero[t1][t2+3].getOcupado()==null && t2+4<8 && tablero[t1][t2+4].getOcupado()!=null && ((clsTorre)tablero[t1][t2+4].getOcupado()).primera==false)
+			{
+				this.movimientos.add(tablero[t1][t2+2]);
+			}
+			}catch(ClassCastException e)
+			{
+				
+			}
 		}	
 	}
 }
+

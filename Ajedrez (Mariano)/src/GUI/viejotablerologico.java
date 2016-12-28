@@ -6,6 +6,14 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
+import LN.clsAlfil;
+import LN.clsCaballo;
+import LN.clsCasilla;
+import LN.clsPeon;
+import LN.clsPieza;
+import LN.clsReina;
+import LN.clsRey;
+import LN.clsTorre;
 import LN.clsUsuario;
 
 public class viejotablerologico implements Cloneable{

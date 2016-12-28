@@ -1,21 +1,27 @@
-package Unopauno;
+package LN;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
 
+import Mariano.TableroLogicoMariano;
+import Unopauno.TableroLogico1v1;
 import Comun.clsConstantes.piezas;
+import GUI.tablerologico;
 
-public class clsPieza 
+public class clsPieza implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	protected int x;
 	protected int y;
-	piezas a;
+	public piezas a;
 	private Boolean color; //True--> blanco ///  False--> negro
 	private ImageIcon icon;
 	protected LinkedList<clsCasilla> movimientos;
 	protected LinkedList<clsCasilla> influencia;
-	protected Boolean primera;
+	public Boolean primera;
 	int valor;
 	
 	public clsPieza(int x, int y, Boolean color)
@@ -24,12 +30,13 @@ public class clsPieza
 		this.x=y;
 		this.color=color;	
 		this.primera=false;
-		
-		
 
 		movimientos= new LinkedList<clsCasilla>();
 		influencia= new LinkedList<clsCasilla>();
 	}
+	
+	public clsPieza()
+	{}
 	
 	public clsCasilla sitio(clsCasilla[][] tablero)
 	{
@@ -145,7 +152,128 @@ public class clsPieza
 		return letra+(this.getY()+1);
 		
 	}
-	public clsPieza clonar(clsPieza pieza,tablerologico tab)
+	public clsPieza clonarTab1v1(clsPieza pieza,TableroLogico1v1 tab)
+	{
+		//mejorar rey,torre atributos especiales
+		clsCasilla [][] tablerete=tab.getTablero();
+		if(pieza instanceof clsPeon)
+		{
+			clsPeon a=new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsTorre)
+		{
+			clsTorre a=new clsTorre(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsCaballo)
+		{
+			clsCaballo a=new clsCaballo(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsAlfil)
+		{
+			clsAlfil a=new clsAlfil(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsRey)
+		{
+			clsRey a=new clsRey(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsReina)
+		{
+			clsReina a=new clsReina(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}	
+		return null;
+	}
+	public clsPieza clonarTabMariano(clsPieza pieza,TableroLogicoMariano tab)
+	{
+		//mejorar rey,torre atributos especiales
+		clsCasilla [][] tablerete=tab.getTablero();
+		if(pieza instanceof clsPeon)
+		{
+			clsPeon a=new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsTorre)
+		{
+			clsTorre a=new clsTorre(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsCaballo)
+		{
+			clsCaballo a=new clsCaballo(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsAlfil)
+		{
+			clsAlfil a=new clsAlfil(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsRey)
+		{
+			clsRey a=new clsRey(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsReina)
+		{
+			clsReina a=new clsReina(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}	
+		return null;
+	}
+	//TODO: He puesto este para que el tablerologico en el GUI no se me queje. Es el que se borrará, pero quiero hacer cambios antes.
+	public clsPieza clonartablerologico(clsPieza pieza,tablerologico tab)
 	{
 		//mejorar rey,torre atributos especiales
 		clsCasilla [][] tablerete=tab.getTablero();

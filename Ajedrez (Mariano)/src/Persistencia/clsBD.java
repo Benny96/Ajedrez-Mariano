@@ -9,7 +9,7 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 import Comun.clsConstantes;
-import GUI.tablerologico;
+import Unopauno.TableroLogico1v1;
 import LN.clsUsuario;
 
 public class clsBD 
@@ -122,15 +122,15 @@ public class clsBD
 			{
 				e1.printStackTrace();
 			}
-		if (obj instanceof tablerologico)
+		if (obj instanceof TableroLogico1v1)
 			try 
 			{
 				//TODO: Espero que no muera por null...
-				statement.executeUpdate("INSERT INTO PARTIDA VALUES ("+ ((tablerologico)obj).getID_partida()+",'"
-						+ ((tablerologico)obj).getUblanco().getNickname()+"','"+((tablerologico)obj).getUnigga().getNickname()+"',"
-						+((tablerologico)obj).getFec_com().getTime()+","
-						+((tablerologico)obj).getFec_fin().getTime()+",'"
-						+ ((tablerologico)obj).getGanador()+"')");
+				statement.executeUpdate("INSERT INTO PARTIDA VALUES ("+ ((TableroLogico1v1)obj).getID_partida()+",'"
+						+ ((TableroLogico1v1)obj).getUblanco().getNickname()+"','"+((TableroLogico1v1)obj).getUnigga().getNickname()+"',"
+						+((TableroLogico1v1)obj).getFec_com().getTime()+","
+						+((TableroLogico1v1)obj).getFec_fin().getTime()+",'"
+						+ ((TableroLogico1v1)obj).getGanadorString()+"')");
 			} 
 			catch (SQLException e1) 
 			{
@@ -154,13 +154,13 @@ public class clsBD
 			{
 				e1.printStackTrace();
 			}
-		if (obj instanceof tablerologico)
+		if (obj instanceof TableroLogico1v1)
 			try 
 			{
 				statement.executeUpdate("UPDATE PARTIDA SET DIA_FIN ="
-						+((tablerologico)obj).getFec_fin().getTime()+","
-						+"GANADOR = '"+((tablerologico)obj).getGanador()+"'"
-						+ "WHERE ID_PARTIDA = "+((tablerologico)obj).getID_partida());
+						+((TableroLogico1v1)obj).getFec_fin().getTime()+","
+						+"GANADOR = '"+((TableroLogico1v1)obj).getGanadorString()+"'"
+						+ "WHERE ID_PARTIDA = "+((TableroLogico1v1)obj).getID_partida());
 			} 
 			catch (SQLException e1) 
 			{

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import Comun.clsConstantes.enFicDatos;
-import GUI.tablerovisual;
+import Unopauno.TableroVisual1v1;
 import LN.clsUsuario;
 import Persistencia.clsBinarios;
 
@@ -71,16 +71,15 @@ public class clsGestor implements Serializable
 	return false;
 	
 	}
-	public void GuardarPartida(tablerovisual tabaguardar)
+	public void GuardarPartida(TableroVisual1v1 tabaguardar)
 	{	
-		
 		clsBinarios objDatos=new clsBinarios();
 	
 		objDatos.ComenzarSave(enFicDatos.FICHERO_PARTIDA);
 		objDatos.Save(tabaguardar);
 		objDatos.TerminarSave();
 	}
-	public tablerovisual CargarPartida()
+	public TableroVisual1v1 CargarPartida()
 	{	
 		ArrayList <Serializable> guardado = new ArrayList <Serializable>();
 		clsBinarios objDatos=new clsBinarios();
@@ -90,11 +89,11 @@ public class clsGestor implements Serializable
 		} 
 		catch (IOException e) 
 		{}
-		tablerovisual tabacargar = new tablerovisual();
+		TableroVisual1v1 tabacargar = new TableroVisual1v1();
 		guardado = objDatos.Read();
 		if (guardado.size()>0)
 		{
-			tabacargar = (tablerovisual)guardado.get(0);
+			tabacargar = (TableroVisual1v1)guardado.get(0);
 		}
 		objDatos.TerminarSave();
 		return tabacargar;

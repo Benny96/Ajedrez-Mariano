@@ -33,18 +33,26 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
+
+
+
+import LN.clsCasilla;
+import LN.clsPieza;
+import LN.clsRey;
+import LN.clsTorre;
 import LN.clsUsuario;
 
 import javax.swing.JTextArea;
 
-public class tablerovisual extends JFrame implements ActionListener
+public class TableroVisualMariano extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1L;
 	
 	JPanel pPrincipal;
 	clsCasilla [][] tablero;
 	
-	tablerologico tab;
+	TableroLogicoMariano tab;
 	
 	JLabel blanquito;
 	JLabel nigga;
@@ -91,7 +99,7 @@ public class tablerovisual extends JFrame implements ActionListener
 
 	clsPieza selec;
 	
-	public tablerovisual() 
+	public TableroVisualMariano() 
 	{
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,7 +109,7 @@ public class tablerovisual extends JFrame implements ActionListener
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
 		
-		tab= new tablerologico(true,this,myTimer);
+		tab= new TableroLogicoMariano(true,this,myTimer);
 		
 		
 		tablero= tab.getTablero();
@@ -222,7 +230,7 @@ public class tablerovisual extends JFrame implements ActionListener
 		
 		
 	}	
-	public tablerovisual(tablerologico tablerete) {
+	public TableroVisualMariano(TableroLogicoMariano tablerete) {
 		
 		// TODO Auto-generated constructor stub
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

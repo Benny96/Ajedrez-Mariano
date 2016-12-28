@@ -11,7 +11,25 @@ import javax.swing.JOptionPane;
 
 
 
+
+
+
+
+
+
+
+
+
 import Comun.clsConstantes;
+import LN.clsAlfil;
+import LN.clsCaballo;
+import LN.clsCasilla;
+import LN.clsJugada;
+import LN.clsPeon;
+import LN.clsPieza;
+import LN.clsReina;
+import LN.clsRey;
+import LN.clsTorre;
 import LN.clsUsuario;
 import Persistencia.clsBD;
 
@@ -281,23 +299,23 @@ public class tablerologico implements Cloneable, Serializable, Comparable <table
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyb((clsRey) paux.clonar(tab.getReyb(),tab));
+	mewto.setReyb((clsRey) paux.clonartablerologico(tab.getReyb(),tab));
 	mewto.getPblancas().add(mewto.getReyb());
 	}
 	else
 	{
-	mewto.getPblancas().add(paux.clonar(paux,tab));
+	mewto.getPblancas().add(paux.clonartablerologico(paux,tab));
 	}
 	}
 	for(clsPieza paux: tab.getPnegras())
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyn((clsRey) paux.clonar(tab.getReyn(),tab));
+	mewto.setReyn((clsRey) paux.clonartablerologico(tab.getReyn(),tab));
 	mewto.getPnegras().add(mewto.getReyn());
 	}
 	else{
-	mewto.getPnegras().add(paux.clonar(paux,tab));
+	mewto.getPnegras().add(paux.clonartablerologico(paux,tab));
 	}
 	}
 	
@@ -678,7 +696,7 @@ public class tablerologico implements Cloneable, Serializable, Comparable <table
 //			System.out.println("putos blanquitoooooooooooooooooooooooooooooooooooooos");
 			for(clsPieza blanca: tab.getPblancas())
 			{
-			clsPieza clon=blanca.clonar(blanca, tab);
+			clsPieza clon=blanca.clonartablerologico(blanca, tab);
 //			System.out.println(blanca.getClass());
 //			System.out.println("original "+blanca);
 //			System.out.println("clon "+clon);
@@ -789,7 +807,7 @@ public class tablerologico implements Cloneable, Serializable, Comparable <table
 			for(clsPieza p: tab.getPblancas())
 			{
 			if(p instanceof clsRey)
-			tab.setReyb((clsRey) p.clonar(p,this));
+			tab.setReyb((clsRey) p.clonartablerologico(p,this));
 			}
 			//System.out.println("aaaaaaaaaaaaablancoooooooo");
 			if(comprobarjaque(tab.getReyb(),tab))
@@ -802,7 +820,7 @@ public class tablerologico implements Cloneable, Serializable, Comparable <table
 			for(clsPieza p: tab.getPnegras())
 			{
 			if(p instanceof clsRey)
-			tab.setReyn((clsRey) p.clonar(p,this));
+			tab.setReyn((clsRey) p.clonartablerologico(p,this));
 			}
 			//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanegroooooooooooo");
 			if(comprobarjaque(tab.getReyn(),tab))

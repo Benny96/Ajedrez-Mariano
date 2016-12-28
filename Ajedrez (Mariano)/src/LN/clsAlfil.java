@@ -1,4 +1,4 @@
-package GUI;
+package LN;
 
 import java.awt.Image;
 import java.io.IOException;
@@ -10,25 +10,22 @@ import javax.swing.ImageIcon;
 
 
 
-public class clsTorre extends clsPieza implements Serializable
+public class clsAlfil extends clsPieza implements Serializable
 {
-
 	private static final long serialVersionUID = 1L;
 	
-	Boolean primera;
-	
-	public clsTorre(int x, int y, Boolean color) 
+	public clsAlfil(int x, int y, Boolean color) 
 	{
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
-		this.a=Comun.clsConstantes.piezas.Torre;
+		this.a=Comun.clsConstantes.piezas.Alfil;
+		influencia= new LinkedList<clsCasilla>();
 		
-		valor=500;
-		primera=false;
+		valor=300;
 		if(color)
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/img/torre_b.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/Alfil_b.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -38,134 +35,138 @@ public class clsTorre extends clsPieza implements Serializable
 		else
 		{
 			try {
-				Image img = ImageIO.read(getClass().getResource("/img/torre_n.png"));
+				Image img = ImageIO.read(getClass().getResource("/img/Alfil_n.png"));
 				this.setIcon(new ImageIcon(img));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
 	}
-	public clsTorre(int x, int y, Boolean color,Boolean na) {
+	
+	public clsAlfil(int x, int y, Boolean color,Boolean na) {
 		super(x, y, color);
 		// TODO Auto-generated constructor stub
-		this.a=Comun.clsConstantes.piezas.Peon;
-		
-		valor=500;
+		this.a=Comun.clsConstantes.piezas.Alfil;
+		valor=300;
+
 	}
-	public clsTorre ()
+	public clsAlfil()
 	{}
+	
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
 		influencia.clear();
-
 		int t1=this.getY();
 		int t2=this.getX();
+		
 		do
 		{
 		
-			if((t1+1)==8)
+			if((t1+1)==8 || (t2+1)==8 )
 				break;
 			t1++;
-		
+			t2++;
+			
 			if(tablero[t1][t2].getOcupado()==null)
 			{
-				influencia.add(tablero[t1][t2]);
+				this.influencia.add(tablero[t1][t2]);
 			}
 			else
 			{
 				
-					influencia.add(tablero[t1][t2]);
+					this.influencia.add(tablero[t1][t2]);
 				break;
 			}
 		}while(true);
 		
 		
-		
-		
 		t1=this.getY();
 		t2=this.getX();
-		
 		do
 		{
-			if(t1-1==-1)
+		
+			if((t1+1)==8 || (t2-1)==-1 )
 				break;
-			
-			t1--;
+			t1++;
+			t2--;
 			
 			if(tablero[t1][t2].getOcupado()==null)
 			{
-				influencia.add(tablero[t1][t2]);
+				this.influencia.add(tablero[t1][t2]);
 			}
 			else
 			{
 				
-					influencia.add(tablero[t1][t2]);
+					this.influencia.add(tablero[t1][t2]);
+				
 				break;
 			}
+		}while(true);
+		
+		t1=this.getY();
+		t2=this.getX();
+		do
+		{
+		
+			if((t1-1)== -1|| (t2-1)==-1 )
+				break;
+			t1--;
+			t2--;
 			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.influencia.add(tablero[t1][t2]);
+			}
+			else
+			{
+				
+					this.influencia.add(tablero[t1][t2]);
+				
+				break;
+			}
 		}while(true);
 		
 		
 		t1=this.getY();
 		t2=this.getX();
-			do
+		do
+		{
+		
+			if((t1-1)== -1|| (t2+1)==8 )
+				break;
+			t1--;
+			t2++;
+			
+			if(tablero[t1][t2].getOcupado()==null)
 			{
-				if(t2+1==8)
-					break;
-				t2++;
-				
-				if(tablero[t1][t2].getOcupado()==null)
-				{
-					influencia.add(tablero[t1][t2]);
-				}
-				else
-				{
-						influencia.add(tablero[t1][t2]);
-					
-					break;
-				}
-				
-			}while(true);	
-			
-			
-			
-			t1=this.getY();
-			t2=this.getX();
-			
-			do
+				this.influencia.add(tablero[t1][t2]);
+			}
+			else
 			{
-				if(t2-1==-1)
-					break;
-				t2--;
 				
-				if(tablero[t1][t2].getOcupado()==null)
-				{
-					influencia.add(tablero[t1][t2]);
-				}
-				else
-				{
-						influencia.add(tablero[t1][t2]);
-					
-					break;
-				}
-			}while(true);
+					this.influencia.add(tablero[t1][t2]);
+				
+				break;
+			}
+		}while(true);
+		
 		return influencia;
 	}
 	public void mov(clsCasilla[][] tablero)
 	{
 		movimientos.clear();
-
 		int t1=this.getY();
 		int t2=this.getX();
+		
 		do
 		{
 		
-			if((t1+1)==8)
+			if((t1+1)==8 || (t2+1)==8 )
 				break;
 			t1++;
-		
+			t2++;
+			
 			if(tablero[t1][t2].getOcupado()==null)
 			{
 				this.movimientos.add(tablero[t1][t2]);
@@ -181,17 +182,15 @@ public class clsTorre extends clsPieza implements Serializable
 		}while(true);
 		
 		
-		
-		
 		t1=this.getY();
 		t2=this.getX();
-		
 		do
 		{
-			if(t1-1==-1)
+		
+			if((t1+1)==8 || (t2-1)==-1 )
 				break;
-			
-			t1--;
+			t1++;
+			t2--;
 			
 			if(tablero[t1][t2].getOcupado()==null)
 			{
@@ -205,59 +204,57 @@ public class clsTorre extends clsPieza implements Serializable
 				}
 				break;
 			}
+		}while(true);
+		
+		t1=this.getY();
+		t2=this.getX();
+		do
+		{
+		
+			if((t1-1)== -1|| (t2-1)==-1 )
+				break;
+			t1--;
+			t2--;
 			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.movimientos.add(tablero[t1][t2]);
+			}
+			else
+			{
+				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				break;
+			}
 		}while(true);
 		
 		
 		t1=this.getY();
 		t2=this.getX();
-			do
-			{
-				if(t2+1==8)
-					break;
-				t2++;
-				
-				if(tablero[t1][t2].getOcupado()==null)
-				{
-					this.movimientos.add(tablero[t1][t2]);
-				}
-				else
-				{
-					if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
-					{
-						this.movimientos.add(tablero[t1][t2]);
-					}
-					break;
-				}
-				
-			}while(true);	
-			
-			
-			
-			t1=this.getY();
-			t2=this.getX();
-			
-			do
-			{
-				if(t2-1==-1)
-					break;
-				t2--;
-				
-				if(tablero[t1][t2].getOcupado()==null)
-				{
-					this.movimientos.add(tablero[t1][t2]);
-				}
-				else
-				{
-					if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
-					{
-						this.movimientos.add(tablero[t1][t2]);
-					}
-					break;
-				}
-			}while(true);
+		do
+		{
 		
-	
+			if((t1-1)== -1|| (t2+1)==8 )
+				break;
+			t1--;
+			t2++;
+			
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				this.movimientos.add(tablero[t1][t2]);
+			}
+			else
+			{
+				if(tablero[t1][t2].getOcupado().getColor().equals(this.getColor())==false)
+				{
+					this.movimientos.add(tablero[t1][t2]);
+				}
+				break;
+			}
+		}while(true);
+		
+		
 	}
-
 }

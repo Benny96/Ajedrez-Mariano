@@ -1,4 +1,4 @@
-package GUI;
+package LN;
 
 import java.awt.Image;
 import java.io.IOException;

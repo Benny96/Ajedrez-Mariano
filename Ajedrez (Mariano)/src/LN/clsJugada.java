@@ -1,11 +1,11 @@
-package Unopauno;
+package LN;
 
 
 public class clsJugada {
 	
-	clsCasilla cfinal;
-	clsPieza pieza;
-	int valor;
+	public clsCasilla cfinal;
+	public clsPieza pieza;
+	public int valor;
 	
 	public clsJugada(clsPieza pieza,clsCasilla cfinal)
 	{

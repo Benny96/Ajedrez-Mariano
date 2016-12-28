@@ -1,5 +1,7 @@
-package GUI;
+package LN;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 import java.io.Serializable;
@@ -8,9 +10,9 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import Comun.OcupadoException;
-
 
 public class clsCasilla extends JButton implements Serializable
 {
@@ -21,7 +23,7 @@ public class clsCasilla extends JButton implements Serializable
 		private int y;
 		
 		public Boolean mov;
-		Boolean provisional;
+		public Boolean provisional;
 		public clsCasilla(int a,int b)
 		{
 			super();
@@ -33,7 +35,7 @@ public class clsCasilla extends JButton implements Serializable
 		}
 		public clsCasilla ()
 		{}
-	//	
+		
 		public clsPieza getOcupado() {
 			
 				return pieza;
@@ -50,6 +52,7 @@ public class clsCasilla extends JButton implements Serializable
 			pieza.setX(this.x);
 			}catch(NullPointerException e)
 			{
+				
 				this.pieza = null;
 				mov=false;
 				this.setIcon(null);
@@ -141,6 +144,13 @@ public class clsCasilla extends JButton implements Serializable
 			if (y != other.y)
 				return false;
 			return true;
+		}
+		@Override
+		protected void paintComponent(Graphics g) {
+			// TODO Auto-generated method stub
+			super.paintComponent(g);
+			
+			
 		}
 	
 }

@@ -1,64 +1,47 @@
 package Unopauno;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
-
-
-
-
-
-
-
-
-
-
+import GUI.clsEleccion;
+import Unopauno.TableroLogico1v1;
+import LN.clsCasilla;
+import LN.clsGestor;
+import LN.clsPieza;
+import LN.clsRey;
+import LN.clsTorre;
 import LN.clsUsuario;
+import Persistencia.clsBD;
 
-import javax.swing.JTextArea;
-
-public class tablerovisual extends JFrame implements ActionListener
+public class TableroVisual1v1 extends JFrame implements ActionListener, Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
 	JPanel pPrincipal;
 	clsCasilla [][] tablero;
 	
-	tablerologico tab;
+	TableroLogico1v1 tab;
 	
 	JLabel blanquito;
 	JLabel nigga;
 	
 	JLabel ntiempo;
-	
-	JList asd;
 
 	public LinkedList<clsPieza> pblancas;
 	public LinkedList<clsPieza> pnegras;
@@ -77,8 +60,6 @@ public class tablerovisual extends JFrame implements ActionListener
 	
 	Boolean turno;
 	
-	private Runnable myTimer;
-	
 	int nmin;
 	int nseg;
 	private String nstr;
@@ -88,34 +69,45 @@ public class tablerovisual extends JFrame implements ActionListener
 	private String bstr;
 
 	JLabel btiempo;
-	
-
-	//private JLabel btiempo;
-	
-	private JTextArea textArea; 
-	private JLabel lblTextArea;
-	private JScrollPane scroll;
 
 	SimpleTableDemo tabla;
 	
 	clsPieza selec;
 	
-	public tablerovisual() 
+	public TableroVisual1v1() 
 	{
+		tab= new TableroLogico1v1();
+		tab.setUblanco(new clsUsuario("","","","",""));
+		tab.setUnigga(new clsUsuario("","","","",""));
+	}
+	public TableroVisual1v1 (clsUsuario a, clsUsuario b)
+	{
+		tab= new TableroLogico1v1(false,this);
+		tab.setUblanco(a);
+		tab.setUnigga(b);
+		clsBD.insertarDatoTablaBD(tab);
+		CreateAndShowGUI();
+	}
+	public TableroVisual1v1 (TableroLogico1v1 tablog, Object [][] a)
+	{
+		tab = new TableroLogico1v1(true,this);
+		tab = tablog;
+		tabla = new SimpleTableDemo();
+		tabla.createTable(a);
+		CreateAndShowGUI();
+	}
 	
+	public void CreateAndShowGUI ()
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1100, 720);
+		setBounds(0, 0, 700, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
-		
-		tab= new tablerologico(true,this);
-		
-		
+				
 		tablero= tab.getTablero();
 		
-
 		bseg=tab.getBseg();
 		bmin=tab.getBmin();
 		
@@ -156,7 +148,7 @@ public class tablerovisual extends JFrame implements ActionListener
 		{
 			for(int j=0;j<8;j++)
 			{
-				//tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+				tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 					tablero[i][j].setBackground(Color.WHITE);
 				else
@@ -207,71 +199,82 @@ public class tablerovisual extends JFrame implements ActionListener
 		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(btiempo);
 		
-		
-		
-//		textArea = new JTextArea();
-//		pPrincipal.add(textArea);
-//		
-//		lblTextArea = new JLabel("Movimientos: ");
-//		lblTextArea.setFont(lblTextArea.getFont ().deriveFont (18.0f));
-//		lblTextArea.setBounds(744, 69, 241, 51);
-//		pPrincipal.add(lblTextArea);
-//
-//		scroll = new JScrollPane();
-//		scroll.setBounds(727, 136, 300, 460);
-//		pPrincipal.add(scroll);
-//		scroll.setViewportView(textArea);
-		
-		tabla= new SimpleTableDemo();
+		if (tabla == null)
+		{
+			tabla= new SimpleTableDemo();
+			tabla.createTable(tabla.data);
+		}
 		tabla.setBounds(744, 69, 241, 500);
 		pPrincipal.add(tabla);
 		//Nota sobre la escritura: no es del todo correcta( no manifiesta  jaques o jaquemates
 		//y cuando come el peón está mal
-
 		
-		
-	}	
-	public tablerovisual(tablerologico tablerete) {
-		
-		// TODO Auto-generated constructor stub
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1360, 720);
-		pPrincipal = new JPanel();
-		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(pPrincipal);
-		pPrincipal.setLayout(null);
-		clsCasilla[][] ctablero = tablerete.getTablero();
-		
-		for(clsPieza aux: tablerete.getPblancas())
+		//TODO: Entra aquí cuando no se ha cerrado esta ventana...
+		addWindowListener( new WindowAdapter() 
 		{
-			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
-		}
-		for(clsPieza aux:tablerete.getPnegras())
-		{
-			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
-		}
-		
-		
-		for(int i=0;i<8;i++)
-		{
-			for(int j=0;j<8;j++)
+			@Override
+			public void windowClosing(WindowEvent e) 
 			{
-				ctablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
-				if((i+j)%2==0)
-					ctablero[i][j].setBackground(Color.WHITE);
-				else
-					ctablero[i][j].setBackground(Color.GRAY);			
-				
-				ctablero[i][j].setBounds(500-j*60, 540-i*60, 60, 60);
-				ctablero[i][j].addActionListener(this);
-				pPrincipal.add(ctablero[i][j]);
-				
+				int x = -1;
+				x = JOptionPane.showConfirmDialog(null,"¿Deseas guardar la partida antes de volver al menú?", "Guardar la partida", JOptionPane.YES_NO_OPTION);
+				if (x == 0)
+				{
+					TableroVisual1v1 tabaguardar = new TableroVisual1v1(tab, tabla.data);
+					clsGestor objGestor = new clsGestor();
+					objGestor.GuardarPartida(tabaguardar);
+					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.
+//					salvaProperties();  // Paso 6
+				}
+				clsEleccion menu = new clsEleccion(tab.getUblanco());
+				menu.setVisible(true);
+				dispose();		
 			}
-		}
-		
-		
-		pPrincipal.repaint();
+		});
 	}
+	
+	
+	
+//	public TableroVisual1v1(TableroLogico1v1 tablerete) {
+//		
+//		// TODO Auto-generated constructor stub
+//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		setBounds(0, 0, 1360, 720);
+//		pPrincipal = new JPanel();
+//		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
+//		setContentPane(pPrincipal);
+//		pPrincipal.setLayout(null);
+//		clsCasilla[][] ctablero = tablerete.getTablero();
+//		
+//		for(clsPieza aux: tablerete.getPblancas())
+//		{
+//			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
+//		}
+//		for(clsPieza aux:tablerete.getPnegras())
+//		{
+//			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
+//		}
+//		
+//		
+//		for(int i=0;i<8;i++)
+//		{
+//			for(int j=0;j<8;j++)
+//			{
+//				ctablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+//				if((i+j)%2==0)
+//					ctablero[i][j].setBackground(Color.WHITE);
+//				else
+//					ctablero[i][j].setBackground(Color.GRAY);			
+//				
+//				ctablero[i][j].setBounds(500-j*60, 540-i*60, 60, 60);
+//				ctablero[i][j].addActionListener(this);
+//				pPrincipal.add(ctablero[i][j]);
+//				
+//			}
+//		}
+//		
+//		
+//		pPrincipal.repaint();
+//	}
 	public void actionPerformed(ActionEvent arg) {
 		// TODO Auto-generated method stub
 		
@@ -329,14 +332,17 @@ public class tablerovisual extends JFrame implements ActionListener
 		
 		
 		this.repaint();
-		
-		
 			
 	}
 	
 	public void porque()
 	{
 		
+	}
+	public TableroLogico1v1 getTab ()
+	{
+		return tab;
+
 	}
 	class Timer1 implements Runnable
 	{
@@ -359,20 +365,19 @@ public class tablerovisual extends JFrame implements ActionListener
 			}
 			porque();
 		}
-	
 	}
 	
-	class SimpleTableDemo extends JPanel {
+	class SimpleTableDemo extends JPanel{
 	   
-	    Object[][] data;
-	 
-	    public SimpleTableDemo() {
+		private static final long serialVersionUID = 1L;
+		
+		Object[][] data;
+		 String[] columnNames = {"Blanco",
+				                 "Negro",
+				                 };
+	    public SimpleTableDemo() 
+	    {
 	        super(new GridLayout(1,0));
-	 
-	        String[] columnNames = {"Blanco",
-	                                "Negro",
-	                                };
-	 
 	        data= new Object[100][2];
 //	        Object[][] data = {
 //	                {"Kathy", "Smith",
@@ -386,7 +391,10 @@ public class tablerovisual extends JFrame implements ActionListener
 //	                {"Joe", "Brown",
 //	                 "Pool", new Integer(10), new Boolean(false)}
 //	                };
-	 
+	    }
+	    public void createTable (Object [][]a)
+	    {
+	    	data = a;
 	        final JTable table = new JTable(data, columnNames);
 	        table.setPreferredScrollableViewportSize(new Dimension(200, 500));
 	        table.setFillsViewportHeight(true);

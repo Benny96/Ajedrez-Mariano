@@ -6,16 +6,20 @@ import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-
-
-
-
-
+import LN.clsAlfil;
+import LN.clsCaballo;
+import LN.clsCasilla;
+import LN.clsJugada;
+import LN.clsPeon;
+import LN.clsPieza;
+import LN.clsReina;
+import LN.clsRey;
+import LN.clsTorre;
 import LN.clsUsuario;
 
 
 
-public class tablerologico implements Cloneable{
+public class TableroLogicoMariano implements Cloneable{
 
 	clsCasilla [][] tablero;
 	
@@ -43,7 +47,7 @@ public class tablerologico implements Cloneable{
 	
 	Boolean turno;
 	
-	 tablerovisual visual;
+	 TableroVisualMariano visual;
 	//private Runnable myTimer;
 	
 	int nmin;
@@ -69,7 +73,7 @@ public class tablerologico implements Cloneable{
 
 	private clsReina reinan;
 	
-	public tablerologico()
+	public TableroLogicoMariano()
 	{
 	tablero= new clsCasilla[8][8];
 	
@@ -90,12 +94,12 @@ public class tablerologico implements Cloneable{
 	selec=null;
 	
 	}
-	public tablerologico(Boolean asd, tablerovisual tablerovisual, Runnable myTimer) 
+	public TableroLogicoMariano(Boolean asd, TableroVisualMariano TableroVisualMariano, Runnable myTimer) 
 	{
 	
 	tablero= new clsCasilla[8][8];
 	
-	visual=tablerovisual;
+	visual=TableroVisualMariano;
 	
 	
 	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
@@ -205,32 +209,32 @@ public class tablerologico implements Cloneable{
 //	{
 //	visual.repaint();
 //	}
-	public tablerologico clonar(tablerologico tab)
+	public TableroLogicoMariano clonar(TableroLogicoMariano tab)
 	{
-	tablerologico mewto = new tablerologico();
+	TableroLogicoMariano mewto = new TableroLogicoMariano();
 	
 	
 	for(clsPieza paux: tab.getPblancas())
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyb((clsRey) paux.clonar(tab.getReyb(),tab));
+	mewto.setReyb((clsRey) paux.clonarTabMariano(tab.getReyb(),tab));
 	mewto.getPblancas().add(mewto.getReyb());
 	}
 	else
 	{
-	mewto.getPblancas().add(paux.clonar(paux,tab));
+	mewto.getPblancas().add(paux.clonarTabMariano(paux,tab));
 	}
 	}
 	for(clsPieza paux: tab.getPnegras())
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyn((clsRey) paux.clonar(tab.getReyn(),tab));
+	mewto.setReyn((clsRey) paux.clonarTabMariano(tab.getReyn(),tab));
 	mewto.getPnegras().add(mewto.getReyn());
 	}
 	else{
-	mewto.getPnegras().add(paux.clonar(paux,tab));
+	mewto.getPnegras().add(paux.clonarTabMariano(paux,tab));
 	}
 	}
 	
@@ -280,7 +284,7 @@ public class tablerologico implements Cloneable{
 	borrar.clear();
 	}
 	
-	public void revisar(clsJugada jugada,tablerologico tab)
+	public void revisar(clsJugada jugada,TableroLogicoMariano tab)
 	{
 	LinkedList<clsPieza> todas = new LinkedList<clsPieza>();
 	
@@ -306,7 +310,7 @@ public class tablerologico implements Cloneable{
 		System.out.println("pasoooooooo");
 	for(clsPieza pieza: todas)
 	{
-		clsPieza hola=pieza.clonar(pieza, tab);
+		clsPieza hola=pieza.clonarTabMariano(pieza, tab);
 	for(clsCasilla casilla: hola.getMovimientos())
 	{
 		if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
@@ -320,7 +324,7 @@ public class tablerologico implements Cloneable{
 	}
 	
 	
-	public boolean jaquematen(tablerologico tab)
+	public boolean jaquematen(TableroLogicoMariano tab)
 	{
 	//tablerologico tablerete=clonar(this);
 	
@@ -334,7 +338,7 @@ public class tablerologico implements Cloneable{
 	
 	return true;
 	}
-	public boolean jaquemateb(tablerologico tab)
+	public boolean jaquemateb(TableroLogicoMariano tab)
 	{
 	
 	for(clsPieza paux: tab.pblancas)
@@ -349,7 +353,7 @@ public class tablerologico implements Cloneable{
 	return true;
 	}
 	
-	public Boolean comprobarjaque(clsRey rey,tablerologico tab)
+	public Boolean comprobarjaque(clsRey rey,TableroLogicoMariano tab)
 
 	
 	{
@@ -400,7 +404,7 @@ public class tablerologico implements Cloneable{
 	
 	//LinkedList<clsCasilla> candidatos=legales(p,this);
 	
-	clsPieza xc= p.clonar(p, this);
+	clsPieza xc= p.clonarTabMariano(p, this);
 	for(clsCasilla caux: xc.getMovimientos())
 	{
 //	System.out.println("candidatos "+ caux);
@@ -462,11 +466,11 @@ public class tablerologico implements Cloneable{
 //	}
 	
 	}
-	public int Valorar(clsJugada jugada,tablerologico tablero, int numero)
+	public int Valorar(clsJugada jugada,TableroLogicoMariano tablero, int numero)
 
 	{
 	
-	tablerologico tab=new tablerologico();
+	TableroLogicoMariano tab=new TableroLogicoMariano();
 	tab=clonar(tablero);
 	clsCasilla [][] tabaux=tab.getTablero();
 	
@@ -613,7 +617,7 @@ public class tablerologico implements Cloneable{
 //	System.out.println("putos blanquitoooooooooooooooooooooooooooooooooooooos");
 	for(clsPieza blanca: tab.getPblancas())
 	{
-	clsPieza clon=blanca.clonar(blanca, tab);
+	clsPieza clon=blanca.clonarTabMariano(blanca, tab);
 //	System.out.println(blanca.getClass());
 //	System.out.println("original "+blanca);
 //	System.out.println("clon "+clon);
@@ -710,7 +714,7 @@ public class tablerologico implements Cloneable{
 	}
 	}
 	
-	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,tablerologico tab)
+	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,TableroLogicoMariano tab)
 	{
 	clsCasilla[][] tablero=tab.getTablero();
 	
@@ -724,7 +728,7 @@ public class tablerologico implements Cloneable{
 	for(clsPieza p: tab.getPblancas())
 	{
 	if(p instanceof clsRey)
-	tab.setReyb((clsRey) p.clonar(p,this));
+	tab.setReyb((clsRey) p.clonarTabMariano(p,this));
 	}
 	//System.out.println("aaaaaaaaaaaaablancoooooooo");
 	if(comprobarjaque(tab.getReyb(),tab))
@@ -737,7 +741,7 @@ public class tablerologico implements Cloneable{
 	for(clsPieza p: tab.getPnegras())
 	{
 	if(p instanceof clsRey)
-	tab.setReyn((clsRey) p.clonar(p,this));
+	tab.setReyn((clsRey) p.clonarTabMariano(p,this));
 	}
 	//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanegroooooooooooo");
 	if(comprobarjaque(tab.getReyn(),tab))
@@ -1034,7 +1038,7 @@ public class tablerologico implements Cloneable{
 	}
 	
 	
-	public LinkedList<clsCasilla> rlegales(clsPieza pieza,tablerologico tab) {
+	public LinkedList<clsCasilla> rlegales(clsPieza pieza,TableroLogicoMariano tab) {
 	// TODO Auto-generated method stub
 	
 	//System.out.println(pieza.getClass());
@@ -1195,7 +1199,7 @@ public class tablerologico implements Cloneable{
 
 	}
 
-	public LinkedList<clsCasilla> legales(clsPieza pieza,tablerologico tab) {
+	public LinkedList<clsCasilla> legales(clsPieza pieza,TableroLogicoMariano tab) {
 	// TODO Auto-generated method stub
 	
 	//System.out.println(pieza.getClass());

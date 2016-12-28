@@ -2,22 +2,31 @@ package Unopauno;
 
 
 import java.awt.Color;
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
-
-
-
-
-
-
+import Comun.clsConstantes;
 import GUI.clsEleccion;
+import LN.clsAlfil;
+import LN.clsCaballo;
+import LN.clsCasilla;
+import LN.clsJugada;
+import LN.clsPeon;
+import LN.clsPieza;
+import LN.clsReina;
+import LN.clsRey;
+import LN.clsTorre;
 import LN.clsUsuario;
+import Persistencia.clsBD;
 
+public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <TableroLogico1v1>{
 
-
-public class tablerologico implements Cloneable{
+	private static final long serialVersionUID = 1L;
 
 	clsCasilla [][] tablero;
 	
@@ -28,6 +37,11 @@ public class tablerologico implements Cloneable{
 //	
 //	JList asd;
 
+	private int ID_partida;
+	private Date fec_com;
+	private Date fec_fin;
+	private String ganadorString;
+	
 	public LinkedList<clsPieza> pblancas;
 	public LinkedList<clsPieza> pnegras;
 	LinkedList<clsCasilla> movact;
@@ -45,8 +59,7 @@ public class tablerologico implements Cloneable{
 	
 	Boolean turno;
 	
-	 tablerovisual visual;
-	//private Runnable myTimer;
+	TableroVisual1v1 visual;
 	
 	int nmin;
 	int nseg;
@@ -70,13 +83,13 @@ public class tablerologico implements Cloneable{
 
 	private clsReina reinab;
 	
-	Runnable reloj;
+	transient Runnable reloj;
 
 	private clsReina reinan;
 	
 	int num=0;
 	
-	public tablerologico()
+	public TableroLogico1v1()
 	{
 	tablero= new clsCasilla[8][8];
 	
@@ -97,116 +110,155 @@ public class tablerologico implements Cloneable{
 	selec=null;
 	
 	}
-	public tablerologico(Boolean asd, tablerovisual tablerovisual) 
+	public TableroLogico1v1 (int a, String b, String c, long d, long e, String f)
 	{
-	
-	tablero= new clsCasilla[8][8];
-	
-	System.out.println("pasoo");
-	
-	visual=tablerovisual;
-	
-	
-	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
-	unigga= new clsUsuario("nigga","b","b","nigga","b");
-	
-	jaquemate=false;
-	
-	for(int i=0;i<8;i++)
-	{
-	for(int j=0;j<8;j++)
-	{
-	tablero[i][j]=new clsCasilla(i, j);	
-	
+		ID_partida = a;
+		ublanco = new clsUsuario ();
+		ublanco.setNickname(b);
+		unigga = new clsUsuario();
+		unigga.setNickname(c);
+		fec_com = new Date(d);
+		fec_fin = new Date(e);
+		ganadorString = f;
 	}
-	}
-	
-	turno=true;
-	
-	pblancas= new LinkedList<clsPieza>();
-	pnegras= new LinkedList<clsPieza>();
-	movact= new LinkedList<clsCasilla>();
-	
-	reyb=new clsRey(0,3,true);
-	reyn=new clsRey(7,3,false);
-	
-	reinab=new clsReina(0,4,true);
-	reinan=new clsReina(7,4,false);
-	
-	btorrei=new clsTorre(0,7,true);
-	btorred=new clsTorre(0,0,true);
-	ntorrei=new clsTorre(7,7,false);
-	ntorred=new clsTorre(7,0,false);
-
-	pblancas.add(btorred);
-	pblancas.add(new clsCaballo(0,1,true));
-	pblancas.add(new clsAlfil(0,2,true));
-	pblancas.add(reyb);
-	pblancas.add(reinab);
-	pblancas.add(new clsAlfil(0,5,true));
-	pblancas.add(new clsCaballo(0,6,true));
-	pblancas.add(btorrei);
-	
-	pblancas.add(new clsPeon(1,0,true));
-	pblancas.add(new clsPeon(1,1,true));
-	pblancas.add(new clsPeon(1,2,true));
-	pblancas.add(new clsPeon(1,3,true));
-	pblancas.add(new clsPeon(1,4,true));
-	pblancas.add(new clsPeon(1,5,true));
-	pblancas.add(new clsPeon(1,6,true));
-	pblancas.add(new clsPeon(1,7,true));
-	
-	pnegras.add(ntorred);
-	pnegras.add(new clsCaballo(7,1,false));
-	pnegras.add(new clsAlfil(7,2,false));
-	pnegras.add(reyn);
-	//pnegras.add(new clsReina(5,2,false));
-	pnegras.add(reinan);
-	pnegras.add(new clsAlfil(7,5,false));
-	//pnegras.add(new clsAlfil(4,5,false));
-	pnegras.add(new clsCaballo(7,6,false));
-	pnegras.add(ntorrei);
-	
-	pnegras.add(new clsPeon(6,0,false));
-	pnegras.add(new clsPeon(6,1,false));
-	pnegras.add(new clsPeon(6,2,false));
-	pnegras.add(new clsPeon(6,3,false));
-	pnegras.add(new clsPeon(6,4,false));
-	pnegras.add(new clsPeon(6,5,false));
-	pnegras.add(new clsPeon(6,6,false));
-	pnegras.add(new clsPeon(6,7,false));
-	
-	for(clsPieza aux: pblancas)
+	public TableroLogico1v1(Boolean cargado, TableroVisual1v1 TableroVisual1v1) 
 	{
-	tablero[aux.getY()][aux.getX()].setOcupado(aux);
-	}
-	for(clsPieza aux: pnegras)
-	{
-	tablero[aux.getY()][aux.getX()].setOcupado(aux);
-	}
-	
-	for(clsPieza aux: pblancas)
-	{
-	aux.setMovimientos(legales(aux,this));
-	}
-	for(clsPieza aux: pnegras)
-	{
-		aux.setMovimientos(legales(aux,this));
-	}
-	
-	nmin=10;
-	nseg = 00;
-	nstr = String.format("%d:%02d", nmin, nseg);
-	
-	bmin=10;
-	bseg = 00;
-	bstr = String.format("%d:%02d", bmin, bseg);
-	
-	
-	reloj = new Timer1();
-	
-	Thread a= new Thread (reloj);
-	a.start();
+		/*TODO: Añadir cargado de partida. La idea sería:
+		/* if(partidarecomenzada = true)
+		 * Asignar todos los valores a usuarios, piezas, tiempo y la partida -> O sea, asignar el tablero visual.
+		 * else
+		 * Lo que ya está escrito aquí abajo.
+		 */
+			if (cargado)
+			{
+				visual=TableroVisual1v1;
+			}
+			else
+			{
+			ganadorString = "";
+			clsBD.crearTablaBD(clsConstantes.PARTIDA);
+			ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
+			try 
+			{
+				while (rs.next())
+				{
+					ID_partida++;
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+			fec_com = new Date();
+			fec_fin = new Date(new Long(0) );
+			tablero= new clsCasilla[8][8];
+			
+			System.out.println("pasoo");
+			
+			visual=TableroVisual1v1;
+			
+			
+			ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
+			unigga= new clsUsuario("nigga","b","b","nigga","b");
+			
+			jaquemate=false;
+			
+			for(int i=0;i<8;i++)
+			{
+			for(int j=0;j<8;j++)
+			{
+			tablero[i][j]=new clsCasilla(i, j);	
+			
+			}
+			}
+			
+			turno=true;
+			
+			pblancas= new LinkedList<clsPieza>();
+			pnegras= new LinkedList<clsPieza>();
+			movact= new LinkedList<clsCasilla>();
+			
+			reyb=new clsRey(0,3,true);
+			reyn=new clsRey(7,3,false);
+			
+			reinab=new clsReina(0,4,true);
+			reinan=new clsReina(7,4,false);
+			
+			btorrei=new clsTorre(0,7,true);
+			btorred=new clsTorre(0,0,true);
+			ntorrei=new clsTorre(7,7,false);
+			ntorred=new clsTorre(7,0,false);
+		
+			pblancas.add(btorred);
+			pblancas.add(new clsCaballo(0,1,true));
+			pblancas.add(new clsAlfil(0,2,true));
+			pblancas.add(reyb);
+			pblancas.add(reinab);
+			pblancas.add(new clsAlfil(0,5,true));
+			pblancas.add(new clsCaballo(0,6,true));
+			pblancas.add(btorrei);
+			
+			pblancas.add(new clsPeon(1,0,true));
+			pblancas.add(new clsPeon(1,1,true));
+			pblancas.add(new clsPeon(1,2,true));
+			pblancas.add(new clsPeon(1,3,true));
+			pblancas.add(new clsPeon(1,4,true));
+			pblancas.add(new clsPeon(1,5,true));
+			pblancas.add(new clsPeon(1,6,true));
+			pblancas.add(new clsPeon(1,7,true));
+			
+			pnegras.add(ntorred);
+			pnegras.add(new clsCaballo(7,1,false));
+			pnegras.add(new clsAlfil(7,2,false));
+			pnegras.add(reyn);
+			//pnegras.add(new clsReina(5,2,false));
+			pnegras.add(reinan);
+			pnegras.add(new clsAlfil(7,5,false));
+			//pnegras.add(new clsAlfil(4,5,false));
+			pnegras.add(new clsCaballo(7,6,false));
+			pnegras.add(ntorrei);
+			
+			pnegras.add(new clsPeon(6,0,false));
+			pnegras.add(new clsPeon(6,1,false));
+			pnegras.add(new clsPeon(6,2,false));
+			pnegras.add(new clsPeon(6,3,false));
+			pnegras.add(new clsPeon(6,4,false));
+			pnegras.add(new clsPeon(6,5,false));
+			pnegras.add(new clsPeon(6,6,false));
+			pnegras.add(new clsPeon(6,7,false));
+			
+			for(clsPieza aux: pblancas)
+			{
+			tablero[aux.getY()][aux.getX()].setOcupado(aux);
+			}
+			for(clsPieza aux: pnegras)
+			{
+			tablero[aux.getY()][aux.getX()].setOcupado(aux);
+			}
+			
+			for(clsPieza aux: pblancas)
+			{
+			aux.setMovimientos(legales(aux,this));
+			}
+			for(clsPieza aux: pnegras)
+			{
+				aux.setMovimientos(legales(aux,this));
+			}
+			
+			nmin=10;
+			nseg = 00;
+			nstr = String.format("%d:%02d", nmin, nseg);
+			
+			bmin=10;
+			bseg = 00;
+			bstr = String.format("%d:%02d", bmin, bseg);
+			
+			
+			reloj = new Timer1();
+			
+			Thread a= new Thread (reloj);
+			a.start();
+			}
 	}	
 	
 
@@ -214,32 +266,32 @@ public class tablerologico implements Cloneable{
 //	{
 //	visual.repaint();
 //	}
-	public tablerologico clonar(tablerologico tab)
+	public TableroLogico1v1 clonar(TableroLogico1v1 tab)
 	{
-	tablerologico mewto = new tablerologico();
+	TableroLogico1v1 mewto = new TableroLogico1v1();
 	
 	
 	for(clsPieza paux: tab.getPblancas())
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyb((clsRey) paux.clonar(tab.getReyb(),tab));
+	mewto.setReyb((clsRey) paux.clonarTab1v1(tab.getReyb(),tab));
 	mewto.getPblancas().add(mewto.getReyb());
 	}
 	else
 	{
-	mewto.getPblancas().add(paux.clonar(paux,tab));
+	mewto.getPblancas().add(paux.clonarTab1v1(paux,tab));
 	}
 	}
 	for(clsPieza paux: tab.getPnegras())
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyn((clsRey) paux.clonar(tab.getReyn(),tab));
+	mewto.setReyn((clsRey) paux.clonarTab1v1(tab.getReyn(),tab));
 	mewto.getPnegras().add(mewto.getReyn());
 	}
 	else{
-	mewto.getPnegras().add(paux.clonar(paux,tab));
+	mewto.getPnegras().add(paux.clonarTab1v1(paux,tab));
 	}
 	}
 	
@@ -289,7 +341,7 @@ public class tablerologico implements Cloneable{
 	borrar.clear();
 	}
 	
-	public void revisar(clsJugada jugada,tablerologico tab)
+	public void revisar(clsJugada jugada,TableroLogico1v1 tab)
 	{
 	LinkedList<clsPieza> todas = new LinkedList<clsPieza>();
 	
@@ -315,7 +367,7 @@ public class tablerologico implements Cloneable{
 		System.out.println("pasoooooooo");
 	for(clsPieza pieza: todas)
 	{
-		clsPieza hola=pieza.clonar(pieza, tab);
+		clsPieza hola=pieza.clonarTab1v1(pieza, tab);
 	for(clsCasilla casilla: hola.getMovimientos())
 	{
 		if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
@@ -329,7 +381,7 @@ public class tablerologico implements Cloneable{
 	}
 	
 	
-	public boolean jaquematen(tablerologico tab)
+	public boolean jaquematen(TableroLogico1v1 tab)
 	{
 	//tablerologico tablerete=clonar(this);
 	
@@ -343,7 +395,7 @@ public class tablerologico implements Cloneable{
 	
 	return true;
 	}
-	public boolean jaquemateb(tablerologico tab)
+	public boolean jaquemateb(TableroLogico1v1 tab)
 	{
 	
 	for(clsPieza paux: tab.pblancas)
@@ -358,7 +410,7 @@ public class tablerologico implements Cloneable{
 	return true;
 	}
 	
-	public Boolean comprobarjaque(clsRey rey,tablerologico tab)
+	public Boolean comprobarjaque(clsRey rey,TableroLogico1v1 tab)
 
 	
 	{
@@ -378,7 +430,7 @@ public class tablerologico implements Cloneable{
 	{
 //	if(paux instanceof clsReina)
 //	{
-//	System.out.println("ASDFGHJKLOIUYTREWAZXCVBNM;");
+//	System.out.println("FGHJKLOIUYTREWAZXCVBNM;");
 //	}
 	paux.mov(tablero);
 	for(clsCasilla caux: paux.getMovimientos())
@@ -409,7 +461,7 @@ public class tablerologico implements Cloneable{
 	
 	//LinkedList<clsCasilla> candidatos=legales(p,this);
 	
-	clsPieza xc= p.clonar(p, this);
+	clsPieza xc= p.clonarTab1v1(p, this);
 	for(clsCasilla caux: xc.getMovimientos())
 	{
 //	System.out.println("candidatos "+ caux);
@@ -471,11 +523,11 @@ public class tablerologico implements Cloneable{
 //	}
 	
 	}
-	public int Valorar(clsJugada jugada,tablerologico tablero, int numero)
+	public int Valorar(clsJugada jugada,TableroLogico1v1 tablero, int numero)
 
 	{
 	
-	tablerologico tab=new tablerologico();
+	TableroLogico1v1 tab=new TableroLogico1v1();
 	tab=clonar(tablero);
 	clsCasilla [][] tabaux=tab.getTablero();
 	
@@ -622,7 +674,7 @@ public class tablerologico implements Cloneable{
 //	System.out.println("putos blanquitoooooooooooooooooooooooooooooooooooooos");
 	for(clsPieza blanca: tab.getPblancas())
 	{
-	clsPieza clon=blanca.clonar(blanca, tab);
+	clsPieza clon=blanca.clonarTab1v1(blanca, tab);
 //	System.out.println(blanca.getClass());
 //	System.out.println("original "+blanca);
 //	System.out.println("clon "+clon);
@@ -719,7 +771,7 @@ public class tablerologico implements Cloneable{
 	}
 	}
 	
-	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,tablerologico tab)
+	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,TableroLogico1v1 tab)
 	{
 	clsCasilla[][] tablero=tab.getTablero();
 	
@@ -733,7 +785,7 @@ public class tablerologico implements Cloneable{
 	for(clsPieza p: tab.getPblancas())
 	{
 	if(p instanceof clsRey)
-	tab.setReyb((clsRey) p.clonar(p,this));
+	tab.setReyb((clsRey) p.clonarTab1v1(p,this));
 	}
 	//System.out.println("aaaaaaaaaaaaablancoooooooo");
 	if(comprobarjaque(tab.getReyb(),tab))
@@ -746,7 +798,7 @@ public class tablerologico implements Cloneable{
 	for(clsPieza p: tab.getPnegras())
 	{
 	if(p instanceof clsRey)
-	tab.setReyn((clsRey) p.clonar(p,this));
+	tab.setReyn((clsRey) p.clonarTab1v1(p,this));
 	}
 	//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanegroooooooooooo");
 	if(comprobarjaque(tab.getReyn(),tab))
@@ -1144,7 +1196,7 @@ public class tablerologico implements Cloneable{
 	}
 	
 	
-	public LinkedList<clsCasilla> rlegales(clsPieza pieza,tablerologico tab) {
+	public LinkedList<clsCasilla> rlegales(clsPieza pieza,TableroLogico1v1 tab) {
 	// TODO Auto-generated method stub
 	
 	//System.out.println(pieza.getClass());
@@ -1305,7 +1357,7 @@ public class tablerologico implements Cloneable{
 
 	}
 
-	public LinkedList<clsCasilla> legales(clsPieza pieza,tablerologico tab) {
+	public LinkedList<clsCasilla> legales(clsPieza pieza,TableroLogico1v1 tab) {
 	// TODO Auto-generated method stub
 	
 	//System.out.println(pieza.getClass());
@@ -1549,6 +1601,9 @@ public class tablerologico implements Cloneable{
 	{
 	//Calcular elo y pasarlo a base de datos
 		JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+		this.setFec_fin(new Date());
+		//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+		clsBD.modificarDatoTablaBD(this);
 		clsEleccion ventanaEleccion = new clsEleccion(ublanco);
 		ventanaEleccion.setVisible(true);
 		visual.dispose();
@@ -1764,5 +1819,42 @@ public class tablerologico implements Cloneable{
 
 	public void setUblanco(clsUsuario ublanco) {
 	this.ublanco = ublanco;
+	}
+	public int getID_partida() 
+	{
+		return ID_partida;
+	}
+	public void setID_partida(int iD_partida) 
+	{
+		ID_partida = iD_partida;
+	}
+	public Date getFec_com() 
+	{
+		return fec_com;
+	}
+	public void setFec_com(Date fec_com) {
+		
+		this.fec_com = fec_com;
+	}
+	public Date getFec_fin() 
+	{
+		return fec_fin;
+	}
+	public void setFec_fin(Date fec_fin) 
+	{
+		this.fec_fin = fec_fin;
+	}
+	
+	
+	public String getGanadorString() {
+		return ganadorString;
+	}
+	public void setGanadorString(String ganador) {
+		this.ganadorString = ganador;
+	}
+	@Override
+	public int compareTo(TableroLogico1v1 arg0) 
+	{
+		return this.getID_partida()-arg0.getID_partida();
 	}
 }

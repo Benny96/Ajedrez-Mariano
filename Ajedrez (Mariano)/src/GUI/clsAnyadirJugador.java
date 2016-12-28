@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import LN.clsGestor;
 import LN.clsUsuario;
+import Unopauno.TableroVisual1v1;
 
 public class clsAnyadirJugador extends JInternalFrame
 {
@@ -87,8 +88,7 @@ public class clsAnyadirJugador extends JInternalFrame
 							&&!(txtNickname.getText().toUpperCase().equals(usuactual.getNickname()))))
 					{
 						existe = true;
-						tablerovisual tab = objGestor.CargarPartida();
-//						if (tab != null && (tab.getTab().getUblanco().getNickname().compareTo(txtNickname.getText)==0)))
+						TableroVisual1v1 tab = objGestor.CargarPartida();
 						
 						if ((tab.getTab().getUblanco().getNickname().compareTo(txtNickname.getText().toUpperCase())==0) && 
 							tab.getTab().getUnigga().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0)
@@ -102,7 +102,7 @@ public class clsAnyadirJugador extends JInternalFrame
 							}
 							else
 							{
-								tablerovisual frame = new tablerovisual(usuactual, aux);
+								TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 							    frame.setVisible(true);
 							    miVentanaInterna.dispose();
 								clsEleccion.miVentana.dispose();
@@ -121,7 +121,7 @@ public class clsAnyadirJugador extends JInternalFrame
 							}
 							else
 							{
-								tablerovisual frame = new tablerovisual(usuactual, aux);
+								TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 							    frame.setVisible(true);
 							    miVentanaInterna.dispose();
 								clsEleccion.miVentana.dispose();
@@ -129,35 +129,11 @@ public class clsAnyadirJugador extends JInternalFrame
 						}
 						else
 						{
-							tablerovisual frame = new tablerovisual(usuactual, aux);
+							TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 						    frame.setVisible(true);
 						    miVentanaInterna.dispose();
 							clsEleccion.miVentana.dispose();
 						}
-//						
-//
-//						if ((tab.getTab().getUblanco().getNickname().compareTo("blanquito")==0)&& (tab.getTab().getUnigga().getNickname().compareTo("nigga")==0))
-//						{
-//							int x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
-//							if (x == 0)
-//							{
-//								tab.setVisible(true);
-//							    miVentanaInterna.dispose();
-//								clsEleccion.miVentana.dispose();
-//							}
-//							else
-//							{
-//								tablerovisual frame = new tablerovisual();
-//							    frame.setVisible(true);
-//							    miVentanaInterna.dispose();
-//								clsEleccion.miVentana.dispose();
-//							}
-//						}
-						//TODO: Añadir un constructor de Tableros que pida 2 parámetros: jugador 1 y jugador 2.
-//						tablerovisual frame = new tablerovisual();
-//					    frame.setVisible(true);
-//					    miVentanaInterna.dispose();
-//						clsEleccion.miVentana.dispose();
 					}			
 				}
 				if(!existe)

@@ -3,6 +3,8 @@ package GUI;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 
@@ -14,7 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
+import LN.clsGestor;
 import LN.clsUsuario;
+import Persistencia.clsBD;
+import Unopauno.TableroVisual1v1;
 
 public class clsEleccion extends JFrame
 {
@@ -235,5 +240,13 @@ public class clsEleccion extends JFrame
 				frame.setVisible(true);
 			}
 		});
+		addWindowListener( new WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				clsBD.close();
+			}
+		});	
 	}
 }

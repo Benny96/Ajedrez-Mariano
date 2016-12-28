@@ -212,6 +212,67 @@ public class clsPieza implements Serializable
 		}	
 		return null;
 	}
+	
+	public clsPieza clonar(clsPieza pieza,Mariano.tablerologico1 tab)
+	{
+		//mejorar rey,torre atributos especiales
+		clsCasilla [][] tablerete=tab.getTablero();
+		if(pieza instanceof clsPeon)
+		{
+			clsPeon a=new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsTorre)
+		{
+			clsTorre a=new clsTorre(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsCaballo)
+		{
+			clsCaballo a=new clsCaballo(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsAlfil)
+		{
+			clsAlfil a=new clsAlfil(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsRey)
+		{
+			clsRey a=new clsRey(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}
+		if(pieza instanceof clsReina)
+		{
+			clsReina a=new clsReina(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			for(clsCasilla s: pieza.movimientos)
+			{
+				a.movimientos.add(tablerete[s.gety()][s.gety()]);
+			}
+			return (a);
+		}	
+		return null;
+	}
 	public clsPieza clonarTabMariano(clsPieza pieza,TableroLogicoMariano tab)
 	{
 		//mejorar rey,torre atributos especiales

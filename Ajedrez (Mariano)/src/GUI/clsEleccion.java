@@ -18,6 +18,8 @@ import javax.swing.JRadioButton;
 
 import LN.clsGestor;
 import LN.clsUsuario;
+import Mariano.TableroVisualMariano;
+import Mariano.tablerovisual1;
 import Persistencia.clsBD;
 import Unopauno.TableroVisual1v1;
 
@@ -171,24 +173,25 @@ public class clsEleccion extends JFrame
 			{
 				if(rdbtnMarianoFacil.isSelected())
 				{
+					System.out.println("dfghjklñ");
 					//TODO: Redirigir a tablero de dificultad fácil. Veo añadir un constructor tipo clsTablero(jugador, dificultad).
-					tablerovisual frame = new tablerovisual();
-		            frame.setVisible(true);
+					//tablerovisual1 frame = new tablerovisual1();
+		            //frame.setVisible(true);
 		            miVentana.dispose();
 				}
 				if(rdbtnMarianoMedio.isSelected())
 				{
 					//TODO: Redirigir a tablero de dificultad media.
-					tablerovisual frame = new tablerovisual();
-		            frame.setVisible(true);
-		            miVentana.dispose();
+//					tablerovisual frame = new tablerovisual();
+//		            frame.setVisible(true);
+//		            miVentana.dispose();
 				}
 				if(rdbtnMarianoDificil.isSelected())
 				{
 					//TODO: Redirigir a tablero de dificultad difícil.
-					tablerovisual frame = new tablerovisual();
-		            frame.setVisible(true);
-		            miVentana.dispose();
+//					tablerovisual frame = new tablerovisual();
+//		            frame.setVisible(true);
+//		            miVentana.dispose();
 				}
 			}	
 		});	

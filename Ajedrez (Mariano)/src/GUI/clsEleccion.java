@@ -175,8 +175,8 @@ public class clsEleccion extends JFrame
 				{
 					System.out.println("dfghjklñ");
 					//TODO: Redirigir a tablero de dificultad fácil. Veo añadir un constructor tipo clsTablero(jugador, dificultad).
-					//tablerovisual1 frame = new tablerovisual1();
-		            //frame.setVisible(true);
+					tablerovisual1 frame = new tablerovisual1();
+		            frame.setVisible(true);
 		            miVentana.dispose();
 				}
 				if(rdbtnMarianoMedio.isSelected())

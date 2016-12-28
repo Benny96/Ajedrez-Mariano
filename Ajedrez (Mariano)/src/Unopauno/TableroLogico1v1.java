@@ -132,6 +132,9 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			if (cargado)
 			{
 				visual=TableroVisual1v1;
+				reloj = new Timer1();
+				Thread a= new Thread (reloj);
+				a.start();
 			}
 			else
 			{

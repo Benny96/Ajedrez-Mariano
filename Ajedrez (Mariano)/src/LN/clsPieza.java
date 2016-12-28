@@ -351,7 +351,7 @@ public class clsPieza implements Serializable
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		if(obj.getClass().equals(this.getClass())&& this.x==((clsPieza)obj).x &&  this.y==((clsPieza)obj).y )
+		if(obj.getClass().equals(this.getClass())&& this.x==((clsPieza)obj).x &&  this.y==((clsPieza)obj).y &&  this.color==((clsPieza)obj).color )
 			return true;
 		else 
 			return false;

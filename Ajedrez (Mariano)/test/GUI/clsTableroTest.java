@@ -2,13 +2,79 @@ package GUI;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
-public class clsTableroTest {
+import LN.clsCaballo;
+import LN.clsPeon;
+import LN.clsPieza;
+import LN.clsTorre;
+import Unopauno.TableroLogico1v1;
+import Unopauno.TableroVisual1v1;
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
+public class clsTableroTest {
+	
+	private TableroVisual1v1 tv;
+	private TableroLogico1v1 tl;
+
+	clsPieza peon1=new clsPeon(1, 0, true);//Blanco
+	clsPieza peon2=new clsPeon(1, 0, false);//Negro
+	
+	clsPieza peon3=new clsPeon(1, 1, true);
+	clsPieza cab=new clsCaballo(5, 5, false);
+
+	@Before
+	public void setUp() throws Exception 
+	{
+		tv=new TableroVisual1v1();
+		tl=new TableroLogico1v1();
+		tl.pblancas.add(peon1);
 	}
+	
+	
+	
+	
+	//Este test es realmente malo.
+	@Test
+	public void comprobar_posicion() 
+	{
+		assertEquals(peon1, tl.getPblancas().get(0));
+	}
+	
+	
+	
+	@Test
+	public void mirar_si_son_diferentes()
+	{
+		assertNotEquals(peon1, peon2);//Para hacer esto he añadido una condición de colores en el equals de clsPieza
+		assertNotEquals(peon1, peon3);
+		assertNotEquals(peon3, peon2);
+		
+		clsPieza peon4=new clsTorre(1, 0, true); //Lo pongo con los mismos atributos que el peon1, pero es una torre
+		assertNotEquals(peon1, peon4);
+
+
+	}
+	@Test
+	public void mirar_si_cambia_el_color()
+	{
+		peon1.setColor(false);
+		assertEquals(peon1, peon2);
+	}
+	
+	@Test
+	public void mirar_si_cambia_la_posicion()
+	{
+		peon1.setX(1);
+		assertEquals(peon1, peon3);
+	}
+
+	//Este creo que debería dar error pero no da
+//	@Test
+//	public void mirar_si_se_salen_del_tablero()
+//	{
+//		peon1.setY(9);
+//	}
+	
 
 }

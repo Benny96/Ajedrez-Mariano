@@ -132,7 +132,7 @@ public class tablerologico1 implements Cloneable{
 	
 	
 	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
-	unigga= new clsUsuario("nigga","b","b","nigga","b");
+	unigga= new clsUsuario("nigga","b","b","Mariano","b");
 	
 	jaquemate=false;
 	
@@ -155,6 +155,7 @@ public class tablerologico1 implements Cloneable{
 	reyn=new clsRey(7,3,false);
 	
 	reinab=new clsReina(0,4,true);
+	//reinab=new clsReina(2,2,true);
 	reinan=new clsReina(7,4,false);
 	
 	btorrei=new clsTorre(0,7,true);
@@ -168,6 +169,7 @@ public class tablerologico1 implements Cloneable{
 	pblancas.add(reyb);
 	pblancas.add(reinab);
 	pblancas.add(new clsAlfil(0,5,true));
+	//pblancas.add(new clsAlfil(3,5,true));
 	pblancas.add(new clsCaballo(0,6,true));
 	pblancas.add(btorrei);
 	
@@ -184,10 +186,10 @@ public class tablerologico1 implements Cloneable{
 	pnegras.add(new clsCaballo(7,1,false));
 	pnegras.add(new clsAlfil(7,2,false));
 	pnegras.add(reyn);
-	//pnegras.add(new clsReina(5,2,false));
+	pnegras.add(new clsReina(5,2,false));
 	pnegras.add(reinan);
 	pnegras.add(new clsAlfil(7,5,false));
-	//pnegras.add(new clsAlfil(4,5,false));
+	pnegras.add(new clsAlfil(4,5,false));
 	pnegras.add(new clsCaballo(7,6,false));
 	pnegras.add(ntorrei);
 	
@@ -1580,7 +1582,7 @@ public class tablerologico1 implements Cloneable{
 	}
 	System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 	repain();
-	porque();
+	//porque();
 //	repain();
 //	porque();
 	}

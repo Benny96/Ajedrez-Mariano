@@ -171,7 +171,7 @@ public class clsRey extends clsPieza implements Serializable
 			{
 				this.movimientos.add(tablero[t1][t2-2]);
 			}
-			}catch(ClassCastException e)
+			}catch(ClassCastException|NullPointerException e)
 			{
 				
 			}
@@ -185,7 +185,7 @@ public class clsRey extends clsPieza implements Serializable
 			{
 				this.movimientos.add(tablero[t1][t2+2]);
 			}
-			}catch(ClassCastException e)
+			}catch(ClassCastException|NullPointerException e)
 			{
 				
 			}

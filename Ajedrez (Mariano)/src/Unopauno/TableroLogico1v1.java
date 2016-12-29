@@ -2,12 +2,15 @@ package Unopauno;
 
 
 import java.awt.Color;
+import java.io.File;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
 import Comun.clsConstantes;
@@ -1603,13 +1606,28 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	public void porque()
 	{
 	//Calcular elo y pasarlo a base de datos
-		JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
-		this.setFec_fin(new Date());
-		//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
-		clsBD.modificarDatoTablaBD(this);
-		clsEleccion ventanaEleccion = new clsEleccion(ublanco);
-		ventanaEleccion.setVisible(true);
-		visual.dispose();
+//		JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+		try 
+		  {
+		   File file = new File("src/audio/Presidente_Rajoy-_Viva_el_vino_.wav");  
+		   Clip clip = AudioSystem.getClip();
+		   clip.open(AudioSystem.getAudioInputStream(file));
+		   clip.start();
+		   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+		   if (!clip.isActive())
+		   {
+			   throw new Exception();
+		   }
+		  } 
+		catch (Exception e) 
+		{
+			this.setFec_fin(new Date());
+			//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+			clsBD.modificarDatoTablaBD(this);
+			clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+			ventanaEleccion.setVisible(true);
+			visual.dispose();
+		}
 	}
 	class Timer1 implements Runnable
 	{

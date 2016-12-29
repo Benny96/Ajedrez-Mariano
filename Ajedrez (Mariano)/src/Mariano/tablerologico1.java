@@ -3,10 +3,14 @@ package Mariano;
 
 
 import java.awt.Color;
+import java.io.File;
 import java.util.Date;
 import java.util.LinkedList;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
+
 
 
 
@@ -1496,8 +1500,34 @@ public class tablerologico1 implements Cloneable{
 	public void porque()
 	{
 		JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
-		//this.setFec_fin(new Date());
-		//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+		if (ganador.getNickname().compareTo("Mariano")==0)
+		{
+			try 
+			  {
+			   File file = new File("src/audio/Presidente_Rajoy-_Viva_el_vino_.wav");  
+			   Clip clip = AudioSystem.getClip();
+			   clip.open(AudioSystem.getAudioInputStream(file));
+			   clip.start();
+			   Thread.sleep(clip.getMicrosecondLength());
+			  } catch (Exception e) {
+			   System.err.println(e.getMessage());
+			  }
+		}
+		else
+		{
+			try 
+			  {
+			   File file = new File("src/audio/Rajoy_-_La_segunda_ya_tal.wav");  
+			   Clip clip = AudioSystem.getClip();
+			   clip.open(AudioSystem.getAudioInputStream(file));
+			   clip.start();
+			   Thread.sleep(clip.getMicrosecondLength());
+			  } catch (Exception e) {
+			   System.err.println(e.getMessage());
+			  }
+		}
+//		this.setFec_fin(new Date());
+		//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? Y hay que poner la fecha. D-:
 		clsBD.modificarDatoTablaBD(this);
 		clsEleccion ventanaEleccion = new clsEleccion(ublanco);
 		ventanaEleccion.setVisible(true);

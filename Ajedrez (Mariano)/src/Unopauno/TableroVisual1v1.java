@@ -88,11 +88,13 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		clsBD.insertarDatoTablaBD(tab);
 		CreateAndShowGUI();
 	}
-	public TableroVisual1v1 (TableroLogico1v1 tablog, Object [][] a)
+	public TableroVisual1v1 (TableroLogico1v1 tablog, Object [][] a, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras)
 	{
 		tab = new TableroLogico1v1(true,this);
 //		tab = tablog.clonar(tablog);
 		tab = tablog;
+		tab.pblancas = piblancas;
+		tab.pnegras = pinegras;
 		tabla = new SimpleTableDemo();
 		tabla.createTable(a);
 //		for(int i=0;i<8;i++)
@@ -228,7 +230,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 				x = JOptionPane.showConfirmDialog(null,"¿Deseas guardar la partida antes de volver al menú?", "Guardar la partida", JOptionPane.YES_NO_OPTION);
 				if (x == 0)
 				{
-					TableroVisual1v1 tabaguardar = new TableroVisual1v1(tab, tabla.data);
+					TableroVisual1v1 tabaguardar = new TableroVisual1v1(tab, tabla.data, tab.pblancas, tab.pnegras);
 					clsGestor objGestor = new clsGestor();
 					objGestor.GuardarPartida(tabaguardar);
 					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.

@@ -2,7 +2,9 @@ package Mariano;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -21,6 +23,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
@@ -30,6 +33,7 @@ import LN.clsPieza;
 import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
+
 
 import javax.swing.JTextArea;
 
@@ -78,6 +82,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 
 	JLabel btiempo;
 	
+	SimpleTableDemo tabla;
 
 	//private JLabel btiempo;
 	
@@ -88,7 +93,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 	{
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 700, 720);
+		setBounds(0, 0, 1050, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
@@ -192,7 +197,13 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		pPrincipal.add(btiempo);
 		
 		
-		
+		if (tabla == null)
+		{
+			tabla= new SimpleTableDemo();
+			tabla.createTable(tabla.data);
+		}
+		tabla.setBounds(744, 69, 241, 500);
+		pPrincipal.add(tabla);
 	
 	
 		//para que no meleste
@@ -332,6 +343,71 @@ public class tablerovisual1 extends JFrame implements ActionListener
 			porque();
 		}
 	
+	}
+	
+	class SimpleTableDemo extends JPanel{
+		   
+		private static final long serialVersionUID = 1L;
+		
+		Object[][] data;
+		 String[] columnNames = {"Blanco",
+				                 "Negro",
+				                 };
+	    public SimpleTableDemo() 
+	    {
+	        super(new GridLayout(1,0));
+	        data= new Object[100][2];
+//	        Object[][] data = {
+//	                {"Kathy", "Smith",
+//	                 "Snowboarding", new Integer(5), new Boolean(false)},
+//	                {"John", "Doe",
+//	                 "Rowing", new Integer(3), new Boolean(true)},
+//	                {"Sue", "Black",
+//	                 "Knitting", new Integer(2), new Boolean(false)},
+//	                {"Jane", "White",
+//	                 "Speed reading", new Integer(20), new Boolean(true)},
+//	                {"Joe", "Brown",
+//	                 "Pool", new Integer(10), new Boolean(false)}
+//	                };
+	    }
+	    public void createTable (Object [][]a)
+	    {
+	    	data = a;
+	        final JTable table = new JTable(data, columnNames);
+	        table.setPreferredScrollableViewportSize(new Dimension(200, 500));
+	        table.setFillsViewportHeight(true);
+	 
+//	        if (DEBUG) {
+//	            table.addMouseListener(new MouseAdapter() {
+//	                public void mouseClicked(MouseEvent e) {
+//	                    printDebugData(table);
+//	                }
+//	            });
+//	        }
+	 
+	        //Create the scroll pane and add the table to it.
+	        JScrollPane scrollPane = new JScrollPane(table);
+	 
+	        //Add the scroll pane to this panel.
+	        add(scrollPane);
+	    }
+	 
+//	    private void printDebugData(JTable table) {
+//	        int numRows = table.getRowCount();
+//	        int numCols = table.getColumnCount();
+//	        javax.swing.table.TableModel model = table.getModel();
+//	 
+//	        System.out.println("Value of data: ");
+//	        for (int i=0; i < numRows; i++) {
+//	            System.out.print("    row " + i + ":");
+//	            for (int j=0; j < numCols; j++) {
+//	                System.out.print("  " + model.getValueAt(i, j));
+//	            }
+//	            System.out.println();
+//	        }
+//	        System.out.println("--------------------------");
+//	    }
+	    
 	}
 
 	}

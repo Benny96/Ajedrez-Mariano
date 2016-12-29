@@ -3,6 +3,7 @@ package Mariano;
 
 
 import java.awt.Color;
+import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
@@ -19,6 +20,9 @@ import javax.swing.JOptionPane;
 
 
 
+
+
+import GUI.clsEleccion;
 import LN.clsAlfil;
 import LN.clsCaballo;
 import LN.clsCasilla;
@@ -29,6 +33,7 @@ import LN.clsReina;
 import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
+import Persistencia.clsBD;
 
 
 
@@ -85,6 +90,11 @@ public class tablerologico1 implements Cloneable{
 	Runnable reloj;
 
 	private clsReina reinan;
+	
+	clsUsuario ganador;
+	clsUsuario perdedor;
+	
+	int num=0;
 	
 	public tablerologico1()
 	{
@@ -211,10 +221,10 @@ public class tablerologico1 implements Cloneable{
 	bstr = String.format("%d:%02d", bmin, bseg);
 	
 	
-//	reloj = new Timer1();
-//	
-//	Thread a= new Thread (reloj);
-//	a.start();
+	reloj = new Timer1();
+	
+	Thread a= new Thread (reloj);
+	a.start();
 	}	
 	
 
@@ -412,11 +422,15 @@ public class tablerologico1 implements Cloneable{
 	int x=definitiva.pieza.getX();
 	int y=definitiva.pieza.getY();
 	
+	Boolean ocupado=false;
 	if(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado()!=null)
 	{
+	ocupado=true;
 	this.pblancas.remove(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado());
 	}
 	tablero[y][x].setOcupado(null);
+	
+	
 	
 //	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setPieza(definitiva.pieza);
 //	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].mov=false;
@@ -430,6 +444,40 @@ public class tablerologico1 implements Cloneable{
 	//System.out.println(this.tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado().getClass());
 	//this.tablero[0][1].setOcupado(null);
 	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setOcupado(definitiva.pieza);
+	
+	String letra=null;
+	if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Peon))
+	{
+		letra="";
+	}
+	if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Caballo))
+	{
+		letra="C";
+	}
+	if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Torre))
+	{
+		letra="T";
+	}
+	if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Reina))
+	{
+		letra="D";
+	}
+	if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Rey))
+	{
+		letra="R";
+	}
+	if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Alfil))
+	{
+		letra="A";
+	}
+	if(definitiva.pieza.getColor()==false)
+	{
+		if(ocupado)
+			visual.tabla.data[num][1]=letra+"x"+definitiva.pieza.escritura();
+		else
+			visual.tabla.data[num][1]=letra+definitiva.pieza.escritura();
+		num++;
+	}
 	if(definitiva.pieza.primera==false)
 	definitiva.pieza.primera=true;
 	//definitiva.cfinal.setOcupado(definitiva.pieza);
@@ -843,13 +891,48 @@ public class tablerologico1 implements Cloneable{
 	ncasilla.paint(ncasilla.getGraphics());
 	
 	
+	String letra=null;
+	if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
+	{
+		letra="";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Caballo))
+	{
+		letra="C";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Torre))
+	{
+		letra="T";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Reina))
+	{
+		letra="D";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
+	{
+		letra="R";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Alfil))
+	{
+		letra="A";
+	}
+	if(selec.getColor())
+	{
+		visual.tabla.data[num][0]=letra+selec.escritura();
+	}
+	
 	if(selec.getColor())
 	{
 	if(comprobarjaque(reyn,this))
 	{
 	jaquemate=jaquematen(this);
 	if(jaquemate)
-	porque();
+	{
+		ganador=ublanco;
+		perdedor=unigga;
+		porque();
+	}
+	
 	}
 	}
 	
@@ -857,13 +940,7 @@ public class tablerologico1 implements Cloneable{
 	
 	selec=null;
 	
-	try {
-		Thread.sleep(10000);
-	} catch (InterruptedException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
+	
 	Inteligencia();
 	
 	if(comprobarjaque(reyb,this))
@@ -873,8 +950,9 @@ public class tablerologico1 implements Cloneable{
 	
 	if(jaquemate)
 	{
-	System.out.println("llegas");
-	porque();
+		ganador=unigga;
+		perdedor=ublanco;
+		porque();
 	}
 	}
 	
@@ -936,7 +1014,37 @@ public class tablerologico1 implements Cloneable{
 	if(selec.getPrimera()==false)
 	selec.setPrimera(true);
 	}
-//	
+	
+	String letra=null;
+	if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
+	{
+		letra="";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Caballo))
+	{
+		letra="C";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Torre))
+	{
+		letra="T";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Reina))
+	{
+		letra="D";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
+	{
+		letra="R";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Alfil))
+	{
+		letra="A";
+	}
+	if(selec.getColor())
+	{
+		visual.tabla.data[num][0]=letra+"x"+selec.escritura();
+	}
+	
 	turno=!turno;
 //	if(selec.getColor())
 //	{
@@ -962,7 +1070,11 @@ public class tablerologico1 implements Cloneable{
 	{
 	jaquemate=jaquematen(this);
 	if(jaquemate)
-	porque();
+	{
+		ganador=ublanco;
+		perdedor=unigga;
+		porque();
+	}
 	}
 	
 	selec=null;
@@ -974,7 +1086,11 @@ public class tablerologico1 implements Cloneable{
 	{
 	jaquemate=jaquemateb(this);
 	if(jaquemate)
-	porque();
+	{
+		ganador=unigga;
+		perdedor=ublanco;
+		porque();
+	}
 	}
 	turno=!turno;
 	
@@ -1379,7 +1495,13 @@ public class tablerologico1 implements Cloneable{
 	}
 	public void porque()
 	{
-	JOptionPane.showMessageDialog(visual, "Jaquemate");
+		JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+		//this.setFec_fin(new Date());
+		//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+		clsBD.modificarDatoTablaBD(this);
+		clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+		ventanaEleccion.setVisible(true);
+		visual.dispose();
 	}
 	class Timer1 implements Runnable
 	{

@@ -1,5 +1,4 @@
 package LN;
-
 import java.io.Serializable;
 import java.util.LinkedList;
 

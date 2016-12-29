@@ -14,6 +14,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
 import Comun.clsConstantes;
+import Comun.clsConstantes.piezas;
 import GUI.clsEleccion;
 import LN.clsAlfil;
 import LN.clsCaballo;
@@ -873,6 +874,27 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	tablero[selec.getY()][selec.getX()].setOcupado(null);
 	//tablero[selec.getY()][selec.getX()].setBackground(Color.BLUE);
 	tablero[selec.getY()][selec.getX()].paintImmediately(tablero[selec.getY()][selec.getX()].getBounds());
+	
+	
+	String foto="";
+	if(selec.getA()==piezas.Peon&&selec.getColor()==true)foto="/img/peon_blanco.png";
+	if(selec.getA()==piezas.Torre&&selec.getColor()==true)foto="/img/torre_b.png";
+	if(selec.getA()==piezas.Caballo&&selec.getColor()==true)foto="/img/caballo_b.png";
+	if(selec.getA()==piezas.Alfil&&selec.getColor()==true)foto="/img/Alfil_b.png";
+	if(selec.getA()==piezas.Rey&&selec.getColor()==true)foto="/img/rey_b.png";
+	if(selec.getA()==piezas.Reina&&selec.getColor()==true)foto="/img/reina_b.png";
+	
+	if(selec.getA()==piezas.Peon&&selec.getColor()==false)foto="/img/peon_negro.png";
+	if(selec.getA()==piezas.Torre&&selec.getColor()==false)foto="/img/torre_n.png";
+	if(selec.getA()==piezas.Caballo&&selec.getColor()==false)foto="/img/caballo_n.png";
+	if(selec.getA()==piezas.Alfil&&selec.getColor()==false)foto="/img/Alfil_n.png";
+	if(selec.getA()==piezas.Rey&&selec.getColor()==false)foto="/img/rey_n.png";
+	if(selec.getA()==piezas.Reina&&selec.getColor()==false)foto="/img/reina_n.png";
+	
+	visual.EmpezarMovimiento(acasilla.getX(), acasilla.getY(), ncasilla.getX(), ncasilla.getY(), foto);
+	
+	
+	
 	
 	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 	{

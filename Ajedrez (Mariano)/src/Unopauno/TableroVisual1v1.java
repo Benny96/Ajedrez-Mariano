@@ -4,13 +4,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -73,6 +77,16 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	SimpleTableDemo tabla;
 	
 	clsPieza selec;
+	
+	
+	MiHilo hilo;
+	boolean sigo;
+	int x_ini;
+	int y_ini;
+	int x_final;
+	int y_final;
+	String ruta_foto="";
+	JLabel foto;
 	
 	public TableroVisual1v1() 
 	{
@@ -155,6 +169,11 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
 		pPrincipal.add(nigga);
 	
+		
+		foto=new JLabel();
+		foto.setBounds(0, 0, 50, 50);
+		pPrincipal.add(foto);
+		
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0;j<8;j++)
@@ -244,6 +263,39 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	}
 	
 	
+	
+	public void EmpezarMovimiento(int x_i, int y_i, int x_f, int y_f, String ruta)
+	{
+		
+		
+		x_ini=x_i;
+		y_ini=y_i;
+		x_final=x_f;
+		y_final=y_f;
+		ruta_foto=ruta;
+		//foto=new JLabel();
+		
+		int j=4;//(x_ini-500)/60*(-1);
+		int i=2;//(y_ini-540)/60*(-1);
+
+		System.out.println(i+"  "+j);
+		
+		
+		try {
+			Image img = ImageIO.read(getClass().getResource(ruta_foto));
+			foto.setIcon(new ImageIcon(img));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		sigo=true;
+		hilo = new MiHilo();
+		
+		Thread a= new Thread(hilo);
+		a.start();
+		
+	}
 	
 //	public TableroVisual1v1(TableroLogico1v1 tablerete) {
 //		
@@ -409,6 +461,8 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	        final JTable table = new JTable(data, columnNames);
 	        table.setPreferredScrollableViewportSize(new Dimension(200, 500));
 	        table.setFillsViewportHeight(true);
+	        table.setEnabled(false);
+	        
 	 
 //	        if (DEBUG) {
 //	            table.addMouseListener(new MouseAdapter() {
@@ -443,4 +497,114 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	    
 	}
 
+	
+	
+	class MiHilo implements Runnable
+	{
+		
+		@Override
+		public void run() 
+		{
+			while(sigo)
+			{
+				try {
+
+					Thread.sleep(25);
+					
+					//Segun la pieza, quiero que elmovimiento sea de una forma u otra
+					
+					//Esto es un peón, por lo que quiero que se mueva en vertical, pero
+					//también en diagonal para que comer
+					if(ruta_foto=="/img/peon_blanco.png" || ruta_foto=="/img/peon_negro.png")
+					{
+						if(y_ini==y_final);
+						if(y_ini>y_final)y_ini--;
+						if(y_ini<y_final)y_ini++;
+						
+						if(x_ini==x_final);
+						if(x_ini>x_final)x_ini--;
+						if(x_ini<x_final)x_ini++;
+					}
+	
+					//Esto es una torre, solo puede moverse en horizontal o vertical
+					if(ruta_foto=="/img/torre_b.png" || ruta_foto=="/img/torre_n.png")
+					{
+						if(y_ini==y_final);
+						if(y_ini>y_final)y_ini--;
+						if(y_ini<y_final)y_ini++;
+						
+						if(x_ini==x_final);
+						if(x_ini>x_final)x_ini--;
+						if(x_ini<x_final)x_ini++;
+
+					}
+					
+					
+					//Esto es un caballo, por eso tiene que hacer el movimiento en L
+					if(ruta_foto=="/img/caballo_b.png" || ruta_foto=="/img/caballo_n.png")
+					{
+						//Primero va a hacer todo el movimiento en el eje Y
+						if(y_ini>y_final)y_ini--;
+						if(y_ini<y_final)y_ini++;
+						
+						if(y_ini==y_final)
+						{
+							//Una vez hecho el movimiento de Y, hace el de X
+							if(x_ini>x_final)x_ini--;
+							if(x_ini<x_final)x_ini++;
+							if(x_ini==x_final);
+						}
+					}
+					
+					
+					//Esto es un alfil, hace el movimiento siempre en diagonal
+					if(ruta_foto=="/img/Alfil_b.png" || ruta_foto=="/img/Alfil_n.png")
+					{
+						if(y_ini==y_final);
+						if(y_ini>y_final)y_ini--;
+						if(y_ini<y_final)y_ini++;
+						
+						if(x_ini==x_final);
+						if(x_ini>x_final)x_ini--;
+						if(x_ini<x_final)x_ini++;
+					}
+					
+					//Esto es una reina, hace el movimiento que quiera
+					if(ruta_foto=="/img/reina_b.png" || ruta_foto=="/img/reina_n.png")
+					{
+						if(y_ini==y_final);
+						if(y_ini>y_final)y_ini--;
+						if(y_ini<y_final)y_ini++;
+						
+						if(x_ini==x_final);
+						if(x_ini>x_final)x_ini--;
+						if(x_ini<x_final)x_ini++;
+					}
+					
+					//Esto es una rey, hace el movimiento que quiera
+					if(ruta_foto=="/img/rey_b.png" || ruta_foto=="/img/rey_n.png")
+					{
+						if(y_ini==y_final);
+						if(y_ini>y_final)y_ini--;
+						if(y_ini<y_final)y_ini++;
+						
+						if(x_ini==x_final);
+						if(x_ini>x_final)x_ini--;
+						if(x_ini<x_final)x_ini++;
+					}
+
+					
+					
+					
+					//Dibujado del JLabel
+					foto.setBounds(x_ini, y_ini, 50, 50);
+
+			
+		
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
 	}

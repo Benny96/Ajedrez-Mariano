@@ -376,6 +376,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 	        final JTable table = new JTable(data, columnNames);
 	        table.setPreferredScrollableViewportSize(new Dimension(200, 500));
 	        table.setFillsViewportHeight(true);
+	        table.setEnabled(false);
 	 
 //	        if (DEBUG) {
 //	            table.addMouseListener(new MouseAdapter() {

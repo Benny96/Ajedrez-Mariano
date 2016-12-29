@@ -26,6 +26,8 @@ import javax.swing.JOptionPane;
 
 
 
+
+
 import GUI.clsEleccion;
 import LN.clsAlfil;
 import LN.clsCaballo;
@@ -1508,10 +1510,21 @@ public class tablerologico1 implements Cloneable{
 			   Clip clip = AudioSystem.getClip();
 			   clip.open(AudioSystem.getAudioInputStream(file));
 			   clip.start();
-			   Thread.sleep(clip.getMicrosecondLength());
-			  } catch (Exception e) {
-			   System.err.println(e.getMessage());
-			  }
+			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+			   if (!clip.isActive())
+			   {
+				   throw new Exception();
+			   }
+			  } 
+			catch (Exception e) 
+			{
+				//this.setFec_fin(new Date());
+				//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+				clsBD.modificarDatoTablaBD(this);
+				clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+				ventanaEleccion.setVisible(true);
+				visual.dispose();
+			}
 		}
 		else
 		{
@@ -1521,10 +1534,21 @@ public class tablerologico1 implements Cloneable{
 			   Clip clip = AudioSystem.getClip();
 			   clip.open(AudioSystem.getAudioInputStream(file));
 			   clip.start();
-			   Thread.sleep(clip.getMicrosecondLength());
-			  } catch (Exception e) {
-			   System.err.println(e.getMessage());
-			  }
+			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+			   if (!clip.isActive())
+			   {
+				   throw new Exception();
+			   }
+			  } 
+			catch (Exception e) 
+			{
+				//this.setFec_fin(new Date());
+				//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+				clsBD.modificarDatoTablaBD(this);
+				clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+				ventanaEleccion.setVisible(true);
+				visual.dispose();
+			}
 		}
 //		this.setFec_fin(new Date());
 		//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? Y hay que poner la fecha. D-:

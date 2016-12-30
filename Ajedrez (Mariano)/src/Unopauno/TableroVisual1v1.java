@@ -106,7 +106,6 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	public TableroVisual1v1 (TableroLogico1v1 tablog, Object [][] a, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras, LinkedList <clsCasilla> movacti)
 	{
 		tab = new TableroLogico1v1(true,this);
-//		tab = tablog.clonar(tablog);
 		tab = tablog;
 		tab.pblancas = piblancas;
 		tab.pnegras = pinegras;

@@ -1002,6 +1002,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	ncasilla.paint(ncasilla.getGraphics());
 	clear(movact);
 	//revisar(new clsJugada(selec,acasilla),this);
+	//TODO: DIRÍA QUE ESTA ESTRUCTURA ENTERA DE JAQUEMATE SOBRA; NO SÉ CUÁNDO ENTRA...
 	if(selec.getColor())
 	{
 	if(comprobarjaque(reyn,this))
@@ -1009,8 +1010,48 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	jaquemate=jaquematen(this);
 	if(jaquemate)
 	{
+		/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
+
+		    * 1) factor = [3400 - ELO propio previo]^2 / 100000
+		    Llamamos al factor F.
+		    
+			* 2) diferencia = ELO propio previo - ELO previo del Oponente.
+			De ahora en adelante llamamos a la diferencia D.
+			|D| = Valor absoluto de D.
+			
+			* 3) resultado esperado acorde a la tabla o fórmula
+			Fórmula del resultado esperado (R[E]): 0,5 + 1,4217 x 10^-3  x D - 2,4336 x 10^-7  x D x |D| -
+			 									   2,5140 x 10^-9  x D x |D|^2 + 1,9910 x 10^-12 x D x |D|^3
+			 									   
+			* 4) cambio =(resultado - result. esperado) x factor
+			Resultado = (1 - Victoria, 0.5 - Tablas, 0 - Derrota)
+			
+		*/
+		
 		ganador=ublanco;
 		perdedor=unigga;
+		
+		//Calculando Elo del ganador.
+		double factor = (3400 - ganador.getElo())^2/100000;
+		double dif = ganador.getElo() - perdedor.getElo();
+		double difabs = Math.abs(dif);
+		double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+		double cambio = (1 - resultadoesperado)*factor;
+		ganador.setElo(ganador.getElo()+(int)cambio);
+		clsBD.modificarDatoTablaBD(ganador);
+		
+		//Calculando Elo del luser.
+		factor = (3400 - perdedor.getElo())^2/100000;
+		dif = perdedor.getElo() - ganador.getElo();
+		difabs = Math.abs(dif);
+		resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+		cambio = (0 - resultadoesperado)*factor;
+		perdedor.setElo(perdedor.getElo()+(int)cambio);
+		clsBD.modificarDatoTablaBD(perdedor);
+		
+		//Display final.
 		porque();
 	}
 
@@ -1025,8 +1066,48 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		
 		if(jaquemate)
 		{
+			/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
+
+			    * 1) factor = [3400 - ELO propio previo]^2 / 100000
+			    Llamamos al factor F.
+			    
+				* 2) diferencia = ELO propio previo - ELO previo del Oponente.
+				De ahora en adelante llamamos a la diferencia D.
+				|D| = Valor absoluto de D.
+				
+				* 3) resultado esperado acorde a la tabla o fórmula
+				Fórmula del resultado esperado (R[E]): 0,5 + 1,4217 x 10^-3  x D - 2,4336 x 10^-7  x D x |D| -
+				 									   2,5140 x 10^-9  x D x |D|^2 + 1,9910 x 10^-12 x D x |D|^3
+				 									   
+				* 4) cambio =(resultado - result. esperado) x factor
+				Resultado = (1 - Victoria, 0.5 - Tablas, 0 - Derrota)
+				
+			*/
+			
 			ganador=unigga;
 			perdedor=ublanco;
+			
+			//Calculando Elo del ganador.
+			double factor = (3400 - ganador.getElo())^2/100000;
+			double dif = ganador.getElo() - perdedor.getElo();
+			double difabs = Math.abs(dif);
+			double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+									  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+			double cambio = (1 - resultadoesperado)*factor;
+			ganador.setElo(ganador.getElo()+(int)cambio);
+			clsBD.modificarDatoTablaBD(ganador);
+			
+			//Calculando Elo del luser.
+			factor = (3400 - perdedor.getElo())^2/100000;
+			dif = perdedor.getElo() - ganador.getElo();
+			difabs = Math.abs(dif);
+			resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+									  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+			cambio = (0 - resultadoesperado)*factor;
+			perdedor.setElo(perdedor.getElo()+(int)cambio);
+			clsBD.modificarDatoTablaBD(perdedor);
+			
+			//Display final.
 			porque();
 		}
 		}
@@ -1186,25 +1267,106 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	jaquemate=jaquematen(this);
 	if(jaquemate)
 	{
+		/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
+
+		    * 1) factor = [3400 - ELO propio previo]^2 / 100000
+		    Llamamos al factor F.
+		    
+			* 2) diferencia = ELO propio previo - ELO previo del Oponente.
+			De ahora en adelante llamamos a la diferencia D.
+			|D| = Valor absoluto de D.
+			
+			* 3) resultado esperado acorde a la tabla o fórmula
+			Fórmula del resultado esperado (R[E]): 0,5 + 1,4217 x 10^-3  x D - 2,4336 x 10^-7  x D x |D| -
+			 									   2,5140 x 10^-9  x D x |D|^2 + 1,9910 x 10^-12 x D x |D|^3
+			 									   
+			* 4) cambio =(resultado - result. esperado) x factor
+			Resultado = (1 - Victoria, 0.5 - Tablas, 0 - Derrota)
+			
+		*/
+		
 		ganador=ublanco;
 		perdedor=unigga;
+		
+		//Calculando Elo del ganador.
+		double factor = (3400 - ganador.getElo())^2/100000;
+		double dif = ganador.getElo() - perdedor.getElo();
+		double difabs = Math.abs(dif);
+		double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+		double cambio = (1 - resultadoesperado)*factor;
+		ganador.setElo(ganador.getElo()+(int)cambio);
+		clsBD.modificarDatoTablaBD(ganador);
+		
+		//Calculando Elo del luser.
+		factor = (3400 - perdedor.getElo())^2/100000;
+		dif = perdedor.getElo() - ganador.getElo();
+		difabs = Math.abs(dif);
+		resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+		cambio = (0 - resultadoesperado)*factor;
+		perdedor.setElo(perdedor.getElo()+(int)cambio);
+		clsBD.modificarDatoTablaBD(perdedor);
+		
+		//Display final.
 		porque();
 	}
-	
+
 	}
 	}
 	else
 	{
 		if(comprobarjaque(reyb,this))
 		{
+		visual.repaint();
 		jaquemate=jaquemateb(this);
+		
 		if(jaquemate)
 		{
+			/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
+
+			    * 1) factor = [3400 - ELO propio previo]^2 / 100000
+			    Llamamos al factor F.
+			    
+				* 2) diferencia = ELO propio previo - ELO previo del Oponente.
+				De ahora en adelante llamamos a la diferencia D.
+				|D| = Valor absoluto de D.
+				
+				* 3) resultado esperado acorde a la tabla o fórmula
+				Fórmula del resultado esperado (R[E]): 0,5 + 1,4217 x 10^-3  x D - 2,4336 x 10^-7  x D x |D| -
+				 									   2,5140 x 10^-9  x D x |D|^2 + 1,9910 x 10^-12 x D x |D|^3
+				 									   
+				* 4) cambio =(resultado - result. esperado) x factor
+				Resultado = (1 - Victoria, 0.5 - Tablas, 0 - Derrota)
+				
+			*/
+			
 			ganador=unigga;
 			perdedor=ublanco;
+			
+			//Calculando Elo del ganador.
+			double factor = (3400 - ganador.getElo())^2/100000;
+			double dif = ganador.getElo() - perdedor.getElo();
+			double difabs = Math.abs(dif);
+			double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+									  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+			double cambio = (1 - resultadoesperado)*factor;
+			ganador.setElo(ganador.getElo()+(int)cambio);
+			clsBD.modificarDatoTablaBD(ganador);
+			
+			//Calculando Elo del luser.
+			factor = (3400 - perdedor.getElo())^2/100000;
+			dif = perdedor.getElo() - ganador.getElo();
+			difabs = Math.abs(dif);
+			resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+									  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+			cambio = (0 - resultadoesperado)*factor;
+			perdedor.setElo(perdedor.getElo()+(int)cambio);
+			clsBD.modificarDatoTablaBD(perdedor);
+			
+			//Display final.
 			porque();
 		}
-		
 		}
 	}
 	
@@ -1584,9 +1746,49 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	
 	if(bseg==0 && bmin==0)
 	{
+		/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
+
+		    * 1) factor = [3400 - ELO propio previo]^2 / 100000
+		    Llamamos al factor F.
+		    
+			* 2) diferencia = ELO propio previo - ELO previo del Oponente.
+			De ahora en adelante llamamos a la diferencia D.
+			|D| = Valor absoluto de D.
+			
+			* 3) resultado esperado acorde a la tabla o fórmula
+			Fórmula del resultado esperado (R[E]): 0,5 + 1,4217 x 10^-3  x D - 2,4336 x 10^-7  x D x |D| -
+			 									   2,5140 x 10^-9  x D x |D|^2 + 1,9910 x 10^-12 x D x |D|^3
+			 									   
+			* 4) cambio =(resultado - result. esperado) x factor
+			Resultado = (1 - Victoria, 0.5 - Tablas, 0 - Derrota)
+			
+		*/
+		
 		ganador=unigga;
 		perdedor=ublanco;
-		porque();
+		
+		//Calculando Elo del ganador.
+				double factor = (3400 - ganador.getElo())^2/100000;
+				double dif = ganador.getElo() - perdedor.getElo();
+				double difabs = Math.abs(dif);
+				double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+										  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+				double cambio = (1 - resultadoesperado)*factor;
+				ganador.setElo(ganador.getElo()+(int)cambio);
+				clsBD.modificarDatoTablaBD(ganador);
+				
+				//Calculando Elo del luser.
+				factor = (3400 - perdedor.getElo())^2/100000;
+				dif = perdedor.getElo() - ganador.getElo();
+				difabs = Math.abs(dif);
+				resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+										  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+				cambio = (0 - resultadoesperado)*factor;
+				perdedor.setElo(perdedor.getElo()+(int)cambio);
+				clsBD.modificarDatoTablaBD(perdedor);
+				
+				//Display final.
+				porque();
 	}
 	bstr = String.format("%d:%02d", bmin, bseg);
 	
@@ -1603,8 +1805,49 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	
 	if(nseg==0 && nmin==0)
 	{
+		/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
+
+		    * 1) factor = [3400 - ELO propio previo]^2 / 100000
+		    Llamamos al factor F.
+		    
+			* 2) diferencia = ELO propio previo - ELO previo del Oponente.
+			De ahora en adelante llamamos a la diferencia D.
+			|D| = Valor absoluto de D.
+			
+			* 3) resultado esperado acorde a la tabla o fórmula
+			Fórmula del resultado esperado (R[E]): 0,5 + 1,4217 x 10^-3  x D - 2,4336 x 10^-7  x D x |D| -
+			 									   2,5140 x 10^-9  x D x |D|^2 + 1,9910 x 10^-12 x D x |D|^3
+			 									   
+			* 4) cambio =(resultado - result. esperado) x factor
+			Resultado = (1 - Victoria, 0.5 - Tablas, 0 - Derrota)
+			
+		*/
+		
 		ganador=ublanco;
 		perdedor=unigga;
+		
+		//Calculando Elo del ganador.
+		double factor = (3400 - ganador.getElo())^2/100000;
+		double dif = ganador.getElo() - perdedor.getElo();
+		double difabs = Math.abs(dif);
+		double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+		double cambio = (1 - resultadoesperado)*factor;
+		ganador.setElo(ganador.getElo()+(int)cambio);
+		clsBD.modificarDatoTablaBD(ganador);
+		
+		//Calculando Elo del luser.
+		factor = (3400 - perdedor.getElo())^2/100000;
+		dif = perdedor.getElo() - ganador.getElo();
+		difabs = Math.abs(dif);
+		resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+		cambio = (0 - resultadoesperado)*factor;
+		perdedor.setElo(perdedor.getElo()+(int)cambio);
+		System.out.println(perdedor.getElo());
+		clsBD.modificarDatoTablaBD(perdedor);
+		
+		//Display final.
 		porque();
 	}
 	nstr = String.format("%d:%02d", nmin, nseg);
@@ -1625,7 +1868,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	public void porque()
 	{
-	//Calcular elo y pasarlo a base de datos
+	//TODO: Calcular elo y pasarlo a base de datos. SE HARÁ ANTES PORQUE SE DEBEN ACTUALIZAR LOS ELOS DE LOS 2 JUGADORES.
 		try 
 		  {
 		   File file = new File("src/audio/Presidente_Rajoy-_Viva_el_vino_.wav");  
@@ -1634,8 +1877,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		   clip.start();
 		   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
 		   this.setFec_fin(new Date());
-		   ganadorString = ganador.getNickname();
-		   //TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+		   ganadorString = ganador.getNickname();	   
            clsBD.modificarDatoTablaBD(visual.tab);
 		   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
 		   ventanaEleccion.setVisible(true);

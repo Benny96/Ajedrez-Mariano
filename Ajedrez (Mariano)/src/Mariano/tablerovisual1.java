@@ -35,6 +35,8 @@ import LN.clsTorre;
 import LN.clsUsuario;
 
 
+import Persistencia.clsBD;
+
 import javax.swing.JTextArea;
 
 public class tablerovisual1 extends JFrame implements ActionListener
@@ -101,6 +103,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		
 		tab= new tablerologico1(true,this,myTimer);
 		
+		clsBD.insertarDatoTablaBD(tab);
 		
 		tablero= tab.getTablero();
 		

@@ -8,6 +8,8 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import Mariano.tablerologico1;
+
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
  * TableDemo is just like SimpleTableDemo, except that it
  * uses a custom TableModel.
  */
-public class clsTablaHistorial extends JPanel {
+public class clsTablaHistorialMariano extends JPanel {
     
 	private static final long serialVersionUID = 1L;
 	
@@ -24,14 +26,14 @@ public class clsTablaHistorial extends JPanel {
 	static {
 		rendererCentrado.setHorizontalAlignment(JLabel.CENTER);
 	}
-
-    public clsTablaHistorial(ArrayList<tablerologico> u) {
+	
+    public clsTablaHistorialMariano(ArrayList<tablerologico1> u) {
     	 super(new GridLayout(1,0)); //TODO: NO quitar esto!
     	  JFrame frame = new JFrame("Rankings");
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        
 
-        JTable table = new JTable(new MyTableModel(u)); 
+        JTable table = new JTable(new MyTableModelMariano(u)); 
 //        table.setPreferredScrollableViewportSize(new Dimension(650, 341));
         table.setFillsViewportHeight(true);
         
@@ -51,7 +53,7 @@ public class clsTablaHistorial extends JPanel {
     }
 }
 
-    class MyTableModel extends AbstractTableModel {  //TODO: Tiene que extender de AbstractTableModel 
+    class MyTableModelMariano extends AbstractTableModel {  //TODO: Tiene que extender de AbstractTableModel 
         private String[] columnNames = {"ID",
                                         "Jug. Blanco",
                                         "Jug. Negro",
@@ -60,7 +62,7 @@ public class clsTablaHistorial extends JPanel {
                                         "Ganador"};
         private Object[][] data;
         
-        public MyTableModel(ArrayList<tablerologico> u)
+        public MyTableModelMariano(ArrayList<tablerologico1> u)
         {
         	
         	super();
@@ -73,7 +75,7 @@ public class clsTablaHistorial extends JPanel {
     		
     		int pos=1;
     		//Nos recorremos el map para cargar la variable data[][]
-    		for (tablerologico aux : u)
+    		for (tablerologico1 aux : u)
     		{
     		    //System.out.println(entry.getKey() + "/" + entry.getValue());
     			Object[]n={new Integer(aux.getID_partida()),
@@ -81,7 +83,7 @@ public class clsTablaHistorial extends JPanel {
     					   new String(aux.getUnigga().getNickname()),
     					   new String(f.format(aux.getFec_com())),
     					   new String(f.format(aux.getFec_fin())),
-    					   new String(aux.getGanador())};
+    					   new String(aux.getGanadorString())};
     			data[cont]=n;
     			cont++;
     			pos++;
@@ -125,3 +127,4 @@ public class clsTablaHistorial extends JPanel {
 
 
     }
+

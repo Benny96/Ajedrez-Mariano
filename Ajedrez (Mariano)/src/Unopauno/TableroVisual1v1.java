@@ -111,7 +111,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		tab.pblancas = piblancas;
 		tab.pnegras = pinegras;
 		tab.movact = movacti;
-		tablog.IniciarReloj();
+		tab.IniciarReloj();
 		tabla = new SimpleTableDemo();
 		tabla.createTable(a);
 		CreateAndShowGUI();

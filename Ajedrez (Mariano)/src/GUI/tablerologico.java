@@ -118,18 +118,6 @@ public class tablerologico implements Cloneable, Serializable, Comparable <table
 	selec=null;
 	
 	}
-//	statement.executeUpdate("CREATE TABLE IF NOT EXISTS PARTIDA (ID_PARTIDA INT NOT NULL,"+
-//	"USUARIO1 STRING NOT NULL, USUARIO2 STRING NOT NULL,"+
-//	"DIA_COM STRFTIME NOT NULL, DIA_FIN STRFTIME, GANADOR STRING,"+
-//	"PRIMARY KEY (ID_PARTIDA, USUARIO1, USUARIO2))");
-	
-//	private String nombre;
-//	private String apellido1;
-//	private String apellido2;
-//	private String nickname;
-//	private String contraseña;
-//	private int elo;
-//	private Date fechadealta;
 	
 	public tablerologico (int a, String b, String c, long d, long e, String f)
 	{

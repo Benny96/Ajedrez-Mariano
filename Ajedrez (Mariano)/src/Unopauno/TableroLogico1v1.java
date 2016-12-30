@@ -1626,7 +1626,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	public void porque()
 	{
 	//Calcular elo y pasarlo a base de datos
-//		JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
 		try 
 		  {
 		   File file = new File("src/audio/Presidente_Rajoy-_Viva_el_vino_.wav");  
@@ -1634,20 +1633,16 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		   clip.open(AudioSystem.getAudioInputStream(file));
 		   clip.start();
 		   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
-		   if (!clip.isActive())
-		   {
-			   throw new Exception();
-		   }
+		   this.setFec_fin(new Date());
+		   ganadorString = ganador.getNickname();
+		   //TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+           clsBD.modificarDatoTablaBD(visual.tab);
+		   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+		   ventanaEleccion.setVisible(true);
+		   visual.dispose();
 		  } 
 		catch (Exception e) 
-		{
-			this.setFec_fin(new Date());
-			//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
-			clsBD.modificarDatoTablaBD(this);
-			clsEleccion ventanaEleccion = new clsEleccion(ublanco);
-			ventanaEleccion.setVisible(true);
-			visual.dispose();
-		}
+		{}
 	}
 	class Timer1 implements Runnable
 	{

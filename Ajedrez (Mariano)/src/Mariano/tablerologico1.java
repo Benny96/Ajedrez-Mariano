@@ -4,6 +4,9 @@ package Mariano;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -28,6 +31,12 @@ import javax.swing.JOptionPane;
 
 
 
+
+
+
+
+
+import Comun.clsConstantes;
 import GUI.clsEleccion;
 import LN.clsAlfil;
 import LN.clsCaballo;
@@ -40,10 +49,13 @@ import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
 import Persistencia.clsBD;
+import Unopauno.TableroLogico1v1;
 
 
 
-public class tablerologico1 implements Cloneable{
+public class tablerologico1 implements Cloneable, Serializable, Comparable <tablerologico1>{
+
+	private static final long serialVersionUID = 1L;
 
 	clsCasilla [][] tablero;
 	
@@ -54,6 +66,11 @@ public class tablerologico1 implements Cloneable{
 //	
 //	JList asd;
 
+	private int ID_partida;
+	private Date fec_com;
+	private Date fec_fin;
+	private String ganadorString;
+	
 	public LinkedList<clsPieza> pblancas;
 	public LinkedList<clsPieza> pnegras;
 	LinkedList<clsCasilla> movact;
@@ -123,9 +140,35 @@ public class tablerologico1 implements Cloneable{
 	selec=null;
 	
 	}
+	public tablerologico1 (int a, String b, String c, long d, long e, String f)
+	{
+		ID_partida = a;
+		ublanco = new clsUsuario ();
+		ublanco.setNickname(b);
+		unigga = new clsUsuario();
+		unigga.setNickname(c);
+		fec_com = new Date(d);
+		fec_fin = new Date(e);
+		ganadorString = f;
+	}
 	public tablerologico1(Boolean asd, tablerovisual1 tablerovisual, Runnable myTimer) 
 	{
-	
+		ganadorString = "";
+		clsBD.crearTablaBD(clsConstantes.PARTIDA);
+		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
+		try 
+		{
+			while (rs.next())
+			{
+				ID_partida++;
+			}
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		fec_com = new Date();
+		fec_fin = new Date(new Long(0) );
 	tablero= new clsCasilla[8][8];
 	
 	visual=tablerovisual;
@@ -1503,7 +1546,6 @@ public class tablerologico1 implements Cloneable{
 	}
 	public void porque()
 	{
-		JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
 		if (ganador.getNickname().compareTo("Mariano")==0)
 		{
 			try 
@@ -1513,20 +1555,16 @@ public class tablerologico1 implements Cloneable{
 			   clip.open(AudioSystem.getAudioInputStream(file));
 			   clip.start();
 			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
-			   if (!clip.isActive())
-			   {
-				   throw new Exception();
-			   }
+			   this.setFec_fin(new Date());
+			   ganadorString = ganador.getNickname();
+			   //TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+			   clsBD.modificarDatoTablaBD(visual.tab);
+			   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+			   ventanaEleccion.setVisible(true);
+			   visual.dispose();
 			  } 
 			catch (Exception e) 
-			{
-				//this.setFec_fin(new Date());
-				//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
-				clsBD.modificarDatoTablaBD(this);
-				clsEleccion ventanaEleccion = new clsEleccion(ublanco);
-				ventanaEleccion.setVisible(true);
-				visual.dispose();
-			}
+			{}
 		}
 		else
 		{
@@ -1537,27 +1575,17 @@ public class tablerologico1 implements Cloneable{
 			   clip.open(AudioSystem.getAudioInputStream(file));
 			   clip.start();
 			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
-			   if (!clip.isActive())
-			   {
-				   throw new Exception();
-			   }
+			   this.setFec_fin(new Date());
+			   ganadorString = ganador.getNickname();
+			   //TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+			   clsBD.modificarDatoTablaBD(visual.tab);
+			   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+			   ventanaEleccion.setVisible(true);
+			   visual.dispose();
 			  } 
 			catch (Exception e) 
-			{
-				//this.setFec_fin(new Date());
-				//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
-				clsBD.modificarDatoTablaBD(this);
-				clsEleccion ventanaEleccion = new clsEleccion(ublanco);
-				ventanaEleccion.setVisible(true);
-				visual.dispose();
-			}
+			{}
 		}
-//		this.setFec_fin(new Date());
-		//TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? Y hay que poner la fecha. D-:
-		clsBD.modificarDatoTablaBD(this);
-		clsEleccion ventanaEleccion = new clsEleccion(ublanco);
-		ventanaEleccion.setVisible(true);
-		visual.dispose();
 	}
 	class Timer1 implements Runnable
 	{
@@ -1770,5 +1798,42 @@ public class tablerologico1 implements Cloneable{
 
 	public void setUblanco(clsUsuario ublanco) {
 	this.ublanco = ublanco;
+	}
+	public int getID_partida() 
+	{
+		return ID_partida;
+	}
+	public void setID_partida(int iD_partida) 
+	{
+		ID_partida = iD_partida;
+	}
+	public Date getFec_com() 
+	{
+		return fec_com;
+	}
+	public void setFec_com(Date fec_com) {
+		
+		this.fec_com = fec_com;
+	}
+	public Date getFec_fin() 
+	{
+		return fec_fin;
+	}
+	public void setFec_fin(Date fec_fin) 
+	{
+		this.fec_fin = fec_fin;
+	}
+	
+	
+	public String getGanadorString() {
+		return ganadorString;
+	}
+	public void setGanadorString(String ganador) {
+		this.ganadorString = ganador;
+	}
+	@Override
+	public int compareTo(tablerologico1 arg0) 
+	{
+		return this.getID_partida()-arg0.getID_partida();
 	}
 }

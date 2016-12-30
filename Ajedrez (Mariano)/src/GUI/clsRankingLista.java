@@ -46,14 +46,12 @@ public class clsRankingLista extends JFrame
 		paneltabla=new JPanel();
 	    panelbotonera=new JPanel();
 	    
-	    
 	    getContentPane().setBackground(Color.white);
 	    panelbotonera.setLayout(new FlowLayout());
 	    getContentPane().add(paneltabla, BorderLayout.NORTH);
 	    getContentPane().add(panelbotonera, BorderLayout.SOUTH);
 	    panelbotonera.setBackground(Color.white);
 
-	    
 		lblInformacion = new JLabel("Ordenar por:");
 		panelbotonera.add(lblInformacion, BorderLayout.CENTER);
 		
@@ -95,13 +93,8 @@ public class clsRankingLista extends JFrame
 				t.setOpaque(true); //content panes must be opaque
 				getContentPane().add(t, BorderLayout.NORTH);
 				
-		        //Display the window.
 		        pack();
 		        setVisible(true);
-				
-				
-				
-
 			}
 		});
 		rdbtnOrdenNick.addActionListener(new ActionListener()
@@ -114,7 +107,6 @@ public class clsRankingLista extends JFrame
 				t.setOpaque(true); //content panes must be opaque
 				getContentPane().add(t, BorderLayout.NORTH);
 		        
-		        //Display the window.
 		        pack();
 		        setVisible(true);
 			}
@@ -129,7 +121,6 @@ public class clsRankingLista extends JFrame
 				t.setOpaque(true); //content panes must be opaque
 				getContentPane().add(t, BorderLayout.NORTH);
 				
-		        //Display the window.
 		        pack();
 		        setVisible(true);
 		        

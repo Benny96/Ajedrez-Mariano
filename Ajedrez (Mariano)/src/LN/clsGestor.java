@@ -75,11 +75,8 @@ public class clsGestor implements Serializable
 	public void CrearUsuario(String n, String ap1, String ap2, String nick, String cont) throws clsUsuarioRepetido
 	{
 		clsUsuario nuevo=new clsUsuario(n, ap1, ap2, nick, cont);
-		
 		ArrayList<clsUsuario> listausuarios=new ArrayList<clsUsuario>();
-		
 		listausuarios=ListaUsuarios();
-		
 		if(listausuarios.size()!=0)
 		{
 			HashSet<clsUsuario> set=new HashSet<clsUsuario>();
@@ -91,10 +88,21 @@ public class clsGestor implements Serializable
 			}
 		}		
 		clsBD.insertarDatoTablaBD(nuevo);
-//			clsBinarios objDatos=new clsBinarios();	
-//			objDatos.ComenzarSave(enFicDatos.FICHERO_USUARIOS);
-//			objDatos.Save(nuevo);
-//			objDatos.TerminarSave();
+	}
+	public clsUsuario ModificarUsuario (String n, String ap1, String ap2, String nick, String cont)
+	{
+		clsUsuario modificado=new clsUsuario(n, ap1, ap2, nick, cont);
+		ArrayList<clsUsuario> listausuarios=new ArrayList<clsUsuario>();
+		listausuarios=ListaUsuarios();
+		for (clsUsuario aux: listausuarios)
+		{
+			if (aux.getNickname().compareTo(modificado.getNickname())==0)
+			{
+				clsBD.modificarDatoTablaBD(modificado);
+				break;
+			}
+		}
+		return modificado;
 	}
 	public void GuardarPartida(TableroVisual1v1 tabaguardar)
 	{	

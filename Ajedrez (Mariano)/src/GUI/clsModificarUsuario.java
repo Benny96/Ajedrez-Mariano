@@ -7,13 +7,14 @@ import javax.swing.JOptionPane;
 
 import LN.clsGestor;
 import LN.clsUsuario;
-import LN.clsUsuarioRepetido;
 
 public class clsModificarUsuario extends clsAltaUsuario
 {
 	private static final long serialVersionUID = 1L;
 	
-	public clsModificarUsuario(clsUsuario usuario)
+	clsUsuario modif;
+	
+	public clsModificarUsuario(clsUsuario usuario, clsEleccion ventanita)
 	{
 		super();
 		
@@ -23,6 +24,7 @@ public class clsModificarUsuario extends clsAltaUsuario
 		this.txtNickname.setText(usuario.getNickname());
 		txtNickname.setEditable(false);
 		this.txtContrasenya1.setText(usuario.getContraseña());
+		modifusu = true;
 		
 		//Escuchadores
 		this.btnAceptar.addActionListener(new ActionListener() 
@@ -38,15 +40,10 @@ public class clsModificarUsuario extends clsAltaUsuario
 					}
 					else
 					{
-						try
-						{
-							objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText());//, frmFechas.getFec());
-							dispose();
-						}
-						catch(clsUsuarioRepetido p)
-						{
-							JOptionPane.showMessageDialog(null, p.getMessage(), "Nickname repetido", JOptionPane.WARNING_MESSAGE);
-						}
+						modif = objGestor.ModificarUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText());//, frmFechas.getFec());
+						JOptionPane.showMessageDialog(null, "Ha modificado el usuario correctamente.");
+						ventanita.RefrescarUsuario(modif);
+						dispose();
 					}
 				}
 			}

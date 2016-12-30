@@ -52,7 +52,8 @@ public class clsEleccion extends JFrame
 	private ButtonGroup btngrpRanking;
 	
 	static JFrame miVentana;
-	private clsUsuario usuario;
+	static clsUsuario usuario;
+	clsEleccion a;
 	
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
 
@@ -144,6 +145,7 @@ public class clsEleccion extends JFrame
 		desktop.add(btnDeslogear);
 
 		miVentana = this;
+		a = this;
 		
 		setResizable(false);
 		
@@ -217,7 +219,7 @@ public class clsEleccion extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				clsModificarUsuario frame = new clsModificarUsuario(usuario);
+				clsModificarUsuario frame = new clsModificarUsuario(usuario, a);
 				frame.setVisible(true);
 			}	
 		});
@@ -243,13 +245,17 @@ public class clsEleccion extends JFrame
 				frame.setVisible(true);
 			}
 		});
-		addWindowListener( new WindowAdapter() 
-		{
-			@Override
-			public void windowClosing(WindowEvent e) 
-			{
-				clsBD.close();
-			}
-		});	
+//		addWindowListener( new WindowAdapter() 
+//		{
+//			@Override
+//			public void windowClosing(WindowEvent e) 
+//			{
+//				clsBD.close();
+//			}
+//		});	
+	}
+	public void RefrescarUsuario(clsUsuario a)
+	{
+		usuario = a;
 	}
 }

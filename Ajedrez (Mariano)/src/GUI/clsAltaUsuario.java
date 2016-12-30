@@ -65,8 +65,8 @@ public class clsAltaUsuario extends JFrame
 	final int posImgX=440;
 	final int posImgY=120;
 	
-	
-	
+	boolean modifusu = false;
+	private boolean controlPulsado = false;
 	
 
 	/**
@@ -173,13 +173,12 @@ public class clsAltaUsuario extends JFrame
 		
 		add(panelprincipal);
 			
-		
-
 		//Escuchadores
 		btnAceptar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{		
+				if (!modifusu)
 				Registrar();
 			}
 		});
@@ -402,8 +401,6 @@ public class clsAltaUsuario extends JFrame
 	
 		pack();
 	}
-	
-	private boolean controlPulsado = false;
 	
 	public JLabel CogerImagen(JLabel l)
 	{

@@ -87,6 +87,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	int y_final;
 	String ruta_foto="";
 	JLabel foto;
+	int control=0;
 	
 	public TableroVisual1v1() 
 	{
@@ -275,10 +276,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		ruta_foto=ruta;
 		//foto=new JLabel();
 		
-		int j=4;//(x_ini-500)/60*(-1);
-		int i=2;//(y_ini-540)/60*(-1);
-
-		System.out.println(i+"  "+j);
+		
 		
 		
 		try {
@@ -290,10 +288,22 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		}
 		
 		sigo=true;
-		hilo = new MiHilo();
 		
-		Thread a= new Thread(hilo);
-		a.start();
+		
+		if(control==0)
+		{
+			control++;
+			hilo = new MiHilo();
+			Thread a= new Thread(hilo);
+			a.start();
+		}
+		else
+		{
+				
+			Thread a= new Thread(hilo);
+			a.start();
+		}
+	
 		
 	}
 	
@@ -407,6 +417,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		return tab;
 
 	}
+	
+	public void acaba()
+	{
+		sigo=false;
+	}
+	
 	class Timer1 implements Runnable
 	{
 		@Override
@@ -509,7 +525,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 			{
 				try {
 
-					Thread.sleep(25);
+					Thread.sleep(5);
 					
 					//Segun la pieza, quiero que elmovimiento sea de una forma u otra
 					
@@ -524,6 +540,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 						if(x_ini==x_final);
 						if(x_ini>x_final)x_ini--;
 						if(x_ini<x_final)x_ini++;
+						
+						if(x_ini==x_final&&y_ini==y_final)
+						{
+							acaba();
+						}
+						
 					}
 	
 					//Esto es una torre, solo puede moverse en horizontal o vertical
@@ -536,6 +558,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 						if(x_ini==x_final);
 						if(x_ini>x_final)x_ini--;
 						if(x_ini<x_final)x_ini++;
+						
+						
+						if(x_ini==x_final&&y_ini==y_final)
+						{
+							acaba();
+						}
 
 					}
 					
@@ -554,6 +582,11 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 							if(x_ini<x_final)x_ini++;
 							if(x_ini==x_final);
 						}
+						
+						if(x_ini==x_final&&y_ini==y_final)
+						{
+							acaba();
+						}
 					}
 					
 					
@@ -567,6 +600,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 						if(x_ini==x_final);
 						if(x_ini>x_final)x_ini--;
 						if(x_ini<x_final)x_ini++;
+						
+						
+						if(x_ini==x_final&&y_ini==y_final)
+						{
+							acaba();
+						}
 					}
 					
 					//Esto es una reina, hace el movimiento que quiera
@@ -579,6 +618,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 						if(x_ini==x_final);
 						if(x_ini>x_final)x_ini--;
 						if(x_ini<x_final)x_ini++;
+						
+						
+						if(x_ini==x_final&&y_ini==y_final)
+						{
+							acaba();
+						}
 					}
 					
 					//Esto es una rey, hace el movimiento que quiera
@@ -591,6 +636,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 						if(x_ini==x_final);
 						if(x_ini>x_final)x_ini--;
 						if(x_ini<x_final)x_ini++;
+						
+						
+						if(x_ini==x_final&&y_ini==y_final)
+						{
+							acaba();
+						}
 					}
 
 					

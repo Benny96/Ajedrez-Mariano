@@ -136,9 +136,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			if (cargado)
 			{
 				visual=TableroVisual1v1;
-//				visual.getTab().reloj = new Timer1();
-//				Thread a= new Thread (visual.getTab().reloj);
-//				a.start();
 			}
 			else
 			{
@@ -260,14 +257,15 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			bseg = 00;
 			bstr = String.format("%d:%02d", bmin, bseg);
 			
-			
-			reloj = new Timer1();
-			
-			Thread a= new Thread (reloj);
-			a.start();
+			IniciarReloj();			
 			}
 	}	
-	
+	public void IniciarReloj()
+	{
+		reloj = new Timer1();
+		Thread a= new Thread (reloj);
+		a.start();
+	}
 
 //	public static void pintar()
 //	{

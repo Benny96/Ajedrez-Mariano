@@ -40,7 +40,7 @@ public class clsModificarUsuario extends clsAltaUsuario
 					}
 					else
 					{
-						modif = objGestor.ModificarUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText());//, frmFechas.getFec());
+						modif = objGestor.ModificarUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText(), txtContrasenya1.getText(), usuario.getElo(), usuario.getFechadealta());
 						JOptionPane.showMessageDialog(null, "Ha modificado el usuario correctamente.");
 						ventanita.RefrescarUsuario(modif);
 						dispose();

@@ -89,19 +89,10 @@ public class clsGestor implements Serializable
 		}		
 		clsBD.insertarDatoTablaBD(nuevo);
 	}
-	public clsUsuario ModificarUsuario (String n, String ap1, String ap2, String nick, String cont)
+	public clsUsuario ModificarUsuario (String n, String ap1, String ap2, String nick, String cont, int elo, Date fechaalta)
 	{
-		clsUsuario modificado=new clsUsuario(n, ap1, ap2, nick, cont);
-		ArrayList<clsUsuario> listausuarios=new ArrayList<clsUsuario>();
-		listausuarios=ListaUsuarios();
-		for (clsUsuario aux: listausuarios)
-		{
-			if (aux.getNickname().compareTo(modificado.getNickname())==0)
-			{
-				clsBD.modificarDatoTablaBD(modificado);
-				break;
-			}
-		}
+		clsUsuario modificado=new clsUsuario(n, ap1, ap2, nick, cont, elo, fechaalta);
+		clsBD.modificarDatoTablaBD(modificado);
 		return modificado;
 	}
 	public void GuardarPartida(TableroVisual1v1 tabaguardar)

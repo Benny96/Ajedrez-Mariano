@@ -1125,18 +1125,7 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 	if(jaquemate)
 	{
 		ganador=ublanco;
-		perdedor=unigga;
-		
-		//Calculando Elo del ganador.
-		double factor = (3400 - ganador.getElo())^2/100000;
-		double dif = ganador.getElo() - perdedor.getElo();
-		double difabs = Math.abs(dif);
-		double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
-								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
-		double cambio = (1 - resultadoesperado)*factor;
-		ganador.setElo(ganador.getElo()+(int)cambio);
-		clsBD.modificarDatoTablaBD(ganador);
-		
+		perdedor=unigga;	
 		porque();
 	}
 	}
@@ -1153,18 +1142,6 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 	{
 		ganador=unigga;
 		perdedor=ublanco;
-		
-		//Calculando Elo del luser.
-		double factor = (3400 - perdedor.getElo())^2/100000;
-		double dif = perdedor.getElo() - ganador.getElo();
-		double difabs = Math.abs(dif);
-		double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
-								  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
-		double cambio = (0 - resultadoesperado)*factor;
-		perdedor.setElo(perdedor.getElo()+(int)cambio);
-		clsBD.modificarDatoTablaBD(perdedor);
-		
-		//Display final.
 		porque();
 	}
 	}
@@ -1582,7 +1559,17 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
 			   this.setFec_fin(new Date());
 			   ganadorString = ganador.getNickname();
-			   //TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+			   
+				//Calculando Elo del luser.
+				double factor = (3400 - perdedor.getElo())^2/100000;
+				double dif = perdedor.getElo() - ganador.getElo();
+				double difabs = Math.abs(dif);
+				double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+										  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+				double cambio = (0 - resultadoesperado)*factor;
+				perdedor.setElo(perdedor.getElo()+(int)cambio);
+				clsBD.modificarDatoTablaBD(perdedor);
+				
 			   clsBD.modificarDatoTablaBD(visual.tab);
 			   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
 			   ventanaEleccion.setVisible(true);
@@ -1602,7 +1589,17 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
 			   this.setFec_fin(new Date());
 			   ganadorString = ganador.getNickname();
-			   //TODO: Guardado del resultado final en BD. ¿Cómo se calcula el Elo? D-:
+
+				//Calculando Elo del ganador.
+				double factor = (3400 - ganador.getElo())^2/100000;
+				double dif = ganador.getElo() - perdedor.getElo();
+				double difabs = Math.abs(dif);
+				double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+										  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+				double cambio = (1 - resultadoesperado)*factor;
+				ganador.setElo(ganador.getElo()+(int)cambio);
+				clsBD.modificarDatoTablaBD(ganador);
+
 			   clsBD.modificarDatoTablaBD(visual.tab);
 			   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
 			   ventanaEleccion.setVisible(true);

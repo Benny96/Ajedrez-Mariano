@@ -98,8 +98,8 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		apellido2=ap2;
 		nickname=nick;
 		contraseña=cont;
-		elo = 1000;
-		fechadealta=new Date();
+		elo = el;
+		fechadealta=fecha;
 	}
 	
 	/**

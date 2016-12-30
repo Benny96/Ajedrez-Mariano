@@ -170,9 +170,6 @@ public class tablerologico implements Cloneable, Serializable, Comparable <table
 	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
 	unigga= new clsUsuario("nigga","b","b","nigga","b");
 	
-	//AQUÍ NO! (EN CONSTRUCTORES TABLEROVISUAL)
-//	clsBD.insertarDatoTablaBD(this);
-	
 	jaquemate=false;
 	
 	for(int i=0;i<8;i++)

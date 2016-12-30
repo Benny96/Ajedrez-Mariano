@@ -428,6 +428,7 @@ public class clsAltaUsuario extends JFrame
 			{
 				try
 				{
+					
 					objGestor.CrearUsuario(txtNombre.getText(), txtApe1.getText(), txtApe2.getText(), txtNickname.getText().toUpperCase(), txtContrasenya1.getText());//, frmFechas.getFec());
 					JOptionPane.showMessageDialog(null, "Te has registrado correctamente");
 					dispose();

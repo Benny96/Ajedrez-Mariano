@@ -91,6 +91,17 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		fechadealta=new Date();
 	}
 	
+	public clsUsuario(String n, String ap1, String ap2, String nick, String cont, int el, Date fecha)
+	{
+		nombre=n;
+		apellido1=ap1;
+		apellido2=ap2;
+		nickname=nick;
+		contraseña=cont;
+		elo = 1000;
+		fechadealta=new Date();
+	}
+	
 	/**
 	 * Constructor vacío para poder serializar.
 	 */

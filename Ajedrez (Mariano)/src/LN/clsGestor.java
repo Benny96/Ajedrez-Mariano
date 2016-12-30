@@ -2,12 +2,19 @@ package LN;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 
+import Comun.clsConstantes;
 import Comun.clsConstantes.enFicDatos;
+import Unopauno.TableroLogico1v1;
 import Unopauno.TableroVisual1v1;
 import LN.clsUsuario;
+import Mariano.tablerologico1;
+import Persistencia.clsBD;
 import Persistencia.clsBinarios;
 
 public class clsGestor implements Serializable 
@@ -17,23 +24,46 @@ public class clsGestor implements Serializable
 	public ArrayList<clsUsuario> ListaUsuarios()	
 	{	
 		ArrayList<clsUsuario> lista = new ArrayList <clsUsuario>();
-		clsBinarios objDatos = new clsBinarios();
-	
-		try 
+		clsBD.crearTablaBD(clsConstantes.USUARIO);
+		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.USUARIO);
+		if (rs != null)
 		{
-			objDatos.ComenzarRead(enFicDatos.FICHERO_USUARIOS);
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
+			try 
+			{
+				while (rs.next())
+				{
+					lista.add(new clsUsuario(
+							rs.getString("NOMBRE"),
+							rs.getString("APELLIDO1"),
+							rs.getString("APELLIDO2"),
+							rs.getString("NICKNAME"),
+							rs.getString("CONTRASENYA"),
+							rs.getInt("ELO"),
+							new Date(rs.getLong("FEC_ALTA"))));
+				}
+			} 
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
 		}
-		ArrayList<Serializable> listar=new ArrayList<Serializable>();
-		listar=objDatos.Read();
-		for (Serializable o: listar)
-		{
-			lista.add((clsUsuario)o);
-		}
-		objDatos.TerminarRead();
+//		clsBinarios objDatos = new clsBinarios();
+//	
+//		try 
+//		{
+//			objDatos.ComenzarRead(enFicDatos.FICHERO_USUARIOS);
+//		} 
+//		catch (IOException e) 
+//		{
+//			e.printStackTrace();
+//		}
+//		ArrayList<Serializable> listar=new ArrayList<Serializable>();
+//		listar=objDatos.Read();
+//		for (Serializable o: listar)
+//		{
+//			lista.add((clsUsuario)o);
+//		}
+//		objDatos.TerminarRead();
 
 		return lista;
 
@@ -42,11 +72,12 @@ public class clsGestor implements Serializable
 	
 	
 	
-	public boolean CrearUsuario(String n, String ap1, String ap2, String nick, String cont) throws clsUsuarioRepetido
+	public void CrearUsuario(String n, String ap1, String ap2, String nick, String cont) throws clsUsuarioRepetido
 	{
 		clsUsuario nuevo=new clsUsuario(n, ap1, ap2, nick, cont);
 		
 		ArrayList<clsUsuario> listausuarios=new ArrayList<clsUsuario>();
+		
 		listausuarios=ListaUsuarios();
 		
 		if(listausuarios.size()!=0)
@@ -58,18 +89,12 @@ public class clsGestor implements Serializable
 			{
 				throw new clsUsuarioRepetido();
 			}
-		}
-		
-			clsBinarios objDatos=new clsBinarios();
-	
-			objDatos.ComenzarSave(enFicDatos.FICHERO_USUARIOS);
-			objDatos.Save(nuevo);
-			objDatos.TerminarSave();
-		
-
-		
-	return false;
-	
+		}		
+		clsBD.insertarDatoTablaBD(nuevo);
+//			clsBinarios objDatos=new clsBinarios();	
+//			objDatos.ComenzarSave(enFicDatos.FICHERO_USUARIOS);
+//			objDatos.Save(nuevo);
+//			objDatos.TerminarSave();
 	}
 	public void GuardarPartida(TableroVisual1v1 tabaguardar)
 	{	

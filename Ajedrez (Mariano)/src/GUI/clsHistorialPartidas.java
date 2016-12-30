@@ -123,8 +123,56 @@ public class clsHistorialPartidas extends JFrame
 				e.printStackTrace();
 			}
 		}
-		
-		//Escuchadores.
+		rdbtn1v1.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				if (rdbtnOrdenID.isSelected())
+				{
+					Collections.sort(listaPartidas1v1);
+					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
+					t.setOpaque(true); //content panes must be opaque
+					getContentPane().add(t, BorderLayout.NORTH);
+			        pack();
+			        setVisible(true);
+				}
+				else if (rdbtnOrdenGanador.isSelected())
+				{
+					Collections.sort(listaPartidas1v1, new clsOrdenarPorGanador1v1());
+					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
+					t.setOpaque(true); //content panes must be opaque
+					getContentPane().add(t, BorderLayout.NORTH);
+			        pack();
+			        setVisible(true);
+				}
+			}
+		});
+		rdbtnMariano.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				if (rdbtnOrdenID.isSelected())
+				{
+					Collections.sort(listaPartidasMariano);
+					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
+					t.setOpaque(true); //content panes must be opaque
+					getContentPane().add(t, BorderLayout.NORTH);      
+			        pack();
+			        setVisible(true);
+				}
+				else if (rdbtnOrdenGanador.isSelected())
+				{
+					Collections.sort(listaPartidasMariano, new clsOrdenarPorGanadorMariano());
+					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
+					t.setOpaque(true); //content panes must be opaque
+					getContentPane().add(t, BorderLayout.NORTH);
+			        pack();
+			        setVisible(true);
+				}
+			}
+		});
 		rdbtnOrdenID.addActionListener(new ActionListener()
 		{
 			@Override
@@ -136,7 +184,6 @@ public class clsHistorialPartidas extends JFrame
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
 					t.setOpaque(true); //content panes must be opaque
 					getContentPane().add(t, BorderLayout.NORTH);
-
 			        pack();
 			        setVisible(true);
 				}
@@ -145,8 +192,7 @@ public class clsHistorialPartidas extends JFrame
 					Collections.sort(listaPartidasMariano);
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
 					t.setOpaque(true); //content panes must be opaque
-					getContentPane().add(t, BorderLayout.NORTH);
-			        
+					getContentPane().add(t, BorderLayout.NORTH);      
 			        pack();
 			        setVisible(true);
 				}
@@ -163,7 +209,6 @@ public class clsHistorialPartidas extends JFrame
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
 					t.setOpaque(true); //content panes must be opaque
 					getContentPane().add(t, BorderLayout.NORTH);
-			        
 			        pack();
 			        setVisible(true);
 				}
@@ -173,7 +218,6 @@ public class clsHistorialPartidas extends JFrame
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
 					t.setOpaque(true); //content panes must be opaque
 					getContentPane().add(t, BorderLayout.NORTH);
-			        
 			        pack();
 			        setVisible(true);
 				}	

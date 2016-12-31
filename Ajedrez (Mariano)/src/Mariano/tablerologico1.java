@@ -155,22 +155,22 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 	}
 	public tablerologico1(Boolean asd, tablerovisual1 tablerovisual, Runnable myTimer) 
 	{
-		ganadorString = "";
-		clsBD.crearTablaBD(clsConstantes.PARTIDA);
-		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
-		try 
-		{
-			while (rs.next())
-			{
-				ID_partida++;
-			}
-		} 
-		catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		fec_com = new Date();
-		fec_fin = new Date(new Long(0) );
+//		ganadorString = "";
+//		clsBD.crearTablaBD(clsConstantes.PARTIDA);
+//		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
+//		try 
+//		{
+//			while (rs.next())
+//			{
+//				ID_partida++;
+//			}
+//		} 
+//		catch (SQLException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		fec_com = new Date();
+//		fec_fin = new Date(new Long(0) );
 	tablero= new clsCasilla[8][8];
 	
 	visual=tablerovisual;
@@ -231,10 +231,10 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 	pnegras.add(new clsCaballo(7,1,false));
 	pnegras.add(new clsAlfil(7,2,false));
 	pnegras.add(reyn);
-	pnegras.add(new clsReina(5,2,false));
+	//pnegras.add(new clsReina(5,2,false));
 	pnegras.add(reinan);
 	pnegras.add(new clsAlfil(7,5,false));
-	pnegras.add(new clsAlfil(4,5,false));
+	//pnegras.add(new clsAlfil(4,5,false));
 	pnegras.add(new clsCaballo(7,6,false));
 	pnegras.add(ntorrei);
 	
@@ -356,6 +356,7 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 	aux.setIcon(null);
 	}
 	}
+	aux.paint(aux.getGraphics());
 	}
 	borrar.clear();
 	}
@@ -888,7 +889,7 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 	{
 	tablero[selec.getY()][selec.getX()].setOcupado(null);
 	//tablero[selec.getY()][selec.getX()].setBackground(Color.BLUE);
-	tablero[selec.getY()][selec.getX()].paintImmediately(tablero[selec.getY()][selec.getX()].getBounds());
+	tablero[selec.getY()][selec.getX()].paint(tablero[selec.getY()][selec.getX()].getGraphics());
 	
 	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 	{

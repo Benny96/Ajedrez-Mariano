@@ -103,7 +103,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		
 		tab= new tablerologico1(true,this,myTimer);
 		
-		clsBD.insertarDatoTablaBD(tab);
+		//clsBD.insertarDatoTablaBD(tab);
 		
 		tablero= tab.getTablero();
 		

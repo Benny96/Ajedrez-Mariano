@@ -91,6 +91,8 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 
 	private clsReina reinan;
 	
+	private Object [][] datosTabla;
+	
 	int num=0;
 	
 	public TableroLogico1v1()
@@ -127,15 +129,9 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	public TableroLogico1v1(Boolean cargado, TableroVisual1v1 TableroVisual1v1) 
 	{
-		/*TODO: Añadir cargado de partida. La idea sería:
-		/* if(partidarecomenzada = true)
-		 * Asignar todos los valores a usuarios, piezas, tiempo y la partida -> O sea, asignar el tablero visual.
-		 * else
-		 * Lo que ya está escrito aquí abajo.
-		 */
 			if (cargado)
 			{
-				visual=TableroVisual1v1;
+				//No vale ni pa' cagar.
 			}
 			else
 			{
@@ -260,6 +256,76 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			IniciarReloj();			
 			}
 	}	
+	//TODO: Nuevo constructor con 123159279283740370 parámetros.
+	public TableroLogico1v1 (clsTorre btorrede, clsTorre btorreiz, int bminu, int bsegu, LinkedList <clsCasilla> movacti, int nminu,
+			int nsegu, clsTorre ntorrede, clsTorre ntorreiz, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras,
+			clsRey reybl, clsRey reyne, Object [][] datos, int numfila, clsUsuario ublanquito, clsUsuario unegrito, boolean turnoactual)
+	{
+		btorred = btorrede;
+		btorrei = btorreiz;
+		bmin = bminu;
+		bseg = bsegu;
+		bstr = String.format("%d:%02d", bmin, bseg);
+		
+		movact = new LinkedList <clsCasilla>();
+		for (clsCasilla aux: movacti)
+		{
+			movact.add(aux);
+		}
+		//acasilla = ????
+//		ncasilla = TableroVisual1v1.ncasilla;
+		
+		nmin = nminu;
+		nseg = nsegu;
+		nstr = String.format("%d:%02d", nmin, nseg);
+
+		ntorred = ntorrede;
+		ntorrei = ntorreiz;
+		pblancas = new LinkedList <clsPieza>();
+		for (clsPieza aux: piblancas)
+		{
+			pblancas.add(aux);
+		}
+		pnegras = new LinkedList <clsPieza>();
+		for (clsPieza aux: pinegras)
+		{
+			pnegras.add(aux);
+		}
+		reyb = reybl;
+		reyn = reyne;
+		selec = null;
+		setDatosTabla(datos);
+		tablero = new clsCasilla[8][8];
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				tablero[i][j]=new clsCasilla(i, j);	
+			}
+		}
+		for(clsPieza aux: piblancas)
+		{
+			tablero[aux.getY()][aux.getX()].setOcupado(aux);
+		}
+		for(clsPieza aux: pinegras)
+		{
+			tablero[aux.getY()][aux.getX()].setOcupado(aux);
+		}
+		
+		for(clsPieza aux: piblancas)
+		{
+			aux.setMovimientos(legales(aux,this));
+		}
+		for(clsPieza aux: pinegras)
+		{
+			aux.setMovimientos(legales(aux,this));
+		}
+		ublanco = ublanquito;
+		unigga = unegrito;
+		turno = turnoactual;
+		num = numfila;
+		IniciarReloj();
+	}
 	public void IniciarReloj()
 	{
 		reloj = new Timer1();
@@ -1920,6 +1986,13 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	public void setGanadorString(String ganador) {
 		this.ganadorString = ganador;
+	}
+	
+	public Object[][] getDatosTabla() {
+		return datosTabla;
+	}
+	public void setDatosTabla(Object[][] datosTabla) {
+		this.datosTabla = datosTabla;
 	}
 	@Override
 	public int compareTo(TableroLogico1v1 arg0) 

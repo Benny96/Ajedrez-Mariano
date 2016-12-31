@@ -95,7 +95,7 @@ public class clsGestor implements Serializable
 		clsBD.modificarDatoTablaBD(modificado);
 		return modificado;
 	}
-	public void GuardarPartida(TableroVisual1v1 tabaguardar)
+	public void GuardarPartida(TableroLogico1v1 tabaguardar)
 	{	
 		clsBinarios objDatos=new clsBinarios();
 	
@@ -103,7 +103,7 @@ public class clsGestor implements Serializable
 		objDatos.Save(tabaguardar);
 		objDatos.TerminarSave();
 	}
-	public TableroVisual1v1 CargarPartida()
+	public TableroLogico1v1 CargarPartida()
 	{	
 		ArrayList <Serializable> guardado = new ArrayList <Serializable>();
 		clsBinarios objDatos=new clsBinarios();
@@ -113,11 +113,12 @@ public class clsGestor implements Serializable
 		} 
 		catch (IOException e) 
 		{}
-		TableroVisual1v1 tabacargar = new TableroVisual1v1();
+		TableroLogico1v1 tabacargar = new TableroLogico1v1();
 		guardado = objDatos.Read();
 		if (guardado.size()>0)
 		{
-			tabacargar = (TableroVisual1v1)guardado.get(0);
+			//TODO: VOLVER A ESTA ASIGNACIÓN SI ES CORRECTA ASÍ SIN MÁS O SI HAY QUE IR ATRIBUTO POR ATRIBUTO.
+			tabacargar = (TableroLogico1v1)guardado.get(0);
 		}
 		objDatos.TerminarSave();
 		return tabacargar;

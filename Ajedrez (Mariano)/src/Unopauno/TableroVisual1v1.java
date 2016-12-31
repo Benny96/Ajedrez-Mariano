@@ -107,19 +107,28 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		clsBD.insertarDatoTablaBD(tab);
 		CreateAndShowGUI();
 	}
-	public TableroVisual1v1 (TableroLogico1v1 tablog, Object [][] a, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras, LinkedList <clsCasilla> movacti)
+	//TODO: SERÁ INUTIL SI TODO VA BIEN.
+//	public TableroVisual1v1 (TableroLogico1v1 tablog, Object [][] a, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras, LinkedList <clsCasilla> movacti)
+//	{
+//		tab = tablog;
+//		tab.pblancas = piblancas;
+//		tab.pnegras = pinegras;
+//		tab.movact = movacti;
+////		tab = new TableroLogico1v1(true,this);
+////		tab.IniciarReloj();
+//		tabla = new SimpleTableDemo();
+//		tabla.createTable(a);
+//		CreateAndShowGUI();
+//	}
+	public TableroVisual1v1(TableroLogico1v1 tablog)
 	{
-		tab = new TableroLogico1v1(true,this);
+		//Solución enrevesada nº1:
 		tab = tablog;
-		tab.pblancas = piblancas;
-		tab.pnegras = pinegras;
-		tab.movact = movacti;
-		tab.IniciarReloj();
+		tab.visual = this;
 		tabla = new SimpleTableDemo();
-		tabla.createTable(a);
+		tabla.createTable(tab.getDatosTabla());
 		CreateAndShowGUI();
 	}
-	
 	public void CreateAndShowGUI ()
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -247,7 +256,42 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 				x = JOptionPane.showConfirmDialog(null,"¿Deseas guardar la partida antes de volver al menú?", "Guardar la partida", JOptionPane.YES_NO_OPTION);
 				if (x == 0)
 				{
-					TableroVisual1v1 tabaguardar = new TableroVisual1v1(tab, tabla.data, tab.pblancas, tab.pnegras, tab.movact);
+					/**
+					 * ATRIBUTOS A ENVIAR:
+					 * btorred = TableroVisual1v1.btorred;
+						btorrei = TableroVisual1v1.btorrei;
+						
+						bmin= TableroVisual1v1.bmin;
+						bseg = TableroVisual1v1.bseg;
+						bstr = String.format("%d:%02d", bmin, bseg);
+						movact = new LinkedList <clsCasilla>();
+						for (clsCasilla aux: movacti)
+						{
+							movact.add(aux);
+						}
+						nmin = TableroVisual1v1.nmin;
+						nseg = TableroVisual1v1.nseg;
+						nstr = String.format("%d:%02d", nmin, nseg);
+						ntorred = TableroVisual1v1.ntorred;
+						ntorrei = TableroVisual1v1.ntorrei;
+						pblancas = new LinkedList <clsPieza>();
+						for (clsPieza aux: piblancas)
+						{
+							pblancas.add(aux);
+						}
+						pnegras = new LinkedList <clsPieza>();
+						for (clsPieza aux: pinegras)
+						{
+							pnegras.add(aux);
+						}
+						reyb = reyb;
+						reyn = reyn;
+						
+					 */
+//					TableroVisual1v1 tabaguardar = new TableroVisual1v1(tab, tabla.data, tab.pblancas, tab.pnegras, tab.movact);
+					TableroLogico1v1 tabaguardar = new TableroLogico1v1(tab.btorred, tab.btorrei, tab.getBmin(), tab.getBseg(),
+							tab.movact, tab.getNmin(), tab.getNseg(), tab.ntorred, tab.ntorrei, tab.pblancas, tab.pnegras,
+							tab.reyb, tab.reyn, tabla.data, tab.num, tab.getUblanco(), tab.getUnigga(), tab.getTurno());		
 					clsGestor objGestor = new clsGestor();
 					objGestor.GuardarPartida(tabaguardar);
 					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.

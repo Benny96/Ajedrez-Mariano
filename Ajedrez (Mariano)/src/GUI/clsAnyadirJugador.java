@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import LN.clsGestor;
 import LN.clsUsuario;
+import Unopauno.TableroLogico1v1;
 import Unopauno.TableroVisual1v1;
 
 public class clsAnyadirJugador extends JInternalFrame
@@ -88,45 +89,49 @@ public class clsAnyadirJugador extends JInternalFrame
 							&&!(txtNickname.getText().toUpperCase().equals(usuactual.getNickname()))))
 					{
 						existe = true;
-						TableroVisual1v1 tab = objGestor.CargarPartida();
-						
-						if ((tab.getTab().getUblanco().getNickname().compareTo(txtNickname.getText().toUpperCase())==0) && 
-							tab.getTab().getUnigga().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0)
+						TableroLogico1v1 tab = objGestor.CargarPartida();
+						if (tab.getUblanco() != null)
 						{
-						x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
-						if (x == 0)
-							{
-								tab.setVisible(true);
-							    miVentanaInterna.dispose();
-								clsEleccion.miVentana.dispose();
-							}
-							else
-							{
-								TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
-							    frame.setVisible(true);
-							    miVentanaInterna.dispose();
-								clsEleccion.miVentana.dispose();
-							}
-						}
-						if ((tab.getTab().getUblanco().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0) && 
-						tab.getTab().getUnigga().getNickname().compareTo(txtNickname.getText().toUpperCase())==0)						
-						{
-						x = -1;
-						x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
-							if (x == 0)
-							{
-								tab.setVisible(true);
-							    miVentanaInterna.dispose();
-								clsEleccion.miVentana.dispose();
-							}
-							else
-							{
-								TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
-							    frame.setVisible(true);
-							    miVentanaInterna.dispose();
-								clsEleccion.miVentana.dispose();
-							}
-						}
+							if ((tab.getUblanco().getNickname().compareTo(txtNickname.getText().toUpperCase())==0) && 
+									tab.getUnigga().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0)
+								{
+								x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
+								if (x == 0)
+									{
+										TableroVisual1v1 frame = new TableroVisual1v1(tab);
+										frame.setVisible(true);
+									    miVentanaInterna.dispose();
+										clsEleccion.miVentana.dispose();
+									}
+									else
+									{
+										TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
+									    frame.setVisible(true);
+									    miVentanaInterna.dispose();
+										clsEleccion.miVentana.dispose();
+									}
+								}
+								if ((tab.getUblanco().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0) && 
+								tab.getUnigga().getNickname().compareTo(txtNickname.getText().toUpperCase())==0)						
+								{
+								x = -1;
+								x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
+									if (x == 0)
+									{
+										TableroVisual1v1 frame = new TableroVisual1v1(tab);
+										frame.setVisible(true);
+									    miVentanaInterna.dispose();
+										clsEleccion.miVentana.dispose();
+									}
+									else
+									{
+										TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
+									    frame.setVisible(true);
+									    miVentanaInterna.dispose();
+										clsEleccion.miVentana.dispose();
+									}
+								}
+						}						
 						else
 						{
 							TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);

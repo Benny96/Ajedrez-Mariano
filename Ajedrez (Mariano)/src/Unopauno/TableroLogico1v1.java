@@ -938,22 +938,19 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 
 	if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
 	{
-		if(selec.getY()==7)
+		if(selec.getY()==6 && selec.getColor())
 		{
 			pblancas.remove(selec);
 			clsReina auxr=new clsReina(selec.getX(),selec.getY(),true);
 			pblancas.add(auxr);
 			selec=auxr;
-			for(clsPieza pi: pblancas)
-			{
-				System.out.println(pi.getClass());
-			}
+			
 		}
-		if(selec.getY()==0)
+		if(selec.getY()==1 && selec.getColor()==false)
 		{
 			pnegras.remove(selec);
 			clsReina auxr=new clsReina(selec.getX(),selec.getY(),false);
-			pblancas.add(auxr);
+			pnegras.add(auxr);
 			selec=auxr;
 		}
 		
@@ -1083,7 +1080,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		System.out.println(selec.getX());
 		//TODO: CAMBIO INTRODUCIDO AQUÍ (DE 6 A 7) para que no cree una dama de la nada por el movimiento visto en el vídeo. Sin embargo, no acaba de crear
 		//la dama en ningún momento...
-		if(selec.getY()==7)
+		if(selec.getY()==6 && selec.getColor())
 		{
 			
 			pblancas.remove(selec);
@@ -1091,12 +1088,9 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			clsReina auxr=new clsReina(selec.getY(),selec.getX(),true);
 			pblancas.add(auxr);
 			selec=auxr;
-			for(clsPieza pi: pblancas)
-			{
-				System.out.println(pi.getClass());
-			}
+			
 		}
-		if(selec.getY()==0)
+		if(selec.getY()==1 && selec.getColor()==false)
 		{
 			pnegras.remove(selec);
 			clsReina auxr=new clsReina(selec.getY(),selec.getX(),false);

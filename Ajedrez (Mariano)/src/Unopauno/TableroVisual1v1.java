@@ -274,7 +274,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		//foto=new JLabel();
 		casiaux=ncasilla2;
 		
-		
+		foto.setVisible(true);
 		
 		try {
 			img = ImageIO.read(getClass().getResource(ruta_foto));
@@ -418,7 +418,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	public void acaba()
 	{
 		sigo=false;
-		sigo=false;
+		foto.setVisible(false);
 		casiaux.setIcon(new ImageIcon(img));
 	}
 	

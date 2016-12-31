@@ -1173,10 +1173,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 //	}
 	clear(movact);
 	
-	
-	
-	//revisar(new clsJugada(selec,acasilla),this);
-	
 	if(selec.getColor())
 	{
 	if(comprobarjaque(reyn,this))

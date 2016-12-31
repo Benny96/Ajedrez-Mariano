@@ -889,7 +889,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	if(selec.getA()==piezas.Rey&&selec.getColor()==false)foto="/img/rey_n.png";
 	if(selec.getA()==piezas.Reina&&selec.getColor()==false)foto="/img/reina_n.png";
 	
-	visual.EmpezarMovimiento(acasilla.getX(), acasilla.getY(), ncasilla.getX(), ncasilla.getY(), foto);
+	visual.EmpezarMovimiento(acasilla.getX(), acasilla.getY(), ncasilla.getX(), ncasilla.getY(), foto,ncasilla);
 	
 	
 	
@@ -961,6 +961,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	
 	
 	ncasilla.setOcupado(selec);
+	ncasilla.setIcon(null);
 	movact.remove(ncasilla);
 	
 	String letra=null;
@@ -1002,7 +1003,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	ncasilla.paint(ncasilla.getGraphics());
 	clear(movact);
 	//revisar(new clsJugada(selec,acasilla),this);
-	//TODO: DIRÍA QUE ESTA ESTRUCTURA ENTERA DE JAQUEMATE SOBRA; NO SÉ CUÁNDO ENTRA...
+	
 	if(selec.getColor())
 	{
 	if(comprobarjaque(reyn,this))

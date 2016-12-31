@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -88,6 +89,9 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	String ruta_foto="";
 	JLabel foto;
 	int control=0;
+	
+	clsCasilla casiaux;
+	Image img =null;
 	
 	public TableroVisual1v1() 
 	{
@@ -258,7 +262,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	
 	
 	
-	public void EmpezarMovimiento(int x_i, int y_i, int x_f, int y_f, String ruta)
+	public void EmpezarMovimiento(int x_i, int y_i, int x_f, int y_f, String ruta, clsCasilla ncasilla2)
 	{
 		
 		
@@ -268,12 +272,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		y_final=y_f;
 		ruta_foto=ruta;
 		//foto=new JLabel();
-		
+		casiaux=ncasilla2;
 		
 		
 		
 		try {
-			Image img = ImageIO.read(getClass().getResource(ruta_foto));
+			img = ImageIO.read(getClass().getResource(ruta_foto));
 			foto.setIcon(new ImageIcon(img));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -414,6 +418,8 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	public void acaba()
 	{
 		sigo=false;
+		sigo=false;
+		casiaux.setIcon(new ImageIcon(img));
 	}
 	
 	class Timer1 implements Runnable
@@ -526,7 +532,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 					//también en diagonal para que comer
 					if(ruta_foto=="/img/peon_blanco.png" || ruta_foto=="/img/peon_negro.png")
 					{
-						if(y_ini==y_final);
+						if(y_ini<y_final);
 						if(y_ini>y_final)y_ini--;
 						if(y_ini<y_final)y_ini++;
 						

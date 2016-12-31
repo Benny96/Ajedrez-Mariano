@@ -61,7 +61,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	clsTorre ntorrei;
 	clsTorre ntorred;
 	
-	Boolean turno;
+	boolean turno;
 	
 	TableroVisual1v1 visual;
 	

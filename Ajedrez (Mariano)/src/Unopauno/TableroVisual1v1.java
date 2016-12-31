@@ -63,7 +63,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	clsTorre ntorrei;
 	clsTorre ntorred;
 	
-	Boolean turno;
+	boolean turno;
 	
 	int nmin;
 	int nseg;
@@ -78,7 +78,6 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	SimpleTableDemo tabla;
 	
 	clsPieza selec;
-	
 	
 	transient MiHilo hilo;
 	boolean sigo;

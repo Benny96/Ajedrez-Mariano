@@ -98,7 +98,7 @@ public class clsGestor implements Serializable
 	public void GuardarPartida(TableroLogico1v1 tabaguardar)
 	{	
 		clsBinarios objDatos=new clsBinarios();
-	
+		objDatos.ResetFile(enFicDatos.FICHERO_PARTIDA);
 		objDatos.ComenzarSave(enFicDatos.FICHERO_PARTIDA);
 		objDatos.Save(tabaguardar);
 		objDatos.TerminarSave();

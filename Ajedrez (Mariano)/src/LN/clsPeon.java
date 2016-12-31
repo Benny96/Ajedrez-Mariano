@@ -100,19 +100,21 @@ public class clsPeon extends clsPieza implements Serializable
 		movimientos.clear();
 		if(this.getColor())
 		{
-		
-		if(this.y!=1)
+		if (this.y <7) //TODO: He añadido esta condición para que no pete por un OutOfBoundsException, pero no sé dónde quieres hacer la coronación del peón.
 		{
-			if(tablero[this.y+1][this.getX()].getOcupado()==null)
-				this.movimientos.add(tablero[this.y+1][this.getX()]);
-		}
-		else
-		{
-			if(tablero[this.y+1][this.getX()].getOcupado()==null)
+			if(this.y!=1)
 			{
-				this.movimientos.add(tablero[this.y+1][this.getX()]);
-			if(tablero[this.y+2][this.getX()].getOcupado()==null)
-				this.movimientos.add(tablero[this.y+2][this.getX()]);
+				if(tablero[this.y+1][this.getX()].getOcupado()==null)
+					this.movimientos.add(tablero[this.y+1][this.getX()]);
+			}
+			else
+			{
+				if(tablero[this.y+1][this.getX()].getOcupado()==null)
+				{
+					this.movimientos.add(tablero[this.y+1][this.getX()]);
+				if(tablero[this.y+2][this.getX()].getOcupado()==null)
+					this.movimientos.add(tablero[this.y+2][this.getX()]);
+				}
 			}
 		}
 			if(this.y+1<8 && this.getX()+1<8 && tablero[this.y+1][this.getX()+1].getOcupado()!=null && tablero[this.y+1][this.getX()+1].getOcupado().getColor().equals(this.getColor()==false))

@@ -1081,7 +1081,9 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		System.out.println("Punto1");
 		System.out.println(selec.getY());
 		System.out.println(selec.getX());
-		if(selec.getY()==6)
+		//TODO: CAMBIO INTRODUCIDO AQUÍ (DE 6 A 7) para que no cree una dama de la nada por el movimiento visto en el vídeo. Sin embargo, no acaba de crear
+		//la dama en ningún momento...
+		if(selec.getY()==7)
 		{
 			
 			pblancas.remove(selec);
@@ -1094,7 +1096,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 				System.out.println(pi.getClass());
 			}
 		}
-		if(selec.getY()==1)
+		if(selec.getY()==0)
 		{
 			pnegras.remove(selec);
 			clsReina auxr=new clsReina(selec.getY(),selec.getX(),false);

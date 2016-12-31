@@ -142,7 +142,7 @@ public class clsPieza implements Serializable
 			if(this.getX()==4)
 				letra="d";
 			if(this.getX()==5)
-				letra="b";
+				letra="c";
 			if(this.getX()==6)
 				letra="b";
 			if(this.getX()==7)

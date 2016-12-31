@@ -123,5 +123,9 @@ public class clsGestor implements Serializable
 		objDatos.TerminarSave();
 		return tabacargar;
 	}
-	
+	public void BorrarPartida()
+	{
+		clsBinarios objDatos=new clsBinarios();
+		objDatos.ResetFile(enFicDatos.FICHERO_PARTIDA);
+	}
 }

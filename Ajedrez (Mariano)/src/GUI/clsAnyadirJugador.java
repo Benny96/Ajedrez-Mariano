@@ -105,6 +105,7 @@ public class clsAnyadirJugador extends JInternalFrame
 									}
 									else
 									{
+										objGestor.BorrarPartida();
 										TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 									    frame.setVisible(true);
 									    miVentanaInterna.dispose();
@@ -125,6 +126,7 @@ public class clsAnyadirJugador extends JInternalFrame
 									}
 									else
 									{
+										objGestor.BorrarPartida();
 										TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 									    frame.setVisible(true);
 									    miVentanaInterna.dispose();

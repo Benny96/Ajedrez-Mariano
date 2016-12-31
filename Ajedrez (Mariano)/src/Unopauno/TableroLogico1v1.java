@@ -19,6 +19,7 @@ import GUI.clsEleccion;
 import LN.clsAlfil;
 import LN.clsCaballo;
 import LN.clsCasilla;
+import LN.clsGestor;
 import LN.clsJugada;
 import LN.clsPeon;
 import LN.clsPieza;
@@ -1736,6 +1737,8 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			clsBD.modificarDatoTablaBD(perdedor);
 			
            clsBD.modificarDatoTablaBD(visual.tab);
+           clsGestor objGestor = new clsGestor();
+           objGestor.BorrarPartida();
 		   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
 		   ventanaEleccion.setVisible(true);
 		   visual.dispose();

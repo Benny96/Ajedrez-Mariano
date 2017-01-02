@@ -273,9 +273,10 @@ public class clsPaginaPrincipal extends JFrame
 			if((txtNickname.getText().toUpperCase().equals(aux.getNickname().toUpperCase()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
 			{
 				existe = true;
-				clsEleccion ventanaEleccion = new clsEleccion(aux);
-				ventanaEleccion.setVisible(true);
+				ProgressBar pb=new ProgressBar("Validando acceso...", aux);
+				pb.setVisible(true);
 				miVentana.dispose();
+				
 			}
 		}
 
@@ -284,9 +285,13 @@ public class clsPaginaPrincipal extends JFrame
 			JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	
+	public static void AbrirVentanaEleccion(clsUsuario usu)
+	{
+		
+		clsEleccion ventanaEleccion = new clsEleccion(usu);
+		ventanaEleccion.setVisible(true);
+		
+	}
 }
-
-
-
-
-

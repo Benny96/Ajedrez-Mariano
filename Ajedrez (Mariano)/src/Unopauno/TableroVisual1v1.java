@@ -92,6 +92,25 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	clsCasilla casiaux;
 	Image img =null;
 	
+	
+	JLabel a;
+	JLabel b;
+	JLabel c;
+	JLabel d;
+	JLabel e;
+	JLabel f;
+	JLabel g;
+	JLabel h;
+	
+	JLabel num_1;
+	JLabel num_2;	
+	JLabel num_3;	
+	JLabel num_4;	
+	JLabel num_5;
+	JLabel num_6;	
+	JLabel num_7;	
+	JLabel num_8;
+	
 	public TableroVisual1v1() 
 	{
 		tab= new TableroLogico1v1();
@@ -148,9 +167,9 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		clsUsuario ublanco= tab.getUblanco();
 		clsUsuario unigga= tab.getUnigga();
 		
-		blanquito= new JLabel(ublanco.getNickname());
-		blanquito.setBounds(475, 595, 100,40);
 		
+		blanquito= new JLabel(ublanco.getNickname());
+		blanquito.setBounds(475, 650, 160, 40);
 		Font labelFont = blanquito.getFont();
 		String labelText =blanquito.getText();
 
@@ -167,24 +186,114 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		int fontSizeToUse = Math.min(newFontSize, componentHeight);
 
 		// Set the label's font size to the newly determined size.
+		
+		
 		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
 		pPrincipal.add(blanquito);
 		
-		nigga= new JLabel(unigga.getNickname());
-		nigga.setBounds(80, 80, 100,40);
-		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
-		pPrincipal.add(nigga);
 	
 		
+		
+		
+		
+		
+		
+	
+	
+		
+		
+		num_8=new JLabel("8");
+		num_8.setBounds(40, 120, 50, 50);
+		num_8.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_8);
+		
+		num_7=new JLabel("7");
+		num_7.setBounds(40, 180, 50, 50);
+		num_7.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_7);
+		
+		num_6=new JLabel("6");
+		num_6.setBounds(40, 240, 50, 50);
+		num_6.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_6);
+		
+		num_5=new JLabel("5");
+		num_5.setBounds(40, 300, 50, 50);
+		num_5.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_5);
+		
+		num_4=new JLabel("4");
+		num_4.setBounds(40, 360, 50, 50);
+		num_4.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_4);
+		
+		num_3=new JLabel("3");
+		num_3.setBounds(40, 420, 50, 50);
+		num_3.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_3);
+		
+		num_2=new JLabel("2");
+		num_2.setBounds(40, 480, 50, 50);
+		num_2.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_2);
+		
+		num_1=new JLabel("1");
+		num_1.setBounds(40, 540, 50, 50);
+		num_1.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_1);
+		
+		
+		
+		a=new JLabel("a");
+		a.setBounds(100, 600, 35, 35);
+		a.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(a);
+		
+		b=new JLabel("b");
+		b.setBounds(160, 600, 35, 35);
+		b.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(b);
+		
+		c=new JLabel("c");
+		c.setBounds(220, 600, 35, 35);
+		c.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(c);
+		
+		d=new JLabel("d");
+		d.setBounds(280, 600, 35, 35);
+		d.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(d);
+		
+		e=new JLabel("e");
+		e.setBounds(340, 600, 35, 35);
+		e.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(e);
+		
+		f=new JLabel("f");
+		f.setBounds(400, 600, 35, 35);
+		f.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(f);
+		
+		g=new JLabel("a");
+		g.setBounds(460, 600, 35, 35);
+		g.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(g);
+		
+		h=new JLabel("h");
+		h.setBounds(520, 600, 35, 35);
+		h.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(h);
+		
+		
+		
 		foto=new JLabel();
-		foto.setBounds(0, 0, 50, 50);
 		pPrincipal.add(foto);
 		
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0;j<8;j++)
 			{
-				tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+//				tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 					tablero[i][j].setBackground(Color.WHITE);
 				else
@@ -196,6 +305,8 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 				
 			}
 		}
+		
+		
 		
 		turno=tab.getTurno();
 		
@@ -211,6 +322,29 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		ntorrei=tab.getBtorrei();
 		ntorred=tab.getNtorred();
 		
+		
+		bstr = tab.getBstr();
+		
+		btiempo= new JLabel(bstr);
+		btiempo.setBounds(410, 650, 100, 40);
+		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
+		pPrincipal.add(btiempo);
+		
+
+		nstr = tab.getNstr();
+		ntiempo= new JLabel(nstr);
+		ntiempo.setBounds(80, 20, 100, 40);
+		ntiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
+		pPrincipal.add(ntiempo);
+		
+		
+		nigga=new JLabel(unigga.getNickname());
+		nigga.setBounds(135, 20, 160, 40);
+		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(nigga);
+		
+	
+		
 //		for(clsPieza aux: pblancas)
 //		{
 //			tablero[aux.getY()][aux.getX()].setOcupado(aux);
@@ -220,20 +354,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 //			tablero[aux.getY()][aux.getX()].setOcupado(aux);
 //		}
 		
-		nstr = tab.getNstr();
-		
-		ntiempo= new JLabel(nstr);
-		ntiempo.setBounds(160, 80, 100,40);
-		ntiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
-		pPrincipal.add(ntiempo);
-		
-		
-		bstr = tab.getBstr();
-		
-		btiempo= new JLabel(bstr);
-		btiempo.setBounds(410, 595, 100,40);
-		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
-		pPrincipal.add(btiempo);
+	
 		
 		if (tabla == null)
 		{
@@ -569,7 +690,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 
 					Thread.sleep(5);
 					
-					//Segun la pieza, quiero que elmovimiento sea de una forma u otra
+					//Segun la pieza, quiero que el movimiento será de una forma u otra
 					
 					//Esto es un peón, por lo que quiero que se mueva en vertical, pero
 					//también en diagonal para que comer

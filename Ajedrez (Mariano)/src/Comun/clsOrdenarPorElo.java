@@ -10,7 +10,7 @@ public class clsOrdenarPorElo implements Comparator <clsUsuario>
 	@Override
 	public int compare(clsUsuario o1, clsUsuario o2) 
 	{
-		return o1.getElo()-o2.getElo();
+		return o2.getElo()-o1.getElo();
 	}
 
 }

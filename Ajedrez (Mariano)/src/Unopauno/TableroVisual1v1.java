@@ -356,7 +356,6 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		//Nota sobre la escritura: no es del todo correcta( no manifiesta  jaques o jaquemates
 		//y cuando come el peón está mal
 		
-		//TODO: Entra aquí cuando no se ha cerrado esta ventana...
 		addWindowListener( new WindowAdapter() 
 		{
 			@Override
@@ -407,6 +406,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.
 //					salvaProperties();  // Paso 6
 				}
+				tab.jaquemate = true;
 				clsEleccion menu = new clsEleccion(tab.getUblanco());
 				menu.setVisible(true);
 				miVentana.dispose();
@@ -523,46 +523,46 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	}
 
 
-	private void Conversor()
-	{
-		//System.out.println("SDFGHJKL"+ turno);
-		
-		turno=tab.getTurno();
-		if(turno)
-		{
-			bseg--;
-			if (bseg==-1)
-			{
-				bseg=59;
-				bmin--;
-			}
-			bstr = String.format("%d:%02d", bmin, bseg);
-			tab.setBstr(bstr);
-			btiempo.setText(bstr);
-		}
-		else
-		{
-		nseg--;
-		if (nseg==-1)
-		{
-			nseg=59;
-			nmin--;
-		}
-		nstr = String.format("%d:%02d", nmin, nseg);
-		tab.setNstr(nstr);
-		
-		ntiempo.setText(nstr);
-		}
-		
-		
-		this.repaint();
-			
-	}
-	
-	public void porque()
-	{
-		
-	}
+//	private void Conversor()
+//	{
+//		//System.out.println("SDFGHJKL"+ turno);
+//		
+//		turno=tab.getTurno();
+//		if(turno)
+//		{
+//			bseg--;
+//			if (bseg==-1)
+//			{
+//				bseg=59;
+//				bmin--;
+//			}
+//			bstr = String.format("%d:%02d", bmin, bseg);
+//			tab.setBstr(bstr);
+//			btiempo.setText(bstr);
+//		}
+//		else
+//		{
+//		nseg--;
+//		if (nseg==-1)
+//		{
+//			nseg=59;
+//			nmin--;
+//		}
+//		nstr = String.format("%d:%02d", nmin, nseg);
+//		tab.setNstr(nstr);
+//		
+//		ntiempo.setText(nstr);
+//		}
+//		
+//		
+//		this.repaint();
+//			
+//	}
+//	
+//	public void porque()
+//	{
+//		
+//	}
 	public TableroLogico1v1 getTab ()
 	{
 		return tab;

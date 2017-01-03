@@ -262,6 +262,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			int nsegu, clsTorre ntorrede, clsTorre ntorreiz, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras,
 			clsRey reybl, clsRey reyne, Object [][] datos, int numfila, clsUsuario ublanquito, clsUsuario unegrito, boolean turnoactual)
 	{
+		visual = new TableroVisual1v1();
 		btorred = btorrede;
 		btorrei = btorreiz;
 		bmin = bminu;
@@ -1637,6 +1638,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	
 	if(turno)
 	{
+	System.out.println("Hilo: "+reloj.hashCode());
 	bseg--;
 	if (bseg==-1)
 	{
@@ -1656,6 +1658,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	else
 	{
+	System.out.println("Hilo: "+reloj.hashCode());
 	nseg--;
 	if (nseg==-1)
 	{

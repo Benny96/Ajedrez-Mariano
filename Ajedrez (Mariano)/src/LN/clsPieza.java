@@ -218,7 +218,7 @@ public class clsPieza implements Serializable
 		clsCasilla [][] tablerete=tab.getTablero();
 		if(pieza instanceof clsPeon)
 		{
-			clsPeon a=new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			clsPeon a=new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor(),false);
 			for(clsCasilla s: pieza.movimientos)
 			{
 				a.movimientos.add(tablerete[s.gety()][s.gety()]);
@@ -227,7 +227,7 @@ public class clsPieza implements Serializable
 		}
 		if(pieza instanceof clsTorre)
 		{
-			clsTorre a=new clsTorre(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			clsTorre a=new clsTorre(pieza.getY(),pieza.getX(),pieza.getColor(),false);
 			for(clsCasilla s: pieza.movimientos)
 			{
 				a.movimientos.add(tablerete[s.gety()][s.gety()]);
@@ -236,7 +236,7 @@ public class clsPieza implements Serializable
 		}
 		if(pieza instanceof clsCaballo)
 		{
-			clsCaballo a=new clsCaballo(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			clsCaballo a=new clsCaballo(pieza.getY(),pieza.getX(),pieza.getColor(),false);
 			for(clsCasilla s: pieza.movimientos)
 			{
 				a.movimientos.add(tablerete[s.gety()][s.gety()]);
@@ -245,7 +245,7 @@ public class clsPieza implements Serializable
 		}
 		if(pieza instanceof clsAlfil)
 		{
-			clsAlfil a=new clsAlfil(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			clsAlfil a=new clsAlfil(pieza.getY(),pieza.getX(),pieza.getColor(),false);
 			for(clsCasilla s: pieza.movimientos)
 			{
 				a.movimientos.add(tablerete[s.gety()][s.gety()]);
@@ -254,7 +254,7 @@ public class clsPieza implements Serializable
 		}
 		if(pieza instanceof clsRey)
 		{
-			clsRey a=new clsRey(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			clsRey a=new clsRey(pieza.getY(),pieza.getX(),pieza.getColor(),false);
 			for(clsCasilla s: pieza.movimientos)
 			{
 				a.movimientos.add(tablerete[s.gety()][s.gety()]);
@@ -263,7 +263,7 @@ public class clsPieza implements Serializable
 		}
 		if(pieza instanceof clsReina)
 		{
-			clsReina a=new clsReina(pieza.getY(),pieza.getX(),pieza.getColor(),true);
+			clsReina a=new clsReina(pieza.getY(),pieza.getX(),pieza.getColor(),false);
 			for(clsCasilla s: pieza.movimientos)
 			{
 				a.movimientos.add(tablerete[s.gety()][s.gety()]);
@@ -402,18 +402,65 @@ public class clsPieza implements Serializable
 		this.valor = valor;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((a == null) ? 0 : a.hashCode());
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + x;
+		result = prime * result + y;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		clsPieza other = (clsPieza) obj;
+		if (a != other.a)
+			return false;
+		if (color == null) {
+			if (other.color != null)
+				return false;
+		} else if (!color.equals(other.color))
+			return false;
+		if (x != other.x)
+			return false;
+		if (y != other.y)
+			return false;
+		return true;
+	}
+
 //	@Override
 //	protected Object clone() throws CloneNotSupportedException {
 //		// TODO Auto-generated method stub
 //		return super.clone();
 //	}
 
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		if(obj.getClass().equals(this.getClass())&& this.x==((clsPieza)obj).x &&  this.y==((clsPieza)obj).y &&  this.color==((clsPieza)obj).color )
-			return true;
-		else 
-			return false;
-	}
+//	@Override
+//	public boolean equals(Object obj) {
+//		// TODO Auto-generated method stub
+//		if(obj.getClass().equals(this.getClass())&& this.x==((clsPieza)obj).x &&  this.y==((clsPieza)obj).y &&  this.color==((clsPieza)obj).color )
+//			return true;
+//		else 
+//			return false;
+//	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((color == null) ? 0 : color.hashCode());
+//		result = prime * result + valor;
+//		result = prime * result + x;
+//		result = prime * result + y;
+//		return result;
+//	}
+
+	
+
 }

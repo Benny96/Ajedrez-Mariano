@@ -15,12 +15,12 @@ public class clsMain {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					clsBD.initBD( "src/Data/mariano.bd" );
-					clsPaginaPrincipal p=new clsPaginaPrincipal();
-					p.setVisible(true);
-					
-//					tablerovisual1 p=new tablerovisual1();
+//					clsBD.initBD( "src/Data/mariano.bd" );
+//					clsPaginaPrincipal p=new clsPaginaPrincipal();
 //					p.setVisible(true);
+					
+					tablerovisual1 p=new tablerovisual1();
+					p.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

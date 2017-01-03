@@ -23,6 +23,7 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -91,7 +92,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 	{
 		super(titulo);
 		getContentPane().setLayout(new BorderLayout());
-		
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		paneltabla=new JPanel();
 	    panelbotonera=new JPanel();    
 	    

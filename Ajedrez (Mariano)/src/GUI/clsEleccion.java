@@ -20,6 +20,7 @@ import java.util.logging.SimpleFormatter;
 import java.util.logging.StreamHandler;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -107,10 +108,10 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 	{
 		desktop = new JDesktopPane();
 		setContentPane(desktop);
-		
 		this.setBounds(350, 200, 720, 480);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Elección - Ajedrez: Mariano");
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		desktop.setBackground(Color.WHITE);
 		desktop.setLayout(null);
 		

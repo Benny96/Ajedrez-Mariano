@@ -95,6 +95,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 	{
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		setBounds(0, 0, 1050, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -221,6 +222,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		
 		// TODO Auto-generated constructor stub
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		setBounds(0, 0, 1360, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));

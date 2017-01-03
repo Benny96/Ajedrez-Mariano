@@ -164,6 +164,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	}
 	public void CreateAndShowGUI ()
 	{
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		File fic = new File("mariano.ini");
 		if (fic.exists())

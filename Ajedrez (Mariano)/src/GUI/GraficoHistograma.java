@@ -47,6 +47,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
@@ -79,6 +80,7 @@ public class GraficoHistograma extends JFrame
 
        super(title);
        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
        final CategoryDataset dataset = createDataset();
        final JFreeChart chart = createChart(dataset);
        final ChartPanel chartPanel = new ChartPanel(chart);

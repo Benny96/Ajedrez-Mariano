@@ -59,6 +59,7 @@ public class clsPaginaPrincipal extends JFrame
 		this.setBounds(350, 200, 500, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		panel.setLayout(null);
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		getContentPane().add( panel, BorderLayout.CENTER );
 		setTitle("¡Bienvenido al Ajedrez Mariano!");
 		panel.setBackground(Color.WHITE);

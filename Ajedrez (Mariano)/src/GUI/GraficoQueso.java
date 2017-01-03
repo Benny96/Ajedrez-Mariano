@@ -46,6 +46,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
@@ -78,6 +79,7 @@ public class GraficoQueso extends JFrame
 
      super(title);
      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+     this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
      final PieDataset dataset = createSampleDataset();
      final JFreeChart chart = createChart(dataset);
      final ChartPanel chartPanel = new ChartPanel(chart);

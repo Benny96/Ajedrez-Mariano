@@ -122,6 +122,7 @@ public class clsAltaUsuario extends JFrame
 		panelsuperior=new JPanel();
 		this.setBounds(100, 100, 380, 350);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		panelprincipal.setLayout(new BorderLayout());
 //		panelizda.setLayout(new SpringLayout());
 //		panelizda.setLayout(new GridLayout());

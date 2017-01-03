@@ -67,7 +67,7 @@ public class clsBinarios implements itfDatos {
 				
 				try
 				{
-					aos=new AppendableObjectOutputStream(new FileOutputStream(fic, true));
+					aos=new AppendableObjectOutputStream(new FileOutputStream(fic,true));
 				}
 				catch(IOException e)
 				{

@@ -92,7 +92,6 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	clsCasilla casiaux;
 	Image img =null;
 	
-	
 	JLabel a;
 	JLabel b;
 	JLabel c;
@@ -110,6 +109,8 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	JLabel num_6;	
 	JLabel num_7;	
 	JLabel num_8;
+	
+	transient TableroVisual1v1 miVentana;
 	
 	public TableroVisual1v1() 
 	{
@@ -149,7 +150,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	}
 	public void CreateAndShowGUI ()
 	{
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 1200, 780);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -190,17 +191,6 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		
 		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
 		pPrincipal.add(blanquito);
-		
-	
-		
-		
-		
-		
-		
-		
-	
-	
-		
 		
 		num_8=new JLabel("8");
 		num_8.setBounds(40, 120, 50, 50);
@@ -343,7 +333,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
 		pPrincipal.add(nigga);
 		
-	
+		miVentana = this;
 		
 //		for(clsPieza aux: pblancas)
 //		{
@@ -419,7 +409,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 				}
 				clsEleccion menu = new clsEleccion(tab.getUblanco());
 				menu.setVisible(true);
-				dispose();		
+				miVentana.dispose();
 			}
 		});
 	}
@@ -586,28 +576,6 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		casiaux.setIcon(new ImageIcon(img));
 	}
 	
-	class Timer1 implements Runnable
-	{
-		@Override
-		public void run() 
-		{
-			while(tab.jaquemate==false)
-			{
-					try 
-					{
-						Thread.sleep(1000);
-						Conversor();
-						
-					}
-					catch (InterruptedException e) 
-					{
-						return;
-					}
-					
-			}
-			porque();
-		}
-	}
 	
 	class SimpleTableDemo extends JPanel{
 	   

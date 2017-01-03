@@ -47,27 +47,7 @@ public class clsGestor implements Serializable
 				e.printStackTrace();
 			}
 		}
-//		clsBinarios objDatos = new clsBinarios();
-//	
-//		try 
-//		{
-//			objDatos.ComenzarRead(enFicDatos.FICHERO_USUARIOS);
-//		} 
-//		catch (IOException e) 
-//		{
-//			e.printStackTrace();
-//		}
-//		ArrayList<Serializable> listar=new ArrayList<Serializable>();
-//		listar=objDatos.Read();
-//		for (Serializable o: listar)
-//		{
-//			lista.add((clsUsuario)o);
-//		}
-//		objDatos.TerminarRead();
-
-		return lista;
-
-	
+		return lista;	
 	}
 	
 	
@@ -117,10 +97,9 @@ public class clsGestor implements Serializable
 		guardado = objDatos.Read();
 		if (guardado.size()>0)
 		{
-			//TODO: VOLVER A ESTA ASIGNACIÓN SI ES CORRECTA ASÍ SIN MÁS O SI HAY QUE IR ATRIBUTO POR ATRIBUTO.
 			tabacargar = (TableroLogico1v1)guardado.get(0);
 		}
-		objDatos.TerminarSave();
+		objDatos.TerminarRead();
 		return tabacargar;
 	}
 	public void BorrarPartida()

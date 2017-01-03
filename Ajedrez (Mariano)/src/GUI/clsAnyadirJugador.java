@@ -180,6 +180,14 @@ public class clsAnyadirJugador extends JInternalFrame
 										clsEleccion.miVentana.dispose();
 									}
 								}
+								else
+								{
+									logger.log( Level.INFO, "Generando una nueva partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname());
+									TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
+								    frame.setVisible(true);
+								    miVentanaInterna.dispose();
+									clsEleccion.miVentana.dispose();
+								}
 						}						
 						else
 						{

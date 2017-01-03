@@ -19,6 +19,7 @@ import javax.swing.border.Border;
 
 import LN.clsGestor;
 import LN.clsUsuario;
+import Persistencia.clsBD;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -250,7 +251,14 @@ public class clsPaginaPrincipal extends JFrame
 				}	
 			}
 		});
-			
+		addWindowListener( new WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				clsBD.close();
+			}
+		});
 	}
 	
 	private boolean controlPulsado = false;
@@ -276,7 +284,6 @@ public class clsPaginaPrincipal extends JFrame
 				ProgressBar pb=new ProgressBar("Validando acceso...", aux, 0);
 				pb.setVisible(true);
 				miVentana.dispose();
-				
 			}
 		}
 

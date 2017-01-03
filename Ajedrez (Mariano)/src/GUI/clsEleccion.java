@@ -27,6 +27,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
+import org.jfree.ui.RefineryUtilities;
+
 import LN.clsGestor;
 import LN.clsUsuario;
 import Mariano.TableroVisualMariano;
@@ -59,7 +61,8 @@ public class clsEleccion extends JFrame
 	private ButtonGroup btngrpDificultad;
 	
 	private JRadioButton rdbtnLista;
-	private JRadioButton rdbtnGrafico;
+	private JRadioButton rdbtnGraficoLinea;
+	private JRadioButton rdbtnGraficoQueso;
 	private ButtonGroup btngrpRanking;
 	
 	static JFrame miVentana;
@@ -105,9 +108,8 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		desktop = new JDesktopPane();
 		setContentPane(desktop);
 		
-//		desktop=new JPanel();
 		this.setBounds(350, 200, 720, 480);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Elección - Ajedrez: Mariano");
 		desktop.setBackground(Color.WHITE);
 		desktop.setLayout(null);
@@ -131,15 +133,15 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		desktop.add(btnJugadorvsJugador);
 		
 		btnHistorial = new JButton("Historial de partidas");
-		btnHistorial.setBounds(425, 236, 171, 50);
+		btnHistorial.setBounds(425, 236, 202, 50);
 		desktop.add(btnHistorial);
 		
 		btnRanking = new JButton("Ranking");
-		btnRanking.setBounds(425, 124, 171, 50);
+		btnRanking.setBounds(425, 124, 202, 50);
 		desktop.add(btnRanking);
 		
 		btnModificar = new JButton("Modificar cuenta");
-		btnModificar.setBounds(425, 317, 171, 50);
+		btnModificar.setBounds(425, 317, 202, 50);
 		desktop.add(btnModificar);
 		
 		btnJugadorvsMariano = new JButton("Jugador vs Mariano");
@@ -172,16 +174,21 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		desktop.add(lblVisualizacion);
 		
 		rdbtnLista = new JRadioButton("Lista");
-		rdbtnLista.setBounds(425, 206, 71, 23);
+		rdbtnLista.setBounds(425, 206, 62, 23);
 		desktop.add(rdbtnLista);
 		
-		rdbtnGrafico = new JRadioButton("Gráfico");
-		rdbtnGrafico.setBounds(517, 206, 79, 23);
-		desktop.add(rdbtnGrafico);
+		rdbtnGraficoLinea = new JRadioButton("Lineal");
+		rdbtnGraficoLinea.setBounds(489, 206, 68, 23);
+		desktop.add(rdbtnGraficoLinea);
+		
+		rdbtnGraficoQueso = new JRadioButton("Queso");
+		rdbtnGraficoQueso.setBounds(559, 206, 68, 23);
+		desktop.add(rdbtnGraficoQueso);
 		
 		btngrpRanking = new ButtonGroup();
 		btngrpRanking.add(rdbtnLista);
-		btngrpRanking.add(rdbtnGrafico);
+		btngrpRanking.add(rdbtnGraficoLinea);
+		btngrpRanking.add(rdbtnGraficoQueso);
 		
 		btnDeslogear = new JButton("Deslogear");
 		btnDeslogear.setBounds(316, 387, 109, 23);
@@ -253,9 +260,19 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 					frame.pack();
 					frame.setVisible(true);
 				}
-				if(rdbtnGrafico.isSelected())
+				if(rdbtnGraficoLinea.isSelected())
 				{
-					//TODO: Codificar gráficos visuales. [Implementación de librería JFreeChart]
+					GraficoHistograma demo = new GraficoHistograma("Nº de partidas realizadas por día");
+				    demo.pack();
+				    RefineryUtilities.centerFrameOnScreen(demo);
+				    demo.setVisible(true);
+				}
+				if(rdbtnGraficoQueso.isSelected())
+				{
+					GraficoQueso demo = new GraficoQueso("Nº de victorias vs. Mariano");
+				    demo.pack();
+				    RefineryUtilities.centerFrameOnScreen(demo);
+				    demo.setVisible(true);
 				}
 			}
 		});
@@ -286,24 +303,28 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				logger.log(Level.INFO, "Volviendo al menú principal");
-				JOptionPane.showMessageDialog(miVentana, "Esperemos que haya disfrutado de las partidas.");
-				miVentana.dispose();
-				clsPaginaPrincipal frame = new clsPaginaPrincipal();
-				frame.setVisible(true);
+				Deslogear();
 			}
 		});
-//		addWindowListener( new WindowAdapter() 
-//		{
-//			@Override
-//			public void windowClosing(WindowEvent e) 
-//			{
-//				clsBD.close();
-//			}
-//		});	
+		addWindowListener( new WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				Deslogear();
+			}
+		});	
 	}
 	public void RefrescarUsuario(clsUsuario a)
 	{
 		usuario = a;
+	}
+	public void Deslogear()
+	{
+		logger.log(Level.INFO, "Volviendo al menú principal");
+		JOptionPane.showMessageDialog(miVentana, "Esperemos que haya disfrutado de las partidas.");
+		miVentana.dispose();
+		clsPaginaPrincipal frame = new clsPaginaPrincipal();
+		frame.setVisible(true);
 	}
 }

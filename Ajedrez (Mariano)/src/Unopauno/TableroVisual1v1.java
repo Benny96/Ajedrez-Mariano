@@ -9,9 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -112,6 +116,15 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	
 	transient TableroVisual1v1 miVentana;
 	
+	private Properties misProperties;  // Paso 6 - Propiedades
+	private int ultimaXVentana = -1;
+	private int ultimaYVentana = -1;
+	private int ultimoAnchoVentana = -1;
+	private int ultimoAltoVentana = -1;
+	private String ultimoUsuarioBlanco = "";
+	private String ultimoUsuarioNegro = "";
+	boolean alterado;
+	
 	public TableroVisual1v1() 
 	{
 		tab= new TableroLogico1v1();
@@ -146,12 +159,21 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		tab.visual = this;
 		tabla = new SimpleTableDemo();
 		tabla.createTable(tab.getDatosTabla());
+		alterado = false;
 		CreateAndShowGUI();
 	}
 	public void CreateAndShowGUI ()
 	{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(0, 0, 1200, 780);
+		File fic = new File("mariano.ini");
+		if (fic.exists())
+		{
+			cargaProperties();
+		}
+		if (!alterado)
+		{
+			setBounds(0, 0, 1200, 780);
+		}
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
@@ -404,7 +426,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 					clsGestor objGestor = new clsGestor();
 					objGestor.GuardarPartida(tabaguardar);
 					//TODO: Guardar las propiedades (tamaño ventana, etc.) de la partida.
-//					salvaProperties();  // Paso 6
+					salvaProperties();  // Paso 6
 				}
 				tab.jaquemate = true;
 				clsEleccion menu = new clsEleccion(tab.getUblanco());
@@ -576,8 +598,59 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		casiaux.setIcon(new ImageIcon(img));
 	}
 	
+	// Paso 6: carga y guardado de las propiedades
+	private void cargaProperties() {
+		misProperties = new Properties();
+		try 
+		{
+			FileInputStream fis = new FileInputStream( new File ( "mariano.ini" ));
+			misProperties.loadFromXML( fis );
+			ultimaXVentana = Integer.parseInt( misProperties.getProperty( "ultimaXVentana" ) );
+			ultimaYVentana = Integer.parseInt( misProperties.getProperty( "ultimaYVentana" ) );
+			ultimoAnchoVentana = Integer.parseInt( misProperties.getProperty( "ultimoAnchoVentana" ) );
+			ultimoAltoVentana = Integer.parseInt( misProperties.getProperty( "ultimoAltoVentana" ) );
+			ultimoUsuarioBlanco = misProperties.getProperty( "ultimoUsuarioBlanco" );
+			ultimoUsuarioNegro = misProperties.getProperty( "ultimoUsuarioNegro" );
+			if (ultimoUsuarioBlanco != null && ultimoUsuarioNegro != null)
+			{
+				if (ultimoAnchoVentana>0 && ultimoAltoVentana>0 && ultimoUsuarioBlanco.compareTo(tab.getUblanco().getNickname())==0
+						&& ultimoUsuarioNegro.compareTo(tab.getUnigga().getNickname())==0) 
+					{
+						setSize( ultimoAnchoVentana, ultimoAltoVentana );
+						setLocation( ultimaXVentana, ultimaYVentana );
+						alterado = true;
+					}
+			}	
+			fis.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
 	
-	class SimpleTableDemo extends JPanel{
+	private void salvaProperties() {
+		PrintStream ps;
+		try {
+			ps = new PrintStream( new File( "mariano.ini" ) );
+			misProperties = new Properties();
+			misProperties.setProperty( "ultimaXVentana", ""+ getX() ); //Pares Propiedad - Valor.
+			misProperties.setProperty( "ultimaYVentana", ""+ getY() );
+			misProperties.setProperty( "ultimoAnchoVentana", ""+getWidth() );
+			misProperties.setProperty( "ultimoAltoVentana", ""+getHeight() );
+			misProperties.setProperty( "ultimoUsuarioBlanco", tab.getUblanco().getNickname());
+			misProperties.setProperty( "ultimoUsuarioNegro", tab.getUnigga().getNickname());
+			misProperties.storeToXML( ps, "Ventana Mariano" );
+			ps.close();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	class SimpleTableDemo extends JPanel
+	{
 	   
 		private static final long serialVersionUID = 1L;
 		

@@ -1,7 +1,18 @@
 package GUI;
 
 import java.awt.Color;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Random;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
@@ -31,6 +42,38 @@ public class ProgressBar extends JFrame{
 	clsUsuario usu;
 	int id;
 
+private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	
+	// Logger de la clase
+	private static Logger logger = Logger.getLogger( "Mariano" );
+	static {
+		try {
+			logger.setLevel( Level.FINEST );
+			Formatter f = new SimpleFormatter() {
+				@Override
+				public synchronized String format(LogRecord record) {
+					// return super.format(record);  // Si no queremos el formateador con tanta información
+					if (record.getLevel().intValue()<Level.CONFIG.intValue())
+						// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
+						return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					if (record.getLevel().intValue()<Level.WARNING.intValue())
+						// Si es menor que WARNING lo sacamos tabulado a la derecha
+						return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+				}
+			};
+			FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+			Handler h = new StreamHandler( fLog, f );
+			h.setLevel( Level.FINEST );
+			logger.addHandler( h );  // Saca todos los errores a out
+//			logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
+		} catch (SecurityException | IOException e) {
+			logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ ProgressBar.class.getName() );
+		}
+		logger.log( Level.INFO, "" );
+		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+	}
+	
 	public ProgressBar(String titulo, clsUsuario aux, int num) {
 		
 		usu=aux;
@@ -71,17 +114,17 @@ public class ProgressBar extends JFrame{
 		this.dispose();
 		if(id==0)
 		{
+			logger.log( Level.INFO, "Cargando ventana clsEleccion");
 			clsEleccion ventanaEleccion = new clsEleccion(usu);
 			ventanaEleccion.setVisible(true);
 		}
 		
 		if(id==1)
 		{
+			logger.log( Level.INFO, "Generando tablero de juego contra Mariano");
 			tablerovisual1 frame = new tablerovisual1();
             frame.setVisible(true);
 		}
-		
-			
 	}
 		
 		

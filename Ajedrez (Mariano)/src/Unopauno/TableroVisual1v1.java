@@ -150,7 +150,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	public void CreateAndShowGUI ()
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 700, 720);
+		setBounds(0, 0, 1200, 780);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);

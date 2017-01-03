@@ -128,7 +128,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		fec_fin = new Date(e);
 		ganadorString = f;
 	}
-	public TableroLogico1v1(Boolean cargado, TableroVisual1v1 TableroVisual1v1) 
+	public TableroLogico1v1(boolean cargado, TableroVisual1v1 TableroVisual1v1) 
 	{
 			if (cargado)
 			{
@@ -482,7 +482,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	return true;
 	}
 	
-	public Boolean comprobarjaque(clsRey rey,TableroLogico1v1 tab)
+	public boolean comprobarjaque(clsRey rey,TableroLogico1v1 tab)
 
 	
 	{
@@ -843,11 +843,11 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	}
 	
-	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,TableroLogico1v1 tab)
+	public boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,TableroLogico1v1 tab)
 	{
 	clsCasilla[][] tablero=tab.getTablero();
 	
-	Boolean retur=false;
+	boolean retur=false;
 	
 	Original.setOcupado(null);
 	Final.setOcupado(movida);
@@ -1871,11 +1871,11 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	this.ntorred = ntorred;
 	}
 
-	public Boolean getTurno() {
+	public boolean getTurno() {
 	return turno;
 	}
 
-	public void setTurno(Boolean turno) {
+	public void setTurno(boolean turno) {
 	this.turno = turno;
 	}
 

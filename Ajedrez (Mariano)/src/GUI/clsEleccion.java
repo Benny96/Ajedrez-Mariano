@@ -6,7 +6,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyVetoException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -56,6 +67,38 @@ public class clsEleccion extends JFrame
 	clsEleccion a;
 	
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
+	
+private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	
+	// Logger de la clase
+	private static Logger logger = Logger.getLogger( "Mariano" );
+	static {
+		try {
+			logger.setLevel( Level.FINEST );
+			Formatter f = new SimpleFormatter() {
+				@Override
+				public synchronized String format(LogRecord record) {
+					// return super.format(record);  // Si no queremos el formateador con tanta información
+					if (record.getLevel().intValue()<Level.CONFIG.intValue())
+						// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
+						return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					if (record.getLevel().intValue()<Level.WARNING.intValue())
+						// Si es menor que WARNING lo sacamos tabulado a la derecha
+						return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+				}
+			};
+			FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+			Handler h = new StreamHandler( fLog, f );
+			h.setLevel( Level.FINEST );
+			logger.addHandler( h );  // Saca todos los errores a out
+//			logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
+		} catch (SecurityException | IOException e) {
+			logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsEleccion.class.getName() );
+		}
+		logger.log( Level.INFO, "" );
+		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+	}
 
 	public clsEleccion(clsUsuario usu) 
 	{
@@ -205,6 +248,7 @@ public class clsEleccion extends JFrame
 			{
 				if(rdbtnLista.isSelected())
 				{
+					logger.log(Level.INFO, "Mostrando rankings");
 					clsRankingLista frame = new clsRankingLista("Rankings");
 					frame.pack();
 					frame.setVisible(true);
@@ -220,6 +264,7 @@ public class clsEleccion extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				logger.log(Level.INFO, "Habilitando la modificación de usuario");
 				clsModificarUsuario frame = new clsModificarUsuario(usuario, a);
 				frame.setVisible(true);
 			}	
@@ -230,6 +275,7 @@ public class clsEleccion extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{
+				logger.log(Level.INFO, "Mostrando el historial de partidas");
 				clsHistorialPartidas frame = new clsHistorialPartidas("Historial de Partidas");
 				frame.pack();
 				frame.setVisible(true);
@@ -240,6 +286,7 @@ public class clsEleccion extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				logger.log(Level.INFO, "Volviendo al menú principal");
 				JOptionPane.showMessageDialog(miVentana, "Esperemos que haya disfrutado de las partidas.");
 				miVentana.dispose();
 				clsPaginaPrincipal frame = new clsPaginaPrincipal();

@@ -2,7 +2,18 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -34,6 +45,38 @@ public class clsAnyadirJugador extends JInternalFrame
 	
 	private JInternalFrame miVentanaInterna;
 	
+	private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	
+	// Logger de la clase
+		private static Logger logger = Logger.getLogger( "Mariano" );
+		static {
+			try {
+				logger.setLevel( Level.FINEST );
+				Formatter f = new SimpleFormatter() {
+					@Override
+					public synchronized String format(LogRecord record) {
+						// return super.format(record);  // Si no queremos el formateador con tanta información
+						if (record.getLevel().intValue()<Level.CONFIG.intValue())
+							// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
+							return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+						if (record.getLevel().intValue()<Level.WARNING.intValue())
+							// Si es menor que WARNING lo sacamos tabulado a la derecha
+							return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+						return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					}
+				};
+				FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+				Handler h = new StreamHandler( fLog, f );
+				h.setLevel( Level.FINEST );
+				logger.addHandler( h );  // Saca todos los errores a out
+//				logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
+			} catch (SecurityException | IOException e) {
+				logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsAnyadirJugador.class.getName() );
+			}
+			logger.log( Level.INFO, "" );
+			logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+		}
+		
 	public clsAnyadirJugador(clsUsuario usuactual) 
 	{
 		getContentPane().setLayout(null);
@@ -98,6 +141,7 @@ public class clsAnyadirJugador extends JInternalFrame
 								x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
 								if (x == 0)
 									{
+										logger.log( Level.INFO, "Cargando la partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname()+": Blanco - Negro");
 										TableroVisual1v1 frame = new TableroVisual1v1(tab);
 										frame.setVisible(true);
 									    miVentanaInterna.dispose();
@@ -105,6 +149,7 @@ public class clsAnyadirJugador extends JInternalFrame
 									}
 									else
 									{
+										logger.log( Level.INFO, "Generando una nueva partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname()+": Blanco - Negro");
 										objGestor.BorrarPartida();
 										TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 									    frame.setVisible(true);
@@ -119,6 +164,7 @@ public class clsAnyadirJugador extends JInternalFrame
 								x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
 									if (x == 0)
 									{
+										logger.log( Level.INFO, "Cargando la partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname()+": Negro - Blanco");
 										TableroVisual1v1 frame = new TableroVisual1v1(tab);
 										frame.setVisible(true);
 									    miVentanaInterna.dispose();
@@ -126,6 +172,7 @@ public class clsAnyadirJugador extends JInternalFrame
 									}
 									else
 									{
+										logger.log( Level.INFO, "Generando una nueva partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname()+": Negro - Blanco");
 										objGestor.BorrarPartida();
 										TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 									    frame.setVisible(true);
@@ -136,6 +183,7 @@ public class clsAnyadirJugador extends JInternalFrame
 						}						
 						else
 						{
+							logger.log( Level.INFO, "Generando una nueva partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname());
 							TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
 						    frame.setVisible(true);
 						    miVentanaInterna.dispose();
@@ -146,6 +194,7 @@ public class clsAnyadirJugador extends JInternalFrame
 				if(!existe)
 				{
 					JOptionPane.showMessageDialog(null, "Su nickname o contraseña son incorrectos (Jugador repetido o inexistente).", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
+					logger.log( Level.WARNING, "Error de inicio de partida entre los usuarios "+txtNickname.getText()+" y "+ usuactual.getNickname());
 				}
 			}
 		});

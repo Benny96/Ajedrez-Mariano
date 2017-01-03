@@ -6,8 +6,19 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -38,6 +49,38 @@ public class clsRankingLista extends JFrame
 	private JPanel paneltabla;
 	private JPanel panelbotonera;
 	
+private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	
+	// Logger de la clase
+		private static Logger logger = Logger.getLogger( "Mariano" );
+		static {
+			try {
+				logger.setLevel( Level.FINEST );
+				Formatter f = new SimpleFormatter() {
+					@Override
+					public synchronized String format(LogRecord record) {
+						// return super.format(record);  // Si no queremos el formateador con tanta información
+						if (record.getLevel().intValue()<Level.CONFIG.intValue())
+							// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
+							return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+						if (record.getLevel().intValue()<Level.WARNING.intValue())
+							// Si es menor que WARNING lo sacamos tabulado a la derecha
+							return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+						return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					}
+				};
+				FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+				Handler h = new StreamHandler( fLog, f );
+				h.setLevel( Level.FINEST );
+				logger.addHandler( h );  // Saca todos los errores a out
+//				logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
+			} catch (SecurityException | IOException e) {
+				logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsRankingLista.class.getName() );
+			}
+			logger.log( Level.INFO, "" );
+			logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+		}
+		
 	public clsRankingLista(String titulo)
 	{
 		super(titulo);
@@ -87,6 +130,7 @@ public class clsRankingLista extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				logger.log( Level.INFO, "Obteniendo los jugadores ordenados por Elo");
 				Collections.sort(listaUsuarios, new clsOrdenarPorElo());
 				
 				TablaOrden t=new TablaOrden(listaUsuarios);
@@ -102,6 +146,7 @@ public class clsRankingLista extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				logger.log( Level.INFO, "Obteniendo los jugadores ordenados por Nickname");
 				Collections.sort(listaUsuarios);
 				TablaOrden t=new TablaOrden(listaUsuarios);
 				t.setOpaque(true); //content panes must be opaque
@@ -116,6 +161,7 @@ public class clsRankingLista extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				logger.log( Level.INFO, "Obteniendo los jugadores ordenados por Antigüedad");
 				Collections.sort(listaUsuarios, new clsOrdenarPorAntiguedad());
 				TablaOrden t=new TablaOrden(listaUsuarios);
 				t.setOpaque(true); //content panes must be opaque

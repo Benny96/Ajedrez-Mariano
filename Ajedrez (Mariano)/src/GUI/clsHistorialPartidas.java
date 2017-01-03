@@ -6,10 +6,21 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.logging.Formatter;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+import java.util.logging.StreamHandler;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -43,6 +54,38 @@ public class clsHistorialPartidas extends JFrame
 	
 	private JPanel paneltabla;
 	private JPanel panelbotonera;
+	
+private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	
+	// Logger de la clase
+		private static Logger logger = Logger.getLogger( "Mariano" );
+		static {
+			try {
+				logger.setLevel( Level.FINEST );
+				Formatter f = new SimpleFormatter() {
+					@Override
+					public synchronized String format(LogRecord record) {
+						// return super.format(record);  // Si no queremos el formateador con tanta información
+						if (record.getLevel().intValue()<Level.CONFIG.intValue())
+							// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
+							return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+						if (record.getLevel().intValue()<Level.WARNING.intValue())
+							// Si es menor que WARNING lo sacamos tabulado a la derecha
+							return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+						return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					}
+				};
+				FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+				Handler h = new StreamHandler( fLog, f );
+				h.setLevel( Level.FINEST );
+				logger.addHandler( h );  // Saca todos los errores a out
+//				logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
+			} catch (SecurityException | IOException e) {
+				logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsHistorialPartidas.class.getName() );
+			}
+			logger.log( Level.INFO, "" );
+			logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+		}
 	
 	public clsHistorialPartidas(String titulo)
 	{
@@ -90,6 +133,7 @@ public class clsHistorialPartidas extends JFrame
 		listaPartidasMariano = new ArrayList <tablerologico1>();
 
 		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
+		logger.log( Level.INFO, "Recogiendo datos de la BD");
 		if (rs != null)
 		{
 			try 
@@ -130,6 +174,7 @@ public class clsHistorialPartidas extends JFrame
 			{
 				if (rdbtnOrdenID.isSelected())
 				{
+					logger.log( Level.INFO, "Obteniendo el Historial 1v1, orden: ID ");
 					Collections.sort(listaPartidas1v1);
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
 					t.setOpaque(true); //content panes must be opaque
@@ -139,6 +184,7 @@ public class clsHistorialPartidas extends JFrame
 				}
 				else if (rdbtnOrdenGanador.isSelected())
 				{
+					logger.log( Level.INFO, "Obteniendo el Historial 1v1, orden: Ganador ");
 					Collections.sort(listaPartidas1v1, new clsOrdenarPorGanador1v1());
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
 					t.setOpaque(true); //content panes must be opaque
@@ -155,6 +201,7 @@ public class clsHistorialPartidas extends JFrame
 			{
 				if (rdbtnOrdenID.isSelected())
 				{
+					logger.log( Level.INFO, "Obteniendo el Historial contra Mariano, orden: ID ");
 					Collections.sort(listaPartidasMariano);
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
 					t.setOpaque(true); //content panes must be opaque
@@ -164,6 +211,7 @@ public class clsHistorialPartidas extends JFrame
 				}
 				else if (rdbtnOrdenGanador.isSelected())
 				{
+					logger.log( Level.INFO, "Obteniendo el Historial contra Mariano, orden: Ganador ");
 					Collections.sort(listaPartidasMariano, new clsOrdenarPorGanadorMariano());
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
 					t.setOpaque(true); //content panes must be opaque
@@ -180,6 +228,7 @@ public class clsHistorialPartidas extends JFrame
 			{
 				if (rdbtn1v1.isSelected())
 				{
+					logger.log( Level.INFO, "Obteniendo el orden por ID: Historial 1v1");
 					Collections.sort(listaPartidas1v1);
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
 					t.setOpaque(true); //content panes must be opaque
@@ -189,6 +238,7 @@ public class clsHistorialPartidas extends JFrame
 				}
 				else
 				{
+					logger.log( Level.INFO, "Obteniendo el orden por ID: Historial contra Mariano");
 					Collections.sort(listaPartidasMariano);
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
 					t.setOpaque(true); //content panes must be opaque
@@ -205,6 +255,7 @@ public class clsHistorialPartidas extends JFrame
 			{
 				if (rdbtn1v1.isSelected())
 				{
+					logger.log( Level.INFO, "Obteniendo el orden por Ganador: Historial 1v1");
 					Collections.sort(listaPartidas1v1, new clsOrdenarPorGanador1v1());
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
 					t.setOpaque(true); //content panes must be opaque
@@ -214,6 +265,7 @@ public class clsHistorialPartidas extends JFrame
 				}
 				else if (!(rdbtn1v1.isSelected()))
 				{
+					logger.log( Level.INFO, "Obteniendo el orden por Ganador: Historial contra Mariano");
 					Collections.sort(listaPartidasMariano, new clsOrdenarPorGanadorMariano());
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
 					t.setOpaque(true); //content panes must be opaque

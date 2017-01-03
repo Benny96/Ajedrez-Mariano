@@ -273,7 +273,7 @@ public class clsPaginaPrincipal extends JFrame
 			if((txtNickname.getText().toUpperCase().equals(aux.getNickname().toUpperCase()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
 			{
 				existe = true;
-				ProgressBar pb=new ProgressBar("Validando acceso...", aux);
+				ProgressBar pb=new ProgressBar("Validando acceso...", aux, 0);
 				pb.setVisible(true);
 				miVentana.dispose();
 				
@@ -286,12 +286,5 @@ public class clsPaginaPrincipal extends JFrame
 		}
 	}
 	
-	
-	public static void AbrirVentanaEleccion(clsUsuario usu)
-	{
-		
-		clsEleccion ventanaEleccion = new clsEleccion(usu);
-		ventanaEleccion.setVisible(true);
-		
-	}
+
 }

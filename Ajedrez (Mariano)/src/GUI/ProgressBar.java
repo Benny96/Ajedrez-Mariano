@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
 import LN.clsUsuario;
+import Mariano.tablerovisual1;
 
 
 
@@ -26,11 +27,15 @@ public class ProgressBar extends JFrame{
 	int e3;
 	int e4;
 	int e5;
+	
 	clsUsuario usu;
+	int id;
 
-	public ProgressBar(String titulo, clsUsuario aux) {
+	public ProgressBar(String titulo, clsUsuario aux, int num) {
 		
 		usu=aux;
+		id=num;
+		
 		setBounds(450, 300, 400, 140);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -64,7 +69,18 @@ public class ProgressBar extends JFrame{
 	public void cerrar()
 	{
 		this.dispose();
-		clsPaginaPrincipal.AbrirVentanaEleccion(usu);
+		if(id==0)
+		{
+			clsEleccion ventanaEleccion = new clsEleccion(usu);
+			ventanaEleccion.setVisible(true);
+		}
+		
+		if(id==1)
+		{
+			tablerovisual1 frame = new tablerovisual1();
+            frame.setVisible(true);
+		}
+		
 			
 	}
 		

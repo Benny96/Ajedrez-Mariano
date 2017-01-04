@@ -212,7 +212,10 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		// Set the label's font size to the newly determined size.
 		
 		
-		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+//		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		//Para que si el nickname es un poco largo, se pueda visualizar en pantalla
+		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
+
 		pPrincipal.add(blanquito);
 		
 		num_8=new JLabel("8");
@@ -353,7 +356,10 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		
 		nigga=new JLabel(unigga.getNickname());
 		nigga.setBounds(135, 20, 160, 40);
-		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+//		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		//Para que si el nickname es un poco largo, se pueda visualizar en pantalla
+		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
+
 		pPrincipal.add(nigga);
 		
 		miVentana = this;

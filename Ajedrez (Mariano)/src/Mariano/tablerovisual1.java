@@ -91,7 +91,26 @@ public class tablerovisual1 extends JFrame implements ActionListener
 	
 	clsPieza selec;
 	
-	public tablerovisual1() 
+	JLabel a;
+	JLabel b;
+	JLabel c;
+	JLabel d;
+	JLabel e;
+	JLabel f;
+	JLabel g;
+	JLabel h;
+	
+	JLabel num_1;
+	JLabel num_2;	
+	JLabel num_3;	
+	JLabel num_4;	
+	JLabel num_5;
+	JLabel num_6;	
+	JLabel num_7;	
+	JLabel num_8;
+	
+	
+	public tablerovisual1(clsUsuario aux) 
 	{
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +121,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
 		
-		tab= new tablerologico1(true,this,myTimer);
+		tab= new tablerologico1(true, this, myTimer, aux);
 		
 		//clsBD.insertarDatoTablaBD(tab);
 		
@@ -119,7 +138,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		clsUsuario unigga= tab.getUnigga();
 		
 		blanquito= new JLabel(ublanco.getNickname());
-		blanquito.setBounds(475, 595, 100,40);
+		blanquito.setBounds(475, 650, 160, 40);
 		
 		Font labelFont = blanquito.getFont();
 		String labelText =blanquito.getText();
@@ -137,13 +156,102 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		int fontSizeToUse = Math.min(newFontSize, componentHeight);
 
 		// Set the label's font size to the newly determined size.
-		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
 		pPrincipal.add(blanquito);
 		
 		nigga= new JLabel(unigga.getNickname());
-		nigga.setBounds(80, 80, 100,40);
-		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		nigga.setBounds(135, 20, 160, 40);
+		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
 		pPrincipal.add(nigga);
+		
+		
+		num_8=new JLabel("8");
+		num_8.setBounds(40, 120, 50, 50);
+		num_8.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_8);
+		
+		num_7=new JLabel("7");
+		num_7.setBounds(40, 180, 50, 50);
+		num_7.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_7);
+		
+		num_6=new JLabel("6");
+		num_6.setBounds(40, 240, 50, 50);
+		num_6.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_6);
+		
+		num_5=new JLabel("5");
+		num_5.setBounds(40, 300, 50, 50);
+		num_5.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_5);
+		
+		num_4=new JLabel("4");
+		num_4.setBounds(40, 360, 50, 50);
+		num_4.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_4);
+		
+		num_3=new JLabel("3");
+		num_3.setBounds(40, 420, 50, 50);
+		num_3.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_3);
+		
+		num_2=new JLabel("2");
+		num_2.setBounds(40, 480, 50, 50);
+		num_2.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_2);
+		
+		num_1=new JLabel("1");
+		num_1.setBounds(40, 540, 50, 50);
+		num_1.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_1);
+		
+		
+		
+		a=new JLabel("a");
+		a.setBounds(100, 600, 35, 35);
+		a.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(a);
+		
+		b=new JLabel("b");
+		b.setBounds(160, 600, 35, 35);
+		b.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(b);
+		
+		c=new JLabel("c");
+		c.setBounds(220, 600, 35, 35);
+		c.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(c);
+		
+		d=new JLabel("d");
+		d.setBounds(280, 600, 35, 35);
+		d.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(d);
+		
+		e=new JLabel("e");
+		e.setBounds(340, 600, 35, 35);
+		e.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(e);
+		
+		f=new JLabel("f");
+		f.setBounds(400, 600, 35, 35);
+		f.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(f);
+		
+		g=new JLabel("a");
+		g.setBounds(460, 600, 35, 35);
+		g.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(g);
+		
+		h=new JLabel("h");
+		h.setBounds(520, 600, 35, 35);
+		h.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(h);
+		
+		
+		
+		
+		
+		
 	
 		for(int i=0;i<8;i++)
 		{
@@ -188,7 +296,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		nstr = tab.getNstr();
 		
 		ntiempo= new JLabel(nstr);
-		ntiempo.setBounds(160, 80, 100,40);
+		ntiempo.setBounds(80, 20, 100, 40);
 		ntiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(ntiempo);
 		
@@ -196,7 +304,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		bstr = tab.getBstr();
 		
 		btiempo= new JLabel(bstr);
-		btiempo.setBounds(410, 595, 100,40);
+		btiempo.setBounds(410, 650, 100, 40);
 		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(btiempo);
 		

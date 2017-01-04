@@ -227,7 +227,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 				if(rdbtnMarianoFacil.isSelected())
 				{
 					//TODO: Redirigir a tablero de dificultad fácil. Veo añadir un constructor tipo clsTablero(jugador, dificultad).
-					ProgressBar pb=new ProgressBar("Preparando partida contra Mariano...", null, 1);
+					ProgressBar pb=new ProgressBar("Preparando partida contra Mariano...", usuario, 1);
 					pb.setVisible(true);
 //					tablerovisual1 frame = new tablerovisual1();
 //		            frame.setVisible(true);

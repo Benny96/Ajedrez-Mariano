@@ -108,7 +108,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		
 		
 		miHilo = new MiRunnable();  // Sintaxis de new para clase interna
-		Thread nuevoHilo = new Thread(miHilo );
+		Thread nuevoHilo = new Thread(miHilo);
 		nuevoHilo.start();
 	}
 	public void cerrar()
@@ -124,7 +124,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		if(id==1)
 		{
 			logger.log( Level.INFO, "Generando tablero de juego contra Mariano");
-			tablerovisual1 frame = new tablerovisual1();
+			tablerovisual1 frame = new tablerovisual1(usu);
             frame.setVisible(true);
 		}
 	}

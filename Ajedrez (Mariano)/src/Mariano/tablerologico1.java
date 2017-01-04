@@ -165,7 +165,7 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 		fec_fin = new Date(e);
 		ganadorString = f;
 	}
-	public tablerologico1(Boolean asd, tablerovisual1 tablerovisual, Runnable myTimer) 
+	public tablerologico1(Boolean asd, tablerovisual1 tablerovisual, Runnable myTimer, clsUsuario usu) 
 	{
 //		ganadorString = "";
 //		clsBD.crearTablaBD(clsConstantes.PARTIDA);
@@ -188,8 +188,9 @@ public class tablerologico1 implements Cloneable, Serializable, Comparable <tabl
 	visual=tablerovisual;
 	
 	
-	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
-	unigga= new clsUsuario("nigga","b","b","Mariano","b");
+//	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
+	ublanco=usu;
+	unigga= new clsUsuario("nigga","b","b","MARIANO","b");
 	
 	jaquemate=false;
 	

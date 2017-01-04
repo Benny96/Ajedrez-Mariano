@@ -2,10 +2,12 @@ package GUI;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import LN.clsCaballo;
+import LN.clsCasilla;
 import LN.clsPeon;
 import LN.clsPieza;
 import LN.clsTorre;
@@ -17,6 +19,8 @@ public class clsTableroTest {
 	private TableroVisual1v1 tv;
 	private TableroLogico1v1 tl;
 
+	private clsCasilla[][] tablero;
+	
 	clsPieza peon1=new clsPeon(1, 0, true);//Blanco
 	clsPieza peon2=new clsPeon(1, 0, false);//Negro
 	
@@ -29,6 +33,14 @@ public class clsTableroTest {
 		tv=new TableroVisual1v1();
 		tl=new TableroLogico1v1();
 		tl.pblancas.add(peon1);
+		tablero = new clsCasilla[8][8];
+		for(int i=0;i<8;i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+			tablero[i][j]=new clsCasilla(i, j);	
+			}
+		}
 	}
 	
 	
@@ -69,12 +81,19 @@ public class clsTableroTest {
 		assertEquals(peon1, peon3);
 	}
 
-	//Este creo que debería dar error pero no da
-//	@Test
-//	public void mirar_si_se_salen_del_tablero()
-//	{
-//		peon1.setY(9);
-//	}
+//	Este creo que debería dar error pero no da
+	//Este test da error por el OutOfBounds.
+	@Test
+	public void mirar_si_se_salen_del_tablero()
+	{
+		peon1.setY(8);
+		tablero[peon1.getY()][peon1.getX()].setOcupado(peon1);
+	}
 	
+	@After
+	public void tearDown() throws Exception 
+	{
+		tl.pblancas.clear();
+	}
 
 }

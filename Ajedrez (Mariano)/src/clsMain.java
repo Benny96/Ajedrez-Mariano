@@ -1,7 +1,7 @@
 import java.awt.EventQueue;
 
 import GUI.clsPaginaPrincipal;
-import Mariano.tablerovisual1;
+import LN.clsUsuario;
 import Persistencia.clsBD;
 
 
@@ -9,6 +9,7 @@ import Persistencia.clsBD;
 
 public class clsMain {
 
+	static clsUsuario usu=new clsUsuario();
 	public static void main(String[] args) 
 	{
 
@@ -18,9 +19,7 @@ public class clsMain {
 					clsBD.initBD( "src/Data/mariano.bd" );
 					clsPaginaPrincipal p=new clsPaginaPrincipal();
 					p.setVisible(true);
-					
-//					tablerovisual1 p=new tablerovisual1();
-//					p.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

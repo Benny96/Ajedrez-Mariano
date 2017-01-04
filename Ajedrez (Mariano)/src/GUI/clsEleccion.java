@@ -1,10 +1,14 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.Line2D;
 import java.beans.PropertyVetoException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -69,6 +73,7 @@ public class clsEleccion extends JFrame
 	static JFrame miVentana;
 	static clsUsuario usuario;
 	clsEleccion a;
+	Graphics g;
 	
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
 	
@@ -106,7 +111,19 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 
 	public clsEleccion(clsUsuario usu) 
 	{
-		desktop = new JDesktopPane();
+		desktop = new JDesktopPane(){ 
+		    public void paintComponent(Graphics g){
+		        
+		    	 g.setColor(Color.LIGHT_GRAY);
+		    	
+		         g.drawLine(415, 115, 415, 228);
+		         g.drawLine(415, 228, 637, 228);
+		         g.drawLine(637, 228, 637, 115);
+		         g.drawLine(637, 115, 415, 115);
+
+
+		    }
+		};
 		setContentPane(desktop);
 		this.setBounds(350, 200, 720, 480);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -116,6 +133,9 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		desktop.setLayout(null);
 		
 		usuario = usu;
+		
+		
+		paint(g);
 		
 		lblBienvenida = new JLabel("¡Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
 		lblBienvenida.setBounds(60, 35, 560, 34);
@@ -178,17 +198,17 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		desktop.add(lblVisualizacion);
 		
 		rdbtnLista = new JRadioButton("Lista");
-		rdbtnLista.setBounds(425, 206, 62, 23);
+		rdbtnLista.setBounds(425, 200, 62, 23);
 		rdbtnLista.setBackground(Color.white);
 		desktop.add(rdbtnLista);
 		
 		rdbtnGraficoLinea = new JRadioButton("Lineal");
-		rdbtnGraficoLinea.setBounds(489, 206, 68, 23);
+		rdbtnGraficoLinea.setBounds(489, 200, 68, 23);
 		rdbtnGraficoLinea.setBackground(Color.white);
 		desktop.add(rdbtnGraficoLinea);
 		
 		rdbtnGraficoQueso = new JRadioButton("Queso");
-		rdbtnGraficoQueso.setBounds(559, 206, 68, 23);
+		rdbtnGraficoQueso.setBounds(559, 200, 68, 23);
 		rdbtnGraficoQueso.setBackground(Color.white);
 		desktop.add(rdbtnGraficoQueso);
 		
@@ -334,4 +354,21 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		clsPaginaPrincipal frame = new clsPaginaPrincipal();
 		frame.setVisible(true);
 	}
+
+
+//	public void paint(Graphics g) {
+//	    Graphics2D g2 = (Graphics2D) g;
+//	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//	        RenderingHints.VALUE_ANTIALIAS_ON);
+//
+//	    g2.setPaint(Color.gray);
+//	    int x = 5;
+//	    int y = 7;
+//
+//	    g2.draw(new Line2D.Double(x, y, 200, 200));
+//	    g2.drawString("Line2D", x, 250);
+//
+//	  }
+	
+	
 }

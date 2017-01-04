@@ -175,10 +175,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		{
 			setBounds(0, 0, 1200, 780);
 		}
+		
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
+		pPrincipal.setBackground(Color.WHITE);
 				
 		tablero= tab.getTablero();
 		

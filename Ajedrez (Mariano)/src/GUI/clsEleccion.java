@@ -117,8 +117,8 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		
 		usuario = usu;
 		
-		lblBienvenida = new JLabel("¡Bienvenido, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
-		lblBienvenida.setBounds(60, 35, 271, 34);
+		lblBienvenida = new JLabel("¡Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
+		lblBienvenida.setBounds(60, 35, 560, 34);
 		desktop.add(lblBienvenida);
 		
 		lblModosJuego = new JLabel("Modos de juego:");
@@ -155,14 +155,17 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		
 		rdbtnMarianoFacil = new JRadioButton("Mariano");
 		rdbtnMarianoFacil.setBounds(60, 343, 79, 23);
+		rdbtnMarianoFacil.setBackground(Color.white);
 		desktop.add(rdbtnMarianoFacil);
 		
 		rdbtnMarianoMedio = new JRadioButton("Mariano+");
 		rdbtnMarianoMedio.setBounds(141, 343, 79, 23);
+		rdbtnMarianoMedio.setBackground(Color.white);
 		desktop.add(rdbtnMarianoMedio);
 		
 		rdbtnMarianoDificil = new JRadioButton("Mariano++");
 		rdbtnMarianoDificil.setBounds(222, 343, 95, 23);
+		rdbtnMarianoDificil.setBackground(Color.white);
 		desktop.add(rdbtnMarianoDificil);
 		
 		btngrpDificultad = new ButtonGroup();
@@ -176,14 +179,17 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		
 		rdbtnLista = new JRadioButton("Lista");
 		rdbtnLista.setBounds(425, 206, 62, 23);
+		rdbtnLista.setBackground(Color.white);
 		desktop.add(rdbtnLista);
 		
 		rdbtnGraficoLinea = new JRadioButton("Lineal");
 		rdbtnGraficoLinea.setBounds(489, 206, 68, 23);
+		rdbtnGraficoLinea.setBackground(Color.white);
 		desktop.add(rdbtnGraficoLinea);
 		
 		rdbtnGraficoQueso = new JRadioButton("Queso");
 		rdbtnGraficoQueso.setBounds(559, 206, 68, 23);
+		rdbtnGraficoQueso.setBackground(Color.white);
 		desktop.add(rdbtnGraficoQueso);
 		
 		btngrpRanking = new ButtonGroup();

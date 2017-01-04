@@ -1,22 +1,14 @@
 package Mariano;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -24,8 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 
 import LN.clsCasilla;
@@ -34,10 +24,6 @@ import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
 
-
-import Persistencia.clsBD;
-
-import javax.swing.JTextArea;
 
 public class tablerovisual1 extends JFrame implements ActionListener
 {
@@ -120,6 +106,7 @@ public class tablerovisual1 extends JFrame implements ActionListener
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
+		pPrincipal.setBackground(Color.white);
 		
 		tab= new tablerologico1(true, this, myTimer, aux);
 		

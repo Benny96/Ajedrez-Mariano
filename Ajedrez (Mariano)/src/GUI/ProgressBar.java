@@ -83,6 +83,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		setBounds(450, 300, 400, 140);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.white);
 		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		
 		setTitle(titulo);

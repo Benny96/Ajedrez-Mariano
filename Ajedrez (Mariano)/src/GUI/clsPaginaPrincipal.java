@@ -43,8 +43,6 @@ public class clsPaginaPrincipal extends JFrame
 	private JButton btnRegistro;
 	private JButton btnAceptar;
 	private JLabel lblPregunta;
-//	private Border borderUsuario;
-//	private Border borderContrasenya;
 	private JLabel img;
 	private JFrame miVentana;
 	
@@ -282,7 +280,7 @@ public class clsPaginaPrincipal extends JFrame
 			if((txtNickname.getText().toUpperCase().equals(aux.getNickname().toUpperCase()))&&(txtContrasenya.getText().equals(aux.getContraseña())))
 			{
 				existe = true;
-				ProgressBar pb=new ProgressBar("Validando acceso...", aux, 0);
+				ProgressBar pb=new ProgressBar("Validando acceso...", aux, 0, null);
 				pb.setVisible(true);
 				miVentana.dispose();
 			}

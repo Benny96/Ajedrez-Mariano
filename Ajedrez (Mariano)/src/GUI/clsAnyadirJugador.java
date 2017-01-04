@@ -1,7 +1,10 @@
 package GUI;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -45,6 +48,8 @@ public class clsAnyadirJugador extends JInternalFrame
 	
 	private JInternalFrame miVentanaInterna;
 	
+	private boolean controlPulsado = false;
+	
 	private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
 	
 	// Logger de la clase
@@ -81,6 +86,7 @@ public class clsAnyadirJugador extends JInternalFrame
 	{
 		getContentPane().setLayout(null);
 		this.setBounds(100, 150, 450, 300);
+		getContentPane().setBackground(Color.white);
 		
 		txtNickname = new JTextField();
 		txtNickname.setBounds(50, 85, 345, 20);
@@ -148,7 +154,7 @@ public class clsAnyadirJugador extends JInternalFrame
 										clsEleccion.miVentana.dispose();
 									}
 									else
-									{
+									{	
 										logger.log( Level.INFO, "Generando una nueva partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname()+": Blanco - Negro");
 										objGestor.BorrarPartida();
 										TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
@@ -192,8 +198,8 @@ public class clsAnyadirJugador extends JInternalFrame
 						else
 						{
 							logger.log( Level.INFO, "Generando una nueva partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname());
-							TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);
-						    frame.setVisible(true);
+							ProgressBar pb=new ProgressBar("Preparando nueva partida entre usuarios...", usuactual, 2, aux);
+							pb.setVisible(true);
 						    miVentanaInterna.dispose();
 							clsEleccion.miVentana.dispose();
 						}
@@ -206,6 +212,7 @@ public class clsAnyadirJugador extends JInternalFrame
 				}
 			}
 		});
+		
 		btnRegistro.addActionListener(new ActionListener()
 		{
 			@Override
@@ -223,6 +230,89 @@ public class clsAnyadirJugador extends JInternalFrame
 						
 			}
 		});
+		
+		
+		//Escuchadores para cuando se pulsa Enter empiece la partida
+		btnEmpezar.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						btnEmpezar.doClick();			
+					}
+					controlPulsado=false;	
+				}		
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}
+				
+			}
+						
+		});		
+		txtNickname.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						btnEmpezar.doClick();			
+					}
+					controlPulsado=false;	
+				}		
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}
+				
+			}
+						
+		});
+		txtContrasenya.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+				
+					if(controlPulsado)
+					{
+						btnEmpezar.doClick();			
+					}
+					controlPulsado=false;	
+				}		
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}
+				
+			}
+						
+		});
+		
+		
 		btnSalir.addActionListener(new ActionListener()
 		{
 			@Override

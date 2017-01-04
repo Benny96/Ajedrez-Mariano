@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -97,18 +98,23 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 	    panelbotonera.setBackground(Color.white);
 
 		lblInformacion = new JLabel("Ordenar por:");
+		Font labelFont = lblInformacion.getFont();
+		lblInformacion.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
 		panelbotonera.add(lblInformacion, BorderLayout.CENTER);
 		
 		rdbtnOrdenPuntos = new JRadioButton("Puntuación (Elo)");
 		rdbtnOrdenPuntos.setBounds(51, 400, 128, 23);
+		rdbtnOrdenPuntos.setBackground(Color.WHITE);
 		panelbotonera.add(rdbtnOrdenPuntos);
 		
 		rdbtnOrdenNick = new JRadioButton("Nickname");
 		rdbtnOrdenNick.setBounds(262, 400, 109, 23);
+		rdbtnOrdenNick.setBackground(Color.WHITE);
 		panelbotonera.add(rdbtnOrdenNick);
 		
 		rdbtnOrdenAntig = new JRadioButton("Antigüedad");
 		rdbtnOrdenAntig.setBounds(426, 400, 109, 23);
+		rdbtnOrdenAntig.setBackground(Color.WHITE);
 		panelbotonera.add(rdbtnOrdenAntig);
 		
 		btngrp = new ButtonGroup();

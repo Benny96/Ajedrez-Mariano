@@ -9,7 +9,6 @@ import Persistencia.clsBD;
 
 public class clsMain {
 
-	static clsUsuario usu=new clsUsuario();
 	public static void main(String[] args) 
 	{
 

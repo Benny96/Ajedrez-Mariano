@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -103,22 +104,28 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 	    panelbotonera.setBackground(Color.white);
 		
 		rdbtn1v1 = new JRadioButton("Partidas 1v1");
+		rdbtn1v1.setBackground(Color.white);
 		panelbotonera.add(rdbtn1v1, BorderLayout.LINE_START);
 		
 		rdbtnMariano = new JRadioButton("Partidas contra Mariano");
+		rdbtnMariano.setBackground(Color.white);
 		panelbotonera.add(rdbtnMariano);
 		
 		btngrp1 = new ButtonGroup();
 		btngrp1.add(rdbtn1v1);
 		btngrp1.add(rdbtnMariano);
 		
-		lblInformacion = new JLabel("Ordenar por:");
+		lblInformacion = new JLabel("    Ordenar por:    ");
+		Font labelFont = lblInformacion.getFont();
+		lblInformacion.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
 		panelbotonera.add(lblInformacion, BorderLayout.CENTER);
 		
 		rdbtnOrdenID = new JRadioButton("Nickname");
+		rdbtnOrdenID.setBackground(Color.white);
 		panelbotonera.add(rdbtnOrdenID);
 		
 		rdbtnOrdenGanador = new JRadioButton("Ganador");
+		rdbtnOrdenGanador.setBackground(Color.white);
 		panelbotonera.add(rdbtnOrdenGanador);
 		
 		btngrp2 = new ButtonGroup();

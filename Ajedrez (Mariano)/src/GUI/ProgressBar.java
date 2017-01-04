@@ -20,6 +20,7 @@ import javax.swing.JProgressBar;
 
 import LN.clsUsuario;
 import Mariano.tablerovisual1;
+import Unopauno.TableroVisual1v1;
 
 
 
@@ -41,6 +42,7 @@ public class ProgressBar extends JFrame{
 	int e5;
 	
 	clsUsuario usu;
+	clsUsuario usu1;
 	int id;
 
 private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
@@ -75,9 +77,10 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
 	}
 	
-	public ProgressBar(String titulo, clsUsuario aux, int num) {
+	public ProgressBar(String titulo, clsUsuario aux, int num, clsUsuario aux1) {
 		
 		usu=aux;
+		usu1=aux1;
 		id=num;
 		
 		setBounds(450, 300, 400, 140);
@@ -127,6 +130,11 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 			logger.log( Level.INFO, "Generando tablero de juego contra Mariano");
 			tablerovisual1 frame = new tablerovisual1(usu);
             frame.setVisible(true);
+		}
+		if(id==2)
+		{
+			TableroVisual1v1 frame = new TableroVisual1v1(usu, usu1);
+		    frame.setVisible(true);
 		}
 	}
 		

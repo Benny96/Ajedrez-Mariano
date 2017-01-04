@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -135,18 +136,21 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		usuario = usu;
 		
 		
-		paint(g);
 		
 		lblBienvenida = new JLabel("¡Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
 		lblBienvenida.setBounds(60, 35, 560, 34);
+		Font labelFont = lblBienvenida.getFont();
+		lblBienvenida.setFont(new Font(labelFont.getName(), Font.BOLD, 16));
 		desktop.add(lblBienvenida);
 		
 		lblModosJuego = new JLabel("Modos de juego:");
-		lblModosJuego.setBounds(60, 80, 153, 14);
+		lblModosJuego.setBounds(60, 76, 153, 14);
+		lblModosJuego.setFont(new Font(labelFont.getName(), Font.BOLD, 12));
 		desktop.add(lblModosJuego);
 		
 		lblOtros = new JLabel("Otros:");
-		lblOtros.setBounds(425, 80, 46, 14);
+		lblOtros.setBounds(425, 76, 46, 14);
+		lblOtros.setFont(new Font(labelFont.getName(), Font.BOLD, 12));
 		desktop.add(lblOtros);
 		
 		btnJugadorvsJugador = new JButton("Jugador vs Jugador");
@@ -253,10 +257,8 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 				if(rdbtnMarianoFacil.isSelected())
 				{
 					//TODO: Redirigir a tablero de dificultad fácil. Veo añadir un constructor tipo clsTablero(jugador, dificultad).
-					ProgressBar pb=new ProgressBar("Preparando partida contra Mariano...", usuario, 1);
+					ProgressBar pb=new ProgressBar("Preparando partida contra Mariano...", usuario, 1, null);
 					pb.setVisible(true);
-//					tablerovisual1 frame = new tablerovisual1();
-//		            frame.setVisible(true);
 		            miVentana.dispose();
 				}
 				if(rdbtnMarianoMedio.isSelected())
@@ -355,20 +357,6 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		frame.setVisible(true);
 	}
 
-
-//	public void paint(Graphics g) {
-//	    Graphics2D g2 = (Graphics2D) g;
-//	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-//	        RenderingHints.VALUE_ANTIALIAS_ON);
-//
-//	    g2.setPaint(Color.gray);
-//	    int x = 5;
-//	    int y = 7;
-//
-//	    g2.draw(new Line2D.Double(x, y, 200, 200));
-//	    g2.drawString("Line2D", x, 250);
-//
-//	  }
 	
 	
 }

@@ -1,13 +1,11 @@
 package LN;
 
-import java.util.Comparator;
-
 /**
  * Clase creada para generar un objeto nuevo (clsJugada), que valdrá para evaluar jugadas.
  * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
  */
 
-public class clsJugada implements Comparator
+public class clsJugada
 {
 	public clsCasilla cfinal;
 	public clsPieza pieza;
@@ -78,14 +76,5 @@ public class clsJugada implements Comparator
 		} else if (!pieza.equals(other.pieza))
 			return false;
 		return true;
-	}
-	
-	/**
-	 * Reimplementación de compare(), proveniente de la interfaz Comparator.
-	 */
-	@Override
-	public int compare(Object arg0, Object arg1) 
-	{
-		return 0;
 	}
 }

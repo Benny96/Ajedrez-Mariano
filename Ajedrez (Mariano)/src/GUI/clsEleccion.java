@@ -3,13 +3,10 @@ package GUI;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.geom.Line2D;
 import java.beans.PropertyVetoException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,12 +32,7 @@ import javax.swing.JRadioButton;
 
 import org.jfree.ui.RefineryUtilities;
 
-import LN.clsGestor;
 import LN.clsUsuario;
-import Mariano.TableroVisualMariano;
-import Mariano.TableroVisualMariano;
-import Persistencia.clsBD;
-import Unopauno.TableroVisual1v1;
 
 /**
  * Clase que generará una JFrame para acceder a las diversas opciones de la aplicación: <br>

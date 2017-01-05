@@ -81,7 +81,7 @@ public class GraficoHistograma extends JFrame
 	
 	/**
 	 * Constructor de la clase que creará los objetos visuales de la JFrame, para mostrar un gráfico de barras.
-	 * @param title Título de la JInternalFrame
+	 * @param title Título de la JFrame
 	 */
 	
 	public GraficoHistograma(String title) 

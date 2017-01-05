@@ -122,7 +122,7 @@ public class ProgressBar extends JFrame
 		progressBar.setForeground(Color.blue);
 		
 		
-		miHilo = new MiRunnable();  // Sintaxis de new para clase interna
+		miHilo = new MiRunnable();
 		Thread nuevoHilo = new Thread(miHilo);
 		nuevoHilo.start();
 	}

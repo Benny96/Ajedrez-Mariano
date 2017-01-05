@@ -8,7 +8,7 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import Mariano.tablerologico1;
+import Mariano.TableroLogicoMariano;
 
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
@@ -27,7 +27,7 @@ public class clsTablaHistorialMariano extends JPanel {
 		rendererCentrado.setHorizontalAlignment(JLabel.CENTER);
 	}
 	
-    public clsTablaHistorialMariano(ArrayList<tablerologico1> u) {
+    public clsTablaHistorialMariano(ArrayList<TableroLogicoMariano> u) {
     	 super(new GridLayout(1,0)); //TODO: NO quitar esto!
     	  JFrame frame = new JFrame("Rankings");
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,7 +62,7 @@ public class clsTablaHistorialMariano extends JPanel {
                                         "Ganador"};
         private Object[][] data;
         
-        public MyTableModelMariano(ArrayList<tablerologico1> u)
+        public MyTableModelMariano(ArrayList<TableroLogicoMariano> u)
         {
         	
         	super();
@@ -75,7 +75,7 @@ public class clsTablaHistorialMariano extends JPanel {
     		
     		int pos=1;
     		//Nos recorremos el map para cargar la variable data[][]
-    		for (tablerologico1 aux : u)
+    		for (TableroLogicoMariano aux : u)
     		{
     		    //System.out.println(entry.getKey() + "/" + entry.getValue());
     			Object[]n={new Integer(aux.getID_partida()),

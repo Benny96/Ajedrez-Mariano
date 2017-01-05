@@ -63,7 +63,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import Comun.clsConstantes;
-import Mariano.tablerologico1;
+import Mariano.TableroLogicoMariano;
 import Persistencia.clsBD;
 import Unopauno.TableroLogico1v1;
 
@@ -72,7 +72,7 @@ public class GraficoHistograma extends JFrame
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList <TableroLogico1v1> listaPartidas1v1;
-	private ArrayList <tablerologico1> listaPartidasMariano;
+	private ArrayList <TableroLogicoMariano> listaPartidasMariano;
 	
     /* @param title  the frame title.
     */
@@ -91,7 +91,7 @@ public class GraficoHistograma extends JFrame
     private CategoryDataset createDataset() 
     {
     	listaPartidas1v1 = new ArrayList <TableroLogico1v1>();
-		listaPartidasMariano = new ArrayList <tablerologico1>();
+		listaPartidasMariano = new ArrayList <TableroLogicoMariano>();
 		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
 		if (rs != null)
 		{
@@ -111,7 +111,7 @@ public class GraficoHistograma extends JFrame
 					}
 					else
 					{
-						listaPartidasMariano.add(new tablerologico1(
+						listaPartidasMariano.add(new TableroLogicoMariano(
 								rs.getInt("ID_PARTIDA"),
 								rs.getString("USUARIO1"),
 								rs.getString("USUARIO2"),
@@ -138,7 +138,7 @@ public class GraficoHistograma extends JFrame
 		    }
 		    
 		    int cantidades2 [] = new int [7];
-		    for (tablerologico1 aux: listaPartidasMariano)
+		    for (TableroLogicoMariano aux: listaPartidasMariano)
 		    {
 		    	cal.setTime(aux.getFec_com());
 		    	dia = cal.get(Calendar.DAY_OF_WEEK);

@@ -1,11 +1,46 @@
 package Mariano;
 
 
+
 import java.awt.Color;
+import java.io.File;
+import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JOptionPane;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import Comun.clsConstantes;
+import GUI.clsEleccion;
 import LN.clsAlfil;
 import LN.clsCaballo;
 import LN.clsCasilla;
@@ -16,10 +51,14 @@ import LN.clsReina;
 import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
+import Persistencia.clsBD;
+import Unopauno.TableroLogico1v1;
 
 
 
-public class TableroLogicoMariano implements Cloneable{
+public class TableroLogicoMariano implements Cloneable, Serializable, Comparable <TableroLogicoMariano>{
+
+	private static final long serialVersionUID = 1L;
 
 	clsCasilla [][] tablero;
 	
@@ -30,8 +69,18 @@ public class TableroLogicoMariano implements Cloneable{
 //	
 //	JList asd;
 
+	private int ID_partida;
+	private Date fec_com;
+	private Date fec_fin;
+	private String ganadorString;
+	
 	public LinkedList<clsPieza> pblancas;
 	public LinkedList<clsPieza> pnegras;
+	
+	public LinkedList<clsPieza> cpblancas;
+	public LinkedList<clsPieza> cpnegras;
+	
+	
 	LinkedList<clsCasilla> movact;
 	
 	clsCasilla acasilla;
@@ -73,6 +122,14 @@ public class TableroLogicoMariano implements Cloneable{
 
 	private clsReina reinan;
 	
+	clsUsuario ganador;
+	clsUsuario perdedor;
+	
+	int num=0;
+	
+	LinkedList<clsJugada> jugadasblancas;
+	HashSet<clsJugada> jugadasnegras;
+	
 	public TableroLogicoMariano()
 	{
 	tablero= new clsCasilla[8][8];
@@ -87,6 +144,9 @@ public class TableroLogicoMariano implements Cloneable{
 	}
 	}
 	
+	reyb=new clsRey(0,3,true);
+	reyn=new clsRey(7,3,false);
+	
 	pblancas= new LinkedList<clsPieza>();
 	pnegras= new LinkedList<clsPieza>();
 	movact= new LinkedList<clsCasilla>();
@@ -94,16 +154,43 @@ public class TableroLogicoMariano implements Cloneable{
 	selec=null;
 	
 	}
-	public TableroLogicoMariano(Boolean asd, TableroVisualMariano TableroVisualMariano, Runnable myTimer) 
+	public TableroLogicoMariano (int a, String b, String c, long d, long e, String f)
 	{
-	
+		ID_partida = a;
+		ublanco = new clsUsuario ();
+		ublanco.setNickname(b);
+		unigga = new clsUsuario();
+		unigga.setNickname(c);
+		fec_com = new Date(d);
+		fec_fin = new Date(e);
+		ganadorString = f;
+	}
+	public TableroLogicoMariano(Boolean asd, TableroVisualMariano tablerovisual, Runnable myTimer, clsUsuario usu) 
+	{
+//		ganadorString = "";
+//		clsBD.crearTablaBD(clsConstantes.PARTIDA);
+//		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
+//		try 
+//		{
+//			while (rs.next())
+//			{
+//				ID_partida++;
+//			}
+//		} 
+//		catch (SQLException e)
+//		{
+//			e.printStackTrace();
+//		}
+//		fec_com = new Date();
+//		fec_fin = new Date(new Long(0) );
 	tablero= new clsCasilla[8][8];
 	
-	visual=TableroVisualMariano;
+	visual=tablerovisual;
 	
 	
-	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
-	unigga= new clsUsuario("nigga","b","b","nigga","b");
+//	ublanco= new clsUsuario("blanquito","a","a","blanquito","a");
+	ublanco=usu;
+	unigga= new clsUsuario("nigga","b","b","MARIANO","b");
 	
 	jaquemate=false;
 	
@@ -120,12 +207,22 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	pblancas= new LinkedList<clsPieza>();
 	pnegras= new LinkedList<clsPieza>();
+	
+	cpblancas= new LinkedList<clsPieza>();
+	cpnegras= new LinkedList<clsPieza>();
+	
 	movact= new LinkedList<clsCasilla>();
 	
 	reyb=new clsRey(0,3,true);
 	reyn=new clsRey(7,3,false);
 	
+	
+	jugadasblancas=new LinkedList<clsJugada>();
+	jugadasnegras=new HashSet<clsJugada>();
+	
+	
 	reinab=new clsReina(0,4,true);
+	//reinab=new clsReina(2,2,true);
 	reinan=new clsReina(7,4,false);
 	
 	btorrei=new clsTorre(0,7,true);
@@ -139,6 +236,7 @@ public class TableroLogicoMariano implements Cloneable{
 	pblancas.add(reyb);
 	pblancas.add(reinab);
 	pblancas.add(new clsAlfil(0,5,true));
+	//pblancas.add(new clsAlfil(3,5,true));
 	pblancas.add(new clsCaballo(0,6,true));
 	pblancas.add(btorrei);
 	
@@ -182,11 +280,11 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	for(clsPieza aux: pblancas)
 	{
-	aux.setMovimientos(legales(aux,this));
+	aux.mov(tablero);
 	}
 	for(clsPieza aux: pnegras)
 	{
-		aux.setMovimientos(legales(aux,this));
+	aux.mov(tablero);
 	}
 	
 	nmin=10;
@@ -198,10 +296,10 @@ public class TableroLogicoMariano implements Cloneable{
 	bstr = String.format("%d:%02d", bmin, bseg);
 	
 	
-//	reloj = new Timer1();
-//	
-//	Thread a= new Thread (reloj);
-//	a.start();
+	reloj = new Timer1();
+	
+	Thread a= new Thread (reloj);
+	a.start();
 	}	
 	
 
@@ -218,23 +316,23 @@ public class TableroLogicoMariano implements Cloneable{
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyb((clsRey) paux.clonarTabMariano(tab.getReyb(),tab));
+	mewto.setReyb((clsRey) paux.clonar(tab.getReyb(),tab));
 	mewto.getPblancas().add(mewto.getReyb());
 	}
 	else
 	{
-	mewto.getPblancas().add(paux.clonarTabMariano(paux,tab));
+	mewto.getPblancas().add(paux.clonar(paux,tab));
 	}
 	}
 	for(clsPieza paux: tab.getPnegras())
 	{
 	if(paux instanceof clsRey)
 	{
-	mewto.setReyn((clsRey) paux.clonarTabMariano(tab.getReyn(),tab));
+	mewto.setReyn((clsRey) paux.clonar(tab.getReyn(),tab));
 	mewto.getPnegras().add(mewto.getReyn());
 	}
 	else{
-	mewto.getPnegras().add(paux.clonarTabMariano(paux,tab));
+	mewto.getPnegras().add(paux.clonar(paux,tab));
 	}
 	}
 	
@@ -280,45 +378,21 @@ public class TableroLogicoMariano implements Cloneable{
 	aux.setIcon(null);
 	}
 	}
+	aux.paint(aux.getGraphics());
 	}
 	borrar.clear();
 	}
 	
-	public void revisar(clsJugada jugada,TableroLogicoMariano tab)
+	public void revisar()
 	{
-	LinkedList<clsPieza> todas = new LinkedList<clsPieza>();
-	
-	todas.addAll(tab.pblancas);
-	todas.addAll(tab.pnegras);
-	
-	if(comprobarjaque(tab.reyb,tab))
-	{
-		for(clsPieza pieza: tab.pblancas)
-		{
-			pieza.setMovimientos(legales(pieza,tab));
-		}
-	}
-	else if(comprobarjaque(tab.reyn,tab))
-	{
-		for(clsPieza pieza: tab.pnegras)
-		{
-			pieza.setMovimientos(legales(pieza,tab));
-		}
-	}
-	else
-	{
-		System.out.println("pasoooooooo");
+	LinkedList<clsPieza> todas = null;
+	todas.addAll(pblancas);
+	todas.addAll(pnegras);
 	for(clsPieza pieza: todas)
 	{
-		clsPieza hola=pieza.clonarTabMariano(pieza, tab);
-	for(clsCasilla casilla: hola.getMovimientos())
+	for(clsCasilla casilla: pieza.getMovimientos())
 	{
-		if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
-		{
-			pieza.setMovimientos(legales(pieza,tab));
-		}
-			
-	}
+	
 	}
 	}
 	}
@@ -330,7 +404,7 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	for(clsPieza paux: tab.pnegras)
 	{
-	if(paux.getMovimientos().size()!=0)
+	if(legales(paux,tab).size()!=0)
 	{
 	return false;
 	}
@@ -344,7 +418,7 @@ public class TableroLogicoMariano implements Cloneable{
 	for(clsPieza paux: tab.pblancas)
 	{
 	
-	if(paux.getMovimientos().size()!=0)
+	if(legales(paux,tab).size()!=0)
 	{
 	return false;
 	}
@@ -388,29 +462,203 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	
 	}
-	public void Inteligencia()
+	
+	
+	public void despuesintel(clsJugada definitiva)
+	{
+		
+		jugadasblancas.clear();
+		
+		int x=definitiva.pieza.getX();
+		int y=definitiva.pieza.getY();
+		
+		Boolean ocupado=false;
+		
+		if(definitiva.pieza.getPrimera()==false)
+			definitiva.pieza.setPrimera(true);
+		if(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado()!=null)
+		{
+		ocupado=true;
+		this.pblancas.remove(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado());
+		}
+		tablero[y][x].setOcupado(null);
+		
+		
+		System.out.println("EREERRRRRRRRRRRRRRRRRRRRRRRRRRRRRR "+ definitiva.pieza.getY());
+		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Peon))
+		{
+			System.out.println("EREERRRRRRRRRRRRRRRRRRRRRRRRRRRRRR "+ definitiva.pieza.getY());
+			if(definitiva.pieza.getY()==1 && definitiva.pieza.getColor()==false)
+			{
+				System.out.println("EREERRRRRRRRRRRRRRRRRRRRRRRRRRRRRR "+ definitiva.pieza.getY());
+				pnegras.remove(definitiva.pieza);
+				clsReina auxr=new clsReina(definitiva.pieza.getX(),definitiva.pieza.getY(),false);
+				pnegras.add(auxr);
+				definitiva.pieza=auxr;
+			}
+			
+		}
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setPieza(definitiva.pieza);
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].mov=false;
+//		System.out.println("sssssssssssssssss " +definitiva.pieza.getClass());
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setIcon(definitiva.pieza.getIcon());
+//		definitiva.pieza.setY(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].gety());
+//		definitiva.pieza.setX(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getx());
+	//	
+//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].paintComponents(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getGraphics());
+		
+		//System.out.println(this.tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado().getClass());
+		//this.tablero[0][1].setOcupado(null);
+		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setOcupado(definitiva.pieza);
+		
+		String letra=null;
+		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Peon))
+		{
+			letra="";
+		}
+		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Caballo))
+		{
+			letra="C";
+		}
+		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Torre))
+		{
+			letra="T";
+		}
+		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Reina))
+		{
+			letra="D";
+		}
+		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Rey))
+		{
+			letra="R";
+		}
+		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Alfil))
+		{
+			letra="A";
+		}
+		if(definitiva.pieza.getColor()==false)
+		{
+			if(ocupado)
+				visual.tabla.data[num][1]=letra+"x"+definitiva.pieza.escritura();
+			else
+				visual.tabla.data[num][1]=letra+definitiva.pieza.escritura();
+			num++;
+		}
+		if(definitiva.pieza.primera==false)
+		definitiva.pieza.primera=true;
+		//definitiva.cfinal.setOcupado(definitiva.pieza);
+		if(definitiva.pieza.getIcon()!=null)
+		{
+		System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
+		}
+		System.out.println(definitiva.cfinal.getOcupado().getClass());
+		System.out.println("definitivo "+definitiva.valor);
+		System.out.println(y);
+		System.out.println(x);
+		
+		
+		//pintar();
+//		jaquemate=jaquemateb(this);
+//		if(jaquemate)
+//		{
+//		visual.repaint();
+//		System.out.println("SoyDioooooooooooooooooooooooos");
+//		}
+	}
+	public LinkedList<clsPieza> clonarlistas(LinkedList<clsPieza> piezas, boolean color, TableroLogicoMariano a)
+	{
+		LinkedList<clsPieza> fin= new LinkedList<clsPieza>();
+		
+		if(color)
+		{
+			for(clsPieza paux: a.getPblancas())
+		{
+		fin.add(paux.clonar(paux,a));
+		
+		}
+		}
+		else
+		{
+			for(clsPieza paux: a.getPnegras())
+		{
+		fin.add(paux.clonar(paux,a));
+		
+		}
+		}
+		
+		
+		return fin;
+		
+	}
+	
+	
+	public void vlarartadasjugadas(TableroLogicoMariano a)
+	{
+		clsJugada definitiva= new clsJugada();
+		TableroLogicoMariano tablero=new TableroLogicoMariano();
+		tablero=clonar(a);
+		for(clsPieza p: a.pnegras)
+		{
+		
+		System.out.println("11wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+		System.out.println(p.getClass());
+		System.out.println(p);
+		int iy=p.getY();
+		int ix=p.getX();
+		
+		
+		LinkedList<clsCasilla> candidatos=legales(p,a);
+		
+		
+		
+		
+		
+		for(clsCasilla caux: candidatos)
+		{
+//		System.out.println("candidatos "+ caux);
+		clsJugada aux= new clsJugada(p,caux);
+		
+		aux.valor=Valorar(aux,tablero,1,1);
+//		System.out.println(aux.valor);
+		if(aux.valor>definitiva.valor)
+		{
+		definitiva=aux;
+		}
+		
+		}
+		
+		}
+		
+		
+	}
+	public clsJugada Inteligencia()
 	{
 	clsJugada definitiva= new clsJugada();
-	
+	TableroLogicoMariano tablero=new TableroLogicoMariano();
+	tablero=clonar(this);
 	for(clsPieza p: this.pnegras)
 	{
 	
-	System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+		
+	System.out.println("11wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
 	System.out.println(p.getClass());
 	System.out.println(p);
 	int iy=p.getY();
 	int ix=p.getX();
 	
 	
-	//LinkedList<clsCasilla> candidatos=legales(p,this);
+	LinkedList<clsCasilla> candidatos=legales(p,this);
 	
-	clsPieza xc= p.clonarTabMariano(p, this);
-	for(clsCasilla caux: xc.getMovimientos())
+	
+	
+	
+	
+	for(clsCasilla caux: candidatos)
 	{
 //	System.out.println("candidatos "+ caux);
 	clsJugada aux= new clsJugada(p,caux);
 	
-	aux.valor=Valorar(aux,this,1);
+	aux.valor=Valorar(aux,tablero,1,1);
 //	System.out.println(aux.valor);
 	if(aux.valor>definitiva.valor)
 	{
@@ -421,58 +669,60 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	}
 	
-	int x=definitiva.pieza.getX();
-	int y=definitiva.pieza.getY();
+	return definitiva;
 	
-	if(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado()!=null)
+	}
+	public clsJugada Inteligencia2(TableroLogicoMariano tablero)
 	{
-	this.pblancas.remove(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado());
-	}
-	tablero[y][x].setOcupado(null);
+	clsJugada definitiva= new clsJugada();
 	
-//	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setPieza(definitiva.pieza);
-//	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].mov=false;
-//	System.out.println("sssssssssssssssss " +definitiva.pieza.getClass());
-//	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setIcon(definitiva.pieza.getIcon());
-//	definitiva.pieza.setY(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].gety());
-//	definitiva.pieza.setX(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getx());
-//	
-//	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].paintComponents(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getGraphics());
+	TableroLogicoMariano t=new TableroLogicoMariano();
+	t=clonar(tablero);
 	
-	//System.out.println(this.tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado().getClass());
-	//this.tablero[0][1].setOcupado(null);
-	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setOcupado(definitiva.pieza);
-	if(definitiva.pieza.primera==false)
-	definitiva.pieza.primera=true;
-	
-	revisar(definitiva,this);
-	//definitiva.cfinal.setOcupado(definitiva.pieza);
-	if(definitiva.pieza.getIcon()!=null)
+	for(clsPieza p: tablero.pnegras)
 	{
-	System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
+	
+//	System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
+//	System.out.println(p.getClass());
+//	System.out.println(p);
+	int iy=p.getY();
+	int ix=p.getX();
+	
+	
+	LinkedList<clsCasilla> candidatos=legales(p,tablero);
+	
+	
+	for(clsCasilla caux: candidatos)
+	{
+//	System.out.println("candidatos "+ caux);
+	clsJugada aux= new clsJugada(p,caux);
+	
+	aux.valor=Valorar(aux,t,1,2);
+//	System.out.println(aux.valor);
+	if(aux.valor>definitiva.valor)
+	{
+	definitiva=aux;
 	}
-	System.out.println(definitiva.cfinal.getOcupado().getClass());
-	System.out.println("definitivo "+definitiva.valor);
-	System.out.println(y);
-	System.out.println(x);
-	
-	
-	//pintar();
-//	jaquemate=jaquemateb(this);
-//	if(jaquemate)
-//	{
-//	visual.repaint();
-//	System.out.println("SoyDioooooooooooooooooooooooos");
-//	}
 	
 	}
-	public int Valorar(clsJugada jugada,TableroLogicoMariano tablero, int numero)
+	
+	}
+
+
+	return definitiva;
+	}
+	public int Valorar(clsJugada jugada,TableroLogicoMariano tablero, int numero,int numeroblanquito)
 
 	{
 	
-	TableroLogicoMariano tab=new TableroLogicoMariano();
-	tab=clonar(tablero);
-	clsCasilla [][] tabaux=tab.getTablero();
+	boolean comiste=false; 
+//	tablerolerologico1 tablero=new tablerolerologico1();
+//	tablero=clonar(tablerolero);
+//	clsCasilla [][] tableroaux=tablero.gettablerolero();
+	
+//	tablerolerologico1 tablero=new tablerolerologico1();
+//	tablero=clonar(tablerolero);
+	clsCasilla [][] tableroaux=tablero.getTablero();
 	
 	int valor=0;
 	
@@ -493,114 +743,124 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	if(okupada.getColor())
 	{
-	tab.getPblancas().remove(okupada);
+	tablero.getPblancas().remove(okupada);
 	}
 	else
 	{
-	tab.getPnegras().remove(okupada);
+	tablero.getPnegras().remove(okupada);
+	comiste=true;
 	}
 	}
 
-	if(tabaux[cy][cx].getOcupado()!=null && tabaux[cy][cx].getOcupado().getColor().equals(pieza.getColor())==false)
+	if(tableroaux[cy][cx].getOcupado()!=null && tableroaux[cy][cx].getOcupado().getColor().equals(pieza.getColor())==false)
 	{
-	 valor= tabaux[cy][cx].getOcupado().getValor();
+	 valor= tableroaux[cy][cx].getOcupado().getValor();
 	}
+	
 	if(pieza.primera==false)
 	{
-	valor=valor+30;
+	valor=(valor+10);
 	}
+	
 	if(pieza.getColor())
-	tab.getPblancas().remove(pieza);
+		tablero.getPblancas().remove(pieza);
+
 	else
-	tab.getPnegras().remove(pieza);
-	tabaux[cy][cx].setOcupado(pieza);
-	tabaux[y][x].setOcupado(null);
+		tablero.getPnegras().remove(pieza);
 	
+	tableroaux[cy][cx].setOcupado(pieza);
 	
-	//tab.setTurno(!tab.getTurno());
+	tableroaux[y][x].setOcupado(null);
+	
+//	if(comiste && pieza.getColor()&& numeroblanquito==1)
+//	{
+//		tablerologico1 tablero3=new tablerologico1();
+//		tablero3=clonar(tablero);
+//		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+//		//valor=valor -Valorar(Inteligencia2(tablero3),tablero3,3,3);
+//		valor=valor - Valorar(Inteligencia2(tablero3),tablero3,3,3);
+//	}
+//	
+	
+	//tablero.setTurno(!tablero.getTurno());
 
 //
 	if(pieza.getColor())
 	{
-	tab.getPblancas().add(pieza);
-	revisar(jugada,tab);
-	for(clsPieza dfg: tab.getPblancas())
+	tablero.getPblancas().add(pieza);
+	
+	for(clsPieza dfg: tablero.getPblancas())
 	{
-	valor=valor+dfg.getMovimientos().size();
+	valor=valor+legales(dfg,tablero).size();
 	}
 	}
 	else
 	{
-	tab.getPnegras().add(pieza);
-	revisar(jugada,tab);
-	for(clsPieza dfg: tab.getPnegras())
+	tablero.getPnegras().add(pieza);
+	for(clsPieza dfg: tablero.getPnegras())
 	{
-	valor=valor+dfg.getMovimientos().size();
+	valor=valor+legales(dfg,tablero).size();
 	}
 	}
 	
 	if(pieza.getColor())
 	{
-	if(jaquematen(tab))
+	if(jaquematen(tablero))
 	{
 	valor=valor+90000;
 	if(okupada!=null)
 	{
 	if(okupada.getColor())
-	tab.getPblancas().add(okupada);
+	tablero.getPblancas().add(okupada);
 	else
-	tab.getPnegras().add(okupada);
+	tablero.getPnegras().add(okupada);
 	}
 	
-	tabaux[cy][cx].setOcupado(okupada);
-	tabaux[y][x].setOcupado(pieza);
+	if(pieza.getColor())
+		tablero.getPblancas().remove(pieza);
+
+	else
+		tablero.getPnegras().remove(pieza);
+	
+	tableroaux[cy][cx].setOcupado(okupada);
+	tableroaux[y][x].setOcupado(pieza);
+	
+	
 	
 	if(pieza.getColor())
-	tab.getPblancas().add(pieza);
+		tablero.getPblancas().add(pieza);
 	else
-	tab.getPnegras().add(pieza);
-	
-	//revisar(jugada,tab);
-	System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeee");
+		tablero.getPnegras().add(pieza);
+//	System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeee");
 	return valor;
 	}
 	}
 	else
 	{
-//	 System.out.println("Blaancaaaaaaaaaaaaas");
-//	 for(clsPieza p: tab.pblancas)
-//	 {
-//	 System.out.println(p.getClass());
-//	 System.out.println(p);
-//	 }
-//	 System.out.println("Negraçaaaaaaaaaaaaas");
-//	 for(clsPieza p: tab.pnegras)
-//	 {
-//	 System.out.println(p.getClass());
-//	 System.out.println(p);
-//	 }
-	if(jaquemateb(tab))
+
+	if(jaquemateb(tablero))
 	{
 	valor=valor+100000;
 	if(okupada!=null)
 	{
 	if(okupada.getColor())
-	tab.getPblancas().add(okupada);
+	tablero.getPblancas().add(okupada);
 	else
-	tab.getPnegras().add(okupada);
+	tablero.getPnegras().add(okupada);
 	}
+	if(pieza.getColor())
+		tablero.getPblancas().remove(pieza);
+
+	else
+		tablero.getPnegras().remove(pieza);
 	
-	tabaux[cy][cx].setOcupado(okupada);
-	tabaux[y][x].setOcupado(pieza);
-	
+	tableroaux[cy][cx].setOcupado(okupada);
+	tableroaux[y][x].setOcupado(pieza);
 	
 	if(pieza.getColor())
-	tab.getPblancas().add(pieza);
+	tablero.getPblancas().add(pieza);
 	else
-	tab.getPnegras().add(pieza);
-	
-	//revisar(jugada,tab);
-	
+	tablero.getPnegras().add(pieza);
 	System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 	return valor;
 	}
@@ -614,24 +874,63 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	if(numero==1)
 	{
+		
+		TableroLogicoMariano tablero2=new TableroLogicoMariano();
+		tablero2=clonar(tablero);
 //	System.out.println("putos blanquitoooooooooooooooooooooooooooooooooooooos");
-	for(clsPieza blanca: tab.getPblancas())
+	for(clsPieza blanca: tablero.getPblancas())
 	{
-	clsPieza clon=blanca.clonarTabMariano(blanca, tab);
+	clsPieza clon=blanca.clonar(blanca, tablero);
 //	System.out.println(blanca.getClass());
 //	System.out.println("original "+blanca);
 //	System.out.println("clon "+clon);
-	//LinkedList<clsCasilla> candidatos=rlegales(clon,tab);
+	LinkedList<clsCasilla> candidatos=rlegales(clon,tablero);
 	
 	
-	
-	for(clsCasilla contrin: clon.getMovimientos())
+	boolean holi=true;
+	for(clsCasilla contrin: candidatos)
 	{
 //	System.out.println(contrin);
 	clsJugada aux= new clsJugada(blanca,contrin);
-	aux.valor=Valorar(aux,tab,2);
+	
+	if(contrin.getx()==1 &&  contrin.gety()==4)
+	{
+		System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrrrrrrr");
+		System.out.println(pieza.getClass());
+		System.out.println(pieza);
+		if(contrin.getPieza()==null)
+			System.out.println("GUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUtttttttttt");
+		else
+		{
+			System.out.println("mAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLL");
+			System.out.println(contrin.getPieza().getClass());
+			System.out.println(contrin.getPieza());
+		}
+			
+	}
+	holi=true;
+	for(clsJugada ax: jugadasblancas)
+	{
+		if(((ax.cfinal.getPieza()!= null && aux.cfinal.getPieza()!=null && ax.cfinal.getPieza().equals(aux.cfinal.getPieza()))) || ( ax.cfinal.getPieza()== null && aux.cfinal.getPieza()==null  )  )
+		{
+			System.out.println("HOLLLLLLLLLLLLLLLLLLLLLLLLAAAAAAAAAAAAAAAAAA");
+			holi=false;
+			aux.valor=ax.valor;
+			break;
+		}
+		
+	}
+	
+	
+	if(holi)
+	{
+		System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+		aux.valor=Valorar(aux,tablero2,2,numeroblanquito);
+		jugadasblancas.add(aux);
+	}
+//	aux.valor=Valorar(aux,tablero2,2,numeroblanquito);
 	if(aux.valor>peor.valor)
-	peor=aux;
+		peor=aux;
 
 	}
 	
@@ -640,57 +939,30 @@ public class TableroLogicoMariano implements Cloneable{
 	valor=valor-peor.valor;
 	}
 	
-//	if(numero==2)
-//	{
-////	System.out.println("putos putosnigggggaaaaaaaaaaaaaaaaaaas");
-//	for(clsPieza blanca: tab.getPnegras())
-//	{
-//	clsPieza clon=blanca.clonar(blanca, tab);
-////	System.out.println(blanca.getClass());
-////	System.out.println("original "+blanca);
-////	System.out.println("clon "+clon);
-//	LinkedList<clsCasilla> candidatos=rlegales(clon,tab);
-//	
-//	
-//	
-//	for(clsCasilla contrin: candidatos)
-//	{
-////	System.out.println(contrin);
-//	clsJugada aux= new clsJugada(blanca,contrin);
-//	aux.valor=Valorar(aux,tab,3);
-//	if(aux.valor>peor.valor)
-//	peor=aux;
-//
-//	}
-//	
-//	
-//	}
-//	
-//	}
 
-//	System.out.println("erewerwe r "+peor.valor);
-	
-	
-//	}
 	
 	
 	if(okupada!=null)
 	{
 	if(okupada.getColor())
-	tab.getPblancas().add(okupada);
+	tablero.getPblancas().add(okupada);
 	else
-	tab.getPnegras().add(okupada);
+	tablero.getPnegras().add(okupada);
 	}
+	if(pieza.getColor())
+		tablero.getPblancas().remove(pieza);
+
+	else
+		tablero.getPnegras().remove(pieza);
 	
-	tabaux[cy][cx].setOcupado(okupada);
-	tabaux[y][x].setOcupado(pieza);
+	tableroaux[cy][cx].setOcupado(okupada);
+	tableroaux[y][x].setOcupado(pieza);
 	
 	if(pieza.getColor())
-	tab.getPblancas().add(pieza);
+	tablero.getPblancas().add(pieza);
 	else
-	tab.getPnegras().add(pieza);
-	pieza.setX(x);
-	pieza.setY(y);
+	tablero.getPnegras().add(pieza);
+	
 	
 	
 	
@@ -728,7 +1000,7 @@ public class TableroLogicoMariano implements Cloneable{
 	for(clsPieza p: tab.getPblancas())
 	{
 	if(p instanceof clsRey)
-	tab.setReyb((clsRey) p.clonarTabMariano(p,this));
+	tab.setReyb((clsRey) p.clonar(p,this));
 	}
 	//System.out.println("aaaaaaaaaaaaablancoooooooo");
 	if(comprobarjaque(tab.getReyb(),tab))
@@ -741,7 +1013,7 @@ public class TableroLogicoMariano implements Cloneable{
 	for(clsPieza p: tab.getPnegras())
 	{
 	if(p instanceof clsRey)
-	tab.setReyn((clsRey) p.clonarTabMariano(p,this));
+	tab.setReyn((clsRey) p.clonar(p,this));
 	}
 	//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanegroooooooooooo");
 	if(comprobarjaque(tab.getReyn(),tab))
@@ -773,8 +1045,8 @@ public class TableroLogicoMariano implements Cloneable{
 	 acasilla=ncasilla;
 	 ncasilla=casilla;
 	 
-//	 tablerologico tab= new tablerologico();
-//	 tab= clonar(this);
+	 TableroLogicoMariano tab= new TableroLogicoMariano();
+	 tab= clonar(this);
 	 
 //	 System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
 //	 
@@ -809,12 +1081,33 @@ public class TableroLogicoMariano implements Cloneable{
 	{
 	tablero[selec.getY()][selec.getX()].setOcupado(null);
 	//tablero[selec.getY()][selec.getX()].setBackground(Color.BLUE);
-	tablero[selec.getY()][selec.getX()].paintImmediately(tablero[selec.getY()][selec.getX()].getBounds());
+	tablero[selec.getY()][selec.getX()].paint(tablero[selec.getY()][selec.getX()].getGraphics());
+	
+	
+	
+	if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
+	{
+		if(selec.getY()==6 && selec.getColor())
+		{
+			pblancas.remove(selec);
+			clsReina auxr=new clsReina(selec.getX(),selec.getY(),true);
+			pblancas.add(auxr);
+			selec=auxr;
+			
+		}
+		if(selec.getY()==1 && selec.getColor()==false)
+		{
+			pnegras.remove(selec);
+			clsReina auxr=new clsReina(selec.getX(),selec.getY(),false);
+			pnegras.add(auxr);
+			selec=auxr;
+		}
+		
+	}
 	
 	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 	{
-	if(selec.getPrimera()==false)
-	selec.setPrimera(true);
+	
 	
 //	if(selec.getColor() && ncasilla.getx()==0 && ncasilla.gety()==1 && reyb.getPrimera()==true && btorred.getPrimera()==true && tablero[0][2].getOcupado()==null )
 //	{
@@ -823,35 +1116,34 @@ public class TableroLogicoMariano implements Cloneable{
 //	}
 	
 	//el enroque funciona mal si la casilla continua está en jaque
-	if(selec.getColor() && ncasilla.getx()==1 && ncasilla.gety()==0  )
+	if(selec.getColor() && ncasilla.getx()==1 && ncasilla.gety()==0 && selec.getPrimera()==false)
 	{
 	tablero[0][2].setOcupado(btorred);
 	tablero[0][0].setOcupado(null);
 	}
-	if(selec.getColor() && ncasilla.getx()==5 && ncasilla.gety()==0  )
+	if(selec.getColor() && ncasilla.getx()==5 && ncasilla.gety()==0 && selec.getPrimera()==false )
 	{
 	tablero[0][4].setOcupado(btorrei);
 	tablero[0][7].setOcupado(null);
 	}
 	
-	if(  selec.getColor()==false && ncasilla.getx()==1 && ncasilla.gety()==7  )
+	if(  selec.getColor()==false && ncasilla.getx()==1 && ncasilla.gety()==7 && selec.getPrimera()==false)
 	{
 	tablero[7][2].setOcupado(ntorred);
 	tablero[7][0].setOcupado(null);
 	}
-	if( selec.getColor()==false && ncasilla.getx()==5 && ncasilla.gety()==7 )
+	if( selec.getColor()==false && ncasilla.getx()==5 && ncasilla.gety()==7 && selec.getPrimera()==false )
 	{
 	tablero[7][4].setOcupado(ntorrei);
 	tablero[7][7].setOcupado(null);
 	}
 	
 	}
-	if(selec.a.equals(Comun.clsConstantes.piezas.Torre))
-	{
-	if(selec.getPrimera()==false)
-	selec.setPrimera(true);
 	
-	}
+	if(selec.getPrimera()==false)
+		selec.setPrimera(true);
+	
+	
 //	System.out.println("SDFGHJKHGHFDFHJ");
 //	System.out.println(selec.sitio(tablero));
 	ncasilla.setOcupado(selec);
@@ -863,44 +1155,59 @@ public class TableroLogicoMariano implements Cloneable{
 //	System.out.println(a);
 //	}
 	ncasilla.paint(ncasilla.getGraphics());
-	clear(movact);
-	revisar(new clsJugada(selec,acasilla),this);
+	
+	
+	String letra=null;
+	if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
+	{
+		letra="";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Caballo))
+	{
+		letra="C";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Torre))
+	{
+		letra="T";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Reina))
+	{
+		letra="D";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
+	{
+		letra="R";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Alfil))
+	{
+		letra="A";
+	}
+	if(selec.getColor())
+	{
+		visual.tabla.data[num][0]=letra+selec.escritura();
+	}
+	
 	if(selec.getColor())
 	{
 	if(comprobarjaque(reyn,this))
 	{
 	jaquemate=jaquematen(this);
 	if(jaquemate)
-	porque();
-	}
-	}
-	else
 	{
-		if(comprobarjaque(reyb,this))
-		{
-		visual.repaint();
-		jaquemate=jaquemateb(this);
-		
-		if(jaquemate)
-		{
-		System.out.println("llegas");
+		ganador=ublanco;
+		perdedor=unigga;
 		porque();
-		}
-		}
 	}
 	
+	}
+	}
 	
+	clear(movact);
 	
 	selec=null;
 	
-//	try {
-//		Thread.sleep(10000);
-//	} catch (InterruptedException e) {
-//		// TODO Auto-generated catch block
-//		e.printStackTrace();
-//	}
-//	System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAA");
-	Inteligencia();
+	
+	despuesintel(Inteligencia());
 	
 	if(comprobarjaque(reyb,this))
 	{
@@ -909,14 +1216,15 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	if(jaquemate)
 	{
-	System.out.println("llegas");
-	porque();
+		ganador=unigga;
+		perdedor=ublanco;
+		porque();
 	}
 	}
 	
 	turno=!turno;
 
-	
+	//revisar();
 	}
 	clear(movact);
 	}
@@ -930,13 +1238,17 @@ public class TableroLogicoMariano implements Cloneable{
 	selec=ncasilla.getOcupado();
 	
 	//System.out.println(selec.getClass());
+	for(clsCasilla k: legales(selec,this))
+	{
 	
+	//System.out.println(k);
+	}
 	if (selec.getColor()== turno)
 	{
 	
-	//LinkedList<clsCasilla> aux= legales(selec,this);
+	LinkedList<clsCasilla> aux= legales(selec,this);
 
-	dibujarmov(selec.getMovimientos());
+	dibujarmov(aux);
 	}
 
 	}
@@ -951,6 +1263,8 @@ public class TableroLogicoMariano implements Cloneable{
 	else
 	pblancas.remove(ncasilla.getOcupado());
 	
+	if(selec.getPrimera()==false)
+		selec.setPrimera(true);
 	tablero[selec.getY()][selec.getX()].setOcupado(null);
 	ncasilla.setOcupado(selec);
 	ncasilla.provisional=false;
@@ -963,12 +1277,62 @@ public class TableroLogicoMariano implements Cloneable{
 	
 	movact.remove(ncasilla);
 	
+	if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
+	{
+		if(selec.getY()==6 && selec.getColor())
+		{
+			pblancas.remove(selec);
+			clsReina auxr=new clsReina(selec.getX(),selec.getY(),true);
+			pblancas.add(auxr);
+			selec=auxr;
+			
+		}
+		if(selec.getY()==1 && selec.getColor()==false)
+		{
+			pnegras.remove(selec);
+			clsReina auxr=new clsReina(selec.getX(),selec.getY(),false);
+			pnegras.add(auxr);
+			selec=auxr;
+		}
+		
+	}
+	
 	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 	{
 	if(selec.getPrimera()==false)
 	selec.setPrimera(true);
 	}
-//	
+	
+	String letra=null;
+	if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
+	{
+		letra="";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Caballo))
+	{
+		letra="C";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Torre))
+	{
+		letra="T";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Reina))
+	{
+		letra="D";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
+	{
+		letra="R";
+	}
+	if(selec.a.equals(Comun.clsConstantes.piezas.Alfil))
+	{
+		letra="A";
+	}
+	if(selec.getColor())
+	{
+		visual.tabla.data[num][0]=letra+"x"+selec.escritura();
+	}
+	
 	turno=!turno;
 //	if(selec.getColor())
 //	{
@@ -988,43 +1352,36 @@ public class TableroLogicoMariano implements Cloneable{
 //	System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
 //	}
 //	}
-	clear(movact);
 	
-	revisar(new clsJugada(selec,acasilla),this);
 	
-	if(selec.getColor())
-	{
 	if(comprobarjaque(reyn,this))
 	{
 	jaquemate=jaquematen(this);
 	if(jaquemate)
-	porque();
-	}
-	}
-	else
 	{
-		if(comprobarjaque(reyb,this))
-		{
-		jaquemate=jaquemateb(this);
-		if(jaquemate)
+		ganador=ublanco;
+		perdedor=unigga;	
 		porque();
-		}
+	}
 	}
 	
 	selec=null;
+	clear(movact);
 	
+	despuesintel(Inteligencia());
 	
-	Inteligencia();
 
 	if(comprobarjaque(reyb,this))
 	{
 	jaquemate=jaquemateb(this);
 	if(jaquemate)
-	porque();
+	{
+		ganador=unigga;
+		perdedor=ublanco;
+		porque();
+	}
 	}
 	turno=!turno;
-	
-	
 	
 	//	revisar();
 	}
@@ -1427,7 +1784,66 @@ public class TableroLogicoMariano implements Cloneable{
 	}
 	public void porque()
 	{
-	JOptionPane.showMessageDialog(visual, "Jaquemate");
+		if (ganador.getNickname().compareTo("Mariano")==0)
+		{
+			try 
+			  {
+			   File file = new File("src/audio/Presidente_Rajoy-_Viva_el_vino_.wav");  
+			   Clip clip = AudioSystem.getClip();
+			   clip.open(AudioSystem.getAudioInputStream(file));
+			   clip.start();
+			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+			   this.setFec_fin(new Date());
+			   ganadorString = ganador.getNickname();
+			   
+				//Calculando Elo del luser.
+				double factor = (3400 - perdedor.getElo())^2/100000;
+				double dif = perdedor.getElo() - ganador.getElo();
+				double difabs = Math.abs(dif);
+				double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+										  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+				double cambio = (0 - resultadoesperado)*factor;
+				perdedor.setElo(perdedor.getElo()+(int)cambio);
+				clsBD.modificarDatoTablaBD(perdedor);
+				
+			   clsBD.modificarDatoTablaBD(visual.tab);
+			   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+			   ventanaEleccion.setVisible(true);
+			   visual.dispose();
+			  } 
+			catch (Exception e) 
+			{}
+		}
+		else
+		{
+			try 
+			  {
+			   File file = new File("src/audio/Rajoy_-_La_segunda_ya_tal.wav");  
+			   Clip clip = AudioSystem.getClip();
+			   clip.open(AudioSystem.getAudioInputStream(file));
+			   clip.start();
+			   JOptionPane.showMessageDialog(visual, "Ha ganado "+ ganador.getNickname());
+			   this.setFec_fin(new Date());
+			   ganadorString = ganador.getNickname();
+
+				//Calculando Elo del ganador.
+				double factor = (3400 - ganador.getElo())^2/100000;
+				double dif = ganador.getElo() - perdedor.getElo();
+				double difabs = Math.abs(dif);
+				double resultadoesperado = 0.5 + 1.4217 * Math.pow(10, -3) * dif - 2.4336 * Math.pow(10, -7) * dif * difabs -
+										  2.5140 * Math.pow(10, -9) * dif * Math.pow(difabs, 2) + 1.9910 * Math.pow(10,-12)* dif * Math.pow(difabs,3);
+				double cambio = (1 - resultadoesperado)*factor;
+				ganador.setElo(ganador.getElo()+(int)cambio);
+				clsBD.modificarDatoTablaBD(ganador);
+
+			   clsBD.modificarDatoTablaBD(visual.tab);
+			   clsEleccion ventanaEleccion = new clsEleccion(ublanco);
+			   ventanaEleccion.setVisible(true);
+			   visual.dispose();
+			  } 
+			catch (Exception e) 
+			{}
+		}
 	}
 	class Timer1 implements Runnable
 	{
@@ -1452,7 +1868,7 @@ public class TableroLogicoMariano implements Cloneable{
 	}
 	System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 	repain();
-	porque();
+	//porque();
 //	repain();
 //	porque();
 	}
@@ -1640,5 +2056,42 @@ public class TableroLogicoMariano implements Cloneable{
 
 	public void setUblanco(clsUsuario ublanco) {
 	this.ublanco = ublanco;
+	}
+	public int getID_partida() 
+	{
+		return ID_partida;
+	}
+	public void setID_partida(int iD_partida) 
+	{
+		ID_partida = iD_partida;
+	}
+	public Date getFec_com() 
+	{
+		return fec_com;
+	}
+	public void setFec_com(Date fec_com) {
+		
+		this.fec_com = fec_com;
+	}
+	public Date getFec_fin() 
+	{
+		return fec_fin;
+	}
+	public void setFec_fin(Date fec_fin) 
+	{
+		this.fec_fin = fec_fin;
+	}
+	
+	
+	public String getGanadorString() {
+		return ganadorString;
+	}
+	public void setGanadorString(String ganador) {
+		this.ganadorString = ganador;
+	}
+	@Override
+	public int compareTo(TableroLogicoMariano arg0) 
+	{
+		return this.getID_partida()-arg0.getID_partida();
 	}
 }

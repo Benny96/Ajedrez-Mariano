@@ -1,41 +1,22 @@
 package Mariano;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
-
-
-
-
-
-
-
-
-
-
-
-
 
 import LN.clsCasilla;
 import LN.clsPieza;
@@ -43,7 +24,6 @@ import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
 
-import javax.swing.JTextArea;
 
 public class TableroVisualMariano extends JFrame implements ActionListener
 {
@@ -90,27 +70,47 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 
 	JLabel btiempo;
 	
+	SimpleTableDemo tabla;
 
 	//private JLabel btiempo;
 	
-	private JTextArea textArea; 
-	private JLabel lblTextArea;
-	private JScrollPane scroll;
-
+	
 	clsPieza selec;
 	
-	public TableroVisualMariano() 
+	JLabel a;
+	JLabel b;
+	JLabel c;
+	JLabel d;
+	JLabel e;
+	JLabel f;
+	JLabel g;
+	JLabel h;
+	
+	JLabel num_1;
+	JLabel num_2;	
+	JLabel num_3;	
+	JLabel num_4;	
+	JLabel num_5;
+	JLabel num_6;	
+	JLabel num_7;	
+	JLabel num_8;
+	
+	
+	public TableroVisualMariano(clsUsuario aux) 
 	{
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 700, 720);
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
+		setBounds(0, 0, 1050, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
+		pPrincipal.setBackground(Color.white);
 		
-		tab= new TableroLogicoMariano(true,this,myTimer);
+		tab= new TableroLogicoMariano(true, this, myTimer, aux);
 		
+		//clsBD.insertarDatoTablaBD(tab);
 		
 		tablero= tab.getTablero();
 		
@@ -125,7 +125,7 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		clsUsuario unigga= tab.getUnigga();
 		
 		blanquito= new JLabel(ublanco.getNickname());
-		blanquito.setBounds(475, 595, 100,40);
+		blanquito.setBounds(475, 650, 160, 40);
 		
 		Font labelFont = blanquito.getFont();
 		String labelText =blanquito.getText();
@@ -143,19 +143,108 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		int fontSizeToUse = Math.min(newFontSize, componentHeight);
 
 		// Set the label's font size to the newly determined size.
-		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		blanquito.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
 		pPrincipal.add(blanquito);
 		
 		nigga= new JLabel(unigga.getNickname());
-		nigga.setBounds(80, 80, 100,40);
-		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		nigga.setBounds(135, 20, 160, 40);
+		nigga.setFont(new Font(labelFont.getName(), Font.PLAIN, 24));
 		pPrincipal.add(nigga);
+		
+		
+		num_8=new JLabel("8");
+		num_8.setBounds(40, 120, 50, 50);
+		num_8.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_8);
+		
+		num_7=new JLabel("7");
+		num_7.setBounds(40, 180, 50, 50);
+		num_7.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_7);
+		
+		num_6=new JLabel("6");
+		num_6.setBounds(40, 240, 50, 50);
+		num_6.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_6);
+		
+		num_5=new JLabel("5");
+		num_5.setBounds(40, 300, 50, 50);
+		num_5.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_5);
+		
+		num_4=new JLabel("4");
+		num_4.setBounds(40, 360, 50, 50);
+		num_4.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_4);
+		
+		num_3=new JLabel("3");
+		num_3.setBounds(40, 420, 50, 50);
+		num_3.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_3);
+		
+		num_2=new JLabel("2");
+		num_2.setBounds(40, 480, 50, 50);
+		num_2.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_2);
+		
+		num_1=new JLabel("1");
+		num_1.setBounds(40, 540, 50, 50);
+		num_1.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(num_1);
+		
+		
+		
+		a=new JLabel("a");
+		a.setBounds(100, 600, 35, 35);
+		a.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(a);
+		
+		b=new JLabel("b");
+		b.setBounds(160, 600, 35, 35);
+		b.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(b);
+		
+		c=new JLabel("c");
+		c.setBounds(220, 600, 35, 35);
+		c.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(c);
+		
+		d=new JLabel("d");
+		d.setBounds(280, 600, 35, 35);
+		d.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(d);
+		
+		e=new JLabel("e");
+		e.setBounds(340, 600, 35, 35);
+		e.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(e);
+		
+		f=new JLabel("f");
+		f.setBounds(400, 600, 35, 35);
+		f.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(f);
+		
+		g=new JLabel("a");
+		g.setBounds(460, 600, 35, 35);
+		g.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(g);
+		
+		h=new JLabel("h");
+		h.setBounds(520, 600, 35, 35);
+		h.setFont(new Font(labelFont.getName(), Font.PLAIN, fontSizeToUse));
+		pPrincipal.add(h);
+		
+		
+		
+		
+		
+		
 	
 		for(int i=0;i<8;i++)
 		{
 			for(int j=0;j<8;j++)
 			{
-				tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
+				//tablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
 				if((i+j)%2==0)
 					tablero[i][j].setBackground(Color.WHITE);
 				else
@@ -194,7 +283,7 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		nstr = tab.getNstr();
 		
 		ntiempo= new JLabel(nstr);
-		ntiempo.setBounds(160, 80, 100,40);
+		ntiempo.setBounds(80, 20, 100, 40);
 		ntiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(ntiempo);
 		
@@ -202,25 +291,19 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		bstr = tab.getBstr();
 		
 		btiempo= new JLabel(bstr);
-		btiempo.setBounds(410, 595, 100,40);
+		btiempo.setBounds(410, 650, 100, 40);
 		btiempo.setFont( new Font( "Arial", Font.BOLD, 18 ));
 		pPrincipal.add(btiempo);
 		
 		
-		
-		textArea = new JTextArea();
-		pPrincipal.add(textArea);
-		
-		lblTextArea = new JLabel("Movimientos: ");
-		lblTextArea.setFont(lblTextArea.getFont ().deriveFont (18.0f));
-		lblTextArea.setBounds(744, 69, 241, 51);
-		pPrincipal.add(lblTextArea);
-
-		scroll = new JScrollPane();
-		scroll.setBounds(727, 136, 300, 460);
-		pPrincipal.add(scroll);
-		scroll.setViewportView(textArea);
-		
+		if (tabla == null)
+		{
+			tabla= new SimpleTableDemo();
+			tabla.createTable(tabla.data);
+		}
+		tabla.setBounds(744, 69, 241, 500);
+		pPrincipal.add(tabla);
+	
 	
 		//para que no meleste
 //		myTimer = new Timer1();
@@ -234,6 +317,7 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		
 		// TODO Auto-generated constructor stub
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		setBounds(0, 0, 1360, 720);
 		pPrincipal = new JPanel();
 		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -359,6 +443,72 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 			porque();
 		}
 	
+	}
+	
+	class SimpleTableDemo extends JPanel{
+		   
+		private static final long serialVersionUID = 1L;
+		
+		Object[][] data;
+		 String[] columnNames = {"Blanco",
+				                 "Negro",
+				                 };
+	    public SimpleTableDemo() 
+	    {
+	        super(new GridLayout(1,0));
+	        data= new Object[100][2];
+//	        Object[][] data = {
+//	                {"Kathy", "Smith",
+//	                 "Snowboarding", new Integer(5), new Boolean(false)},
+//	                {"John", "Doe",
+//	                 "Rowing", new Integer(3), new Boolean(true)},
+//	                {"Sue", "Black",
+//	                 "Knitting", new Integer(2), new Boolean(false)},
+//	                {"Jane", "White",
+//	                 "Speed reading", new Integer(20), new Boolean(true)},
+//	                {"Joe", "Brown",
+//	                 "Pool", new Integer(10), new Boolean(false)}
+//	                };
+	    }
+	    public void createTable (Object [][]a)
+	    {
+	    	data = a;
+	        final JTable table = new JTable(data, columnNames);
+	        table.setPreferredScrollableViewportSize(new Dimension(200, 500));
+	        table.setFillsViewportHeight(true);
+	        table.setEnabled(false);
+	 
+//	        if (DEBUG) {
+//	            table.addMouseListener(new MouseAdapter() {
+//	                public void mouseClicked(MouseEvent e) {
+//	                    printDebugData(table);
+//	                }
+//	            });
+//	        }
+	 
+	        //Create the scroll pane and add the table to it.
+	        JScrollPane scrollPane = new JScrollPane(table);
+	 
+	        //Add the scroll pane to this panel.
+	        add(scrollPane);
+	    }
+	 
+//	    private void printDebugData(JTable table) {
+//	        int numRows = table.getRowCount();
+//	        int numCols = table.getColumnCount();
+//	        javax.swing.table.TableModel model = table.getModel();
+//	 
+//	        System.out.println("Value of data: ");
+//	        for (int i=0; i < numRows; i++) {
+//	            System.out.print("    row " + i + ":");
+//	            for (int j=0; j < numCols; j++) {
+//	                System.out.print("  " + model.getValueAt(i, j));
+//	            }
+//	            System.out.println();
+//	        }
+//	        System.out.println("--------------------------");
+//	    }
+	    
 	}
 
 	}

@@ -34,7 +34,7 @@ import javax.swing.JRadioButton;
 import Comun.clsConstantes;
 import Comun.clsOrdenarPorGanador1v1;
 import Comun.clsOrdenarPorGanadorMariano;
-import Mariano.tablerologico1;
+import Mariano.TableroLogicoMariano;
 import Persistencia.clsBD;
 import Unopauno.TableroLogico1v1;
 
@@ -43,7 +43,7 @@ public class clsHistorialPartidas extends JFrame
 	private static final long serialVersionUID = 1L;
 
 	static ArrayList <TableroLogico1v1> listaPartidas1v1;
-	static ArrayList <tablerologico1> listaPartidasMariano;
+	static ArrayList <TableroLogicoMariano> listaPartidasMariano;
 	
 	private JLabel lblInformacion;
 	private JRadioButton rdbtn1v1;
@@ -138,7 +138,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		this.setPreferredSize(new Dimension(750,500));
 		
 		listaPartidas1v1 = new ArrayList <TableroLogico1v1>();
-		listaPartidasMariano = new ArrayList <tablerologico1>();
+		listaPartidasMariano = new ArrayList <TableroLogicoMariano>();
 
 		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
 		logger.log( Level.INFO, "Recogiendo datos de la BD");
@@ -160,7 +160,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 					}
 					else
 					{
-						listaPartidasMariano.add(new tablerologico1(
+						listaPartidasMariano.add(new TableroLogicoMariano(
 								rs.getInt("ID_PARTIDA"),
 								rs.getString("USUARIO1"),
 								rs.getString("USUARIO2"),

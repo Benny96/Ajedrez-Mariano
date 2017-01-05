@@ -13,7 +13,7 @@ import Comun.clsConstantes.enFicDatos;
 import Unopauno.TableroLogico1v1;
 import Unopauno.TableroVisual1v1;
 import LN.clsUsuario;
-import Mariano.tablerologico1;
+import Mariano.TableroLogicoMariano;
 import Persistencia.clsBD;
 import Persistencia.clsBinarios;
 

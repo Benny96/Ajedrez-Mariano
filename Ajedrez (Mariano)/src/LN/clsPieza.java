@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import Mariano.TableroLogicoMariano;
 import Unopauno.TableroLogico1v1;
 import Comun.clsConstantes.piezas;
-import GUI.tablerologico;
 
 public class clsPieza implements Serializable
 {
@@ -212,7 +211,7 @@ public class clsPieza implements Serializable
 		return null;
 	}
 	
-	public clsPieza clonar(clsPieza pieza,Mariano.tablerologico1 tab)
+	public clsPieza clonar(clsPieza pieza,Mariano.TableroLogicoMariano tab)
 	{
 		//mejorar rey,torre atributos especiales
 		clsCasilla [][] tablerete=tab.getTablero();
@@ -332,68 +331,6 @@ public class clsPieza implements Serializable
 		}	
 		return null;
 	}
-	//TODO: He puesto este para que el tablerologico en el GUI no se me queje. Es el que se borrará, pero quiero hacer cambios antes.
-	public clsPieza clonartablerologico(clsPieza pieza,tablerologico tab)
-	{
-		//mejorar rey,torre atributos especiales
-		clsCasilla [][] tablerete=tab.getTablero();
-		if(pieza instanceof clsPeon)
-		{
-			clsPeon a=new clsPeon(pieza.getY(),pieza.getX(),pieza.getColor(),true);
-			for(clsCasilla s: pieza.movimientos)
-			{
-				a.movimientos.add(tablerete[s.gety()][s.gety()]);
-			}
-			return (a);
-		}
-		if(pieza instanceof clsTorre)
-		{
-			clsTorre a=new clsTorre(pieza.getY(),pieza.getX(),pieza.getColor(),true);
-			for(clsCasilla s: pieza.movimientos)
-			{
-				a.movimientos.add(tablerete[s.gety()][s.gety()]);
-			}
-			return (a);
-		}
-		if(pieza instanceof clsCaballo)
-		{
-			clsCaballo a=new clsCaballo(pieza.getY(),pieza.getX(),pieza.getColor(),true);
-			for(clsCasilla s: pieza.movimientos)
-			{
-				a.movimientos.add(tablerete[s.gety()][s.gety()]);
-			}
-			return (a);
-		}
-		if(pieza instanceof clsAlfil)
-		{
-			clsAlfil a=new clsAlfil(pieza.getY(),pieza.getX(),pieza.getColor(),true);
-			for(clsCasilla s: pieza.movimientos)
-			{
-				a.movimientos.add(tablerete[s.gety()][s.gety()]);
-			}
-			return (a);
-		}
-		if(pieza instanceof clsRey)
-		{
-			clsRey a=new clsRey(pieza.getY(),pieza.getX(),pieza.getColor(),true);
-			for(clsCasilla s: pieza.movimientos)
-			{
-				a.movimientos.add(tablerete[s.gety()][s.gety()]);
-			}
-			return (a);
-		}
-		if(pieza instanceof clsReina)
-		{
-			clsReina a=new clsReina(pieza.getY(),pieza.getX(),pieza.getColor(),true);
-			for(clsCasilla s: pieza.movimientos)
-			{
-				a.movimientos.add(tablerete[s.gety()][s.gety()]);
-			}
-			return (a);
-		}	
-		return null;
-	}
-
 	public int getValor() {
 		return valor;
 	}

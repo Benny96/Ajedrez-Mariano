@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import Comun.clsConstantes;
 import Unopauno.TableroLogico1v1;
 import LN.clsUsuario;
-import Mariano.tablerologico1;
+import Mariano.TableroLogicoMariano;
 
 public class clsBD 
 {
@@ -136,14 +136,14 @@ public class clsBD
 			{
 				e1.printStackTrace();
 			}
-		if (obj instanceof tablerologico1)
+		if (obj instanceof TableroLogicoMariano)
 			try 
 			{
-				statement.executeUpdate("INSERT INTO PARTIDA VALUES ("+ ((tablerologico1)obj).getID_partida()+",'"
-						+ ((tablerologico1)obj).getUblanco().getNickname()+"','"+((tablerologico1)obj).getUnigga().getNickname()+"',"
-						+((tablerologico1)obj).getFec_com().getTime()+","
-						+((tablerologico1)obj).getFec_fin().getTime()+",'"
-						+ ((tablerologico1)obj).getGanadorString()+"')");
+				statement.executeUpdate("INSERT INTO PARTIDA VALUES ("+ ((TableroLogicoMariano)obj).getID_partida()+",'"
+						+ ((TableroLogicoMariano)obj).getUblanco().getNickname()+"','"+((TableroLogicoMariano)obj).getUnigga().getNickname()+"',"
+						+((TableroLogicoMariano)obj).getFec_com().getTime()+","
+						+((TableroLogicoMariano)obj).getFec_fin().getTime()+",'"
+						+ ((TableroLogicoMariano)obj).getGanadorString()+"')");
 			} 
 			catch (SQLException e1) 
 			{
@@ -179,13 +179,13 @@ public class clsBD
 			{
 				e1.printStackTrace();
 			}
-		if (obj instanceof tablerologico1)
+		if (obj instanceof TableroLogicoMariano)
 			try 
 			{
 				statement.executeUpdate("UPDATE PARTIDA SET DIA_FIN ="
-						+((tablerologico1)obj).getFec_fin().getTime()+","
-						+"GANADOR = '"+((tablerologico1)obj).getGanadorString()+"'"
-						+ "WHERE ID_PARTIDA = "+((tablerologico1)obj).getID_partida());
+						+((TableroLogicoMariano)obj).getFec_fin().getTime()+","
+						+"GANADOR = '"+((TableroLogicoMariano)obj).getGanadorString()+"'"
+						+ "WHERE ID_PARTIDA = "+((TableroLogicoMariano)obj).getID_partida());
 			} 
 			catch (SQLException e1) 
 			{

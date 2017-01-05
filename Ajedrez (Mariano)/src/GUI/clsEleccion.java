@@ -38,7 +38,7 @@ import org.jfree.ui.RefineryUtilities;
 import LN.clsGestor;
 import LN.clsUsuario;
 import Mariano.TableroVisualMariano;
-import Mariano.tablerovisual1;
+import Mariano.TableroVisualMariano;
 import Persistencia.clsBD;
 import Unopauno.TableroVisual1v1;
 

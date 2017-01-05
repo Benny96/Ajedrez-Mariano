@@ -58,7 +58,7 @@ import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
 
 import Comun.clsConstantes;
-import Mariano.tablerologico1;
+import Mariano.TableroLogicoMariano;
 import Persistencia.clsBD;
 
 /**
@@ -66,7 +66,7 @@ import Persistencia.clsBD;
 */
 public class GraficoQueso extends JFrame 
 {
-	private ArrayList <tablerologico1> listaPartidasMariano;
+	private ArrayList <TableroLogicoMariano> listaPartidasMariano;
 	
 	private static final long serialVersionUID = 1L;
 
@@ -98,7 +98,7 @@ public class GraficoQueso extends JFrame
      
      final DefaultPieDataset result = new DefaultPieDataset();
      
-		listaPartidasMariano = new ArrayList <tablerologico1>();
+		listaPartidasMariano = new ArrayList <TableroLogicoMariano>();
 		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
 		if (rs != null)
 		{
@@ -106,7 +106,7 @@ public class GraficoQueso extends JFrame
 			{
 				while (rs.next())
 				{
-					listaPartidasMariano.add(new tablerologico1(
+					listaPartidasMariano.add(new TableroLogicoMariano(
 							rs.getInt("ID_PARTIDA"),
 							rs.getString("USUARIO1"),
 							rs.getString("USUARIO2"),

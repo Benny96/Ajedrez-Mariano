@@ -19,7 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
 import LN.clsUsuario;
-import Mariano.tablerovisual1;
+import Mariano.TableroVisualMariano;
 import Unopauno.TableroVisual1v1;
 
 
@@ -128,7 +128,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		if(id==1)
 		{
 			logger.log( Level.INFO, "Generando tablero de juego contra Mariano");
-			tablerovisual1 frame = new tablerovisual1(usu);
+			TableroVisualMariano frame = new TableroVisualMariano(usu);
             frame.setVisible(true);
 		}
 		if(id==2)

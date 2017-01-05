@@ -50,7 +50,6 @@ public class clsBinariosTest
 		} 
 		catch (IOException e) 
 		{}
-//		public TableroLogico1v1 (int a, String b, String c, long d, long e, String f)
 		
 		TableroLogico1v1 tabacargar = new TableroLogico1v1(20,"a","b",50,30,"g");
 		guardado = objDatos.Read();
@@ -62,11 +61,12 @@ public class clsBinariosTest
 		assertEquals(tablero.getID_partida(), tabacargar.getID_partida());
 	}
 
+	//Se puede comentar para ver cómo se ha creado efectivamente el fichero.
 	@Test
 	public void borrar_tablero()
 	{
 		clsBinarios objDatos=new clsBinarios();
-		File fic = new File("partidatest.dat");
+		File fic = new File("test/Data/partidatest.dat");
 		if (fic.exists()&&fic.isFile())
 		objDatos.ResetFile(enFicDatos.FICHERO_PARTIDA_TEST);
 		assertFalse(fic.exists());

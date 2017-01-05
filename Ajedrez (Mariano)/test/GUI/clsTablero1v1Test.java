@@ -81,7 +81,6 @@ public class clsTablero1v1Test {
 		assertEquals(peon1, peon3);
 	}
 
-//	Este creo que debería dar error pero no da
 	//Este test da error por el OutOfBounds.
 	@Test
 	public void mirar_si_se_salen_del_tablero()

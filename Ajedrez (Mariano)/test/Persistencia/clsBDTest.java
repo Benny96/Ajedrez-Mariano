@@ -23,13 +23,13 @@ public class clsBDTest
 	@Before
 	public void setUp() throws Exception 
 	{
-		clsBD.initBD("marianotest.bd");
+		clsBD.initBD("test/Data/marianotest.bd");
 	}
 	
 	@Test
 	public void comprobar_existencia_bd()
 	{
-		assertNotNull("marianotest.bd");
+		assertNotNull("test/Data/marianotest.bd");
 	}
 	@Test
 	public void crear_tabla()

@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.LinkedList;
 
 import javax.swing.ImageIcon;
@@ -18,11 +20,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
+import GUI.clsEleccion;
 import LN.clsCasilla;
 import LN.clsPieza;
 import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
+
 
 
 public class TableroVisualMariano extends JFrame implements ActionListener
@@ -95,11 +99,16 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 	JLabel num_7;	
 	JLabel num_8;
 	
+	clsUsuario usu;
+	
+	transient TableroVisualMariano miVentana;
+
+	
 	
 	public TableroVisualMariano(clsUsuario aux) 
 	{
 	
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		setBounds(0, 0, 1050, 720);
 		pPrincipal = new JPanel();
@@ -108,7 +117,10 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		pPrincipal.setLayout(null);
 		pPrincipal.setBackground(Color.white);
 		
-		tab= new TableroLogicoMariano(true, this, myTimer, aux);
+		miVentana = this;
+		usu=aux;
+		
+		tab= new TableroLogicoMariano(true, this, myTimer, usu);
 		
 		//clsBD.insertarDatoTablaBD(tab);
 		
@@ -303,13 +315,24 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		}
 		tabla.setBounds(744, 69, 241, 500);
 		pPrincipal.add(tabla);
-	
-	
-		//para que no meleste
-//		myTimer = new Timer1();
-//		
-//		Thread a= new Thread (myTimer);
-//		a.start();
+		
+		
+		
+		
+		
+		addWindowListener( new WindowAdapter() 
+		{
+			@Override
+			public void windowClosing(WindowEvent e) 
+			{
+				tab.jaquemate = true;
+				clsEleccion menu = new clsEleccion(usu);
+				menu.setVisible(true);
+				miVentana.dispose();
+				
+			}
+		});
+
 		
 		
 	}	
@@ -324,6 +347,7 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		setContentPane(pPrincipal);
 		pPrincipal.setLayout(null);
 		clsCasilla[][] ctablero = tablerete.getTablero();
+		
 		
 		for(clsPieza aux: tablerete.getPblancas())
 		{
@@ -354,6 +378,9 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		
 		
 		pPrincipal.repaint();
+		
+		
+
 	}
 	public void actionPerformed(ActionEvent arg) {
 		// TODO Auto-generated method stub

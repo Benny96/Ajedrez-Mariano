@@ -12,8 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-import Comun.OcupadoException;
-
 public class clsCasilla extends JButton implements Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -76,11 +74,12 @@ public class clsCasilla extends JButton implements Serializable
 			}
 			else
 			{
-				try {
-					throw new OcupadoException();
-				} catch (OcupadoException e) {
-					// TODO Auto-generated catch block
-					
+				try 
+				{
+					throw new Exception();
+				} 
+				catch (Exception e) 
+				{
 					return false;
 				}
 			}

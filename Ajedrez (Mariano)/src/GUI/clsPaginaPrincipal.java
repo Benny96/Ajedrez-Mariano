@@ -5,8 +5,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.border.Border;
 
 import LN.clsGestor;
 import LN.clsUsuario;
@@ -29,9 +26,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+/**
+ * Clase que generará una JFrame para iniciar la interacción con la aplicación.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsPaginaPrincipal extends JFrame 
 {
-
 	private static final long serialVersionUID = 1L;
 	
 	private JPanel panel;
@@ -50,7 +50,12 @@ public class clsPaginaPrincipal extends JFrame
 	final int posImgY=120;
 
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
+	
+	private boolean controlPulsado = false;
 
+	/**
+	 * Constructor del JFrame que genera la parte visual de la ventana, así como los escuchadores requeridos para mejorar la interacción de dicha ventana.
+	 */
 	public clsPaginaPrincipal() 
 	{
 		panel=new JPanel();
@@ -62,27 +67,24 @@ public class clsPaginaPrincipal extends JFrame
 		setTitle("¡Bienvenido al Ajedrez Mariano!");
 		panel.setBackground(Color.WHITE);
 		
-
+		/*Escuchador para que por defecto el cursor vaya al JTextField*/
 		txtNickname=new JTextField();
-		addWindowListener( new WindowAdapter() {		//ESTO PARA QUE
-		    public void windowOpened( WindowEvent e ){	//POR DEFECTO EL CURSOR
-		    	txtNickname.requestFocus();				//VAYA AL JTEXTFIELD
+		addWindowListener( new WindowAdapter() 
+		{
+		    public void windowOpened( WindowEvent e )
+		    {
+		    	txtNickname.requestFocus();
 		    }
 		}); 
+		
 		txtNickname.setBounds(112, 186, 123, 20);
-//		borderUsuario = BorderFactory.createLineBorder(Color.red, 1);
-//		txtNickname.setBorder(borderUsuario);
 		panel.add(txtNickname);
 		txtNickname.setColumns(10);
 		
-		
 		txtContrasenya = new JPasswordField();
 		txtContrasenya.setBounds(112, 217, 123, 20);
-//		borderContrasenya = BorderFactory.createLineBorder(Color.red, 1);
-//		txtContrasenya.setBorder(borderContrasenya);
 		panel.add(txtContrasenya);
-		txtContrasenya.setColumns(10);
-		
+		txtContrasenya.setColumns(10);		
 
 		lblUsuario= new JLabel("Nickname:");
 		lblUsuario.setBounds(27, 189, 65, 14);
@@ -98,8 +100,7 @@ public class clsPaginaPrincipal extends JFrame
 		
 		btnRegistro = new JButton("¡Regístrate ahora!");
 		btnRegistro.setBounds(312, 183, 172, 23);
-		panel.add(btnRegistro);
-		
+		panel.add(btnRegistro);		
 
 		lblPregunta = new JLabel("¿Te atreves a jugar contra Mariano?");
 		lblPregunta.setBounds(27, 0, 573, 75);
@@ -115,9 +116,9 @@ public class clsPaginaPrincipal extends JFrame
 		panel.add(img);
 			
 		setResizable(false);
+			
+		/*Escuchadores*/
 		
-		
-		//Escuchadores
 		btnAceptar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
@@ -127,40 +128,37 @@ public class clsPaginaPrincipal extends JFrame
 
 		});
 
-		txtNickname.addKeyListener(new KeyAdapter() {
+		txtNickname.addKeyListener(new KeyAdapter() 
+		{
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{				
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
 					if(controlPulsado)
 					{
 						Entrar();
 					}
 					controlPulsado=false;					
 				}	
-			}
-			
+			}		
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
 				}			
-			}
-	
+			}	
 		});
 		
-		
-		txtContrasenya.addKeyListener(new KeyAdapter() {
-			
+		txtContrasenya.addKeyListener(new KeyAdapter() 
+		{	
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{	
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
 					if(controlPulsado)
 					{
 						Entrar();	
@@ -168,27 +166,23 @@ public class clsPaginaPrincipal extends JFrame
 					controlPulsado=false;	
 				}		
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
-
 				}
 			}
-	
 		});
 		
-		
-		btnAceptar.addKeyListener(new KeyAdapter() {
-			
+		btnAceptar.addKeyListener(new KeyAdapter() 
+		{	
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
 					if(controlPulsado)
 					{
 						Entrar();			
@@ -196,24 +190,21 @@ public class clsPaginaPrincipal extends JFrame
 					controlPulsado=false;	
 				}		
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
 				}
-				
-			}
-						
+			}				
 		});
 		
-		
-		btnRegistro.addKeyListener(new KeyAdapter() {
-			
+		btnRegistro.addKeyListener(new KeyAdapter() 
+		{	
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 				
@@ -224,30 +215,21 @@ public class clsPaginaPrincipal extends JFrame
 					controlPulsado=false;					
 				}	
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
 				}	
 			}		
 		});
-
 		btnRegistro.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				try 
-				{
-					clsAltaUsuario window = new clsAltaUsuario();
-					window.setVisible(true);
-				} 
-				catch (Exception w) 
-				{
-					w.printStackTrace();
-				}	
+				Registrar();
 			}
 		});
 		addWindowListener( new WindowAdapter() 
@@ -260,16 +242,36 @@ public class clsPaginaPrincipal extends JFrame
 		});
 	}
 	
-	private boolean controlPulsado = false;
-	
+	/**
+	 * Método que coge la imagen de las piezas que se muestra en la ventana.
+	 * @param l JLabel que contendrá la imagen.
+	 * @return JLabel con la imagen insertada.
+	 */
 	public JLabel CogerImagen(JLabel l)
 	{
-//		l.setIcon(new ImageIcon(new ImageIcon("C:/Users/ALUMNO/git/Ajedrez_Mariano/Ajedrez (Mariano)/src/img/pagina_principal.png").getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
 		l.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/img/pagina_principal.png")).getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
-
 		return l;
 	}
 	
+	/**
+	 * Método que genera una nueva JFrame para que un nuevo usuario se registre.
+	 */
+	private void Registrar()
+	{
+		try 
+		{
+			clsAltaUsuario window = new clsAltaUsuario();
+			window.setVisible(true);
+		} 
+		catch (Exception w) 
+		{
+			w.printStackTrace();
+		}	
+	}
+	
+	/**
+	 * Método que valida la entrada de un usuario existente en la aplicación.
+	 */
 	private void Entrar()
 	{
 		clsGestor objGestor=new clsGestor();
@@ -285,12 +287,9 @@ public class clsPaginaPrincipal extends JFrame
 				miVentana.dispose();
 			}
 		}
-
 		if(!existe)
 		{
 			JOptionPane.showMessageDialog(null, "¿Está dado de alta? Su nickname o contraseña son incorrectos.", "¡Error de Login!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
-
 }

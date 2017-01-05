@@ -8,7 +8,10 @@ import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-
+/**
+ * Clase creada para generar un objeto nuevo (clsTorre) que hereda de clsPieza.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 
 public class clsTorre extends clsPieza implements Serializable
 {
@@ -16,45 +19,69 @@ public class clsTorre extends clsPieza implements Serializable
 	
 	Boolean primera;
 	
+	/**
+	 * Constructor de clsTorre con el que se construirán inicialmente las piezas.
+	 * @param x Coordenada X del tablero.
+	 * @param y Coordenada Y del tablero.
+	 * @param color true = blanco; false = negro.
+	 */
 	public clsTorre(int x, int y, Boolean color) 
 	{
 		super(x, y, color);
-		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Torre;
-		
 		valor=500;
 		primera=false;
 		if(color)
 		{
-			try {
+			try 
+			{
 				Image img = ImageIO.read(getClass().getResource("/img/torre_b.png"));
 				this.setIcon(new ImageIcon(img));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} 
+			catch (IOException e) 
+			{
 				e.printStackTrace();
 			}
 		}
 		else
 		{
-			try {
+			try 
+			{
 				Image img = ImageIO.read(getClass().getResource("/img/torre_n.png"));
 				this.setIcon(new ImageIcon(img));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} 
+			catch (IOException e) 
+			{
 				e.printStackTrace();
 			}
 		}
-		
 	}
-	public clsTorre(int x, int y, Boolean color,Boolean na) {
+	
+	/**
+	 * Constructor de clsTorre usado para clonar una torre determinada.
+	 * @param x Coordenada X del tablero.
+	 * @param y Coordenada Y del tablero.
+	 * @param color true = blanco; false = negro.
+	 * @param na Flag distintivo del constructor.
+	 */
+	public clsTorre(int x, int y, Boolean color,Boolean na) 
+	{
 		super(x, y, color);
-		// TODO Auto-generated constructor stub
 		this.a=Comun.clsConstantes.piezas.Peon;
-		
 		valor=500;
 	}
+	
+	/**
+	 * Constructor vacío para serializar.
+	 */
 	public clsTorre()
 	{}
+	
+	/**
+	 * Método para obtener la influencia que ejerce una torre sobre un tablero dado.
+	 * @param tablero Tablero con las casillas ocupadas y vacías.
+	 * @return LinkedList <clsCasilla> que indica a qué posiciones afecta la pieza.
+	 */
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
 		influencia.clear();
@@ -63,108 +90,95 @@ public class clsTorre extends clsPieza implements Serializable
 		int t2=this.getX();
 		do
 		{
-		
 			if((t1+1)==8)
 				break;
 			t1++;
-		
 			if(tablero[t1][t2].getOcupado()==null)
 			{
 				influencia.add(tablero[t1][t2]);
 			}
 			else
 			{
-				
-					influencia.add(tablero[t1][t2]);
+				influencia.add(tablero[t1][t2]);
 				break;
 			}
-		}while(true);
-		
-		
-		
+		}
+		while(true);	
 		
 		t1=this.getY();
 		t2=this.getX();
-		
 		do
 		{
 			if(t1-1==-1)
 				break;
-			
 			t1--;
-			
 			if(tablero[t1][t2].getOcupado()==null)
 			{
 				influencia.add(tablero[t1][t2]);
 			}
 			else
 			{
-				
-					influencia.add(tablero[t1][t2]);
+				influencia.add(tablero[t1][t2]);
 				break;
 			}
-			
-		}while(true);
-		
+		}
+		while(true);
 		
 		t1=this.getY();
 		t2=this.getX();
-			do
+		do
+		{
+			if(t2+1==8)
+				break;
+			t2++;
+			if(tablero[t1][t2].getOcupado()==null)
 			{
-				if(t2+1==8)
-					break;
-				t2++;
-				
-				if(tablero[t1][t2].getOcupado()==null)
-				{
-					influencia.add(tablero[t1][t2]);
-				}
-				else
-				{
-						influencia.add(tablero[t1][t2]);
-					
-					break;
-				}
-				
-			}while(true);	
-			
-			
-			
-			t1=this.getY();
-			t2=this.getX();
-			
-			do
+				influencia.add(tablero[t1][t2]);
+			}
+			else
 			{
-				if(t2-1==-1)
-					break;
-				t2--;
-				
-				if(tablero[t1][t2].getOcupado()==null)
-				{
-					influencia.add(tablero[t1][t2]);
-				}
-				else
-				{
-						influencia.add(tablero[t1][t2]);
-					
-					break;
-				}
-			}while(true);
+				influencia.add(tablero[t1][t2]);
+				break;
+			}
+		}
+		while(true);	
+			
+		t1=this.getY();
+		t2=this.getX();
+		do
+		{
+			if(t2-1==-1)
+				break;
+			t2--;
+			if(tablero[t1][t2].getOcupado()==null)
+			{
+				influencia.add(tablero[t1][t2]);
+			}
+			else
+			{
+				influencia.add(tablero[t1][t2]);
+				break;
+			}
+		}
+		while(true);
 		return influencia;
 	}
+	
+	/**
+	 * Método para obtener los movimientos que puede realizar una torre en un tablero dado.
+	 * @param tablero Tablero con las casillas ocupadas y vacías.
+	 * @return LinkedList <clsCasilla> que indica a qué posiciones puede moverse la pieza.
+	 */
 	public void mov(clsCasilla[][] tablero)
 	{
 		movimientos.clear();
-
 		int t1=this.getY();
 		int t2=this.getX();
 		do
 		{
-		
 			if((t1+1)==8)
 				break;
 			t1++;
-		
 			if(tablero[t1][t2].getOcupado()==null)
 			{
 				this.movimientos.add(tablero[t1][t2]);
@@ -177,21 +191,16 @@ public class clsTorre extends clsPieza implements Serializable
 				}
 				break;
 			}
-		}while(true);
-		
-		
-		
+		}
+		while(true);
 		
 		t1=this.getY();
 		t2=this.getX();
-		
 		do
 		{
 			if(t1-1==-1)
-				break;
-			
-			t1--;
-			
+				break;	
+			t1--;	
 			if(tablero[t1][t2].getOcupado()==null)
 			{
 				this.movimientos.add(tablero[t1][t2]);
@@ -204,9 +213,8 @@ public class clsTorre extends clsPieza implements Serializable
 				}
 				break;
 			}
-			
-		}while(true);
-		
+		}
+		while(true);
 		
 		t1=this.getY();
 		t2=this.getX();
@@ -214,8 +222,7 @@ public class clsTorre extends clsPieza implements Serializable
 			{
 				if(t2+1==8)
 					break;
-				t2++;
-				
+				t2++;			
 				if(tablero[t1][t2].getOcupado()==null)
 				{
 					this.movimientos.add(tablero[t1][t2]);
@@ -227,21 +234,17 @@ public class clsTorre extends clsPieza implements Serializable
 						this.movimientos.add(tablero[t1][t2]);
 					}
 					break;
-				}
+				}	
+			}
+			while(true);	
 				
-			}while(true);	
-			
-			
-			
 			t1=this.getY();
 			t2=this.getX();
-			
 			do
 			{
 				if(t2-1==-1)
 					break;
 				t2--;
-				
 				if(tablero[t1][t2].getOcupado()==null)
 				{
 					this.movimientos.add(tablero[t1][t2]);
@@ -254,9 +257,7 @@ public class clsTorre extends clsPieza implements Serializable
 					}
 					break;
 				}
-			}while(true);
-		
-	
+			}
+			while(true);
 	}
-
 }

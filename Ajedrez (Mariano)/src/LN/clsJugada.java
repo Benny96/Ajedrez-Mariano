@@ -2,12 +2,22 @@ package LN;
 
 import java.util.Comparator;
 
-public class clsJugada implements Comparator{
-	
+/**
+ * Clase creada para generar un objeto nuevo (clsJugada), que valdrá para evaluar jugadas.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
+
+public class clsJugada implements Comparator
+{
 	public clsCasilla cfinal;
 	public clsPieza pieza;
 	public int valor;
 	
+	/**
+	 * Constructor de clsJugada recibiendo una pieza y una casilla final.
+	 * @param pieza
+	 * @param cfinal
+	 */
 	public clsJugada(clsPieza pieza,clsCasilla cfinal)
 	{
 		this.cfinal=cfinal;
@@ -15,17 +25,27 @@ public class clsJugada implements Comparator{
 		valor=0;
 	}
 
-	public clsJugada() {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Constructor vacío.
+	 */
+	public clsJugada() 
+	{
 		valor=-1000000000;
 	}
 
+	/**
+	 * Implementación de toString().
+	 */
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "clsJugada [cfinal=" + cfinal + ", pieza=" + pieza + ", valor="
 				+ valor + "]";
 	}
 
+	/**
+	 * Implementación de hashCode() para evitar colisiones a la hora de generar jugadas.
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -35,7 +55,9 @@ public class clsJugada implements Comparator{
 		result = prime * result + valor;
 		return result;
 	}
-
+	/**
+	 * Implementación de hashCode(), con los atributos distintivos de una jugada a otra.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,19 +77,15 @@ public class clsJugada implements Comparator{
 				return false;
 		} else if (!pieza.equals(other.pieza))
 			return false;
-//		if (valor != other.valor)
-//			return false;
 		return true;
 	}
-
+	
+	/**
+	 * Reimplementación de compare(), proveniente de la interfaz Comparator.
+	 */
 	@Override
-	public int compare(Object arg0, Object arg1) {
-		// TODO Auto-generated method stub
+	public int compare(Object arg0, Object arg1) 
+	{
 		return 0;
 	}
-
-
-
-	
-
 }

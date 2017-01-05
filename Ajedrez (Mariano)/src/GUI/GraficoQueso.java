@@ -39,8 +39,6 @@ package GUI;
 *
 */
 
-
-
 import java.awt.Dimension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,21 +60,22 @@ import Mariano.TableroLogicoMariano;
 import Persistencia.clsBD;
 
 /**
-* A pie chart with a custom label generator.
-*/
+ * Clase que generará una JFrame para mostrar los resultados de las partidas contra Mariano en forma de gráfico. Fuente:
+ * @see <a href="http://www.jfree.org/jfreechart/">http://www.jfree.org/jfreechart/ </a>
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class GraficoQueso extends JFrame 
 {
 	private ArrayList <TableroLogicoMariano> listaPartidasMariano;
 	
 	private static final long serialVersionUID = 1L;
 
-/**
-  * Creates a new demo.
-  *
-  * @param title  the frame title.
-  */
- public GraficoQueso(final String title) {
-
+	/**
+	 * Constructor de la clase que creará los objetos visuales de la JFrame, para mostrar un gráfico de tarta.
+	 * @param title Título de la JFrame
+	 */
+	public GraficoQueso(final String title) 
+	{
      super(title);
      setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
      this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
@@ -85,19 +84,15 @@ public class GraficoQueso extends JFrame
      final ChartPanel chartPanel = new ChartPanel(chart);
      chartPanel.setPreferredSize(new Dimension(750, 375));
      setContentPane(chartPanel);
-
  }
  
- /**
-  * Creates a sample dataset for the demo.
-  * 
-  * @return A sample dataset.
-  */
- private PieDataset createSampleDataset() 
- {
-     
-     final DefaultPieDataset result = new DefaultPieDataset();
-     
+	/**
+     * Crea un modelo de datos para formar el gráfico en forma de queso.
+     * @return Modelo de datos
+     */
+	private PieDataset createSampleDataset() 
+	{ 
+		final DefaultPieDataset result = new DefaultPieDataset();
 		listaPartidasMariano = new ArrayList <TableroLogicoMariano>();
 		ResultSet rs = clsBD.obtenerDatosTablaBD (clsConstantes.PARTIDA);
 		if (rs != null)
@@ -151,30 +146,26 @@ public class GraficoQueso extends JFrame
  // * support us so that we can continue developing free software.             *
  // ****************************************************************************
  
- /**
-  * Creates a sample chart.
-  * 
-  * @param dataset  the dataset.
-  * 
-  * @return A chart.
-  */
- private JFreeChart createChart(final PieDataset dataset) {
-     
-     final JFreeChart chart = ChartFactory.createPieChart3D(
-         "Nº de victorias vs. Mariano",  // chart title
+    /**
+     * Crea el gráfico visual.
+     * @param dataset El modelo de datos
+     * @return El gráfico
+     */
+	private JFreeChart createChart(final PieDataset dataset) 
+	{ 
+	 final JFreeChart chart = ChartFactory.createPieChart3D(
+         "Nº de victorias vs. Mariano (%)",  // chart title
          dataset,                // data
          true,                   // include legend
          true,
          false
      );
-
      final PiePlot3D plot = (PiePlot3D) chart.getPlot();
      plot.setStartAngle(290);
      plot.setDirection(Rotation.CLOCKWISE);
      plot.setForegroundAlpha(0.5f);
-     plot.setNoDataMessage("No data to display");
+     plot.setNoDataMessage("No hay datos que mostrar");
      return chart;
-     
- }
+	}
 }
 

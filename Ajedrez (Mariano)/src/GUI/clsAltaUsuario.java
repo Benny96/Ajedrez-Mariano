@@ -2,9 +2,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 
 import javax.swing.BoxLayout;
@@ -13,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.SpringLayout;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -39,9 +36,13 @@ import javax.swing.JButton;
 import LN.clsUsuarioRepetido;
 import LN.clsGestor;
 
+/**
+ * Clase que generará una JFrame para introducir los datos que a su vez serán enviados a clsBinarios para la creación
+ * de un usuario en la base de datos.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsAltaUsuario extends JFrame 
 {
-
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelprincipal;
@@ -64,14 +65,11 @@ public class clsAltaUsuario extends JFrame
 	private JLabel lblContrasenya1;
 	private JLabel lblContrasenya2;
 	private JLabel lblFrase;
-
-
+	
 	JButton btnAceptar;
 	JButton btnCancelar;
 	
-	
 	private JLabel img;
-	private JFrame miVentana;
 	
 	final int posImgX=440;
 	final int posImgY=120;
@@ -79,40 +77,42 @@ public class clsAltaUsuario extends JFrame
 	boolean modifusu = false;
 	private boolean controlPulsado = false;
 	
-	private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	private static final boolean ANYADIR_A_FIC_LOG = true;
 	
-	// Logger de la clase
-		private static Logger logger = Logger.getLogger( "Mariano" );
-		static {
-			try {
-				logger.setLevel( Level.FINEST );
-				Formatter f = new SimpleFormatter() {
-					@Override
-					public synchronized String format(LogRecord record) {
-						// return super.format(record);  // Si no queremos el formateador con tanta información
-						if (record.getLevel().intValue()<Level.CONFIG.intValue())
-							// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
-							return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
-						if (record.getLevel().intValue()<Level.WARNING.intValue())
-							// Si es menor que WARNING lo sacamos tabulado a la derecha
-							return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
-						return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
-					}
-				};
-				FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
-				Handler h = new StreamHandler( fLog, f );
-				h.setLevel( Level.FINEST );
-				logger.addHandler( h );  // Saca todos los errores a out
-//				logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
-			} catch (SecurityException | IOException e) {
-				logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsAltaUsuario.class.getName() );
-			}
-			logger.log( Level.INFO, "" );
-			logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+	/*Logger*/
+	private static Logger logger = Logger.getLogger( "Mariano" );
+	static 
+	{
+		try 
+		{
+			logger.setLevel( Level.FINEST );
+			Formatter f = new SimpleFormatter() 
+			{
+				@Override
+				public synchronized String format(LogRecord record) 
+				{
+					if (record.getLevel().intValue()<Level.CONFIG.intValue())
+						return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					if (record.getLevel().intValue()<Level.WARNING.intValue())
+						return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+				}
+			};
+			FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+			Handler h = new StreamHandler( fLog, f );
+			h.setLevel( Level.FINEST );
+			logger.addHandler( h );
+		} 
+		catch (SecurityException | IOException e) 
+		{
+			logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsAltaUsuario.class.getName() );
 		}
+		logger.log( Level.INFO, "" );
+		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+	}
 		
 	/**
-	 * Create the application.
+	 * Constructor del JFrame que genera la parte visual de la ventana, así como los escuchadores requeridos para mejorar la interacción de la ventana.
 	 */
 	public clsAltaUsuario() 
 	{
@@ -124,8 +124,6 @@ public class clsAltaUsuario extends JFrame
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		panelprincipal.setLayout(new BorderLayout());
-//		panelizda.setLayout(new SpringLayout());
-//		panelizda.setLayout(new GridLayout());
 		panelizda.setLayout(new BoxLayout(panelizda, BoxLayout.Y_AXIS));
 		panelbotonera.setLayout(new FlowLayout());
 		panelsuperior.setLayout(new FlowLayout());
@@ -204,19 +202,16 @@ public class clsAltaUsuario extends JFrame
 		lblFrase.setFont (lblFrase.getFont ().deriveFont (18.0f));
 		panelsuperior.add(lblFrase);
 		
-		
-		
-		miVentana = this;
-		
 		img=new JLabel();
 		img.setSize(229, 186);
 		img=CogerImagen(img);
 		panelprincipal.add(img, BorderLayout.CENTER);
 		
-		
 		add(panelprincipal);
-			
-		//Escuchadores
+		pack();
+		
+		/*Escuchadores*/
+		
 		btnAceptar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
@@ -224,16 +219,15 @@ public class clsAltaUsuario extends JFrame
 				if (!modifusu)
 				Registrar();
 			}
-		});
+		});	
 		
-		
-		txtNombre.addKeyListener(new KeyAdapter() {
+		txtNombre.addKeyListener(new KeyAdapter() 
+		{
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
 					if(controlPulsado)
 					{
 						Registrar();
@@ -241,24 +235,71 @@ public class clsAltaUsuario extends JFrame
 					controlPulsado=false;					
 				}	
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
 				}			
 			}
-	
 		});
 		
-		txtApe1.addKeyListener(new KeyAdapter() {
+		txtApe1.addKeyListener(new KeyAdapter() 
+		{
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{	
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{	
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}	
+			@Override
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
+					controlPulsado = true;
+				}			
+			}
+		});
+		
+		txtApe2.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyReleased(KeyEvent e) 
+			{		
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{	
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}			
+			@Override
+			public void keyPressed(KeyEvent e) 
+			{
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+		});	
+		
+		txtNickname.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyReleased(KeyEvent e) 
+			{
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
 					if(controlPulsado)
 					{
 						Registrar();
@@ -266,24 +307,47 @@ public class clsAltaUsuario extends JFrame
 					controlPulsado=false;					
 				}	
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
 				}			
 			}
-	
-		});
+		});	
 		
-		txtApe2.addKeyListener(new KeyAdapter() {
+		txtContrasenya1.addKeyListener(new KeyAdapter() 
+		{
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}		
+			@Override
+			public void keyPressed(KeyEvent e) 
+			{
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+		});
+		
+		txtContrasenya2.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyReleased(KeyEvent e)
+			{				
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
 					if(controlPulsado)
 					{
 						Registrar();
@@ -291,25 +355,47 @@ public class clsAltaUsuario extends JFrame
 					controlPulsado=false;					
 				}	
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
 				}			
 			}
-	
 		});
 		
-		
-		txtNickname.addKeyListener(new KeyAdapter() {
+		btnAceptar.addKeyListener(new KeyAdapter() 
+		{
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{	
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
+					if(controlPulsado)
+					{
+						Registrar();
+					}
+					controlPulsado=false;					
+				}	
+			}	
+			@Override
+			public void keyPressed(KeyEvent e) 
+			{
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}			
+			}
+		});
+
+		btnCancelar.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyReleased(KeyEvent e) 
+			{
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
 					if(controlPulsado)
 					{
 						Registrar();
@@ -317,121 +403,14 @@ public class clsAltaUsuario extends JFrame
 					controlPulsado=false;					
 				}	
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
 				}			
 			}
-	
-		});
-		
-		
-		txtContrasenya1.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-				
-					if(controlPulsado)
-					{
-						Registrar();
-					}
-					controlPulsado=false;					
-				}	
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-					controlPulsado = true;
-				}			
-			}
-	
-		});
-		
-		
-		
-		txtContrasenya2.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-				
-					if(controlPulsado)
-					{
-						Registrar();
-					}
-					controlPulsado=false;					
-				}	
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-					controlPulsado = true;
-				}			
-			}
-	
-		});
-		
-		
-		btnAceptar.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-				
-					if(controlPulsado)
-					{
-						Registrar();
-					}
-					controlPulsado=false;					
-				}	
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-					controlPulsado = true;
-				}			
-			}
-	
-		});
-		
-		
-		
-		btnCancelar.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-				
-					if(controlPulsado)
-					{
-						Registrar();
-					}
-					controlPulsado=false;					
-				}	
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-					controlPulsado = true;
-				}			
-			}
-	
 		});
 				
 		btnCancelar.addActionListener(new ActionListener() 
@@ -441,25 +420,26 @@ public class clsAltaUsuario extends JFrame
 				dispose();
 			}
 		});
-	
-		pack();
 	}
 	
+	/**
+	 * Método que coge la imagen de las piezas que se muestra en la ventana.
+	 * @param l JLabel que contendrá la imagen.
+	 * @return JLabel con la imagen insertada.
+	 */
 	public JLabel CogerImagen(JLabel l)
 	{
-//		l.setIcon(new ImageIcon(new ImageIcon("C:/Users/ALUMNO/git/Ajedrez_Mariano/Ajedrez (Mariano)/src/img/pagina_principal.png").getImage().getScaledInstance(160, 140, Image.SCALE_DEFAULT)));
 		l.setIcon(new ImageIcon(new ImageIcon(getClass().getResource("/img/pagina_registro.png")).getImage().getScaledInstance(220, 170, Image.SCALE_DEFAULT)));
-
 		return l;
 	}
-	
+	/**
+	 * Método que registra un nuevo usuario a la aplicación.
+	 */
 	private void Registrar()
 	{
 		clsGestor objGestor=new clsGestor();
-		
 		if(txtNombre.getText().length()>0&&txtApe1.getText().length()>0&&txtApe2.getText().length()>0&&txtNickname.getText().length()>0&&txtContrasenya1.getText().length()>0&&txtContrasenya2.getText().length()>0)
 		{		
-		
 			if(txtContrasenya1.getText().equals(txtContrasenya2.getText())==false)
 			{
 				JOptionPane.showMessageDialog(null, "Introduzca la misma contraseña", "¡Contraseñas diferentes!", JOptionPane.ERROR_MESSAGE);
@@ -475,13 +455,10 @@ public class clsAltaUsuario extends JFrame
 				}
 				catch(clsUsuarioRepetido p)
 				{
-						JOptionPane.showMessageDialog(null, p.getMessage(), "Nickname repetido", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(null, p.getMessage(), "Nickname repetido", JOptionPane.WARNING_MESSAGE);
 				}
-				
 			}
-
 		}
-	
 		else
 		{
 			JOptionPane.showMessageDialog(null, "Introduzca todos los datos.", "Error", JOptionPane.ERROR_MESSAGE);

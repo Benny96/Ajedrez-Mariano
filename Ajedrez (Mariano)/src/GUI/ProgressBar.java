@@ -22,11 +22,14 @@ import LN.clsUsuario;
 import Mariano.TableroVisualMariano;
 import Unopauno.TableroVisual1v1;
 
-
-
-
-public class ProgressBar extends JFrame{
-
+/**
+ * Clase que generará una JFrame que visualizará una barra de progreso cuando se inicie la aplicación y cuando se juegue una partida contra Mariano.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
+public class ProgressBar extends JFrame
+{
+	private static final long serialVersionUID = 1L;
+	
 	MiRunnable miHilo = null; 
 	JProgressBar progressBar;
 	int v1;
@@ -45,22 +48,23 @@ public class ProgressBar extends JFrame{
 	clsUsuario usu1;
 	int id;
 
-private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	private static final boolean ANYADIR_A_FIC_LOG = true;
 	
-	// Logger de la clase
+	/*Logger de la clase*/
 	private static Logger logger = Logger.getLogger( "Mariano" );
-	static {
-		try {
+	static 
+	{
+		try
+		{
 			logger.setLevel( Level.FINEST );
-			Formatter f = new SimpleFormatter() {
+			Formatter f = new SimpleFormatter() 
+			{
 				@Override
-				public synchronized String format(LogRecord record) {
-					// return super.format(record);  // Si no queremos el formateador con tanta información
+				public synchronized String format(LogRecord record) 
+				{
 					if (record.getLevel().intValue()<Level.CONFIG.intValue())
-						// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
 						return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
 					if (record.getLevel().intValue()<Level.WARNING.intValue())
-						// Si es menor que WARNING lo sacamos tabulado a la derecha
 						return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
 					return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
 				}
@@ -68,15 +72,22 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 			FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
 			Handler h = new StreamHandler( fLog, f );
 			h.setLevel( Level.FINEST );
-			logger.addHandler( h );  // Saca todos los errores a out
-//			logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
-		} catch (SecurityException | IOException e) {
+			logger.addHandler( h );
+		} 
+		catch (SecurityException | IOException e) 
+		{
 			logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ ProgressBar.class.getName() );
 		}
 		logger.log( Level.INFO, "" );
 		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
 	}
-	
+	/**
+	 * Constructor de la JFrame.
+	 * @param titulo Titulo de la ventana.
+	 * @param aux Usuario 1 (el que ya se encuentra logeado)
+	 * @param num Identificativo para distinguir un uso de ProgressBar u otro.
+	 * @param aux1 Usuario 2 (en caso
+	 */
 	public ProgressBar(String titulo, clsUsuario aux, int num, clsUsuario aux1) {
 		
 		usu=aux;
@@ -115,6 +126,9 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		Thread nuevoHilo = new Thread(miHilo);
 		nuevoHilo.start();
 	}
+	/**
+	 * Método que cierra la ProgressBar y carga la nueva ventana, dependiendo de cuál sea la que deba mostrar.
+	 */
 	public void cerrar()
 	{
 		this.dispose();
@@ -137,15 +151,18 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		    frame.setVisible(true);
 		}
 	}
-		
-		
-		class MiRunnable implements Runnable {
+	/**
+	 * Clase interna que implementa la interfaz Runnable que repinta la ProgressBar.
+	 * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+	 */
+		class MiRunnable implements Runnable 
+		{
 			boolean sigo = true;
 			@Override
-			public void run() {
-				// Bucle principal forever hasta que se pare el juego...
-				while (sigo) {
-					
+			public void run() 
+			{
+				while (sigo) 
+				{
 					for(int i=0;i<=100;i++)
 					{
 						progressBar.setStringPainted(true);
@@ -153,54 +170,77 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 						progressBar.setValue(i);
 						
 						if(i==v1)
-							try {
+						{
+							try 
+							{
 								Thread.sleep(e1);
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
+							} 
+							catch (InterruptedException e1) 
+							{
+									e1.printStackTrace();
 							}
+						}
+							
 						if(i==v2)
-							try {
+						{
+							try 
+							{
 								Thread.sleep(e2);
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
+							} 
+							catch (InterruptedException e1) 
+							{
 								e1.printStackTrace();
 							}
+						}
+							
 						if(i==v3)
-							try {
+						{
+							try 
+							{
 								Thread.sleep(e3);
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
+							} 
+							catch (InterruptedException e1) 
+							{
 								e1.printStackTrace();
 							}
+						}
+							
 						if(i==v4)
-							try {
+						{
+							try 
+							{
 								Thread.sleep(e4);
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
+							} 
+							catch (InterruptedException e1) 
+							{
 								e1.printStackTrace();
 							}
+						}
+							
 						if(i==v5)
-							try {
+						{
+							try 
+							{
 								Thread.sleep(e5);
-							} catch (InterruptedException e1) {
-								// TODO Auto-generated catch block
+							} 
+							catch (InterruptedException e1) 
+							{
 								e1.printStackTrace();
 							}
+						}
 						
-						try {
+						try 
+						{
 							Thread.sleep(15);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
+						} 
+						catch (InterruptedException e) 
+						{
 							e.printStackTrace();
 						}
-					}
-					
+					}					
 					sigo=false;
 					cerrar();
-					
-				}
 			}
-		
+		}
 	}
 }

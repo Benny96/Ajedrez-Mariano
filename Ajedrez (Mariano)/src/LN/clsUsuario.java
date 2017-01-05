@@ -6,11 +6,12 @@ import java.util.Date;
 
 /**
  * 
- * @author Garikoitz.Bereciartua, Imanol.Echeverría, Beñat.Galdós
- * Clase que implementa la interfaz Comparable<clsUsuario> y Serializable. <br>
- * La ordenación natural se ha hecho mediante los nicknames. Se implementarán de
- * manera externa otros tipos de ordenaciones.
+ * /**
+ * Clase creada para generar un objeto nuevo (clsUsuario). Implementa la interfaz Comparable<clsUsuario> y Serializable. <br>
+ * La ordenación natural se ha hecho mediante los nicknames. Se implementarán de manera externa otros tipos de ordenaciones.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
  */
+
 public class clsUsuario implements Serializable, Comparable<clsUsuario> 
 {
 	private static final long serialVersionUID = 1L;
@@ -23,62 +24,13 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	private int elo;
 	private Date fechadealta;
 	
-
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public String getApellido1() {
-		return apellido1;
-	}
-	public void setApellido1(String apellido1) {
-		this.apellido1 = apellido1;
-	}
-	public String getApellido2() {
-		return apellido2;
-	}
-	public void setApellido2(String apellido2) {
-		this.apellido2 = apellido2;
-	}
-	public Date getFechadealta() {
-		return fechadealta;
-	}
-	public void setFechadealta(Date fechadealta) {
-		this.fechadealta = fechadealta;
-	}
-	public String getNickname() {
-		return nickname;
-	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-	public String getContraseña() {
-		return contraseña;
-	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
-	}
-
-	public int getElo() 
-	{
-		return elo;
-	}
-	public void setElo(int elo)
-	{
-		this.elo = elo;
-	}
-	
 	/**
-	 * Constructor con parámetros
-	 * @param String n para fijar el nombre del usuario.
-	 * @param String ap1 para fijar el primer apellido del usuario.
-	 * @param String ap2 para fijar el segundo apellido del usuario.
-	 * @param String dni para fijar el DNI del usuario.
-	 * @param String nick para fijar el nickname del usuario.
-	 * @param String cont para fijar la contraseña del usuario.
-	 *
+	 * Constructor con parámetros para crear un nuevo usuario.
+	 * @param n Nombre del usuario
+	 * @param ap1 Primer apellido del usuario
+	 * @param ap2 Segundo apellido del usuario
+	 * @param nick Nickname del usuario
+	 * @param cont Contraseña del usuario
 	 */
 	public clsUsuario(String n, String ap1, String ap2, String nick, String cont)
 	{
@@ -91,6 +43,16 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		fechadealta=new Date();
 	}
 	
+	/**
+	 * Constructor con parámetros para tomar usuarios de la Base de Datos.
+	 * @param n Nombre del usuario
+	 * @param ap1 Primer apellido del usuario
+	 * @param ap2 Segundo apellido del usuario
+	 * @param nick Nickname del usuario
+	 * @param cont Contraseña del usuario
+	 * @param el Puntuación ELO del usuario
+	 * @param fecha Fecha de alta del usuario
+	 */
 	public clsUsuario(String n, String ap1, String ap2, String nick, String cont, int el, Date fecha)
 	{
 		nombre=n;
@@ -116,6 +78,9 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		fechadealta=null;		
 	}
 	
+	/**
+	 * Implementación de hashCode() para evitar crear colisiones entre usuarios.
+	 */
 	@Override
 	public int hashCode() 
 	{
@@ -125,6 +90,10 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 				+ ((nickname == null) ? 0 : nickname.hashCode());
 		return result;
 	}
+	
+	/**
+	 * Implementación del método equals() para determinar el atributo distintivo (nickname) de un objeto clsUsuario.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -142,6 +111,9 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		return true;
 	}
 
+	/**
+	 * Reimplementación del método toString.
+	 */
 	public String toString()
 	{
 		SimpleDateFormat formato = new SimpleDateFormat ("dd/MM/yyyy");
@@ -151,8 +123,68 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 		return e;
 	}
 	
+	/**
+	 * Ordenación natural hecha mediante nickname de usuarios.
+	 */
 	public int compareTo(clsUsuario arg0) 
 	{
 		return this.getNickname().compareTo(arg0.getNickname());
+	}
+
+	public String getNombre() 
+	{
+		return nombre;
+	}
+	public void setNombre(String nombre) 
+	{
+		this.nombre = nombre;
+	}
+	public String getApellido1()
+	{
+		return apellido1;
+	}
+	public void setApellido1(String apellido1) 
+	{
+		this.apellido1 = apellido1;
+	}
+	public String getApellido2() 
+	{
+		return apellido2;
+	}
+	public void setApellido2(String apellido2) 
+	{
+		this.apellido2 = apellido2;
+	}
+	public Date getFechadealta()
+	{
+		return fechadealta;
+	}
+	public void setFechadealta(Date fechadealta)
+	{
+		this.fechadealta = fechadealta;
+	}
+	public String getNickname() 
+	{
+		return nickname;
+	}
+	public void setNickname(String nickname)
+	{
+		this.nickname = nickname;
+	}
+	public String getContraseña()
+	{
+		return contraseña;
+	}
+	public void setContraseña(String contraseña)
+	{
+		this.contraseña = contraseña;
+	}
+	public int getElo() 
+	{
+		return elo;
+	}
+	public void setElo(int elo)
+	{
+		this.elo = elo;
 	}
 }

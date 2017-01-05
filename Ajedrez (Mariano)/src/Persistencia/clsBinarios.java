@@ -10,20 +10,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import Comun.clsConstantes.enFicDatos;
 
+/**
+ * Clase que se encargará de pasar la información de memoria a un fichero serializado, y al mismo tiempo, que extraerá
+ * dicha información del fichero serializado a memoria.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 
-
-public class clsBinarios implements itfDatos {
-
-	
-	
+public class clsBinarios 
+{
 	ObjectOutputStream oos;
 	ObjectInputStream ois;
 	AppendableObjectOutputStream aos;
-	
 	
 	/**
 	 * Método estático privado que devuelve un String indicando la dirección del fichero
@@ -38,70 +38,52 @@ public class clsBinarios implements itfDatos {
 		case FICHERO_PARTIDA: return "src/Data/partida.dat";
 		case FICHERO_PARTIDA_TEST: return "partidatest.dat";
 		}
-		
-		
-		return null;
-		
+		return null;	
 	}
 	
-	
-	
 	/**
-	 * 
+	 * Método que debe crear un objectOutputStream o un AppendableObjectOutputStream para proceder
+	 * a la escritura del fichero. Si el fichero existe, AppendableObjectOutputStream; de lo 
+	 * contrario objectOutputStream.
 	 * @param fichero: 	enumerado de la clase clsConstantes que indica el fichero del que se
 	 * 					va a escribir.
-	 * Método que debe crear un objectOutputStream o un AppendableObjectOutputStream para proceder
-	 * a la escritura del fichero. Si el fichero existe,AppendableObjectOutputStream; de lo 
-	 * contrario objectOutputStream
 	 */
 	public void ComenzarSave(enFicDatos fichero)
-	{
-		
+	{	
 		String ruta=setFichero(fichero);
 		File fic=new File(ruta);
-		
-		
-	
-			if(fic.exists()==true)
+		if(fic.exists()==true)
+		{
+			try
 			{
-				
-				try
-				{
-					aos=new AppendableObjectOutputStream(new FileOutputStream(fic,true));
-				}
-				catch(IOException e)
-				{
-					e.printStackTrace();
-				}
-		
+				aos=new AppendableObjectOutputStream(new FileOutputStream(fic,true));
 			}
-			
-			else
+			catch(IOException e)
 			{
-				try
-				{
-					fic.createNewFile();
-					oos=new ObjectOutputStream(new FileOutputStream(fic));
-				}
-				catch(FileNotFoundException e)
-				{
-					e.printStackTrace();
-				}
-				catch(IOException e)
-				{
-					e.printStackTrace();
-				}
+				e.printStackTrace();
 			}
-			
-
-		
+		}
+		else
+		{
+			try
+			{
+				fic.createNewFile();
+				oos=new ObjectOutputStream(new FileOutputStream(fic));
+			}
+			catch(FileNotFoundException e)
+			{
+				e.printStackTrace();
+			}
+			catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+		}		
 	}
 	
-
-	
 	/**
-	 * @param o: Objeto a guardar, que debe implementar la interfaz serializable.
 	 * Método que guarda en el fichero indicado previamente el objeto recibido.
+	 * @param o: Objeto a guardar que debe implementar la interfaz Serializable.
 	 */
 	public void Save(Serializable o)
 	{
@@ -119,7 +101,6 @@ public class clsBinarios implements itfDatos {
 				}
 			}
 		}
-		
 		catch(FileNotFoundException e)
 		{
 			e.printStackTrace();
@@ -134,8 +115,7 @@ public class clsBinarios implements itfDatos {
 	 * Método que debe cerrar el fichero en el que se ha escrito.
 	 */
 	public void TerminarSave()
-	{
-		
+	{	
 		try
 		{
 			if(oos!=null)
@@ -150,49 +130,38 @@ public class clsBinarios implements itfDatos {
 		catch(IOException e)
 		{
 			e.printStackTrace();
-		}
-		
-		
+		}		
 	}	
 
-
 	/**
+	 * Método que crea un objectInputStream para la lectura del fichero indicado previamente.
 	 * @param fichero: enumerado de la clase clsConstantes que indica el fichero del que se
 	 * 					va a leer. 
 	 * @throws IOException: excepción lanzada en caso de que se dé un error de lectura/escritura en fichero.
-	 * Método que crea un objectInputStream para la lectura del fichero indicado previamente.
 	 */		
 	public void ComenzarRead(enFicDatos fichero) throws IOException
 	{
 		String ruta=setFichero(fichero);
-		File fic=new File(ruta);
-		
-		
+		File fic=new File(ruta);	
 		if(fic.exists()==true)
-		{
-			
+		{		
 			try
 			{
 				ois=new ObjectInputStream(new FileInputStream(fic));
 			}
-			
 			catch(FileNotFoundException e)
 			{
 				e.printStackTrace();
 			}
-			
 			catch(IOException e)
 			{
 				e.printStackTrace();
 			}
 		}
-		
 	}
 	
-	
-	
 	/**
-	 * 
+	 * Método que lee datos en tipo Serializable.
 	 * @return LinkedList<Serializable>: Devuelve una LinkedList con los datos leídos, en el tipo
 	 * Serializable.
 	 */
@@ -214,7 +183,6 @@ public class clsBinarios implements itfDatos {
 		catch(EOFException e)
 		{
 			//Normal al acabar de leer el fichero.
-			//e.printStackTrace();
 		} 
 		catch (IOException e) 
 		{
@@ -222,16 +190,11 @@ public class clsBinarios implements itfDatos {
 		} 
 		catch (ClassNotFoundException e)
 		{
-			
 			e.printStackTrace();
 		}  
-
-		
 		return lista;
 	}
-	
-	
-	
+
 	/**
 	 * Método que cierra el fichero del que se ha leído.
 	 */
@@ -247,25 +210,18 @@ public class clsBinarios implements itfDatos {
 		catch(IOException e)
 		{
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
-	
-	
 	/**
+	 * Se borra el fichero.
 	 * @param fichero enumerado de la clase clsConstantes que indica el fichero que se
-	 * 					va a borrar.
-	 * Se borra el fichero (porque vamos a escribir datos modificados).
+	 * 					va a borrar
 	 */
 	public void ResetFile(enFicDatos fichero)
 	{
 		String ruta=setFichero(fichero);
-		
 		File f=new File(ruta);
 		f.delete();
 	}
-
-
-
 }

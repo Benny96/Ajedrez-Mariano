@@ -13,13 +13,13 @@ import Unopauno.TableroLogico1v1;
 import LN.clsUsuario;
 import Mariano.TableroLogicoMariano;
 
+/**
+ * Clase que se encargará de pasar la información de memoria a una Base de Datos, y al mismo tiempo, que extraerá
+ * dicha información de esta BD a memoria.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsBD 
 {
-
-	// ------------------------------------
-	// VALIDO PARA CUALQUIER BASE DE DATOS
-	// ------------------------------------
-	
 	private static Connection connection = null;
 	private static Statement statement = null;
 
@@ -28,14 +28,17 @@ public class clsBD
 	 * @param nombreBD	Nombre de fichero de la base de datos
 	 * @return	Conexión con la base de datos indicada. Si hay algún error, se devuelve null
 	 */
-	public static Connection initBD( String nombreBD ) {
-		try {
+	public static Connection initBD( String nombreBD ) 
+	{
+		try 
+		{
 		    Class.forName("org.sqlite.JDBC");
 		    connection = DriverManager.getConnection("jdbc:sqlite:" + nombreBD );
 			statement = connection.createStatement();
 			statement.setQueryTimeout(30);  // poner timeout 30 msg
 		    return connection;
-		} catch (ClassNotFoundException | SQLException e) {
+		} 
+		catch (ClassNotFoundException | SQLException e) {
 			JOptionPane.showMessageDialog( null, "Error de conexión!! No se ha podido conectar con " + nombreBD , "ERROR", JOptionPane.ERROR_MESSAGE );
 			System.out.println( "Error de conexión!! No se ha podido conectar con " + nombreBD );
 			return null;
@@ -45,10 +48,13 @@ public class clsBD
 	/** Cierra la conexión con la Base de Datos
 	 */
 	public static void close() {
-		try {
+		try 
+		{
 			statement.close();
 			connection.close();
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -68,12 +74,9 @@ public class clsBD
 		return statement;
 	}
 
-	// ------------------------------------
-	// PARTICULAR DEL CATALOGO MULTIMEDIA
-	// ------------------------------------
-	
-	/** Crea una tabla de catálogo multimedia en una base de datos, si no existía ya.
-	 * Debe haberse inicializado la conexión correctamente.
+	/** Crea diferentes tablas en una base de datos, si no existía ya. <br>
+	 * Debe haberse inicializado la conexión correctamente. <br>
+	 * @param Tipo de tabla: Usuario o Partida.
 	 */
 	public static void crearTablaBD(String tipo_tabla) //TODO: Hay sobreescritura de BD aquí. En SQL tendríamos que mirar si ya existe la tabla creada. (Cláusula IF NOT EXISTS)
 	{
@@ -108,6 +111,10 @@ public class clsBD
 		}
 	}
 	
+	/** Inserta un dato en las tablas previamente mencionadas. <br>
+	 * Debe haberse inicializado la conexión correctamente. <br>
+	 * @param Objeto a insertar: Usuario, partida 1v1 o partida vs Mariano.
+	 */
 	public static void insertarDatoTablaBD(Object obj)
 	{
 		if (statement==null) return;
@@ -150,8 +157,13 @@ public class clsBD
 				e1.printStackTrace();
 			}
 	}
-	//TODO: Por simplicidad, voy a hacer 1 UPDATE que modifique todo (Elo inclusive), con lo que cada vez que se cambien los datos de un usuario, se modificará
-	//el Elo.
+	
+	/**
+	 * Modifica un dato de una tabla, considerando sus atributos identificativos como base: <br>
+	 * Usuario: Nickname. <br>
+	 * Partida: ID_Partida.
+	 * @param obj Dato a modificar
+	 */
 	public static void modificarDatoTablaBD(Object obj)
 	{
 		if (statement==null) return;
@@ -192,6 +204,12 @@ public class clsBD
 				e1.printStackTrace();
 			}
 	}
+	
+	/**
+	 * Lectura de los datos de una tabla determinada.
+	 * @param Tipo de tabla
+	 * @return Representación abstracta de los datos de la tabla de la BD: ResultSet
+	 */
 	public static ResultSet obtenerDatosTablaBD (String tipo_tabla)
 	{
 		if (statement==null) return null;
@@ -221,5 +239,4 @@ public class clsBD
 		}
 		 return rs;
 	}
-
 }

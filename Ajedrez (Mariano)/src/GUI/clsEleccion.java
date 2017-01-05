@@ -42,6 +42,18 @@ import Mariano.TableroVisualMariano;
 import Persistencia.clsBD;
 import Unopauno.TableroVisual1v1;
 
+/**
+ * Clase que generará una JFrame para acceder a las diversas opciones de la aplicación: <br>
+ * 1) Jugar partidas contra otro jugador. <br>
+ * 2) Jugar partidas contra Mariano. <br>
+ * 3) Visualizar datos de los jugadores: <br>
+ * -> Lista. <br>
+ * -> Histograma. <br>
+ * -> Queso. <br>
+ * 4) Visualizar el historial de las partidas jugadas. <br>
+ * 5) Modificar la cuenta del usuario que está utilizando la aplicación.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsEleccion extends JFrame
 {
 	private static final long serialVersionUID = 1L;
@@ -61,13 +73,8 @@ public class clsEleccion extends JFrame
 	private JButton btnHistorial;
 	private JButton btnDeslogear;
 	
-	private JRadioButton rdbtnMarianoFacil;
-	private JRadioButton rdbtnMarianoMedio;
-	private JRadioButton rdbtnMarianoDificil;
-	private ButtonGroup btngrpDificultad;
-	
 	private JRadioButton rdbtnLista;
-	private JRadioButton rdbtnGraficoLinea;
+	private JRadioButton rdbtnGraficoHistograma;
 	private JRadioButton rdbtnGraficoQueso;
 	private ButtonGroup btngrpRanking;
 	
@@ -78,22 +85,23 @@ public class clsEleccion extends JFrame
 	
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
 	
-private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	private static final boolean ANYADIR_A_FIC_LOG = true;
 	
-	// Logger de la clase
+	/*Logger de la clase*/
 	private static Logger logger = Logger.getLogger( "Mariano" );
-	static {
-		try {
+	static 
+	{
+		try 
+		{
 			logger.setLevel( Level.FINEST );
-			Formatter f = new SimpleFormatter() {
+			Formatter f = new SimpleFormatter() 
+			{
 				@Override
-				public synchronized String format(LogRecord record) {
-					// return super.format(record);  // Si no queremos el formateador con tanta información
+				public synchronized String format(LogRecord record) 
+				{
 					if (record.getLevel().intValue()<Level.CONFIG.intValue())
-						// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
 						return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
 					if (record.getLevel().intValue()<Level.WARNING.intValue())
-						// Si es menor que WARNING lo sacamos tabulado a la derecha
 						return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
 					return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
 				}
@@ -101,28 +109,32 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 			FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
 			Handler h = new StreamHandler( fLog, f );
 			h.setLevel( Level.FINEST );
-			logger.addHandler( h );  // Saca todos los errores a out
-//			logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
-		} catch (SecurityException | IOException e) {
+			logger.addHandler( h );
+		} 
+		catch (SecurityException | IOException e) 
+		{
 			logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsEleccion.class.getName() );
 		}
 		logger.log( Level.INFO, "" );
 		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
 	}
 
+	/**
+	 * Constructor del JFrame que genera la parte visual de la ventana, así como los escuchadores requeridos para redirigir a cada funcionalidad de la aplicación.
+	 * @param usu Usuario que está logeado en el sistema.
+	 */
 	public clsEleccion(clsUsuario usu) 
 	{
-		desktop = new JDesktopPane(){ 
-		    public void paintComponent(Graphics g){
-		        
+		desktop = new JDesktopPane()
+		{ 
+			private static final long serialVersionUID = 1L;
+			public void paintComponent(Graphics g)
+			{
 		    	 g.setColor(Color.LIGHT_GRAY);
-		    	
 		         g.drawLine(415, 115, 415, 228);
 		         g.drawLine(415, 228, 637, 228);
 		         g.drawLine(637, 228, 637, 115);
 		         g.drawLine(637, 115, 415, 115);
-
-
 		    }
 		};
 		setContentPane(desktop);
@@ -134,9 +146,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		desktop.setLayout(null);
 		
 		usuario = usu;
-		
-		
-		
+
 		lblBienvenida = new JLabel("¡Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
 		lblBienvenida.setBounds(60, 35, 560, 34);
 		Font labelFont = lblBienvenida.getFont();
@@ -177,26 +187,6 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		lblDificultad.setBounds(70, 317, 153, 14);
 		desktop.add(lblDificultad);
 		
-		rdbtnMarianoFacil = new JRadioButton("Mariano");
-		rdbtnMarianoFacil.setBounds(60, 343, 79, 23);
-		rdbtnMarianoFacil.setBackground(Color.white);
-		desktop.add(rdbtnMarianoFacil);
-		
-		rdbtnMarianoMedio = new JRadioButton("Mariano+");
-		rdbtnMarianoMedio.setBounds(141, 343, 79, 23);
-		rdbtnMarianoMedio.setBackground(Color.white);
-		desktop.add(rdbtnMarianoMedio);
-		
-		rdbtnMarianoDificil = new JRadioButton("Mariano++");
-		rdbtnMarianoDificil.setBounds(222, 343, 95, 23);
-		rdbtnMarianoDificil.setBackground(Color.white);
-		desktop.add(rdbtnMarianoDificil);
-		
-		btngrpDificultad = new ButtonGroup();
-		btngrpDificultad.add(rdbtnMarianoFacil);
-		btngrpDificultad.add(rdbtnMarianoMedio);
-		btngrpDificultad.add(rdbtnMarianoDificil);
-		
 		lblVisualizacion = new JLabel("Elija el modo de visualización:");
 		lblVisualizacion.setBounds(425, 185, 188, 14);
 		desktop.add(lblVisualizacion);
@@ -206,10 +196,10 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		rdbtnLista.setBackground(Color.white);
 		desktop.add(rdbtnLista);
 		
-		rdbtnGraficoLinea = new JRadioButton("Lineal");
-		rdbtnGraficoLinea.setBounds(489, 200, 68, 23);
-		rdbtnGraficoLinea.setBackground(Color.white);
-		desktop.add(rdbtnGraficoLinea);
+		rdbtnGraficoHistograma = new JRadioButton("Histograma");
+		rdbtnGraficoHistograma.setBounds(489, 200, 68, 23);
+		rdbtnGraficoHistograma.setBackground(Color.white);
+		desktop.add(rdbtnGraficoHistograma);
 		
 		rdbtnGraficoQueso = new JRadioButton("Queso");
 		rdbtnGraficoQueso.setBounds(559, 200, 68, 23);
@@ -218,7 +208,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		
 		btngrpRanking = new ButtonGroup();
 		btngrpRanking.add(rdbtnLista);
-		btngrpRanking.add(rdbtnGraficoLinea);
+		btngrpRanking.add(rdbtnGraficoHistograma);
 		btngrpRanking.add(rdbtnGraficoQueso);
 		
 		btnDeslogear = new JButton("Deslogear");
@@ -230,7 +220,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		
 		setResizable(false);
 		
-		//Escuchadores
+		/*Escuchadores*/
 		btnJugadorvsJugador.addActionListener(new ActionListener()
 		{
 			@Override
@@ -254,27 +244,9 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				if(rdbtnMarianoFacil.isSelected())
-				{
-					//TODO: Redirigir a tablero de dificultad fácil. Veo añadir un constructor tipo clsTablero(jugador, dificultad).
-					ProgressBar pb=new ProgressBar("Preparando partida contra Mariano...", usuario, 1, null);
-					pb.setVisible(true);
-		            miVentana.dispose();
-				}
-				if(rdbtnMarianoMedio.isSelected())
-				{
-					//TODO: Redirigir a tablero de dificultad media.
-//					tablerovisual frame = new tablerovisual();
-//		            frame.setVisible(true);
-//		            miVentana.dispose();
-				}
-				if(rdbtnMarianoDificil.isSelected())
-				{
-					//TODO: Redirigir a tablero de dificultad difícil.
-//					tablerovisual frame = new tablerovisual();
-//		            frame.setVisible(true);
-//		            miVentana.dispose();
-				}
+				ProgressBar pb=new ProgressBar("Preparando partida contra Mariano...", usuario, 1, null);
+				pb.setVisible(true);
+		        miVentana.dispose();
 			}	
 		});	
 		btnRanking.addActionListener(new ActionListener()
@@ -289,8 +261,9 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 					frame.pack();
 					frame.setVisible(true);
 				}
-				if(rdbtnGraficoLinea.isSelected())
+				if(rdbtnGraficoHistograma.isSelected())
 				{
+					logger.log(Level.INFO, "Mostrando histograma");
 					GraficoHistograma demo = new GraficoHistograma("Nº de partidas realizadas por día");
 				    demo.pack();
 				    RefineryUtilities.centerFrameOnScreen(demo);
@@ -298,6 +271,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 				}
 				if(rdbtnGraficoQueso.isSelected())
 				{
+					logger.log(Level.INFO, "Mostrando queso");
 					GraficoQueso demo = new GraficoQueso("Nº de victorias vs. Mariano");
 				    demo.pack();
 				    RefineryUtilities.centerFrameOnScreen(demo);
@@ -317,7 +291,6 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 		});
 		btnHistorial.addActionListener(new ActionListener()
 		{
-		//TODO: Conexión con la Base de Datos.	
 			@Override
 			public void actionPerformed(ActionEvent arg0) 
 			{

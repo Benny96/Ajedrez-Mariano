@@ -1,6 +1,9 @@
 package LN;
 
-
+/**
+ * Excepción a aplicar cuando ya haya algún usuario registrado con el mismo nickname.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsUsuarioRepetido extends Exception
 {
 	private static final long serialVersionUID = 1L;
@@ -10,6 +13,5 @@ public class clsUsuarioRepetido extends Exception
 	public String getMessage()
 	{	
 		return mensaje;
-	}
-	
+	}	
 }

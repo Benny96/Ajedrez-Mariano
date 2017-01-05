@@ -29,10 +29,12 @@ import LN.clsGestor;
 import LN.clsUsuario;
 import Unopauno.TableroLogico1v1;
 import Unopauno.TableroVisual1v1;
-
+/**
+ * Clase que generará una JInternalFrame para seleccionar un segundo jugador con el que jugar al ajedrez en el modo 1v1.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsAnyadirJugador extends JInternalFrame
 {
-	
 	private static final long serialVersionUID = 1L;
 	
 	private JLabel lblInformacion;
@@ -50,38 +52,44 @@ public class clsAnyadirJugador extends JInternalFrame
 	
 	private boolean controlPulsado = false;
 	
-	private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	private static final boolean ANYADIR_A_FIC_LOG = true;
 	
-	// Logger de la clase
-		private static Logger logger = Logger.getLogger( "Mariano" );
-		static {
-			try {
-				logger.setLevel( Level.FINEST );
-				Formatter f = new SimpleFormatter() {
-					@Override
-					public synchronized String format(LogRecord record) {
-						// return super.format(record);  // Si no queremos el formateador con tanta información
-						if (record.getLevel().intValue()<Level.CONFIG.intValue())
-							// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
-							return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
-						if (record.getLevel().intValue()<Level.WARNING.intValue())
-							// Si es menor que WARNING lo sacamos tabulado a la derecha
-							return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
-						return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
-					}
-				};
-				FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
-				Handler h = new StreamHandler( fLog, f );
-				h.setLevel( Level.FINEST );
-				logger.addHandler( h );  // Saca todos los errores a out
-//				logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
-			} catch (SecurityException | IOException e) {
-				logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsAnyadirJugador.class.getName() );
+	/*Logger de la clase*/
+	private static Logger logger = Logger.getLogger( "Mariano" );
+	static 
+	{
+		try 
+		{
+			logger.setLevel( Level.FINEST );
+			Formatter f = new SimpleFormatter() 
+			{
+				@Override
+				public synchronized String format(LogRecord record) 
+				{
+					if (record.getLevel().intValue()<Level.CONFIG.intValue())
+						return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					if (record.getLevel().intValue()<Level.WARNING.intValue())
+						return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+				}
+			};
+			FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+			Handler h = new StreamHandler( fLog, f );
+			h.setLevel( Level.FINEST );
+			logger.addHandler( h );
 			}
-			logger.log( Level.INFO, "" );
-			logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+		catch (SecurityException | IOException e) 
+		{
+			logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsAnyadirJugador.class.getName() );
 		}
-		
+		logger.log( Level.INFO, "" );
+		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+	}
+	
+	/**
+	 * Constructor de la JInternalFrame, que considera el usuario actual para evitar repeticiones.	
+	 * @param usuactual Usuario logeado en la aplicación.
+	 */
 	public clsAnyadirJugador(clsUsuario usuactual) 
 	{
 		getContentPane().setLayout(null);
@@ -123,7 +131,7 @@ public class clsAnyadirJugador extends JInternalFrame
 		
 		miVentanaInterna = this;
 		
-		//Escuchadores
+		/*Escuchadores*/
 		btnEmpezar.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent arg0) 
@@ -231,16 +239,13 @@ public class clsAnyadirJugador extends JInternalFrame
 			}
 		});
 		
-		
-		//Escuchadores para cuando se pulsa Enter empiece la partida
-		btnEmpezar.addKeyListener(new KeyAdapter() {
-			
+		btnEmpezar.addKeyListener(new KeyAdapter() 
+		{
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
 					if(controlPulsado)
 					{
 						btnEmpezar.doClick();			
@@ -248,70 +253,63 @@ public class clsAnyadirJugador extends JInternalFrame
 					controlPulsado=false;	
 				}		
 			}
-			
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
-				}
-				
-			}
-						
+				}	
+			}			
 		});		
-		txtNickname.addKeyListener(new KeyAdapter() {
-			
+		
+		txtNickname.addKeyListener(new KeyAdapter() 
+		{	
 			@Override
-			public void keyReleased(KeyEvent e) {
-				
+			public void keyReleased(KeyEvent e) 
+			{	
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
-				
 					if(controlPulsado)
 					{
 						btnEmpezar.doClick();			
 					}
 					controlPulsado=false;	
 				}		
-			}
-			
+			}	
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyPressed(KeyEvent e) 
+			{
 				if(e.getKeyCode()==KeyEvent.VK_ENTER)
 				{
 					controlPulsado = true;
-				}
-				
-			}
-						
-		});
-		txtContrasenya.addKeyListener(new KeyAdapter() {
-			
-			@Override
-			public void keyReleased(KeyEvent e) {
-				
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-				
-					if(controlPulsado)
-					{
-						btnEmpezar.doClick();			
-					}
-					controlPulsado=false;	
-				}		
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode()==KeyEvent.VK_ENTER)
-				{
-					controlPulsado = true;
-				}
-				
-			}
-						
+				}	
+			}			
 		});
 		
+		txtContrasenya.addKeyListener(new KeyAdapter() 
+		{
+			@Override
+			public void keyReleased(KeyEvent e) 
+			{
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					if(controlPulsado)
+					{
+						btnEmpezar.doClick();			
+					}
+					controlPulsado=false;	
+				}		
+			}
+			@Override
+			public void keyPressed(KeyEvent e) 
+			{
+				if(e.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					controlPulsado = true;
+				}		
+			}			
+		});
 		
 		btnSalir.addActionListener(new ActionListener()
 		{
@@ -323,4 +321,3 @@ public class clsAnyadirJugador extends JInternalFrame
 		});
 	}
 }
-	

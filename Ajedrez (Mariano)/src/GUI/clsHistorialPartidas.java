@@ -37,7 +37,10 @@ import Comun.clsOrdenarPorGanadorMariano;
 import Mariano.TableroLogicoMariano;
 import Persistencia.clsBD;
 import Unopauno.TableroLogico1v1;
-
+/**
+ * Clase que generará una JFrame para mostrar los datos de las partidas hechas entre jugadores o contra Mariano.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsHistorialPartidas extends JFrame
 {
 	private static final long serialVersionUID = 1L;
@@ -57,38 +60,44 @@ public class clsHistorialPartidas extends JFrame
 	private JPanel paneltabla;
 	private JPanel panelbotonera;
 	
-private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer append en cada ejecución
+	private static final boolean ANYADIR_A_FIC_LOG = true;
 	
-	// Logger de la clase
-		private static Logger logger = Logger.getLogger( "Mariano" );
-		static {
-			try {
-				logger.setLevel( Level.FINEST );
-				Formatter f = new SimpleFormatter() {
-					@Override
-					public synchronized String format(LogRecord record) {
-						// return super.format(record);  // Si no queremos el formateador con tanta información
-						if (record.getLevel().intValue()<Level.CONFIG.intValue())
-							// Si es menor que CONFIG lo sacamos muy tabulado a la derecha
-							return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
-						if (record.getLevel().intValue()<Level.WARNING.intValue())
-							// Si es menor que WARNING lo sacamos tabulado a la derecha
-							return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
-						return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
-					}
-				};
-				FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
-				Handler h = new StreamHandler( fLog, f );
-				h.setLevel( Level.FINEST );
-				logger.addHandler( h );  // Saca todos los errores a out
-//				logger.addHandler( new FileHandler( ListaDeReproduccion.class.getName()+".log.xml", ANYADIR_A_FIC_LOG ));
-			} catch (SecurityException | IOException e) {
-				logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsHistorialPartidas.class.getName() );
+	/*Logger de la clase*/
+	private static Logger logger = Logger.getLogger( "Mariano" );
+	static 
+	{
+		try 
+		{
+			logger.setLevel( Level.FINEST );
+			Formatter f = new SimpleFormatter() 
+			{
+				@Override
+				public synchronized String format(LogRecord record) 
+				{
+					if (record.getLevel().intValue()<Level.CONFIG.intValue())
+						return "\t\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					if (record.getLevel().intValue()<Level.WARNING.intValue())
+						return "\t(" + record.getLevel() + ") " + record.getMessage() + "\n";
+					return "(" + record.getLevel() + ") " + record.getMessage() + "\n";
+				}
+			};
+			FileOutputStream fLog = new FileOutputStream( "Mariano"+".log" , ANYADIR_A_FIC_LOG );
+			Handler h = new StreamHandler( fLog, f );
+			h.setLevel( Level.FINEST );
+			logger.addHandler( h );
 			}
-			logger.log( Level.INFO, "" );
-			logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+		catch (SecurityException | IOException e) 
+		{
+			logger.log( Level.SEVERE, "No se ha podido crear fichero de log en clase "+ clsHistorialPartidas.class.getName() );
 		}
+		logger.log( Level.INFO, "" );
+		logger.log( Level.INFO, DateFormat.getDateTimeInstance( DateFormat.LONG, DateFormat.LONG ).format( new Date() ) );
+	}
 	
+	/**
+	 * Constructor del JFrame que incluye escuchadores varios.
+	 * @param titulo Título de la ventana.
+	 */
 	public clsHistorialPartidas(String titulo)
 	{
 		super(titulo);
@@ -175,6 +184,7 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 				e.printStackTrace();
 			}
 		}
+		/*Escuchadores*/
 		rdbtn1v1.addActionListener(new ActionListener()
 		{
 			@Override
@@ -292,7 +302,4 @@ private static final boolean ANYADIR_A_FIC_LOG = true;  // poner true para hacer
 			}
 		});
 	}
-	
-	
-
 }

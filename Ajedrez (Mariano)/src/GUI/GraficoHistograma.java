@@ -67,6 +67,11 @@ import Mariano.TableroLogicoMariano;
 import Persistencia.clsBD;
 import Unopauno.TableroLogico1v1;
 
+/**
+ * Clase que generará una JInternalFrame para mostrar los datos de stocks y ventas en forma de gráfico. Fuente:
+ * @see <a href="http://www.jfree.org/jfreechart/">http://www.jfree.org/jfreechart/ </a>
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class GraficoHistograma extends JFrame
 {
 	private static final long serialVersionUID = 1L;
@@ -74,10 +79,13 @@ public class GraficoHistograma extends JFrame
 	private ArrayList <TableroLogico1v1> listaPartidas1v1;
 	private ArrayList <TableroLogicoMariano> listaPartidasMariano;
 	
-    /* @param title  the frame title.
-    */
-   public GraficoHistograma(String title) {
-
+	/**
+	 * Constructor de la clase que creará los objetos visuales de la JFrame, para mostrar un gráfico de barras.
+	 * @param title Título de la JInternalFrame
+	 */
+	
+	public GraficoHistograma(String title) 
+	{
        super(title);
        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
        this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
@@ -86,8 +94,11 @@ public class GraficoHistograma extends JFrame
        final ChartPanel chartPanel = new ChartPanel(chart);
        chartPanel.setPreferredSize(new Dimension(750, 375));
        setContentPane(chartPanel);
-
-   }
+	}
+	/**
+     * Crea un modelo de datos para formar el gráfico de barras.
+     * @return Modelo de datos
+     */
     private CategoryDataset createDataset() 
     {
     	listaPartidas1v1 = new ArrayList <TableroLogico1v1>();
@@ -125,77 +136,64 @@ public class GraficoHistograma extends JFrame
 			{
 				e.printStackTrace();
 			}
+		}	    
+		Calendar cal = Calendar.getInstance();
+		int dia = 0;
+		int cantidades [] = new int [7];
+		for (TableroLogico1v1 aux: listaPartidas1v1)
+		{
+		   cal.setTime(aux.getFec_com());
+		   dia = cal.get(Calendar.DAY_OF_WEEK);
+		   cantidades[dia-1]++;
+		} 
+		int cantidades2 [] = new int [7];
+		for (TableroLogicoMariano aux: listaPartidasMariano)
+		{
+		   cal.setTime(aux.getFec_com());
+		   dia = cal.get(Calendar.DAY_OF_WEEK);
+		   cantidades2[dia-1]++;
 		}
-		    
-		    Calendar cal = Calendar.getInstance();
-		    int dia = 0;
-		    int cantidades [] = new int [7];
-		    for (TableroLogico1v1 aux: listaPartidas1v1)
-		    {
-		    	cal.setTime(aux.getFec_com());
-		    	dia = cal.get(Calendar.DAY_OF_WEEK);
-		    	cantidades[dia-1]++;
-		    }
-		    
-		    int cantidades2 [] = new int [7];
-		    for (TableroLogicoMariano aux: listaPartidasMariano)
-		    {
-		    	cal.setTime(aux.getFec_com());
-		    	dia = cal.get(Calendar.DAY_OF_WEEK);
-		    	cantidades2[dia-1]++;
-		    }
-
-		 // row keys...
-	        final String series1 = "Partidas entre jugadores";
-	        final String series2 = "Partidas contra Mariano";
-
-	        // column keys...
-	        
-	        String[] categorias = new String [7];
-	        categorias[0] = "Lunes";
-	        categorias[1] = "Martes";
-	        categorias[2] = "Miércoles";
-	        categorias[3] = "Jueves";
-	        categorias[4] = "Viernes";
-	        categorias[5] = "Sábado";
-	        categorias[6] = "Domingo";
-	        
-
-
-	        // create the dataset...
-	        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-	        boolean eligelista = true;
-	        for (int i = 0; i<2; i++)
-	        {
-	        	if (i == 1)
-	        	{
-	        		eligelista = false;
-	        	}
-	        	for (int j = 0; j<7; j++)
-	        	{
-	        		if (eligelista)
-	        		{
-	        			dataset.addValue(cantidades[j], series1, categorias[j]);
-	        		}
-	        		else
-	        		{
-	        			dataset.addValue(cantidades2[j], series2, categorias[j]);
-	        		}
+	    final String series1 = "Partidas entre jugadores";
+	    final String series2 = "Partidas contra Mariano";
+	    String[] categorias = new String [7];
+	    categorias[0] = "Lunes";
+	    categorias[1] = "Martes";
+	    categorias[2] = "Miércoles";
+	    categorias[3] = "Jueves";
+	    categorias[4] = "Viernes";
+	    categorias[5] = "Sábado";
+	    categorias[6] = "Domingo";
+	    final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+	    boolean eligelista = true;
+	    for (int i = 0; i<2; i++)
+	    {
+	       if (i == 1)
+	       {
+	    	   eligelista = false;
+	       }
+	       for (int j = 0; j<7; j++)
+	       {
+	    	   if (eligelista)
+	    	   {
+	    		   dataset.addValue(cantidades[j], series1, categorias[j]);
+	    	   }
+	    	   else
+	    	   {
+	    		   dataset.addValue(cantidades2[j], series2, categorias[j]);
+	    	   }
 	        		
-	        	}
-	        }
-	        return dataset;		    
+	       }
+	    }
+	    return dataset;		    
     }
 
-    /* Creates a chart.
-    * 
-    * @param dataset  the data for the chart.
-    * 
-    * @return a chart.
-    */
- private JFreeChart createChart(final CategoryDataset dataset) {
-        
-        // create the chart...
+    /**
+     * Crea el gráfico visual.
+     * @param dataset El modelo de datos
+     * @return El gráfico
+     */
+    private JFreeChart createChart(final CategoryDataset dataset) 
+    { 
         final JFreeChart chart = ChartFactory.createBarChart(
             "Nº de partidas realizadas por día de la semana",         // chart title
             "Categorías",               // domain axis label
@@ -206,45 +204,35 @@ public class GraficoHistograma extends JFrame
             true,                     // tooltips?
             false                     // URLs?
         );
-
-        // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
-
-        // set the background color for the chart...
         chart.setBackgroundPaint(Color.white);
-
-        // get a reference to the plot for further customisation...
+        
         final CategoryPlot plot = chart.getCategoryPlot();
         plot.setBackgroundPaint(Color.lightGray);
         plot.setDomainGridlinePaint(Color.white);
         plot.setRangeGridlinePaint(Color.white);
 
-        // set the range axis to display integers only...
         final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        // disable bar outlines...
         final BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
         
-        // set up gradient paints for series...
-        final GradientPaint gp0 = new GradientPaint(
+        final GradientPaint gp0 = new GradientPaint			
+        	(
             0.0f, 0.0f, Color.blue, 
             0.0f, 0.0f, Color.lightGray
-        );
-        final GradientPaint gp1 = new GradientPaint(
+        	);
+        final GradientPaint gp1 = new GradientPaint
+        	(
             0.0f, 0.0f, Color.green, 
             0.0f, 0.0f, Color.lightGray
-        );
+        	);
         renderer.setSeriesPaint(0, gp0);
         renderer.setSeriesPaint(1, gp1);
 
         final CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setCategoryLabelPositions(
-            CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
-        );
-        // OPTIONAL CUSTOMISATION COMPLETED.
-        
-        return chart;
-       
+            CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0));
+        return chart;    
    }
 }

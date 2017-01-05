@@ -14,7 +14,7 @@ import LN.clsTorre;
 import Unopauno.TableroLogico1v1;
 import Unopauno.TableroVisual1v1;
 
-public class clsTableroTest {
+public class clsTablero1v1Test {
 	
 	private TableroVisual1v1 tv;
 	private TableroLogico1v1 tl;

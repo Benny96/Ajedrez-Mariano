@@ -88,7 +88,9 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 
 	private clsReina reinab;
 	
-	transient Runnable reloj;
+//	transient Runnable reloj;
+	static boolean partidainiciada;
+	static boolean a;
 
 	private clsReina reinan;
 	
@@ -174,6 +176,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			}
 			
 			turno=true;
+			a = false;
 			
 			pblancas= new LinkedList<clsPieza>();
 			pnegras= new LinkedList<clsPieza>();
@@ -326,10 +329,12 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		unigga = unegrito;
 		turno = turnoactual;
 		num = numfila;
+		a = false;
 		IniciarReloj();
 	}
 	public void IniciarReloj()
 	{
+		Runnable reloj;
 		reloj = new Timer1();
 		Thread a= new Thread (reloj);
 		a.start();
@@ -1635,53 +1640,57 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	{
 	//System.out.println("SDFGHJKL"+ turno);
 	
-	
-	if(turno)
+	if(!a)
 	{
-	System.out.println("Hilo: "+reloj.hashCode());
-	bseg--;
-	if (bseg==-1)
-	{
-	bseg=59;
-	bmin--;
-	}
-	
-	if(bseg==0 && bmin==0)
-	{
-		ganador=unigga;
-		perdedor=ublanco;
-		porque();
-	}
-	bstr = String.format("%d:%02d", bmin, bseg);
-	
-	visual.btiempo.setText(bstr);
-	}
-	else
-	{
-	System.out.println("Hilo: "+reloj.hashCode());
-	nseg--;
-	if (nseg==-1)
-	{
-	nseg=59;
-	nmin--;
-	}
-	
-	if(nseg==0 && nmin==0)
-	{	
-		ganador=ublanco;
-		perdedor=unigga;
+		if(turno)
+		{
+//		System.out.println("Hilo: "+reloj.hashCode());
+		System.out.println("Hola, estoy en el BLANCO");
+		bseg--;
+		if (bseg==-1)
+		{
+		bseg=59;
+		bmin--;
+		}
 		
-		//Display final.
-		porque();
+		if(bseg==0 && bmin==0)
+		{
+			ganador=unigga;
+			perdedor=ublanco;
+			porque();
+		}
+		bstr = String.format("%d:%02d", bmin, bseg);
+		
+		visual.btiempo.setText(bstr);
+		}
+		else
+		{
+//		System.out.println("Hilo: "+reloj.hashCode());
+			System.out.println("Hola, estoy en el NEGRO");
+		nseg--;
+		if (nseg==-1)
+		{
+		nseg=59;
+		nmin--;
+		}
+		
+		if(nseg==0 && nmin==0)
+		{	
+			ganador=ublanco;
+			perdedor=unigga;
+			
+			//Display final.
+			porque();
+		}
+		nstr = String.format("%d:%02d", nmin, nseg);
+		
+		
+		visual.ntiempo.setText(nstr);
+		}
+		
+		visual.repaint();
 	}
-	nstr = String.format("%d:%02d", nmin, nseg);
 	
-	
-	visual.ntiempo.setText(nstr);
-	}
-	
-	
-	visual.repaint();
 	}
 	public void repain()
 	{
@@ -1754,21 +1763,26 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	@Override
 	public void run() 
 	{
-	
-	while(jaquemate==false)
-	{
-	try 
-	{
-	Thread.sleep(1000);
-	Conversor();
-	
-	}
-	catch (InterruptedException e) 
-	{
-	
-	return;
-	}
-	
+		while(jaquemate==false)
+		{
+		try 
+		{
+			Thread.sleep(1000);
+			if (jaquemate)
+			{
+				a = true;
+				throw new InterruptedException();
+			}
+			else if (!jaquemate && !a)
+			{
+				Conversor();
+			}
+		}
+		catch (InterruptedException e) 
+		{
+			System.out.println("HOLA ME LLAMO RALPH Y ESTOY EN LA INTERRUPCIÓN");
+			return;
+		}
 	}
 	System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 	repain();

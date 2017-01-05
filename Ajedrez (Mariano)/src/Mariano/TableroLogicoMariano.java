@@ -1788,7 +1788,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		{
 			try 
 			  {
-			   File file = new File("src/audio/Presidente_Rajoy-_Viva_el_vino_.wav");  
+			   File file = new File("src/audio/Rajoy_-_La_segunda_ya_tal.wav");  
 			   Clip clip = AudioSystem.getClip();
 			   clip.open(AudioSystem.getAudioInputStream(file));
 			   clip.start();
@@ -1818,7 +1818,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		{
 			try 
 			  {
-			   File file = new File("src/audio/Rajoy_-_La_segunda_ya_tal.wav");  
+			   File file = new File("src/audio/Presidente_Rajoy-_Viva_el_vino_.wav");  
 			   Clip clip = AudioSystem.getClip();
 			   clip.open(AudioSystem.getAudioInputStream(file));
 			   clip.start();

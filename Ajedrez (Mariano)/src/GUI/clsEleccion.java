@@ -123,9 +123,9 @@ public class clsEleccion extends JFrame
 			public void paintComponent(Graphics g)
 			{
 		    	 g.setColor(Color.LIGHT_GRAY);
-		         g.drawLine(415, 115, 415, 228);
-		         g.drawLine(415, 228, 637, 228);
-		         g.drawLine(637, 228, 637, 115);
+		         g.drawLine(415, 115, 415, 231);
+		         g.drawLine(415, 231, 637, 231);
+		         g.drawLine(637, 231, 637, 115);
 		         g.drawLine(637, 115, 415, 115);
 		    }
 		};
@@ -156,7 +156,8 @@ public class clsEleccion extends JFrame
 		desktop.add(lblOtros);
 		
 		btnJugadorvsJugador = new JButton("Jugador vs Jugador");
-		btnJugadorvsJugador.setBounds(60, 124, 257, 50);
+		btnJugadorvsJugador.setBounds(60, 124, 257, 90);
+		btnJugadorvsJugador.setFont(new Font(labelFont.getName(), Font.BOLD, 20));
 		desktop.add(btnJugadorvsJugador);
 		
 		btnHistorial = new JButton("Historial de partidas");
@@ -172,29 +173,30 @@ public class clsEleccion extends JFrame
 		desktop.add(btnModificar);
 		
 		btnJugadorvsMariano = new JButton("Jugador vs Mariano");
-		btnJugadorvsMariano.setBounds(60, 236, 257, 50);
+		btnJugadorvsMariano.setBounds(60, 236, 257, 90);
+		btnJugadorvsMariano.setFont(btnJugadorvsJugador.getFont());
 		desktop.add(btnJugadorvsMariano);
 		
-		lblDificultad = new JLabel("Seleccione la dificultad:");
-		lblDificultad.setBounds(70, 317, 153, 14);
-		desktop.add(lblDificultad);
+//		lblDificultad = new JLabel("Seleccione la dificultad:");
+//		lblDificultad.setBounds(70, 317, 153, 14);
+//		desktop.add(lblDificultad);
 		
-		lblVisualizacion = new JLabel("Elija el modo de visualización:");
-		lblVisualizacion.setBounds(425, 185, 188, 14);
-		desktop.add(lblVisualizacion);
+//		lblVisualizacion = new JLabel("Elija el modo de visualización:");
+//		lblVisualizacion.setBounds(425, 185, 188, 14);
+//		desktop.add(lblVisualizacion);
 		
 		rdbtnLista = new JRadioButton("Lista");
-		rdbtnLista.setBounds(425, 200, 62, 23);
+		rdbtnLista.setBounds(425, 181, 62, 23);
 		rdbtnLista.setBackground(Color.white);
 		desktop.add(rdbtnLista);
 		
 		rdbtnGraficoHistograma = new JRadioButton("Histograma");
-		rdbtnGraficoHistograma.setBounds(489, 200, 68, 23);
+		rdbtnGraficoHistograma.setBounds(425, 207, 100, 23);
 		rdbtnGraficoHistograma.setBackground(Color.white);
 		desktop.add(rdbtnGraficoHistograma);
 		
 		rdbtnGraficoQueso = new JRadioButton("Queso");
-		rdbtnGraficoQueso.setBounds(559, 200, 68, 23);
+		rdbtnGraficoQueso.setBounds(537, 181, 68, 23);
 		rdbtnGraficoQueso.setBackground(Color.white);
 		desktop.add(rdbtnGraficoQueso);
 		

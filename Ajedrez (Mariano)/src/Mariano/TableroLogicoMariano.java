@@ -719,38 +719,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 				//	System.out.println(contrin);
 					clsJugada aux= new clsJugada(blanca,contrin);
 					
-					if(contrin.getx()==1 &&  contrin.gety()==4)
-					{
-						System.out.println("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRrrrrrrr");
-						System.out.println(pieza.getClass());
-						System.out.println(pieza);
-						if(contrin.getPieza()==null)
-							System.out.println("GUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUtttttttttt");
-						else
-						{
-							System.out.println("mAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALLLLLLLLLLLLLLLLL");
-							System.out.println(contrin.getPieza().getClass());
-							System.out.println(contrin.getPieza());
-						}
-							
-					}
-					for(clsJugada ax: jugadasblancas)
-					{
-						if(((ax.cfinal.getPieza()!= null && aux.cfinal.getPieza()!=null && ax.cfinal.getPieza().equals(aux.cfinal.getPieza()))) || ( ax.cfinal.getPieza()== null && aux.cfinal.getPieza()==null  )  )
-						{
-							System.out.println("HOLLLLLLLLLLLLLLLLLLLLLLLLAAAAAAAAAAAAAAAAAA");
-							holi=false;
-							aux.valor=ax.valor;
-							break;
-						}	
-					}
-					if(holi)
-					{
-						System.out.println("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-						aux.valor=Valorar(aux,tablero2,2,numeroblanquito);
-						jugadasblancas.add(aux);
-					}
-				//	aux.valor=Valorar(aux,tablero2,2,numeroblanquito);
+					
+					aux.valor=Valorar(aux,tablero2,2,numeroblanquito);
 					if(aux.valor>peor.valor)
 						peor=aux;
 				}

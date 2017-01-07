@@ -342,19 +342,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		}
 		borrar.clear();
 	}
-	//TODO: ¿DAFUQ?
-	public void revisar()
-	{
-		LinkedList<clsPieza> todas = null;
-		todas.addAll(pblancas);
-		todas.addAll(pnegras);
-		for(clsPieza pieza: todas)
-		{
-			for(clsCasilla casilla: pieza.getMovimientos())
-			{
-			}
-		}
-	}
+
 	/**
 	 * Método para comprobar un jaquemate hecho por piezas negras.
 	 * @param Tablero lógico
@@ -526,64 +514,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 //		System.out.println("SoyDioooooooooooooooooooooooos");
 //		}
 	}
+
+
 	//TODO: Dafuq?
-	public LinkedList<clsPieza> clonarlistas(LinkedList<clsPieza> piezas, boolean color, TableroLogicoMariano a)
-	{
-		LinkedList<clsPieza> fin= new LinkedList<clsPieza>();
-		if(color)
-		{
-			for(clsPieza paux: a.getPblancas())
-			{
-				fin.add(paux.clonar(paux,a));
-			}
-		}
-		else
-		{
-			for(clsPieza paux: a.getPnegras())
-			{
-				fin.add(paux.clonar(paux,a));
-			}
-		}
-		return fin;	
-	}
-	//TODO: Dafuq?
-	public void vlarartadasjugadas(TableroLogicoMariano a)
-	{
-		clsJugada definitiva= new clsJugada();
-		TableroLogicoMariano tablero=new TableroLogicoMariano();
-		tablero=clonar(a);
-		for(clsPieza p: a.pnegras)
-		{
-		
-		System.out.println("11wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-		System.out.println(p.getClass());
-		System.out.println(p);
-		int iy=p.getY();
-		int ix=p.getX();
-		
-		
-		LinkedList<clsCasilla> candidatos=legales(p,a);
-		
-		
-		
-		
-		
-		for(clsCasilla caux: candidatos)
-		{
-//		System.out.println("candidatos "+ caux);
-		clsJugada aux= new clsJugada(p,caux);
-		
-		aux.valor=Valorar(aux,tablero,1,1);
-//		System.out.println(aux.valor);
-		if(aux.valor>definitiva.valor)
-		{
-		definitiva=aux;
-		}
-		
-		}
-		
-		}	
-	}
+
 	
 	public clsJugada Inteligencia()
 	{
@@ -614,36 +548,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	return definitiva;
 	}
 
-	//TODO: Dafuq?
-	public clsJugada Inteligencia2(TableroLogicoMariano tablero)
-	{
-		clsJugada definitiva= new clsJugada();
-		TableroLogicoMariano t=new TableroLogicoMariano();
-		t=clonar(tablero);
-	
-		for(clsPieza p: tablero.pnegras)
-		{
-		//	System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-		//	System.out.println(p.getClass());
-		//	System.out.println(p);
-			int iy=p.getY();
-			int ix=p.getX();
-			LinkedList<clsCasilla> candidatos=legales(p,tablero);
-			for(clsCasilla caux: candidatos)
-			{
-			//	System.out.println("candidatos "+ caux);
-				clsJugada aux= new clsJugada(p,caux);
-				aux.valor=Valorar(aux,t,1,2);
-			//	System.out.println(aux.valor);
-				if(aux.valor>definitiva.valor)
-				{
-				definitiva=aux;
-				}
-			}
-		}
-	return definitiva;
-	}
-	
+
 	/**
 	 * Método que permite valorar las jugadas hechas
 	 * @param Jugada realizada
@@ -751,19 +656,17 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					else
 						tablero.getPnegras().add(okupada);
 				}
-				//TODO: DAFUQ ¿Redundante? Ya estás mirando el color arriba, y a ese else no entrará nunca.
-				if(pieza.getColor())
+				
 					tablero.getPblancas().remove(pieza);
-				else
-					tablero.getPnegras().remove(pieza);
+				
 				
 				tableroaux[cy][cx].setOcupado(okupada);
 				tableroaux[y][x].setOcupado(pieza);
-				if(pieza.getColor())
-					tablero.getPblancas().add(pieza);
-				else
-					tablero.getPnegras().add(pieza);
-				//	System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeee");
+				
+				
+				tablero.getPblancas().add(pieza);
+			
+				
 				return valor;
 			}
 		}
@@ -779,17 +682,13 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					else
 						tablero.getPnegras().add(okupada);
 				}
-				if(pieza.getColor())
-					tablero.getPblancas().remove(pieza);
-				else
+				
 					tablero.getPnegras().remove(pieza);
 	
 				tableroaux[cy][cx].setOcupado(okupada);
 				tableroaux[y][x].setOcupado(pieza);
 	
-				if(pieza.getColor())
-					tablero.getPblancas().add(pieza);
-				else
+				
 					tablero.getPnegras().add(pieza);
 				System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
 				return valor;
@@ -904,47 +803,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	
 	//TODO: Dafuq?
-	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,TableroLogicoMariano tab)
-	{
-		clsCasilla[][] tablero=tab.getTablero();
-		
-		Boolean retur=false;
-		
-		Original.setOcupado(null);
-		Final.setOcupado(movida);
-		
-		if(movida.getColor())
-		{
-			for(clsPieza p: tab.getPblancas())
-			{
-			if(p instanceof clsRey)
-			tab.setReyb((clsRey) p.clonar(p,this));
-			}
-			//System.out.println("aaaaaaaaaaaaablancoooooooo");
-			if(comprobarjaque(tab.getReyb(),tab))
-			{
-			//System.out.println("blancoooooooo");
-			retur=true;
-			}
-		}
-		else
-		{
-			for(clsPieza p: tab.getPnegras())
-			{
-			if(p instanceof clsRey)
-			tab.setReyn((clsRey) p.clonar(p,this));
-			}
-			//System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaanegroooooooooooo");
-			if(comprobarjaque(tab.getReyn(),tab))
-			{
-			//System.out.println("negroooooooooooo");
-			retur=true;
-			}
-		}
-		Original.setOcupado(movida);
-		Final.setOcupado(sitio);
-		return retur;
-	}
+
 	
 	/**
 	 * Acciones que ocurren al pulsar en una casilla.

@@ -114,6 +114,8 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		pPrincipal.setLayout(null);
 		pPrincipal.setBackground(Color.white);
 		
+		setTitle("Modo de partida: Jugador Vs Mariano");
+		
 		miVentana = this;
 		usu=aux;
 		

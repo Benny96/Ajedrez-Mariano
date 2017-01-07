@@ -1,7 +1,7 @@
 # Ajedrez-Mariano
 
-Este proyecto, como bien dice su nombre, es un ajedrez. Los integrantes del grupo somos los siguientes:
+Este proyecto, como bien dice su nombre, es un ajedrez. Los integrantes del grupo somos los siguientes: <br>
 
-Garikoitz Bereciartua
-Imanol Echeverría
-Y yo, Beñat Galdós
+Garikoitz Bereciartua <br>
+Imanol Echeverría <br>
+Y yo, Beñat Galdós <br>

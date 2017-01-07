@@ -146,7 +146,7 @@ public class clsPeon extends clsPieza implements Serializable
 		{
 			if(this.y!=6)
 			{
-				if(tablero[this.y-1][this.getX()].getOcupado()==null)
+				if(this.y>=1 && tablero[this.y-1][this.getX()].getOcupado()==null)
 					this.movimientos.add(tablero[this.y-1][this.getX()]);				
 			}
 			else

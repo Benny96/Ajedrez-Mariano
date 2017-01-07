@@ -65,7 +65,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	Boolean turno;
 	
 	 TableroVisualMariano visual;
-	//private Runnable myTimer;
 	
 	int nmin;
 	int nseg;
@@ -97,6 +96,9 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	LinkedList<clsJugada> jugadasblancas;
 	HashSet<clsJugada> jugadasnegras;
 	
+	/**
+	 * Constructor sin parámetros para reutilizar durante el curso de la partida.
+	 */
 	public TableroLogicoMariano()
 	{
 		tablero= new clsCasilla[8][8];
@@ -116,6 +118,15 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 		selec=null;
 	}
+	/**
+	 * Constructor para gestionar los datos relevantes de una partida 1v1 de la Base de Datos.
+	 * @param ID de la partida
+	 * @param Nickname del jugador blanco
+	 * @param Nickname del jugador negro
+	 * @param Fecha de comienzo de la partida
+	 * @param Fecha de final de la partida
+	 * @param Nickname del ganador de la partida
+	 */
 	public TableroLogicoMariano (int a, String b, String c, long d, long e, String f)
 	{
 		ID_partida = a;
@@ -127,6 +138,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		fec_fin = new Date(e);
 		ganadorString = f;
 	}
+	/**
+	 * Constructor para generar un tablero lógico 1vMariano al iniciar una nueva partida.
+	 * @param Tablero visual con el que se corresponde el tablero lógico
+	 */
 	public TableroLogicoMariano(Boolean asd, TableroVisualMariano tablerovisual, Runnable myTimer, clsUsuario usu) 
 	{
 		ganadorString = "";
@@ -174,11 +189,9 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		reyb=new clsRey(0,3,true);
 		reyn=new clsRey(7,3,false);
 	
-	
 		jugadasblancas=new LinkedList<clsJugada>();
 		jugadasnegras=new HashSet<clsJugada>();
-	
-	
+		
 		reinab=new clsReina(0,4,true);
 		reinan=new clsReina(7,4,false);
 	
@@ -250,11 +263,15 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		bstr = String.format("%d:%02d", bmin, bseg);
 	
 		reloj = new Timer1();
-	
 		Thread a= new Thread (reloj);
 		a.start();
 	}	
 	
+	/**
+	 * Método utilizado para clonar el tablero lógico a medida que se va jugando.
+	 * @param Tablero lógico a clonar
+	 * @return Tablero lógico clonado
+	 */
 	public TableroLogicoMariano clonar(TableroLogicoMariano tab)
 	{
 		TableroLogicoMariano mewto = new TableroLogicoMariano();
@@ -295,6 +312,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		return mewto;
 	}
 	
+	/**
+	 * Método para limpiar el tablero, para que después se actúe sobre él.
+	 * @param Lista de clsCasillas a borrar
+	 */
 	public void clear(LinkedList <clsCasilla> borrar)
 	{
 		for(clsCasilla aux: borrar)
@@ -334,7 +355,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			}
 		}
 	}
-	
+	/**
+	 * Método para comprobar un jaquemate hecho por piezas negras.
+	 * @param Tablero lógico
+	 * @return Flag que indica si hay jaque o no
+	 */
 	public boolean jaquematen(TableroLogicoMariano tab)
 	{
 		for(clsPieza paux: tab.pnegras)
@@ -346,7 +371,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		}
 		return true;
 	}
-	
+	/**
+	 * Método para comprobar un jaquemate hecho por piezas blancas.
+	 * @param Tablero lógico
+	 * @return Flag que indica si hay jaque o no
+	 */
 	public boolean jaquemateb(TableroLogicoMariano tab)
 	{
 		for(clsPieza paux: tab.pblancas)
@@ -359,6 +388,12 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		return true;
 	}
 	
+	/**
+	 * Método para comprobar si un rey se encuentra en posición de jaque o no.
+	 * @param Rey afectado
+	 * @param Tablero lógico
+	 * @return Flag indicando que está en jaque
+	 */
 	public Boolean comprobarjaque(clsRey rey,TableroLogicoMariano tab)
 	{
 		LinkedList<clsPieza> colorcete;
@@ -389,6 +424,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		return false;
 	}
 	
+	/**
+	 * Método que escribe las jugadas hechas por Mariano en la JTable.
+	 * @param Jugada definitiva
+	 */
 	public void despuesintel(clsJugada definitiva)
 	{
 		jugadasblancas.clear();
@@ -433,7 +472,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		//this.tablero[0][1].setOcupado(null);
 		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setOcupado(definitiva.pieza);
 		
-		String letra=null;
+		String letra = null;
 		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Peon))
 		{
 			letra="";
@@ -487,6 +526,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 //		System.out.println("SoyDioooooooooooooooooooooooos");
 //		}
 	}
+	//TODO: Dafuq?
 	public LinkedList<clsPieza> clonarlistas(LinkedList<clsPieza> piezas, boolean color, TableroLogicoMariano a)
 	{
 		LinkedList<clsPieza> fin= new LinkedList<clsPieza>();
@@ -542,10 +582,9 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		
 		}
 		
-		}
-		
-		
+		}	
 	}
+	
 	public clsJugada Inteligencia()
 	{
 		clsJugada definitiva= new clsJugada();
@@ -575,6 +614,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	return definitiva;
 	}
 
+	//TODO: Dafuq?
 	public clsJugada Inteligencia2(TableroLogicoMariano tablero)
 	{
 		clsJugada definitiva= new clsJugada();
@@ -604,6 +644,14 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	return definitiva;
 	}
 	
+	/**
+	 * Método que permite valorar las jugadas hechas
+	 * @param Jugada realizada
+	 * @param Tablero lógico
+	 * @param Número por parte de Mariano
+	 * @param Número del jugador blanco
+	 * @return Int con la valoración
+	 */
 	public int Valorar(clsJugada jugada,TableroLogicoMariano tablero, int numero,int numeroblanquito)
 	{
 		boolean comiste=false; 
@@ -703,7 +751,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					else
 						tablero.getPnegras().add(okupada);
 				}
-				//¿Redundante? Ya estás mirando el color arriba, y a ese else no entrará nunca.
+				//TODO: DAFUQ ¿Redundante? Ya estás mirando el color arriba, y a ese else no entrará nunca.
 				if(pieza.getColor())
 					tablero.getPblancas().remove(pieza);
 				else
@@ -787,8 +835,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 						}
 							
 					}
-					//Redundante.
-	//				holi=true;
 					for(clsJugada ax: jugadasblancas)
 					{
 						if(((ax.cfinal.getPieza()!= null && aux.cfinal.getPieza()!=null && ax.cfinal.getPieza().equals(aux.cfinal.getPieza()))) || ( ax.cfinal.getPieza()== null && aux.cfinal.getPieza()==null  )  )
@@ -834,6 +880,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 		return valor;
 	}
+	
+	/**
+	 * Método para añadir los movimientos disponibles a una lista de movimientos.
+	 * @param Lista de clsCasillas
+	 */
 	public void dibujarmov(LinkedList<clsCasilla> lista)
 	{
 		for(clsCasilla aux: lista)
@@ -852,6 +903,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		}
 	}
 	
+	//TODO: Dafuq?
 	public Boolean Jugadajaque(clsPieza movida,clsPieza sitio, clsCasilla Original, clsCasilla Final,TableroLogicoMariano tab)
 	{
 		clsCasilla[][] tablero=tab.getTablero();
@@ -894,6 +946,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		return retur;
 	}
 	
+	/**
+	 * Acciones que ocurren al pulsar en una casilla.
+	 * @param clsCasilla en la que ocurre la pulsación
+	 */
 	public void action(clsCasilla casilla) 
 	{
 		// TODO Auto-generated method stub
@@ -1367,140 +1423,148 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	return legales;
 	}
 
+	/**
+	 * Método para obtener los movimientos legales disponibles de una pieza.
+	 * @param Pieza afectada
+	 * @param Tablero lógico
+	 * @return Lista con las clsCasillas disponibles
+	 */
 	public LinkedList<clsCasilla> legales(clsPieza pieza,TableroLogicoMariano tab) 
 	{
-	//System.out.println(pieza.getClass());
-	LinkedList<clsCasilla> legales= new LinkedList<clsCasilla>();
-	if(pieza instanceof clsRey==false)
-	{
-	pieza.mov(tab.getTablero());
-	int y=pieza.getY();
-	int x=pieza.getX();
+		LinkedList<clsCasilla> legales= new LinkedList<clsCasilla>();
+		if(pieza instanceof clsRey==false)
+		{
+			pieza.mov(tab.getTablero());
+			int y=pieza.getY();
+			int x=pieza.getX();
 	
-	for(clsCasilla caux: pieza.getMovimientos())
-	{
-	clsPieza okupada=null;
-	if(caux.getOcupado()!=null)
-	{
-	okupada=caux.getOcupado();
+			for(clsCasilla caux: pieza.getMovimientos())
+			{
+				clsPieza okupada=null;
+				if(caux.getOcupado()!=null)
+				{
+					okupada=caux.getOcupado();
 	
-	if(okupada.getColor())
-	tab.getPblancas().remove(okupada);
-	else
-	tab.getPnegras().remove(okupada);
-	}
+					if(okupada.getColor())
+						tab.getPblancas().remove(okupada);
+					else
+						tab.getPnegras().remove(okupada);
+				}
 	
-	tab.getTablero()[y][x].setOcupado(null);
-	caux.setOcupado(pieza);
+				tab.getTablero()[y][x].setOcupado(null);
+				caux.setOcupado(pieza);
 	
-	if(pieza.getColor())
-	{	
-	if(comprobarjaque(tab.getReyb(),tab)==false)
-	{
-	legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
-	}
-	}
-	else{
-	if(comprobarjaque(tab.getReyn(),tab)==false)
-	{
-	legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
-	}
-	}
+				if(pieza.getColor())
+				{	
+					if(comprobarjaque(tab.getReyb(),tab)==false)
+					{
+						legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+					}
+				}
+				else
+				{
+					if(comprobarjaque(tab.getReyn(),tab)==false)
+					{
+						legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+					}
+				}
 	
-	tab.getTablero()[y][x].setOcupado(pieza);
-	caux.setOcupado(okupada);
+				tab.getTablero()[y][x].setOcupado(pieza);
+				caux.setOcupado(okupada);
 	
-	pieza.setY(y);
-	pieza.setX(x);
+				pieza.setY(y);
+				pieza.setX(x);
 	
-	if(okupada!=null)
-	{
-	if(okupada.getColor())
-	tab.getPblancas().add(okupada);
-	else
-	tab.getPnegras().add(okupada);
-	}
-	}
+				if(okupada!=null)
+				{
+					if(okupada.getColor())
+						tab.getPblancas().add(okupada);
+					else
+						tab.getPnegras().add(okupada);
+				}
+			}
 	
+			pieza.setY(y);
+			pieza.setX(x);
+		}
+		else
+		{
+			pieza.mov(tab.getTablero());
 	
-	pieza.setY(y);
-	pieza.setX(x);
-	}
-	else
-	{
-	pieza.mov(tab.getTablero());
+			int y=pieza.getY();
+			int x=pieza.getX();
 	
-	int y=pieza.getY();
-	int x=pieza.getX();
+			for(clsCasilla caux: pieza.getMovimientos())
+			{
+				//System.out.println("casillllllllla "+ caux);
+				clsPieza okupada=null;
+				if(caux.getOcupado()!=null)
+				{
+					okupada=caux.getOcupado();
 	
-	for(clsCasilla caux: pieza.getMovimientos())
-	{
-	//System.out.println("casillllllllla "+ caux);
-	clsPieza okupada=null;
-	if(caux.getOcupado()!=null)
-	{
-	okupada=caux.getOcupado();
+					if(okupada.getColor())
+						tab.getPblancas().remove(okupada);
+					else
+						tab.getPnegras().remove(okupada);
+				}
 	
-	if(okupada.getColor())
-	tab.getPblancas().remove(okupada);
-	else
-	tab.getPnegras().remove(okupada);
-	}
+				tab.getTablero()[y][x].setOcupado(null);
+				caux.setOcupado(pieza);
 	
-	tab.getTablero()[y][x].setOcupado(null);
-	caux.setOcupado(pieza);
+				if(pieza.getColor())
+				{	
+					tab.getReyb().setY(pieza.getY());
+					tab.getReyb().setX(pieza.getX());
 	
-	if(pieza.getColor())
-	{	
-	tab.getReyb().setY(pieza.getY());
-	tab.getReyb().setX(pieza.getX());
+					if(comprobarjaque(tab.getReyb(),tab)==false)
+					{
+						legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+					}
+				}
+				else
+				{
+					tab.getReyn().setY(pieza.getY());
+					tab.getReyn().setX(pieza.getX());
+					if(comprobarjaque(tab.getReyn(),tab)==false)
+					{
+						legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
+					}
+				}
 	
-	if(comprobarjaque(tab.getReyb(),tab)==false)
-	{
-	legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
-	}
-	}
-	else{
-	tab.getReyn().setY(pieza.getY());
-	tab.getReyn().setX(pieza.getX());
-	if(comprobarjaque(tab.getReyn(),tab)==false)
-	{
-	legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
-	}
-	}
+				tab.getTablero()[y][x].setOcupado(pieza);
+				caux.setOcupado(okupada);
 	
-	tab.getTablero()[y][x].setOcupado(pieza);
-	caux.setOcupado(okupada);
+				pieza.setY(y);
+				pieza.setX(x);
 	
-	pieza.setY(y);
-	pieza.setX(x);
+				if(pieza.getColor())
+				{	
+					tab.getReyb().setY(y);
+					tab.getReyb().setX(x);
+				}
+				else
+				{
+					tab.getReyn().setY(y);
+					tab.getReyn().setX(x);
+				}
+				if(okupada!=null)
+				{
+					if(okupada.getColor())
+						tab.getPblancas().add(okupada);
+					else
+						tab.getPnegras().add(okupada);
+				}
+			}
 	
-	if(pieza.getColor())
-	{	
-	tab.getReyb().setY(y);
-	tab.getReyb().setX(x);
-	}
-	else
-	{
-	tab.getReyn().setY(y);
-	tab.getReyn().setX(x);
-	}
-	if(okupada!=null)
-	{
-	if(okupada.getColor())
-	tab.getPblancas().add(okupada);
-	else
-	tab.getPnegras().add(okupada);
-	}
-	}
-	
-	
-	pieza.setY(y);
-	pieza.setX(x);
-	}
+			pieza.setY(y);
+			pieza.setX(x);
+		}
 	return legales;
-
 	}
+	
+	/**
+	 * Método que permite reflejar el paso del tiempo del hilo en los cronómetros.
+	 */
 	private void Conversor()
 	{
 		if(turno)
@@ -1528,6 +1592,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	visual.repaint();
 	}
 	
+	/**
+	 * Método que se llama al acabar una partida. <br>
+	 * Referencia tomada para entender el cálculo de la puntuación Elo: <br>
+	 * @see <a href="http://www.todoajedrez.com.ar/ratings.php">http://www.todoajedrez.com.ar/ratings.php </a>
+	 */
 	public void porque()
 	{
 		if (ganador.getNickname().compareTo("Mariano")==0)
@@ -1591,6 +1660,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			{}
 		}
 	}
+	/**
+	 * Clase interna que implementa la interfaz Runnable que valdrá para generar el temporizador.
+	 * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+	 */
 	class Timer1 implements Runnable
 	{
 		@Override
@@ -1610,12 +1683,17 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			}
 		System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 		visual.repaint();
-		//porque();
-	//	repain();
-	//	porque();
 		}
-	
 	}
+	/**
+	 * Método compareTo() reimplementado para conseguir un orden natural a la hora de mostrar los datos. Atributo: ID_partida.
+	 */
+	@Override
+	public int compareTo(TableroLogicoMariano arg0) 
+	{
+		return this.getID_partida()-arg0.getID_partida();
+	}
+	
 	public clsCasilla[][] getTablero() {
 	return tablero;
 	}
@@ -1720,14 +1798,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	this.turno = turno;
 	}
 
-//	public Runnable getMyTimer() {
-//	return myTimer;
-//	}
-//
-//	public void setMyTimer(Runnable myTimer) {
-//	this.myTimer = myTimer;
-//	}
-
 	public int getNmin() {
 	return nmin;
 	}
@@ -1824,16 +1894,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		this.fec_fin = fec_fin;
 	}
 	
-	
-	public String getGanadorString() {
+	public String getGanadorString() 
+	{
 		return ganadorString;
 	}
 	public void setGanadorString(String ganador) {
 		this.ganadorString = ganador;
-	}
-	@Override
-	public int compareTo(TableroLogicoMariano arg0) 
-	{
-		return this.getID_partida()-arg0.getID_partida();
 	}
 }

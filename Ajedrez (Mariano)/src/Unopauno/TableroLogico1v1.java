@@ -340,7 +340,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	 */
 	public void IniciarReloj()
 	{
-//		Runnable reloj;
 		reloj = new Timer1();
 		Thread b= new Thread (reloj);
 		b.start();

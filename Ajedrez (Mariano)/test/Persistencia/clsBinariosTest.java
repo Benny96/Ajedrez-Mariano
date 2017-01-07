@@ -5,25 +5,28 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import Comun.clsConstantes;
 import Comun.clsConstantes.enFicDatos;
-import LN.clsUsuario;
 import Unopauno.TableroLogico1v1;
 
+/**
+ * Clase de testeo que hará tests unitarios del funcionamiento de la extracción y guardado de la información en ficheros serializados.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsBinariosTest 
 {
 	TableroLogico1v1 tablero;
 	clsBinarios objDatos;
 	
+	/**
+	 * SetUp de los valores a utilizar.
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception 
 	{
@@ -31,13 +34,20 @@ public class clsBinariosTest
 		objDatos = new clsBinarios();
 	}
 	
+	/**
+	 * Test que guarda un tablero en un nuevo fichero.
+	 */
 	@Test
 	public void guardar_tablero()
 	{
 		objDatos.ComenzarSave(enFicDatos.FICHERO_PARTIDA_TEST);
 		objDatos.Save(tablero);
 		objDatos.TerminarSave();
+		assertNotNull(new File ("test/Data/partidatest.dat"));
 	}
+	/**
+	 * Test que realiza el cargado del tablero guardado en el fichero. Se ha copiado el método del Gestor aquí y se ha adaptado para guardar un nuevo fichero.
+	 */
 	@Test
 	public void cargar_tablero()
 	{
@@ -61,7 +71,9 @@ public class clsBinariosTest
 		assertEquals(tablero.getID_partida(), tabacargar.getID_partida());
 	}
 
-	//Se puede comentar para ver cómo se ha creado efectivamente el fichero.
+	/**
+	 * Test que permite comprobar el borrado del fichero.
+	 */
 	@Test
 	public void borrar_tablero()
 	{
@@ -72,12 +84,14 @@ public class clsBinariosTest
 		assertFalse(fic.exists());
 	}
 	
+	/**
+	 * Método que finaliza el testeo.
+	 * @throws Excepción
+	 */
 	@After
 	public void tearDown() throws Exception 
 	{
 		tablero = null;
 		objDatos = null;
 	}
-
-
 }

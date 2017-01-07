@@ -36,7 +36,7 @@ public class clsBinarios
 		switch(fichero)
 		{
 		case FICHERO_PARTIDA: return "src/Data/partida.dat";
-		case FICHERO_PARTIDA_TEST: return "partidatest.dat";
+		case FICHERO_PARTIDA_TEST: return "test/Data/partidatest.dat";
 		}
 		return null;	
 	}

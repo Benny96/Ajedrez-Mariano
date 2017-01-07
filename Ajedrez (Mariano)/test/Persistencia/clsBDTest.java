@@ -2,35 +2,48 @@ package Persistencia;
 
 import static org.junit.Assert.*;
 
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.sqlite.SQLiteException;
 
 import Comun.clsConstantes;
 import LN.clsUsuario;
 
+/**
+ * Clase de testeo que hará tests unitarios del funcionamiento de la Base de Datos.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class clsBDTest 
 {
 	clsUsuario betatester;
 	clsUsuario betatester2;
 	
+	/**
+	 * SetUp de los valores a utilizar.
+	 * @throws Exception
+	 */
 	@Before
 	public void setUp() throws Exception 
 	{
 		clsBD.initBD("test/Data/marianotest.bd");
 	}
 	
+	/**
+	 * Test que comprobará si realmente existe una base de datos (inicializada en el setUp).
+	 */
 	@Test
 	public void comprobar_existencia_bd()
 	{
 		assertNotNull("test/Data/marianotest.bd");
 	}
+	/**
+	 * Test que comprobará la generación de tablas.
+	 */
 	@Test
 	public void crear_tabla()
 	{
@@ -39,9 +52,15 @@ public class clsBDTest
 		assertNotNull(rs);
 	}
 
-	//NOTA: En el programa, se controla que no haya usuarios repetidos mediante una excepción y un HashSet. Por lo tanto, aunque aquí genere un problema,
-	//a partir de la segunda ejecución consecutiva del test, está previsto en la aplicación principal.	
-	@Test
+	/**
+	 * Testeo del funcionamiento correcto de una actualización de BD. Testeamos 3 cosas internamente: <br>
+	 * 1) Insertar datos. <br>
+	 * 2) Cargar datos. <br>
+	 * 3) Actualizar datos. <br>
+	 * NOTA: En el programa, se controla que no haya usuarios repetidos mediante una excepción y un HashSet. Por lo tanto, se considera esta excepción en el test, así
+	 * como la excepción relativa a SQLite ya que aquí no utilizamos el HashSet.
+	 */
+	@Test (expected = SQLiteException.class)
 	public void actualizar_datos()
 	{
 		clsBD.crearTablaBD(clsConstantes.USUARIO);
@@ -74,11 +93,14 @@ public class clsBDTest
 		assertEquals(betatester, betatester2);
 	}
 	
+	/**
+	 * Método que finaliza el testeo.
+	 * @throws Excepción
+	 */
 	@After
 	public void tearDown() throws Exception 
 	{
 		betatester = null;
 		betatester2 = null;
 	}
-
 }

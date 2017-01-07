@@ -254,11 +254,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			aux.mov(tablero);
 		}
 	
-		nmin=10;
+		nmin=1;
 		nseg = 00;
 		nstr = String.format("%d:%02d", nmin, nseg);
 	
-		bmin=10;
+		bmin=1;
 		bseg = 00;
 		bstr = String.format("%d:%02d", bmin, bseg);
 	

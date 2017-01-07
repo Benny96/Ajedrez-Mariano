@@ -627,7 +627,25 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			if(ncasilla.mov)
 			{
 				tablero[selec.getY()][selec.getX()].setOcupado(null);
-				tablero[selec.getY()][selec.getX()].paintImmediately(tablero[selec.getY()][selec.getX()].getBounds());
+				tablero[selec.getY()][selec.getX()].paint(tablero[selec.getY()][selec.getX()].getGraphics());
+				
+				if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
+				{
+					if(selec.getY()==6 && selec.getColor())
+					{
+						pblancas.remove(selec);
+						clsReina auxr=new clsReina(selec.getX(),selec.getY(),true);
+						pblancas.add(auxr);
+						selec=auxr;
+					}
+					if(selec.getY()==1 && selec.getColor()==false)
+					{
+						pnegras.remove(selec);
+						clsReina auxr=new clsReina(selec.getX(),selec.getY(),false);
+						pnegras.add(auxr);
+						selec=auxr;
+					}
+				}
 				
 				String foto="";
 				if(selec.getA()==piezas.Peon&&selec.getColor()==true)foto="/img/peon_blanco.png";
@@ -648,53 +666,33 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	
 				if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 				{
-					if(selec.getPrimera()==false)
-						selec.setPrimera(true);
 	
-					if(selec.getColor() && ncasilla.getx()==1 && ncasilla.gety()==0  )
+					if(selec.getColor() && ncasilla.getx()==1 && ncasilla.gety()==0 && selec.getPrimera()==false )
 					{
 						tablero[0][2].setOcupado(btorred);
 						tablero[0][0].setOcupado(null);
 					}
-					if(selec.getColor() && ncasilla.getx()==5 && ncasilla.gety()==0  )
+					if(selec.getColor() && ncasilla.getx()==5 && ncasilla.gety()==0 && selec.getPrimera()==false )
 					{
 						tablero[0][4].setOcupado(btorrei);
 						tablero[0][7].setOcupado(null);
 					}
 					
-					if(selec.getColor()==false && ncasilla.getx()==1 && ncasilla.gety()==7  )
+					if(selec.getColor()==false && ncasilla.getx()==1 && ncasilla.gety()==7 && selec.getPrimera()==false )
 					{
 						tablero[7][2].setOcupado(ntorred);
 						tablero[7][0].setOcupado(null);
 					}
-					if(selec.getColor()==false && ncasilla.getx()==5 && ncasilla.gety()==7 )
+					if(selec.getColor()==false && ncasilla.getx()==5 && ncasilla.gety()==7 && selec.getPrimera()==false )
 					{
 						tablero[7][4].setOcupado(ntorrei);
 						tablero[7][7].setOcupado(null);
 					}
 				}
-				if(selec.a.equals(Comun.clsConstantes.piezas.Torre))
-				{
-					if(selec.getPrimera()==false)
+				if(selec.getPrimera()==false)
 					selec.setPrimera(true);
-				}
-				if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
-				{
-					if(selec.getY()==6 && selec.getColor())
-					{
-						pblancas.remove(selec);
-						clsReina auxr=new clsReina(selec.getX(),selec.getY(),true);
-						pblancas.add(auxr);
-						selec=auxr;
-					}
-					if(selec.getY()==1 && selec.getColor()==false)
-					{
-						pnegras.remove(selec);
-						clsReina auxr=new clsReina(selec.getX(),selec.getY(),false);
-						pnegras.add(auxr);
-						selec=auxr;
-					}
-				}
+				
+				
 				ncasilla.setOcupado(selec);
 				ncasilla.setIcon(null);
 				movact.remove(ncasilla);
@@ -814,11 +812,11 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 				else
 					ncasilla.setBackground(Color.GRAY);
 				movact.remove(ncasilla);
-				if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
-				{
+				
 					if(selec.getPrimera()==false)
 						selec.setPrimera(true);
-				}
+				
+			
 				String letra=null;
 				if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
 				{

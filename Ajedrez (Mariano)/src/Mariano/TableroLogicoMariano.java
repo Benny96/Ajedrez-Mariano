@@ -1434,6 +1434,13 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 				bseg=59;
 				bmin--;
 			}
+			
+			if(bseg==0 && bmin==0)
+			{
+				ganador=unigga;
+				perdedor=ublanco;
+				porque();
+			}
 			bstr = String.format("%d:%02d", bmin, bseg);
 			visual.btiempo.setText(bstr);
 		}
@@ -1444,6 +1451,13 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			{
 				nseg=59;
 				nmin--;
+			}
+			
+			if(nseg==0 && nmin==0)
+			{	
+				ganador=ublanco;
+				perdedor=unigga;
+				porque();
 			}
 			nstr = String.format("%d:%02d", nmin, nseg);
 			visual.ntiempo.setText(nstr);

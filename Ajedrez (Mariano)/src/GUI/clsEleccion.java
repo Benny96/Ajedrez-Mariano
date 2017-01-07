@@ -30,12 +30,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-//import org.jfree.ui.RefineryUtilities;
+import org.jfree.ui.RefineryUtilities;
 
 import LN.clsUsuario;
 
 /**
- * Clase que generará una JFrame para acceder a las diversas opciones de la aplicación: <br>
+ * Clase que generarÃ¡ una JFrame para acceder a las diversas opciones de la aplicaciÃ³n: <br>
  * 1) Jugar partidas contra otro jugador. <br>
  * 2) Jugar partidas contra Mariano. <br>
  * 3) Visualizar datos de los jugadores: <br>
@@ -43,8 +43,8 @@ import LN.clsUsuario;
  * -> Histograma. <br>
  * -> Queso. <br>
  * 4) Visualizar el historial de las partidas jugadas. <br>
- * 5) Modificar la cuenta del usuario que está utilizando la aplicación.
- * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ * 5) Modificar la cuenta del usuario que estÃ¡ utilizando la aplicaciÃ³n.
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), BeÃ±at GaldÃ³s (Benny96)
  */
 public class clsEleccion extends JFrame
 {
@@ -112,8 +112,8 @@ public class clsEleccion extends JFrame
 	}
 
 	/**
-	 * Constructor del JFrame que genera la parte visual de la ventana, así como los escuchadores requeridos para redirigir a cada funcionalidad de la aplicación.
-	 * @param usu Usuario que está logeado en el sistema.
+	 * Constructor del JFrame que genera la parte visual de la ventana, asÃ­ como los escuchadores requeridos para redirigir a cada funcionalidad de la aplicaciÃ³n.
+	 * @param usu Usuario que estÃ¡ logeado en el sistema.
 	 */
 	public clsEleccion(clsUsuario usu) 
 	{
@@ -132,14 +132,14 @@ public class clsEleccion extends JFrame
 		setContentPane(desktop);
 		this.setBounds(350, 200, 720, 480);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Elección - Ajedrez: Mariano");
+		setTitle("ElecciÃ³n - Ajedrez: Mariano");
 		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		desktop.setBackground(Color.WHITE);
 		desktop.setLayout(null);
 		
 		usuario = usu;
 
-		lblBienvenida = new JLabel("¡Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
+		lblBienvenida = new JLabel("Â¡Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
 		lblBienvenida.setBounds(60, 35, 560, 34);
 		Font labelFont = lblBienvenida.getFont();
 		lblBienvenida.setFont(new Font(labelFont.getName(), Font.BOLD, 16));
@@ -181,7 +181,7 @@ public class clsEleccion extends JFrame
 //		lblDificultad.setBounds(70, 317, 153, 14);
 //		desktop.add(lblDificultad);
 		
-//		lblVisualizacion = new JLabel("Elija el modo de visualización:");
+//		lblVisualizacion = new JLabel("Elija el modo de visualizaciÃ³n:");
 //		lblVisualizacion.setBounds(425, 185, 188, 14);
 //		desktop.add(lblVisualizacion);
 		
@@ -258,7 +258,7 @@ public class clsEleccion extends JFrame
 				if(rdbtnGraficoHistograma.isSelected())
 				{
 					logger.log(Level.INFO, "Mostrando histograma");
-					GraficoHistograma demo = new GraficoHistograma("Nº de partidas realizadas por día");
+					GraficoHistograma demo = new GraficoHistograma("NÂº de partidas realizadas por dÃ­a");
 				    demo.pack();
 				    RefineryUtilities.centerFrameOnScreen(demo);
 				    demo.setVisible(true);
@@ -266,7 +266,7 @@ public class clsEleccion extends JFrame
 				if(rdbtnGraficoQueso.isSelected())
 				{
 					logger.log(Level.INFO, "Mostrando queso");
-					GraficoQueso demo = new GraficoQueso("Nº de victorias vs. Mariano");
+					GraficoQueso demo = new GraficoQueso("NÂº de victorias vs. Mariano");
 				    demo.pack();
 				    RefineryUtilities.centerFrameOnScreen(demo);
 				    demo.setVisible(true);
@@ -278,7 +278,7 @@ public class clsEleccion extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
-				logger.log(Level.INFO, "Habilitando la modificación de usuario");
+				logger.log(Level.INFO, "Habilitando la modificaciÃ³n de usuario");
 				clsModificarUsuario frame = new clsModificarUsuario(usuario, a);
 				frame.setVisible(true);
 			}	
@@ -317,7 +317,7 @@ public class clsEleccion extends JFrame
 	}
 	public void Deslogear()
 	{
-		logger.log(Level.INFO, "Volviendo al menú principal");
+		logger.log(Level.INFO, "Volviendo al menÃº principal");
 		JOptionPane.showMessageDialog(miVentana, "Esperemos que haya disfrutado de las partidas.");
 		miVentana.dispose();
 		clsPaginaPrincipal frame = new clsPaginaPrincipal();

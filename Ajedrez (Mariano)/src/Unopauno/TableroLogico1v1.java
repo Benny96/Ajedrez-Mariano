@@ -74,7 +74,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	clsPieza selec;
 
 	private clsUsuario unigga;
-
 	private clsUsuario ublanco;
 	
 	clsUsuario ganador;
@@ -247,6 +246,27 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			
 		IniciarReloj();
 	}	
+	/**
+	 * Constructor que valdrá para cargar todos los datos relevantes del fichero serializado al nuevo tablero, al cargar la partida.
+	 * @param Torre blanca derecha
+	 * @param Torre blanca izquierda
+	 * @param Número de minutos blanco
+	 * @param Número de segundos blanco
+	 * @param Opciones de movimiento
+	 * @param Número de minutos negro
+	 * @param Número de segundos negro
+	 * @param Torre negra derecha
+	 * @param Torre negra izquierda
+	 * @param Lista de piezas blancas
+	 * @param Lista de piezas negras
+	 * @param Rey blanco
+	 * @param Rey negro
+	 * @param Datos de la JTable de las jugadas
+	 * @param Número de fila de impresión de los datos de la JTable
+	 * @param Jugador blanco
+	 * @param Jugador negro
+	 * @param Turno
+	 */
 	public TableroLogico1v1 (clsTorre btorrede, clsTorre btorreiz, int bminu, int bsegu, LinkedList <clsCasilla> movacti, int nminu,
 			int nsegu, clsTorre ntorrede, clsTorre ntorreiz, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras,
 			clsRey reybl, clsRey reyne, Object [][] datos, int numfila, clsUsuario ublanquito, clsUsuario unegrito, boolean turnoactual)
@@ -309,6 +329,11 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		{
 			aux.setMovimientos(legales(aux,this));
 		}
+		ublanco= ublanquito;
+		unigga = unegrito;
+		turno = turnoactual;
+		num = numfila;
+		a = false;
 	}
 	
 	public void IniciarReloj()
@@ -1004,7 +1029,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		   ganadorString = ganador.getNickname();
 		   
 			/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
-
 		    * 1) factor = [3400 - ELO propio previo]^2 / 100000
 		    Llamamos al factor F.
 		    
@@ -1068,12 +1092,13 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 					}
 					else if (!jaquemate && !a)
 					{
+						//TODO: Si no funciona, poner Syso aquí.
+//						System.out.println("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLIS!");
 						Conversor();
 					}
 				}
 				catch (InterruptedException e) 
 				{
-					System.out.println("HOLA ME LLAMO RALPH Y ESTOY EN LA INTERRUPCIÓN");
 					return;
 				}
 			}

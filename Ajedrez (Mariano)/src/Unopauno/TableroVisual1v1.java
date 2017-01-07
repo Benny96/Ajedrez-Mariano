@@ -36,7 +36,10 @@ import LN.clsRey;
 import LN.clsTorre;
 import LN.clsUsuario;
 import Persistencia.clsBD;
-
+/**
+ * Clase que soportará la parte gráfica del tablero en una partida jugador vs jugador (1v1).
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ */
 public class TableroVisual1v1 extends JFrame implements ActionListener, Serializable
 {
 	private static final long serialVersionUID = 1L;
@@ -115,12 +118,20 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	private String ultimoUsuarioNegro = "";
 	boolean alterado;
 	
+	/**
+	 * Constructor sin parámetros para utilizarlo en el cargado de la partida.
+	 */
 	public TableroVisual1v1() 
 	{
 		tab= new TableroLogico1v1();
 		tab.setUblanco(new clsUsuario("","","","",""));
 		tab.setUnigga(new clsUsuario("","","","",""));
 	}
+	/**
+	 * Constructor que recibe 2 clsUsuarios que serán los jugadores de la nueva partida.
+	 * @param Jugador blanco
+	 * @param Jugador negro
+	 */
 	public TableroVisual1v1 (clsUsuario a, clsUsuario b)
 	{
 		tab= new TableroLogico1v1(this);
@@ -129,7 +140,10 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		clsBD.insertarDatoTablaBD(tab);
 		CreateAndShowGUI();
 	}
-
+	/**
+	 * Constructor utilizado para el cargado, que toma los datos del tablero lógico guardado.
+	 * @param Tablero lógico cargado
+	 */
 	public TableroVisual1v1(TableroLogico1v1 tablog)
 	{
 		tab = tablog;
@@ -141,7 +155,9 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		alterado = false;
 		CreateAndShowGUI();
 	}
-	
+	/**
+	 * Método que crea la parte gráfica del tablero.
+	 */
 	public void CreateAndShowGUI ()
 	{
 		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
@@ -345,7 +361,15 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 			}
 		});
 	}
-	
+	/**
+	 * Método que inicia el movimiento visual de las piezas.
+	 * @param Coordenada X de origen
+	 * @param Coordenada Y de origen
+	 * @param Coordenada X de fin
+	 * @param Coordenada Y de fin
+	 * @param Ruta a tomar
+	 * @param Nueva casilla a la que debe ir la pieza
+	 */
 	public void EmpezarMovimiento(int x_i, int y_i, int x_f, int y_f, String ruta, clsCasilla ncasilla2)
 	{
 		x_ini=x_i;
@@ -378,7 +402,9 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 			a.start();
 		}	
 	}
-
+	/**
+	 * Evento generado al hacer click en cualquiera de las casillas del tablero.
+	 */
 	public void actionPerformed(ActionEvent arg) 
 	{
 		acasilla=ncasilla;
@@ -386,7 +412,9 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		tab.action(ncasilla);
 		this.repaint();
 	}
-	
+	/**
+	 * Cargado del tamaño de la ventana, a modo de propiedades.
+	 */
 	private void cargaProperties() 
 	{
 		misProperties = new Properties();
@@ -417,7 +445,9 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Guardado del tamaño de la ventana, a modo de propiedades.
+	 */
 	private void salvaProperties() 
 	{
 		PrintStream ps;
@@ -438,11 +468,18 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * Getter del tablero lógico.
+	 * @return Tablero lógico
+	 */
 	public TableroLogico1v1 getTab ()
 	{
 		return tab;
 	}
-	
+	/**
+	 * Clase interna que extiende de JPanel para generar una JTable al lado del tablero, con las jugadas hechas.
+	 * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+	 */
 	class SimpleTableDemo extends JPanel
 	{ 
 		private static final long serialVersionUID = 1L;
@@ -468,7 +505,10 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	        add(scrollPane);
 	    }    
 	}	
-	
+	/**
+	 * Clase interna que implementa la interfaz Runnable que se usará para representar los movimientos de las piezas gráficamente.
+	 * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+	 */
 	class MiHilo implements Runnable
 	{
 		@Override
@@ -585,7 +625,9 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 			}
 		}	
 	}
-	
+	/**
+	 * Método que termina el hilo generado para el movimiento gráfico de las piezas.
+	 */
 	public void acaba()
 	{
 		sigo=false;

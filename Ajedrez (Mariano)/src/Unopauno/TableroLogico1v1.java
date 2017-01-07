@@ -20,7 +20,6 @@ import LN.clsAlfil;
 import LN.clsCaballo;
 import LN.clsCasilla;
 import LN.clsGestor;
-import LN.clsJugada;
 import LN.clsPeon;
 import LN.clsPieza;
 import LN.clsReina;
@@ -83,6 +82,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 
 	private clsReina reinab;
 	
+	transient Runnable reloj;
 	static boolean partidainiciada;
 	static boolean a;
 
@@ -335,15 +335,21 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		num = numfila;
 		a = false;
 	}
-	
+	/**
+	 * Método que inicia el cronómetro de la partida.
+	 */
 	public void IniciarReloj()
 	{
-		Runnable reloj;
+//		Runnable reloj;
 		reloj = new Timer1();
 		Thread b= new Thread (reloj);
 		b.start();
 	}
-	
+	/**
+	 * Método utilizado para clonar el tablero lógico a medida que se va jugando.
+	 * @param Tablero lógico a clonar
+	 * @return Tablero lógico clonado
+	 */
 	public TableroLogico1v1 clonar(TableroLogico1v1 tab)
 	{
 		TableroLogico1v1 mewto = new TableroLogico1v1();
@@ -384,7 +390,10 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		mewto.setTurno(tab.getTurno());
 		return mewto;
 	}
-	
+	/**
+	 * Método para limpiar el tablero, para que después se actúe sobre él.
+	 * @param Lista de clsCasillas a borrar
+	 */
 	public void clear(LinkedList <clsCasilla> borrar)
 	{
 		for(clsCasilla aux: borrar)
@@ -411,43 +420,47 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		borrar.clear();
 	}
 	
-	public void revisar(clsJugada jugada,TableroLogico1v1 tab)
-	{
-		LinkedList<clsPieza> todas = new LinkedList<clsPieza>();
-		todas.addAll(tab.pblancas);
-		todas.addAll(tab.pnegras);
-	
-		if(comprobarjaque(tab.reyb,tab))
-		{
-			for(clsPieza pieza: tab.pblancas)
-			{
-				pieza.setMovimientos(legales(pieza,tab));
-			}
-		}
-		else if(comprobarjaque(tab.reyn,tab))
-		{
-			for(clsPieza pieza: tab.pnegras)
-			{
-				pieza.setMovimientos(legales(pieza,tab));
-			}
-		}
-		else
-		{
-			System.out.println("pasoooooooo");
-			for(clsPieza pieza: todas)
-			{
-				clsPieza hola=pieza.clonarTab1v1(pieza, tab);
-				for(clsCasilla casilla: hola.getMovimientos())
-				{
-					if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
-					{
-						pieza.setMovimientos(legales(pieza,tab));
-					}			
-				}
-			}
-		}
-	}
-	
+//	public void revisar(clsJugada jugada,TableroLogico1v1 tab)
+//	{
+//		LinkedList<clsPieza> todas = new LinkedList<clsPieza>();
+//		todas.addAll(tab.pblancas);
+//		todas.addAll(tab.pnegras);
+//	
+//		if(comprobarjaque(tab.reyb,tab))
+//		{
+//			for(clsPieza pieza: tab.pblancas)
+//			{
+//				pieza.setMovimientos(legales(pieza,tab));
+//			}
+//		}
+//		else if(comprobarjaque(tab.reyn,tab))
+//		{
+//			for(clsPieza pieza: tab.pnegras)
+//			{
+//				pieza.setMovimientos(legales(pieza,tab));
+//			}
+//		}
+//		else
+//		{
+//			System.out.println("pasoooooooo");
+//			for(clsPieza pieza: todas)
+//			{
+//				clsPieza hola=pieza.clonarTab1v1(pieza, tab);
+//				for(clsCasilla casilla: hola.getMovimientos())
+//				{
+//					if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
+//					{
+//						pieza.setMovimientos(legales(pieza,tab));
+//					}			
+//				}
+//			}
+//		}
+//	}
+	/**
+	 * Método para comprobar un jaquemate hecho por piezas negras.
+	 * @param Tablero lógico
+	 * @return Flag que indica si hay jaque o no
+	 */
 	public boolean jaquematen(TableroLogico1v1 tab)
 	{
 		for(clsPieza paux: tab.pnegras)
@@ -459,7 +472,11 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		}
 		return true;
 	}
-	
+	/**
+	 * Método para comprobar un jaquemate hecho por piezas blancas.
+	 * @param Tablero lógico
+	 * @return Flag que indica si hay jaque o no
+	 */
 	public boolean jaquemateb(TableroLogico1v1 tab)
 	{
 		for(clsPieza paux: tab.pblancas)
@@ -471,7 +488,12 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		}
 		return true;
 	}
-	
+	/**
+	 * Método para comprobar si un rey se encuentra en posición de jaque o no.
+	 * @param Rey afectado
+	 * @param Tablero lógico
+	 * @return Flag indicando que está en jaque
+	 */
 	public boolean comprobarjaque(clsRey rey,TableroLogico1v1 tab)
 	{
 		LinkedList<clsPieza> colorcete;
@@ -570,6 +592,10 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 ////	visual.repaint();
 ////	System.out.println("SoyDioooooooooooooooooooooooos");
 ////	}
+	/**
+	 * Método para añadir los movimientos disponibles a una lista de movimientos.
+	 * @param Lista de clsCasillas
+	 */
 	public void dibujarmov(LinkedList<clsCasilla> lista)
 	{
 		for(clsCasilla aux: lista)
@@ -588,6 +614,10 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		}
 	}
 	
+	/**
+	 * Acciones que ocurren al pulsar en una casilla.
+	 * @param clsCasilla en la que ocurre la pulsación
+	 */
 	public void action(clsCasilla casilla) 
 	{
 		acasilla=ncasilla;
@@ -858,6 +888,12 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		}
 	}
 
+	/**
+	 * Método para obtener los movimientos legales disponibles de una pieza.
+	 * @param Pieza afectada
+	 * @param Tablero lógico
+	 * @return Lista con las clsCasillas disponibles
+	 */
 	public LinkedList<clsCasilla> legales(clsPieza pieza,TableroLogico1v1 tab) 
 	{
 		LinkedList<clsCasilla> legales= new LinkedList<clsCasilla>();
@@ -971,14 +1007,15 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		}
 	return legales;
 	}
-
+	/**
+	 * Método que permite reflejar el paso del tiempo del hilo en los cronómetros.
+	 */
 	private void Conversor()
 	{
 		if(!a)
 		{
 			if(turno)
 			{
-				System.out.println("Hola, estoy en el BLANCO");
 				bseg--;
 				if (bseg==-1)
 				{
@@ -996,7 +1033,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			}
 			else
 			{
-				System.out.println("Hola, estoy en el NEGRO");
 				nseg--;
 				if (nseg==-1)
 				{
@@ -1015,7 +1051,11 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 			visual.repaint();
 		}	
 	}
-	
+	/**
+	 * Método que se llama al acabar una partida. <br>
+	 * Referencia tomada para entender el cálculo de la puntuación Elo: <br>
+	 * @see <a href="http://www.todoajedrez.com.ar/ratings.php">http://www.todoajedrez.com.ar/ratings.php </a>
+	 */
 	public void porque()
 	{
 		try 
@@ -1028,23 +1068,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		   this.setFec_fin(new Date());
 		   ganadorString = ganador.getNickname();
 		   
-			/* Fórmula general para el cálculo del Elo: (Fuente: http://www.todoajedrez.com.ar/ratings.php)
-		    * 1) factor = [3400 - ELO propio previo]^2 / 100000
-		    Llamamos al factor F.
-		    
-			* 2) diferencia = ELO propio previo - ELO previo del Oponente.
-			De ahora en adelante llamamos a la diferencia D.
-			|D| = Valor absoluto de D.
-			
-			* 3) resultado esperado acorde a la tabla o fórmula
-			Fórmula del resultado esperado (R[E]): 0,5 + 1,4217 x 10^-3  x D - 2,4336 x 10^-7  x D x |D| -
-			 									   2,5140 x 10^-9  x D x |D|^2 + 1,9910 x 10^-12 x D x |D|^3
-			 									   
-			* 4) cambio =(resultado - result. esperado) x factor
-			Resultado = (1 - Victoria, 0.5 - Tablas, 0 - Derrota)
-			
-		*/		   
-			//Calculando Elo del ganador.
 		   double factor = (3400 - ganador.getElo())^2/100000;
 		   double dif = ganador.getElo() - perdedor.getElo();
 		   double difabs = Math.abs(dif);
@@ -1054,7 +1077,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		   ganador.setElo(ganador.getElo()+(int)cambio);
 		   clsBD.modificarDatoTablaBD(ganador);
 				
-			//Calculando Elo del luser.
 		   factor = (3400 - perdedor.getElo())^2/100000;
 		   dif = perdedor.getElo() - ganador.getElo();
 		   difabs = Math.abs(dif);
@@ -1074,7 +1096,10 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		catch (Exception e) 
 		{}
 	}
-	
+	/**
+	 * Clase interna que implementa la interfaz Runnable que valdrá para generar el temporizador.
+	 * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+	 */
 	class Timer1 implements Runnable
 	{
 		@Override
@@ -1093,7 +1118,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 					else if (!jaquemate && !a)
 					{
 						//TODO: Si no funciona, poner Syso aquí.
-//						System.out.println("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLIS!");
+						System.out.println("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLIS!");
 						Conversor();
 					}
 				}
@@ -1105,6 +1130,9 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		visual.repaint();
 		}	
 	}
+	/**
+	 * Método compareTo() reimplementado para conseguir un orden natural a la hora de mostrar los datos. Atributo: ID_partida.
+	 */
 	@Override
 	public int compareTo(TableroLogico1v1 arg0) 
 	{

@@ -151,7 +151,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		tabla = new SimpleTableDemo();
 		tabla.createTable(tab.getDatosTabla());
 		//Hilo arreglado. Soy gilipollas integral.
-		tab.IniciarReloj();
+		tablog.IniciarReloj();
 		alterado = false;
 		CreateAndShowGUI();
 	}

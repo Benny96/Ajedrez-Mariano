@@ -82,7 +82,8 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 
 	private clsReina reinab;
 	
-	transient Runnable reloj;
+	static transient Runnable reloj;
+	static int controlreloj;
 	static boolean partidainiciada;
 	static boolean a;
 
@@ -340,9 +341,18 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	 */
 	public void IniciarReloj()
 	{
-		reloj = new Timer1();
-		Thread b= new Thread (reloj);
-		b.start();
+		if (controlreloj == 0)
+		{
+			reloj = new Timer1();
+			Thread b= new Thread (reloj);
+			b.start();
+			controlreloj++;
+		}
+		else
+		{
+			Thread c= new Thread (reloj);
+			c.start();
+		}
 	}
 	/**
 	 * Método utilizado para clonar el tablero lógico a medida que se va jugando.

@@ -82,7 +82,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 
 	private clsReina reinab;
 	
-	static transient Runnable reloj;
+	transient Runnable reloj;
 	static int controlreloj;
 	static boolean partidainiciada;
 	static boolean a;
@@ -341,18 +341,9 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	 */
 	public void IniciarReloj()
 	{
-		if (controlreloj == 0)
-		{
-			reloj = new Timer1();
-			Thread b= new Thread (reloj);
-			b.start();
-			controlreloj++;
-		}
-		else
-		{
-			Thread c= new Thread (reloj);
-			c.start();
-		}
+		reloj = new Timer1();
+		Thread b= new Thread (reloj);
+		b.start();
 	}
 	/**
 	 * Método utilizado para clonar el tablero lógico a medida que se va jugando.
@@ -924,6 +915,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 				}
 				bstr = String.format("%d:%02d", bmin, bseg);
 				visual.btiempo.setText(bstr);
+				
 			}
 			else
 			{
@@ -999,11 +991,15 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		@Override
 		public void run() 
 		{
+//			System.out.println("ssss");
+			jaquemate = false;
+			a = false;
 			while(jaquemate==false)
 			{
 				try 
 				{
 					Thread.sleep(1000);
+//					System.out.println("ssss2");
 					if (jaquemate)
 					{
 						a = true;
@@ -1011,8 +1007,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 					}
 					else if (!jaquemate && !a)
 					{
-						//TODO: Si no funciona, poner Syso aquí.
-						System.out.println("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOLIS!");
+//						System.out.println("ssss3");
 						Conversor();
 					}
 				}

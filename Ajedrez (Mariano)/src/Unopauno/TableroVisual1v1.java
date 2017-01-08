@@ -150,10 +150,8 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 		tab.visual = this;
 		tabla = new SimpleTableDemo();
 		tabla.createTable(tab.getDatosTabla());
-		//Hilo arreglado. Soy gilipollas integral.
-		tablog.IniciarReloj();
-		alterado = false;
 		CreateAndShowGUI();
+		tab.IniciarReloj();
 	}
 	/**
 	 * Método que crea la parte gráfica del tablero.

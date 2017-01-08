@@ -44,7 +44,7 @@ import LN.clsUsuario;
  * -> Queso. <br>
  * 4) Visualizar el historial de las partidas jugadas. <br>
  * 5) Modificar la cuenta del usuario que esta utilizando la aplicacion.
- * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdos (Benny96)
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Benat Galdos (Benny96)
  */
 public class clsEleccion extends JFrame
 {
@@ -130,14 +130,14 @@ public class clsEleccion extends JFrame
 		setContentPane(desktop);
 		this.setBounds(350, 200, 720, 480);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("Elección - Ajedrez: Mariano");
+		setTitle("Eleccion - Ajedrez: Mariano");
 		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
 		desktop.setBackground(Color.WHITE);
 		desktop.setLayout(null);
 		
 		usuario = usu;
 
-		lblBienvenida = new JLabel("¡Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
+		lblBienvenida = new JLabel("Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
 		lblBienvenida.setBounds(60, 35, 560, 34);
 		Font labelFont = lblBienvenida.getFont();
 		lblBienvenida.setFont(new Font(labelFont.getName(), Font.BOLD, 16));
@@ -171,7 +171,7 @@ public class clsEleccion extends JFrame
 		desktop.add(btnModificar);
 		
 		btnJugadorvsMariano = new JButton("Jugador vs Mariano");
-		btnJugadorvsMariano.setBounds(60, 236, 257, 90);
+		btnJugadorvsMariano.setBounds(60, 273, 257, 90);
 		btnJugadorvsMariano.setFont(btnJugadorvsJugador.getFont());
 		desktop.add(btnJugadorvsMariano);
 		
@@ -196,7 +196,7 @@ public class clsEleccion extends JFrame
 		btngrpRanking.add(rdbtnGraficoQueso);
 		
 		btnDeslogear = new JButton("Deslogear");
-		btnDeslogear.setBounds(316, 387, 109, 23);
+		btnDeslogear.setBounds(316, 394, 109, 23);
 		desktop.add(btnDeslogear);
 
 		miVentana = this;

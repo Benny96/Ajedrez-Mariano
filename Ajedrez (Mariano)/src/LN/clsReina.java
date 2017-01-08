@@ -19,8 +19,8 @@ public class clsReina extends clsPieza implements Serializable
 	
 	/**
 	 * Constructor de clsReina con el que se construirán inicialmente las piezas.
-	 * @param x Coordenada X del tablero.
-	 * @param y Coordenada Y del tablero.
+	 * @param Coordenada X del tablero.
+	 * @param Coordenada Y del tablero.
 	 * @param color true = blanco; false = negro.
 	 */
 	public clsReina(int x, int y, Boolean color) 
@@ -55,10 +55,10 @@ public class clsReina extends clsPieza implements Serializable
 	}
 	/**
 	 * Constructor de clsReina usado para clonar una reina determinada.
-	 * @param x Coordenada X del tablero.
-	 * @param y Coordenada Y del tablero.
+	 * @param Coordenada X del tablero.
+	 * @param Coordenada Y del tablero.
 	 * @param color true = blanco; false = negro.
-	 * @param na Flag distintivo del constructor.
+	 * @param Flag distintivo del constructor.
 	 */
 	public clsReina(int x, int y, Boolean color,Boolean na) 
 	{
@@ -75,8 +75,8 @@ public class clsReina extends clsPieza implements Serializable
 	
 	/**
 	 * Método para obtener la influencia que ejerce una reina sobre un tablero dado.
-	 * @param tablero Tablero con las casillas ocupadas y vacías.
-	 * @return LinkedList <clsCasilla> que indica a qué posiciones afecta la pieza.
+	 * @param Tablero con las casillas ocupadas y vacías.
+	 * @return LinkedList de casillas que indica a qué posiciones afecta la pieza.
 	 */
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
 	{
@@ -95,8 +95,8 @@ public class clsReina extends clsPieza implements Serializable
 	
 	/**
 	 * Método para obtener los movimientos que puede realizar una reina en un tablero dado.
-	 * @param tablero Tablero con las casillas ocupadas y vacías.
-	 * @return LinkedList <clsCasilla> que indica a qué posiciones puede moverse la pieza.
+	 * @param Tablero con las casillas ocupadas y vacías.
+	 * @return LinkedList de casillas que indica a qué posiciones puede moverse la pieza.
 	 */
 	public void mov(clsCasilla[][] tablero)
 	{

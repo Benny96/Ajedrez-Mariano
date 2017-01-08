@@ -162,7 +162,7 @@ public class clsBinarios
 	
 	/**
 	 * Método que lee datos en tipo Serializable.
-	 * @return LinkedList<Serializable>: Devuelve una LinkedList con los datos leídos, en el tipo
+	 * @return LinkedList de serializables: Devuelve una LinkedList con los datos leídos, en el tipo
 	 * Serializable.
 	 */
 	public ArrayList<Serializable> Read()

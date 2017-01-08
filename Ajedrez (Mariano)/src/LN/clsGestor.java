@@ -17,7 +17,7 @@ import Persistencia.clsBinarios;
 
 /**
  * Clase creada para generar un objeto nuevo (clsGestor), que valdrá para establecer un vínculo entre la aplicación y sus dos métodos de persistencia: <br>
- * 1) Base de Datos (para usuarios e historiales de partidas).
+ * 1) Base de Datos (para usuarios e historiales de partidas). <br>
  * 2) Ficheros serializados (para guardar el estado de la partida).
  * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
  */
@@ -62,12 +62,12 @@ public class clsGestor implements Serializable
 	/**
 	 * Envía una serie de atributos para crear un nuevo usuario. En caso de que hubiera alguna repetición de nickname, saltará una excepción que impida
 	 * que se lleve a cabo dicho registro.
-	 * @param n Nombre del usuario
-	 * @param ap1 Primer apellido del usuario
-	 * @param ap2 Segundo apellido del usuario
-	 * @param nick Nickname del usuario
-	 * @param cont Contraseña del usuario
-	 * @throws clsUsuarioRepetido Excepción indicando que ha sucedido una repetición de nickname
+	 * @param Nombre del usuario
+	 * @param Primer apellido del usuario
+	 * @param Segundo apellido del usuario
+	 * @param Nickname del usuario
+	 * @param Contraseña del usuario
+	 * @throws clsUsuarioRepetido: Excepción indicando que ha sucedido una repetición de nickname
 	 */
 	public void CrearUsuario(String n, String ap1, String ap2, String nick, String cont) throws clsUsuarioRepetido
 	{
@@ -89,13 +89,13 @@ public class clsGestor implements Serializable
 	
 	/**
 	 * Método para modificar un usuario existente en la Base de Datos.
-	 * @param n Nombre del usuario
-	 * @param ap1 Primer apellido del usuario
-	 * @param ap2 Segundo apellido del usuario
-	 * @param nick Nickname del usuario
-	 * @param cont Contraseña del usuario
-	 * @param elo Puntuación ELO del usuario
-	 * @param fechaalta Fecha de alta del usuario
+	 * @param Nombre del usuario
+	 * @param Primer apellido del usuario
+	 * @param Segundo apellido del usuario
+	 * @param Nickname del usuario
+	 * @param Contraseña del usuario
+	 * @param Puntuación ELO del usuario
+	 * @param Fecha de alta del usuario
 	 * @return El usuario modificado para actualizar la ventana clsEleccion
 	 */
 	public clsUsuario ModificarUsuario (String n, String ap1, String ap2, String nick, String cont, int elo, Date fechaalta)
@@ -107,7 +107,7 @@ public class clsGestor implements Serializable
 	
 	/**
 	 * Método para guardar el estado de la partida (1v1) en un fichero serializado.
-	 * @param tabaguardar TableroLogico1v1 a guardar
+	 * @param TableroLogico1v1 a guardar
 	 */
 	public void GuardarPartida(TableroLogico1v1 tabaguardar)
 	{	

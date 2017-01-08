@@ -119,8 +119,7 @@ public class ProgressBar extends JFrame
 		e5=rnd_v.nextInt(400);
 
 		progressBar.setBackground(Color.black);
-		progressBar.setForeground(Color.blue);
-		
+		progressBar.setForeground(Color.blue);	
 		
 		miHilo = new MiRunnable();
 		Thread nuevoHilo = new Thread(miHilo);
@@ -137,8 +136,7 @@ public class ProgressBar extends JFrame
 			logger.log( Level.INFO, "Cargando ventana clsEleccion");
 			clsEleccion ventanaEleccion = new clsEleccion(usu);
 			ventanaEleccion.setVisible(true);
-		}
-		
+		}		
 		if(id==1)
 		{
 			logger.log( Level.INFO, "Generando tablero de juego contra Mariano");
@@ -167,8 +165,7 @@ public class ProgressBar extends JFrame
 					{
 						progressBar.setStringPainted(true);
 						progressBar.setString(i + "%");
-						progressBar.setValue(i);
-						
+						progressBar.setValue(i);				
 						if(i==v1)
 						{
 							try 
@@ -179,8 +176,7 @@ public class ProgressBar extends JFrame
 							{
 									e1.printStackTrace();
 							}
-						}
-							
+						}							
 						if(i==v2)
 						{
 							try 
@@ -191,8 +187,7 @@ public class ProgressBar extends JFrame
 							{
 								e1.printStackTrace();
 							}
-						}
-							
+						}						
 						if(i==v3)
 						{
 							try 
@@ -203,8 +198,7 @@ public class ProgressBar extends JFrame
 							{
 								e1.printStackTrace();
 							}
-						}
-							
+						}							
 						if(i==v4)
 						{
 							try 
@@ -215,8 +209,7 @@ public class ProgressBar extends JFrame
 							{
 								e1.printStackTrace();
 							}
-						}
-							
+						}							
 						if(i==v5)
 						{
 							try 
@@ -227,8 +220,7 @@ public class ProgressBar extends JFrame
 							{
 								e1.printStackTrace();
 							}
-						}
-						
+						}						
 						try 
 						{
 							Thread.sleep(15);

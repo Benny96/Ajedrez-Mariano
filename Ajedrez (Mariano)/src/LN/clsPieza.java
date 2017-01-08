@@ -29,8 +29,8 @@ public class clsPieza implements Serializable
 	
 	/**
 	 * Constructor de clsPieza con el que se construirán inicialmente las piezas.
-	 * @param x Coordenada X del tablero.
-	 * @param y Coordenada Y del tablero.
+	 * @param Coordenada X del tablero.
+	 * @param Coordenada Y del tablero.
 	 * @param color true = blanco; false = negro.
 	 */
 	public clsPieza(int x, int y, Boolean color)
@@ -51,7 +51,7 @@ public class clsPieza implements Serializable
 	
 	/**
 	 * Método que devuelve una posición concreta de un tablero, según las coordenadas de la pieza.
-	 * @param tablero Tablero de juego
+	 * @param Tablero de juego
 	 * @return Posición en la que se encuentra la pieza
 	 */
 	public clsCasilla sitio(clsCasilla[][] tablero)
@@ -61,7 +61,7 @@ public class clsPieza implements Serializable
 	
 	/**
 	 * Método mov sin codificar que heredarán todo el resto de piezas y que implementará cada una de ellas.
-	 * @param tablero Tablero actual.
+	 * @param Tablero actual.
 	 */
 	public void mov(clsCasilla[][] tablero)
 	{}
@@ -102,8 +102,8 @@ public class clsPieza implements Serializable
 	}
 	/**
 	 * Método para clonar una pieza utilizando un TableroLogico1v1.
-	 * @param pieza Pieza a clonar en el tablero.
-	 * @param tab TableroLogico1v1 a utilizar.
+	 * @param Pieza a clonar en el tablero.
+	 * @param TableroLogico1v1 a utilizar.
 	 * @return Pieza clonada.
 	 */
 	public clsPieza clonarTab1v1(clsPieza pieza,TableroLogico1v1 tab)
@@ -168,8 +168,8 @@ public class clsPieza implements Serializable
 	
 	/**
 	 * Método para clonar una pieza utilizando un TableroLogicoMariano.
-	 * @param pieza Pieza a clonar en el tablero.
-	 * @param tab TableroLogicoMariano a utilizar.
+	 * @param Pieza a clonar en el tablero.
+	 * @param TableroLogicoMariano a utilizar.
 	 * @return Pieza clonada.
 	 */
 	public clsPieza clonar(clsPieza pieza,TableroLogicoMariano tab)

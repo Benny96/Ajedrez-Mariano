@@ -28,7 +28,7 @@ import LN.clsUsuario;
 import Persistencia.clsBD;
 
 /**
- * Clase que soportara la parte loica del tablero en una partida jugador vs Mariano (1vMariano).
+ * Clase que soportara la parte logica del tablero en una partida jugador vs Mariano (1vMariano).
  * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Benat Galdos (Benny96)
  */
 
@@ -391,15 +391,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			colorcete=tab.getPnegras();
 		else
 			colorcete=tab.getPblancas();
-	
-		//rey.mov(tablero);//revisar a futuro
-	
 		for(clsPieza paux: colorcete )
 		{
-		//	if(paux instanceof clsReina)
-		//	{
-		//	System.out.println("ASDFGHJKLOIUYTREWAZXCVBNM;");
-		//	}
 			paux.mov(tablero);
 			for(clsCasilla caux: paux.getMovimientos())
 			{
@@ -413,7 +406,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	
 	/**
-	 * Método que escribe las jugadas hechas por Mariano en la JTable.
+	 * Metodo que escribe las jugadas hechas por Mariano en la JTable.
 	 * @param Jugada definitiva
 	 */
 	public void despuesintel(clsJugada definitiva)
@@ -433,31 +426,16 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			this.pblancas.remove(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado());
 		}
 		tablero[y][x].setOcupado(null);
-		
-		System.out.println("EREERRRRRRRRRRRRRRRRRRRRRRRRRRRRRR "+ definitiva.pieza.getY());
 		if(definitiva.pieza.a.equals(Comun.clsConstantes.piezas.Peon))
 		{
-			System.out.println("EREERRRRRRRRRRRRRRRRRRRRRRRRRRRRRR "+ definitiva.pieza.getY());
 			if(definitiva.pieza.getY()==1 && definitiva.pieza.getColor()==false)
 			{
-				System.out.println("EREERRRRRRRRRRRRRRRRRRRRRRRRRRRRRR "+ definitiva.pieza.getY());
 				pnegras.remove(definitiva.pieza);
 				clsReina auxr=new clsReina(definitiva.pieza.getX(),definitiva.pieza.getY(),false);
 				pnegras.add(auxr);
 				definitiva.pieza=auxr;
 			}
 		}
-//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setPieza(definitiva.pieza);
-//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].mov=false;
-//		System.out.println("sssssssssssssssss " +definitiva.pieza.getClass());
-//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setIcon(definitiva.pieza.getIcon());
-//		definitiva.pieza.setY(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].gety());
-//		definitiva.pieza.setX(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getx());
-	//	
-//		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].paintComponents(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getGraphics());
-		
-		//System.out.println(this.tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado().getClass());
-		//this.tablero[0][1].setOcupado(null);
 		tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setOcupado(definitiva.pieza);
 		
 		String letra = null;
@@ -495,30 +473,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		}
 		if(definitiva.pieza.primera==false)
 			definitiva.pieza.primera=true;
-		//definitiva.cfinal.setOcupado(definitiva.pieza);
-		if(definitiva.pieza.getIcon()!=null)
-		{
-			System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
-		}
-		System.out.println(definitiva.cfinal.getOcupado().getClass());
-		System.out.println("definitivo "+definitiva.valor);
-		System.out.println(y);
-		System.out.println(x);
-		
-		
-		//pintar();
-//		jaquemate=jaquemateb(this);
-//		if(jaquemate)
-//		{
-//		visual.repaint();
-//		System.out.println("SoyDioooooooooooooooooooooooos");
-//		}
 	}
 
-
-	//TODO: Dafuq?
-
-	
 	public clsJugada Inteligencia()
 	{
 		clsJugada definitiva= new clsJugada();
@@ -526,7 +482,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		tablero=clonar(this);
 		for(clsPieza p: this.pnegras)
 		{	
-			System.out.println("11wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
 			System.out.println(p.getClass());
 			System.out.println(p);
 			int iy=p.getY();
@@ -535,10 +490,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 			for(clsCasilla caux: candidatos)
 			{
-			//	System.out.println("candidatos "+ caux);
 				clsJugada aux= new clsJugada(p,caux);
 				aux.valor=Valorar(aux,tablero,1,1);
-			//	System.out.println(aux.valor);
 				if(aux.valor>definitiva.valor)
 				{
 				definitiva=aux;
@@ -550,22 +503,16 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 
 
 	/**
-	 * Método que permite valorar las jugadas hechas
+	 * Metodo que permite valorar las jugadas hechas
 	 * @param Jugada realizada
-	 * @param Tablero lógico
-	 * @param Número por parte de Mariano
-	 * @param Número del jugador blanco
-	 * @return Int con la valoración
+	 * @param Tablero logico
+	 * @param Numero por parte de Mariano
+	 * @param Numero del jugador blanco
+	 * @return Int con la valoracion
 	 */
 	public int Valorar(clsJugada jugada,TableroLogicoMariano tablero, int numero,int numeroblanquito)
 	{
 		boolean comiste=false; 
-	//	tablerolerologico1 tablero=new tablerolerologico1();
-	//	tablero=clonar(tablerolero);
-	//	clsCasilla [][] tableroaux=tablero.gettablerolero();
-		
-	//	tablerolerologico1 tablero=new tablerolerologico1();
-	//	tablero=clonar(tablerolero);
 		clsCasilla [][] tableroaux=tablero.getTablero();
 	
 		int valor=0;
@@ -580,7 +527,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		int cx= cfinal.getx();
 		int cy=cfinal.gety();
 
-		clsPieza okupada=null;//ya es hora de ponerlo en un metodo
+		clsPieza okupada=null;
 		if(cfinal.getOcupado()!=null)
 		{
 			okupada=cfinal.getOcupado();
@@ -593,8 +540,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 				tablero.getPnegras().remove(okupada);
 				comiste=true;
 			}
-		}
-		
+		}	
 		if(tableroaux[cy][cx].getOcupado()!=null && tableroaux[cy][cx].getOcupado().getColor().equals(pieza.getColor())==false)
 		{
 			valor= tableroaux[cy][cx].getOcupado().getValor();
@@ -604,7 +550,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		{
 			valor=(valor+10);
 		}
-	
 		if(pieza.getColor())
 			tablero.getPblancas().remove(pieza);
 		else
@@ -614,19 +559,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 		tableroaux[y][x].setOcupado(null);
 	
-	//	if(comiste && pieza.getColor()&& numeroblanquito==1)
-	//	{
-	//		tablerologico1 tablero3=new tablerologico1();
-	//		tablero3=clonar(tablero);
-	//		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-	//		//valor=valor -Valorar(Inteligencia2(tablero3),tablero3,3,3);
-	//		valor=valor - Valorar(Inteligencia2(tablero3),tablero3,3,3);
-	//	}
-	//	
-	
-	//tablero.setTurno(!tablero.getTurno());
-
-	//
 		if(pieza.getColor())
 		{
 		tablero.getPblancas().add(pieza);
@@ -643,7 +575,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			valor=valor+legales(dfg,tablero).size();
 			}
 		}
-	
 		if(pieza.getColor())
 		{
 			if(jaquematen(tablero))
@@ -656,17 +587,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					else
 						tablero.getPnegras().add(okupada);
 				}
-				
-					tablero.getPblancas().remove(pieza);
-				
-				
+				tablero.getPblancas().remove(pieza);
 				tableroaux[cy][cx].setOcupado(okupada);
 				tableroaux[y][x].setOcupado(pieza);
-				
-				
 				tablero.getPblancas().add(pieza);
-			
-				
 				return valor;
 			}
 		}
@@ -683,43 +607,26 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 						tablero.getPnegras().add(okupada);
 				}
 				
-					tablero.getPnegras().remove(pieza);
-	
+				tablero.getPnegras().remove(pieza);
 				tableroaux[cy][cx].setOcupado(okupada);
 				tableroaux[y][x].setOcupado(pieza);
-	
-				
-					tablero.getPnegras().add(pieza);
-				System.out.println("jaqueeeeeeeeeeeeeemateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+				tablero.getPnegras().add(pieza);
 				return valor;
 			}
 		}
-
-	//	if(numero==1||numero==2)
-	//	{
-		//se podría usar el método inteligencia
-	//	System.out.println(valor);
 		clsJugada peor=new clsJugada();
 		if(numero==1)
 		{
 			TableroLogicoMariano tablero2=new TableroLogicoMariano();
 			tablero2=clonar(tablero);
-	//	System.out.println("putos blanquitoooooooooooooooooooooooooooooooooooooos");
 			for(clsPieza blanca: tablero.getPblancas())
 			{
 				clsPieza clon=blanca.clonar(blanca, tablero);
-			//	System.out.println(blanca.getClass());
-			//	System.out.println("original "+blanca);
-			//	System.out.println("clon "+clon);
 				LinkedList<clsCasilla> candidatos=rlegales(clon,tablero);
-				
-				boolean holi=true;
+
 				for(clsCasilla contrin: candidatos)
 				{
-				//	System.out.println(contrin);
 					clsJugada aux= new clsJugada(blanca,contrin);
-					
-					
 					aux.valor=Valorar(aux,tablero2,2,numeroblanquito);
 					if(aux.valor>peor.valor)
 						peor=aux;
@@ -746,12 +653,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			tablero.getPblancas().add(pieza);
 		else
 			tablero.getPnegras().add(pieza);
-	
 		return valor;
 	}
 	
 	/**
-	 * Método para añadir los movimientos disponibles a una lista de movimientos.
+	 * Metodo para anyadir los movimientos disponibles a una lista de movimientos.
 	 * @param Lista de clsCasillas
 	 */
 	public void dibujarmov(LinkedList<clsCasilla> lista)
@@ -771,62 +677,22 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			}
 		}
 	}
-	
-	//TODO: Dafuq?
-
-	
 	/**
 	 * Acciones que ocurren al pulsar en una casilla.
 	 * @param clsCasilla en la que ocurre la pulsación
 	 */
 	public void action(clsCasilla casilla) 
 	{
-		// TODO Auto-generated method stub
-		//2.comer al paso
-		//3. peon al final
-		//4.reloj 0 parar
-		//5.metodo terminar partida
-		//6. jaque
-		
 		 acasilla=ncasilla;
 		 ncasilla=casilla;
 		 
-		 TableroLogicoMariano tab= new TableroLogicoMariano();
-		 tab= clonar(this);
-		 
-	//	 System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-	//	 
-	//	 for(int i=0;i<8;i++)
-	//	{
-	//	for(int j=0;j<8;j++)
-	//	{
-	//	System.out.println(i);
-	//	System.out.println(j);
-	//	System.out.println(tab.getTablero()[i][j].getOcupado());
-	//	}
-	//	}
-		 
-	//	 System.out.println("Blaancaaaaaaaaaaaaas");
-	//	 for(clsPieza p: tab.pblancas)
-	//	 {
-	//	 System.out.println(p.getClass());
-	//	 System.out.println(p);
-	//	 }
-	//	 System.out.println("Negraçaaaaaaaaaaaaas");
-	//	 for(clsPieza p: tab.pnegras)
-	//	 {
-	//	 System.out.println(p.getClass());
-	//	 System.out.println(p);
-	//	 }
-		 
-		// System.out.println(ncasilla);
-	
+		TableroLogicoMariano tab= new TableroLogicoMariano();
+		tab = clonar(this);
 		if(ncasilla.getOcupado()==null)
 		{
 			if(ncasilla.mov)
 			{
 				tablero[selec.getY()][selec.getX()].setOcupado(null);
-				//tablero[selec.getY()][selec.getX()].setBackground(Color.BLUE);
 				tablero[selec.getY()][selec.getX()].paint(tablero[selec.getY()][selec.getX()].getGraphics());	
 				if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
 				{
@@ -847,13 +713,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 				}	
 				if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 				{	
-				//	if(selec.getColor() && ncasilla.getx()==0 && ncasilla.gety()==1 && reyb.getPrimera()==true && btorred.getPrimera()==true && tablero[0][2].getOcupado()==null )
-				//	{
-				//	tablero[0][2].setOcupado(btorred);
-				//	tablero[0][0].setOcupado(null);
-				//	}
-						
-				//el enroque funciona mal si la casilla continua está en jaque
 					if(selec.getColor() && ncasilla.getx()==1 && ncasilla.gety()==0 && selec.getPrimera()==false)
 					{
 						tablero[0][2].setOcupado(btorred);
@@ -877,17 +736,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 				}
 				if(selec.getPrimera()==false)
 					selec.setPrimera(true);
-	
-			//	System.out.println("SDFGHJKHGHFDFHJ");
-			//	System.out.println(selec.sitio(tablero));
+				
 				ncasilla.setOcupado(selec);
 				movact.remove(ncasilla);
 				turno=!turno;
-			//	
-			//	for(int a=0;a>-1;a++)
-			//	{
-			//	System.out.println(a);
-			//	}
 				ncasilla.paint(ncasilla.getGraphics());
 				
 				String letra=null;
@@ -949,8 +801,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					}
 				}
 				turno=!turno;
-
-				//revisar();
 			}
 			clear(movact);
 		}
@@ -960,11 +810,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			{
 				clear(movact);
 				selec=ncasilla.getOcupado();
-				//System.out.println(selec.getClass());
-				for(clsCasilla k: legales(selec,this))
-				{	
-					//System.out.println(k);
-				}
 				if (selec.getColor()== turno)
 				{
 					LinkedList<clsCasilla> aux= legales(selec,this);
@@ -1009,13 +854,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 						selec=auxr;
 					}	
 				}
-	
 				if(selec.a.equals(Comun.clsConstantes.piezas.Rey))
 				{
 					if(selec.getPrimera()==false)
 						selec.setPrimera(true);
 				}
-	
 				String letra=null;
 				if(selec.a.equals(Comun.clsConstantes.piezas.Peon))
 				{
@@ -1045,26 +888,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 				{
 					visual.tabla.data[num][0]=letra+"x"+selec.escritura();
 				}
-	
 				turno=!turno;
-			//	if(selec.getColor())
-			//	{
-			//	if(comprobarjaque(reyn,this))
-			//	{
-			//	jaquemate=jaquematen(this);
-			//	if(jaquemate)
-			//	System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-			//	}
-			//	}
-			//	else
-			//	{
-			//	if(comprobarjaque(reyb,this))
-			//	{
-			//	jaquemate=jaquemateb(this);
-			//	if(jaquemate)
-			//	System.out.println("Siiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-			//	}
-			//	}
 				if(comprobarjaque(reyn,this))
 				{
 					jaquemate=jaquematen(this);
@@ -1090,24 +914,12 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					}
 				}
 				turno=!turno;
-				//	revisar();
 			}
 		}
 	}
-//	}
-//	System.out.println("el rey nigro");
-//	System.out.println(reyn.jaque);
-//	System.out.println("el rey blanco");
-//	System.out.println(reyb.jaque);
 	
-	//TODO: Si se quita la LinkedList candidatos de arriba, que está en un método Dafuq?, este es también otro método Dafuq?
 	public LinkedList<clsCasilla> rlegales(clsPieza pieza,TableroLogicoMariano tab) 
 	{
-		// TODO Auto-generated method stub	
-		//System.out.println(pieza.getClass());
-	//	tablerologico atab=new tablerologico();
-	//	atab=clonar(tab);
-	//	clsCasilla [][] tabaux=atab.getTablero();
 		LinkedList<clsPieza> op=new LinkedList<clsPieza>();
 		for(clsPieza p: tab.pblancas)
 		{
@@ -1116,28 +928,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		LinkedList<clsCasilla> legales= new LinkedList<clsCasilla>();
 		if(pieza instanceof clsRey==false)
 		{
-			//System.out.println(pieza.getMovimientos().size());
 			pieza.mov(tab.getTablero());
-	//	for(int i=0;i<8;i++)
-	//	{
-	//	for(int j=0;j<8;j++)
-	//	{
-	//	System.out.println(i);
-	//	System.out.println(j);
-	//	System.out.println(tab.getTablero()[i][j].getOcupado());
-	//	}
-	//	}
 			int y=pieza.getY();
 			int x=pieza.getX();
-	//	if(pieza.getY()==2 && pieza.getX()==3)
-	//	{
-	//	System.out.println("me cago en tus muertooooooooooooooooooooooooooooooooooooooooooooos");
-	//	}
-	//	System.out.println("qwertyuiop "+ pieza);
-	
 			for(clsCasilla caux: pieza.getMovimientos())
 			{
-			//	System.out.println("lalalalalala "+caux);
 				clsPieza okupada=null;
 				if(caux.getOcupado()!=null)
 				{
@@ -1178,7 +973,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 						tab.getPnegras().add(okupada);
 				}
 			}
-	
 			pieza.setY(y);
 			pieza.setX(x);
 		}
@@ -1187,7 +981,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			pieza.mov(tab.getTablero());
 			int y=pieza.getY();
 			int x=pieza.getX();
-	
 			for(clsCasilla caux: pieza.getMovimientos())
 			{
 				clsPieza okupada=null;
@@ -1199,10 +992,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					else
 						tab.getPnegras().remove(okupada);
 				}
-	
 				tab.getTablero()[y][x].setOcupado(null);
 				caux.setOcupado(pieza);
-	
 				if(pieza.getColor())
 				{	
 					tab.getReyb().setY(pieza.getY());
@@ -1224,10 +1015,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 				}	
 				tab.getTablero()[y][x].setOcupado(pieza);
 				caux.setOcupado(okupada);
-	
 				pieza.setY(y);
 				pieza.setX(x);
-	
 				if(pieza.getColor())
 				{	
 					tab.getReyb().setY(y);
@@ -1253,9 +1042,9 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 
 	/**
-	 * Método para obtener los movimientos legales disponibles de una pieza.
+	 * Metodo para obtener los movimientos legales disponibles de una pieza.
 	 * @param Pieza afectada
-	 * @param Tablero lógico
+	 * @param Tablero logico
 	 * @return Lista con las clsCasillas disponibles
 	 */
 	public LinkedList<clsCasilla> legales(clsPieza pieza,TableroLogicoMariano tab) 
@@ -1325,7 +1114,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 			for(clsCasilla caux: pieza.getMovimientos())
 			{
-				//System.out.println("casillllllllla "+ caux);
 				clsPieza okupada=null;
 				if(caux.getOcupado()!=null)
 				{
@@ -1336,10 +1124,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					else
 						tab.getPnegras().remove(okupada);
 				}
-	
 				tab.getTablero()[y][x].setOcupado(null);
 				caux.setOcupado(pieza);
-	
 				if(pieza.getColor())
 				{	
 					tab.getReyb().setY(pieza.getY());
@@ -1358,8 +1144,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					{
 						legales.add(tab.getTablero()[caux.gety()][caux.getx()]);
 					}
-				}
-	
+				}	
 				tab.getTablero()[y][x].setOcupado(pieza);
 				caux.setOcupado(okupada);
 	
@@ -1383,8 +1168,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					else
 						tab.getPnegras().add(okupada);
 				}
-			}
-	
+			}	
 			pieza.setY(y);
 			pieza.setX(x);
 		}
@@ -1392,7 +1176,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	
 	/**
-	 * Método que permite reflejar el paso del tiempo del hilo en los cronómetros.
+	 * Metodo que permite reflejar el paso del tiempo del hilo en los cronometros.
 	 */
 	private void Conversor()
 	{
@@ -1436,8 +1220,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	
 	/**
-	 * Método que se llama al acabar una partida. <br>
-	 * Referencia tomada para entender el cálculo de la puntuación Elo: <br>
+	 * Metodo que se llama al acabar una partida. <br>
+	 * Referencia tomada para entender el calculo de la puntuacion Elo: <br>
 	 * @see <a href="http://www.todoajedrez.com.ar/ratings.php">http://www.todoajedrez.com.ar/ratings.php </a>
 	 */
 	public void porque()
@@ -1454,7 +1238,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			   this.setFec_fin(new Date());
 			   ganadorString = ganador.getNickname();
 			   
-				//Calculando Elo del luser.
 				double factor = (3400 - perdedor.getElo())^2/100000;
 				double dif = perdedor.getElo() - ganador.getElo();
 				double difabs = Math.abs(dif);
@@ -1484,7 +1267,6 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 			   this.setFec_fin(new Date());
 			   ganadorString = ganador.getNickname();
 
-				//Calculando Elo del ganador.
 				double factor = (3400 - ganador.getElo())^2/100000;
 				double dif = ganador.getElo() - perdedor.getElo();
 				double difabs = Math.abs(dif);
@@ -1505,7 +1287,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	/**
 	 * Clase interna que implementa la interfaz Runnable que valdrá para generar el temporizador.
-	 * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+	 * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Benat Galdos (Benny96)
 	 */
 	class Timer1 implements Runnable
 	{
@@ -1524,12 +1306,11 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 					return;
 				}
 			}
-		System.out.println("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 		visual.repaint();
 		}
 	}
 	/**
-	 * Método compareTo() reimplementado para conseguir un orden natural a la hora de mostrar los datos. Atributo: ID_partida.
+	 * Metodo compareTo() reimplementado para conseguir un orden natural a la hora de mostrar los datos. Atributo: ID_partida.
 	 */
 	@Override
 	public int compareTo(TableroLogicoMariano arg0) 

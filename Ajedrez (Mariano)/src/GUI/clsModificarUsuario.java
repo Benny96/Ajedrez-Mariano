@@ -19,8 +19,8 @@ public class clsModificarUsuario extends clsAltaUsuario
 	
 	/**
 	 * Constructor de la ventana que aprovecha la interfaz gráfica de clsAltaUsuario, incluyendo los datos de un usuario dado.
-	 * @param usuario El usuario que está modificando sus datos.
-	 * @param ventanita La ventana clsEleccion de la que proviene el usuario, que tendrá su atributo "usuario" modificado al cambiar los datos referentes al usuario.
+	 * @param El usuario que está modificando sus datos.
+	 * @param La ventana clsEleccion de la que proviene el usuario, que tendrá su atributo "usuario" modificado al cambiar los datos referentes al usuario.
 	 */
 	public clsModificarUsuario(clsUsuario usuario, clsEleccion ventanita)
 	{

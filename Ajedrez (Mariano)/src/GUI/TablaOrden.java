@@ -68,11 +68,10 @@ public class TablaOrden extends JPanel
         
         /**
          * Constructor del modelo de datos.
-         * @param u Lista de usuarios.
+         * @param Lista de usuarios.
          */
         public MyTableModel(ArrayList<clsUsuario> u)
         {
-        	
         	super();
     		int filas = u.size();
     		int cont;

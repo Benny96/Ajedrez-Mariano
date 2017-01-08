@@ -83,7 +83,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	private clsReina reinab;
 	
 	transient Runnable reloj;
-	static int controlreloj;
 	static boolean partidainiciada;
 	static boolean a;
 
@@ -914,8 +913,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 					porque();
 				}
 				bstr = String.format("%d:%02d", bmin, bseg);
-				visual.btiempo.setText(bstr);
-				
+				visual.btiempo.setText(bstr);				
 			}
 			else
 			{
@@ -991,7 +989,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		@Override
 		public void run() 
 		{
-//			System.out.println("ssss");
 			jaquemate = false;
 			a = false;
 			while(jaquemate==false)
@@ -999,7 +996,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 				try 
 				{
 					Thread.sleep(1000);
-//					System.out.println("ssss2");
 					if (jaquemate)
 					{
 						a = true;
@@ -1007,7 +1003,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 					}
 					else if (!jaquemate && !a)
 					{
-//						System.out.println("ssss3");
 						Conversor();
 					}
 				}

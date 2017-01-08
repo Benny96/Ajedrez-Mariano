@@ -16,5 +16,4 @@ public class clsOrdenarPorElo implements Comparator <clsUsuario>
 	{
 		return o2.getElo()-o1.getElo();
 	}
-
 }

@@ -180,8 +180,7 @@ public class GraficoHistograma extends JFrame
 	    	   else
 	    	   {
 	    		   dataset.addValue(cantidades2[j], series2, categorias[j]);
-	    	   }
-	        		
+	    	   }		
 	       }
 	    }
 	    return dataset;		    

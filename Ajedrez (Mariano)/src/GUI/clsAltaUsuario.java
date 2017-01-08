@@ -48,8 +48,7 @@ public class clsAltaUsuario extends JFrame
 	private JPanel panelprincipal;
 	private JPanel panelizda;
 	private JPanel panelbotonera;
-	private JPanel panelsuperior;
-	
+	private JPanel panelsuperior;	
 	
 	JTextField txtNombre;
 	JTextField txtApe1;
@@ -158,9 +157,7 @@ public class clsAltaUsuario extends JFrame
 		
 		txtApe2 = new JTextField();
 		txtApe2.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panelizda.add(txtApe2);
-		
-		
+		panelizda.add(txtApe2);	
 		
 		lblNickname = new JLabel("         Nickname:         ");
 		lblNickname.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -169,18 +166,14 @@ public class clsAltaUsuario extends JFrame
 		txtNickname = new JTextField();
 		txtNickname.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelizda.add(txtNickname);
-		
-		
-		
+			
 		lblContrasenya1 = new JLabel("        Contraseña:        ");
 		lblContrasenya1.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelizda.add(lblContrasenya1);
 		
 		txtContrasenya1 = new JPasswordField();
 		txtContrasenya1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		panelizda.add(txtContrasenya1);
-		
-		
+		panelizda.add(txtContrasenya1);		
 		
 		lblContrasenya2 = new JLabel("        Contraseña:        ");
 		lblContrasenya2.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -190,13 +183,11 @@ public class clsAltaUsuario extends JFrame
 		txtContrasenya2.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panelizda.add(txtContrasenya2);
 		
-
 		btnAceptar = new JButton("Aceptar");
 		panelbotonera.add(btnAceptar);
 		
 		btnCancelar = new JButton("Cancelar");
 		panelbotonera.add(btnCancelar);
-		
 		
 		lblFrase = new JLabel("¡Únete a nuestra comunidad!");
 		lblFrase.setFont (lblFrase.getFont ().deriveFont (18.0f));
@@ -424,7 +415,7 @@ public class clsAltaUsuario extends JFrame
 	
 	/**
 	 * Método que coge la imagen de las piezas que se muestra en la ventana.
-	 * @param l JLabel que contendrá la imagen.
+	 * @param JLabel que contendrá la imagen.
 	 * @return JLabel con la imagen insertada.
 	 */
 	public JLabel CogerImagen(JLabel l)
@@ -465,4 +456,3 @@ public class clsAltaUsuario extends JFrame
 		}
 	}
 }
-

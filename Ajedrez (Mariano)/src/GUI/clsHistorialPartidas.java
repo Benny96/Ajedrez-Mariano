@@ -249,7 +249,7 @@ public class clsHistorialPartidas extends JFrame
 					logger.log( Level.INFO, "Obteniendo el orden por ID: Historial 1v1");
 					Collections.sort(listaPartidas1v1);
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
-					t.setOpaque(true); //content panes must be opaque
+					t.setOpaque(true);
 					getContentPane().add(t, BorderLayout.NORTH);
 			        pack();
 			        setVisible(true);
@@ -259,7 +259,7 @@ public class clsHistorialPartidas extends JFrame
 					logger.log( Level.INFO, "Obteniendo el orden por ID: Historial contra Mariano");
 					Collections.sort(listaPartidasMariano);
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
-					t.setOpaque(true); //content panes must be opaque
+					t.setOpaque(true);
 					getContentPane().add(t, BorderLayout.NORTH);      
 			        pack();
 			        setVisible(true);
@@ -276,7 +276,7 @@ public class clsHistorialPartidas extends JFrame
 					logger.log( Level.INFO, "Obteniendo el orden por Ganador: Historial 1v1");
 					Collections.sort(listaPartidas1v1, new clsOrdenarPorGanador1v1());
 					clsTablaHistorial1v1 t=new clsTablaHistorial1v1(listaPartidas1v1);
-					t.setOpaque(true); //content panes must be opaque
+					t.setOpaque(true);
 					getContentPane().add(t, BorderLayout.NORTH);
 			        pack();
 			        setVisible(true);
@@ -286,7 +286,7 @@ public class clsHistorialPartidas extends JFrame
 					logger.log( Level.INFO, "Obteniendo el orden por Ganador: Historial contra Mariano");
 					Collections.sort(listaPartidasMariano, new clsOrdenarPorGanadorMariano());
 					clsTablaHistorialMariano t=new clsTablaHistorialMariano(listaPartidasMariano);
-					t.setOpaque(true); //content panes must be opaque
+					t.setOpaque(true);
 					getContentPane().add(t, BorderLayout.NORTH);
 			        pack();
 			        setVisible(true);

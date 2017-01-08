@@ -25,7 +25,7 @@ public class clsBinariosTest
 	
 	/**
 	 * SetUp de los valores a utilizar.
-	 * @throws Exception
+	 * @throws Exception: Excepción
 	 */
 	@Before
 	public void setUp() throws Exception 
@@ -86,7 +86,7 @@ public class clsBinariosTest
 	
 	/**
 	 * Método que finaliza el testeo.
-	 * @throws Excepción
+	 * @throws Exception: Excepción
 	 */
 	@After
 	public void tearDown() throws Exception 

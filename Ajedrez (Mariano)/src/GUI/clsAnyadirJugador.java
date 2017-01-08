@@ -89,7 +89,7 @@ public class clsAnyadirJugador extends JInternalFrame
 	
 	/**
 	 * Constructor de la JInternalFrame, que considera el usuario actual para evitar repeticiones.	
-	 * @param usuactual Usuario logeado en la aplicación.
+	 * @param Usuario logeado en la aplicación.
 	 */
 	public clsAnyadirJugador(clsUsuario usuactual) 
 	{
@@ -131,7 +131,7 @@ public class clsAnyadirJugador extends JInternalFrame
 		getContentPane().add(btnSalir);
 		
 		miVentanaInterna = this;
-		
+
 		/*Escuchadores*/
 		btnEmpezar.addActionListener(new ActionListener() 
 		{
@@ -241,8 +241,7 @@ public class clsAnyadirJugador extends JInternalFrame
 				catch (Exception w) 
 				{
 					w.printStackTrace();
-				}
-						
+				}						
 			}
 		});
 		

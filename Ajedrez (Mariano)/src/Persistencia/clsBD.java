@@ -26,7 +26,7 @@ public class clsBD
 	/** Inicializa una BD SQLITE y devuelve una conexión con ella. Debe llamarse a este 
 	 * método antes que ningún otro, y debe devolver no null para poder seguir trabajando con la BD.
 	 * @param nombreBD	Nombre de fichero de la base de datos
-	 * @return	Conexión con la base de datos indicada. Si hay algún error, se devuelve null
+	 * @return Conexión con la base de datos indicada. Si hay algún error, se devuelve null
 	 */
 	public static Connection initBD( String nombreBD ) 
 	{

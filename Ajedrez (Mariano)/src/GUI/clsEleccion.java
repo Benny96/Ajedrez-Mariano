@@ -111,7 +111,7 @@ public class clsEleccion extends JFrame
 
 	/**
 	 * Constructor del JFrame que genera la parte visual de la ventana, asi como los escuchadores requeridos para redirigir a cada funcionalidad de la aplicacion.
-	 * @param usu Usuario que esta logeado en el sistema.
+	 * @param Usuario que esta logeado en el sistema.
 	 */
 	public clsEleccion(clsUsuario usu) 
 	{
@@ -315,7 +315,4 @@ public class clsEleccion extends JFrame
 		clsPaginaPrincipal frame = new clsPaginaPrincipal();
 		frame.setVisible(true);
 	}
-
-	
-	
 }

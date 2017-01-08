@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Clase creada para generar un objeto nuevo (clsUsuario). Implementa la interfaz Comparable<clsUsuario> y Serializable. <br>
+ * Clase creada para generar un objeto nuevo (clsUsuario). Implementa la interfaz Comparable con clsUsuario y Serializable. <br>
  * La ordenación natural se ha hecho mediante los nicknames. Se implementarán de manera externa otros tipos de ordenaciones.
  * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
  */
@@ -24,11 +24,11 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	
 	/**
 	 * Constructor con parámetros para crear un nuevo usuario.
-	 * @param n Nombre del usuario
-	 * @param ap1 Primer apellido del usuario
-	 * @param ap2 Segundo apellido del usuario
-	 * @param nick Nickname del usuario
-	 * @param cont Contraseña del usuario
+	 * @param Nombre del usuario
+	 * @param Primer apellido del usuario
+	 * @param Segundo apellido del usuario
+	 * @param Nickname del usuario
+	 * @param Contraseña del usuario
 	 */
 	public clsUsuario(String n, String ap1, String ap2, String nick, String cont)
 	{
@@ -43,13 +43,13 @@ public class clsUsuario implements Serializable, Comparable<clsUsuario>
 	
 	/**
 	 * Constructor con parámetros para tomar usuarios de la Base de Datos.
-	 * @param n Nombre del usuario
-	 * @param ap1 Primer apellido del usuario
-	 * @param ap2 Segundo apellido del usuario
-	 * @param nick Nickname del usuario
-	 * @param cont Contraseña del usuario
-	 * @param el Puntuación ELO del usuario
-	 * @param fecha Fecha de alta del usuario
+	 * @param Nombre del usuario
+	 * @param Primer apellido del usuario
+	 * @param Segundo apellido del usuario
+	 * @param Nickname del usuario
+	 * @param Contraseña del usuario
+	 * @param Puntuación ELO del usuario
+	 * @param Fecha de alta del usuario
 	 */
 	public clsUsuario(String n, String ap1, String ap2, String nick, String cont, int el, Date fecha)
 	{

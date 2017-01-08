@@ -45,6 +45,7 @@ public class clsAnyadirJugador extends JInternalFrame
 	private JButton btnRegistro;
 	private JButton btnEmpezar;
 	private JButton btnSalir;
+	boolean b = false;
 	
 	ArrayList<clsUsuario> usus=new ArrayList<clsUsuario>();
 	
@@ -152,6 +153,7 @@ public class clsAnyadirJugador extends JInternalFrame
 							if ((tab.getUblanco().getNickname().compareTo(txtNickname.getText().toUpperCase())==0) && 
 									tab.getUnigga().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0)
 								{
+								b = true;
 								x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
 								if (x == 0)
 									{
@@ -174,6 +176,7 @@ public class clsAnyadirJugador extends JInternalFrame
 								if ((tab.getUblanco().getNickname().compareTo(usuactual.getNickname().toUpperCase())==0) && 
 								tab.getUnigga().getNickname().compareTo(txtNickname.getText().toUpperCase())==0)						
 								{
+								b = true;
 								x = -1;
 								x = JOptionPane.showConfirmDialog(null,"Se ha encontrado una partida, ¿desea cargarla?", "Cargado de partida", JOptionPane.YES_NO_OPTION);
 									if (x == 0)
@@ -194,7 +197,7 @@ public class clsAnyadirJugador extends JInternalFrame
 										clsEleccion.miVentana.dispose();
 									}
 								}
-								else
+								if (!b)
 								{
 									logger.log( Level.INFO, "Generando una nueva partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname());
 									TableroVisual1v1 frame = new TableroVisual1v1(usuactual, aux);

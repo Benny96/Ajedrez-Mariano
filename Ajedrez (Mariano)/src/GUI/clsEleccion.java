@@ -55,8 +55,7 @@ public class clsEleccion extends JFrame
 	private JLabel lblBienvenida;
 	private JLabel lblModosJuego;
 	private JLabel lblOtros;
-	private JLabel lblDificultad;
-	private JLabel lblVisualizacion;
+
 	
 	private JButton btnJugadorvsJugador;
 	private JButton btnJugadorvsMariano;
@@ -123,10 +122,10 @@ public class clsEleccion extends JFrame
 			public void paintComponent(Graphics g)
 			{
 		    	 g.setColor(Color.LIGHT_GRAY);
-		         g.drawLine(415, 115, 415, 231);
-		         g.drawLine(415, 231, 637, 231);
-		         g.drawLine(637, 231, 637, 115);
-		         g.drawLine(637, 115, 415, 115);
+		         g.drawLine(415, 185, 415, 298);
+		         g.drawLine(415, 298, 637, 298);
+		         g.drawLine(637, 298, 637, 185);
+		         g.drawLine(637, 185, 415, 185);
 		    }
 		};
 		setContentPane(desktop);
@@ -161,7 +160,7 @@ public class clsEleccion extends JFrame
 		desktop.add(btnJugadorvsJugador);
 		
 		btnHistorial = new JButton("Historial de partidas");
-		btnHistorial.setBounds(425, 236, 202, 50);
+		btnHistorial.setBounds(425, 193, 202, 50);
 		desktop.add(btnHistorial);
 		
 		btnRanking = new JButton("Ranking");
@@ -169,7 +168,7 @@ public class clsEleccion extends JFrame
 		desktop.add(btnRanking);
 		
 		btnModificar = new JButton("Modificar cuenta");
-		btnModificar.setBounds(425, 317, 202, 50);
+		btnModificar.setBounds(425, 313, 202, 50);
 		desktop.add(btnModificar);
 		
 		btnJugadorvsMariano = new JButton("Jugador vs Mariano");
@@ -186,17 +185,17 @@ public class clsEleccion extends JFrame
 //		desktop.add(lblVisualizacion);
 		
 		rdbtnLista = new JRadioButton("Lista");
-		rdbtnLista.setBounds(425, 181, 62, 23);
+		rdbtnLista.setBounds(425, 250, 62, 23);
 		rdbtnLista.setBackground(Color.white);
 		desktop.add(rdbtnLista);
 		
 		rdbtnGraficoHistograma = new JRadioButton("Histograma");
-		rdbtnGraficoHistograma.setBounds(425, 207, 100, 23);
+		rdbtnGraficoHistograma.setBounds(425, 274, 100, 23);
 		rdbtnGraficoHistograma.setBackground(Color.white);
 		desktop.add(rdbtnGraficoHistograma);
 		
 		rdbtnGraficoQueso = new JRadioButton("Queso");
-		rdbtnGraficoQueso.setBounds(537, 181, 68, 23);
+		rdbtnGraficoQueso.setBounds(552, 250, 68, 23);
 		rdbtnGraficoQueso.setBackground(Color.white);
 		desktop.add(rdbtnGraficoQueso);
 		
@@ -246,14 +245,27 @@ public class clsEleccion extends JFrame
 		btnRanking.addActionListener(new ActionListener()
 		{
 			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				logger.log(Level.INFO, "Mostrando rankings");
+				clsRankingLista frame = new clsRankingLista("Rankings");
+				frame.pack();
+				frame.setVisible(true);
+			}	
+		});	
+		
+		btnHistorial.addActionListener(new ActionListener()
+		{
+			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
 				if(rdbtnLista.isSelected())
 				{
-					logger.log(Level.INFO, "Mostrando rankings");
-					clsRankingLista frame = new clsRankingLista("Rankings");
+					logger.log(Level.INFO, "Mostrando el historial de partidas");
+					clsHistorialPartidas frame = new clsHistorialPartidas("Historial de Partidas");
 					frame.pack();
 					frame.setVisible(true);
+					
 				}
 				if(rdbtnGraficoHistograma.isSelected())
 				{
@@ -282,17 +294,6 @@ public class clsEleccion extends JFrame
 				clsModificarUsuario frame = new clsModificarUsuario(usuario, a);
 				frame.setVisible(true);
 			}	
-		});
-		btnHistorial.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				logger.log(Level.INFO, "Mostrando el historial de partidas");
-				clsHistorialPartidas frame = new clsHistorialPartidas("Historial de Partidas");
-				frame.pack();
-				frame.setVisible(true);
-			}		
 		});
 		btnDeslogear.addActionListener(new ActionListener()
 		{

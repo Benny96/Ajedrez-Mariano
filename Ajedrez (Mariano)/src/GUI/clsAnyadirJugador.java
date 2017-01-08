@@ -182,6 +182,10 @@ public class clsAnyadirJugador extends JInternalFrame
 									if (x == 0)
 									{
 										logger.log( Level.INFO, "Cargando la partida entre "+txtNickname.getText()+" y "+ usuactual.getNickname()+": Negro - Blanco");
+										clsUsuario a = new clsUsuario();
+										a = tab.getUblanco();
+										tab.setUblanco(tab.getUnigga());
+										tab.setUnigga(a);
 										TableroVisual1v1 frame = new TableroVisual1v1(tab);
 										frame.setVisible(true);
 									    miVentanaInterna.dispose();

@@ -120,12 +120,12 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	/**
 	 * Constructor para gestionar los datos relevantes de una partida 1v1 de la Base de Datos.
-	 * @param ID de la partida
-	 * @param Nickname del jugador blanco
-	 * @param Nickname del jugador negro
-	 * @param Fecha de comienzo de la partida
-	 * @param Fecha de final de la partida
-	 * @param Nickname del ganador de la partida
+	 * @param a ID de la partida
+	 * @param b Nickname del jugador blanco
+	 * @param c Nickname del jugador negro
+	 * @param d Fecha de comienzo de la partida
+	 * @param e Fecha de final de la partida
+	 * @param f Nickname del ganador de la partida
 	 */
 	public TableroLogicoMariano (int a, String b, String c, long d, long e, String f)
 	{
@@ -140,7 +140,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	/**
 	 * Constructor para generar un tablero logico 1vMariano al iniciar una nueva partida.
-	 * @param Tablero visual con el que se corresponde el tablero logico
+	 * @param asd Flag
+	 * @param tablerovisual Tablero visual con el que se corresponde el tablero logico
+	 * @param myTimer Runnable
+	 * @param usu Usuario a insertar
 	 */
 	public TableroLogicoMariano(Boolean asd, TableroVisualMariano tablerovisual, Runnable myTimer, clsUsuario usu) 
 	{
@@ -269,7 +272,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 	/**
 	 * Metodo utilizado para clonar el tablero logico a medida que se va jugando.
-	 * @param Tablero logico a clonar
+	 * @param tab Tablero logico a clonar
 	 * @return Tablero logico clonado
 	 */
 	public TableroLogicoMariano clonar(TableroLogicoMariano tab)
@@ -314,7 +317,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 	/**
 	 * Metodo para limpiar el tablero, para que despues se actue sobre el.
-	 * @param Lista de clsCasillas a borrar
+	 * @param borrar Lista de clsCasillas a borrar
 	 */
 	public void clear(LinkedList <clsCasilla> borrar)
 	{
@@ -345,7 +348,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 
 	/**
 	 * Metodo para comprobar un jaquemate hecho por piezas negras.
-	 * @param Tablero logico
+	 * @param tab Tablero logico
 	 * @return Flag que indica si hay jaque o no
 	 */
 	public boolean jaquematen(TableroLogicoMariano tab)
@@ -361,7 +364,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	/**
 	 * Metodo para comprobar un jaquemate hecho por piezas blancas.
-	 * @param Tablero logico
+	 * @param tab Tablero logico
 	 * @return Flag que indica si hay jaque o no
 	 */
 	public boolean jaquemateb(TableroLogicoMariano tab)
@@ -378,8 +381,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 	/**
 	 * Metodo para comprobar si un rey se encuentra en posicion de jaque o no.
-	 * @param Rey afectado
-	 * @param Tablero logico
+	 * @param rey Rey afectado
+	 * @param tab Tablero logico
 	 * @return Flag indicando que esta en jaque
 	 */
 	public Boolean comprobarjaque(clsRey rey,TableroLogicoMariano tab)
@@ -407,7 +410,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 	/**
 	 * Metodo que escribe las jugadas hechas por Mariano en la JTable.
-	 * @param Jugada definitiva
+	 * @param definitiva Jugada definitiva
 	 */
 	public void despuesintel(clsJugada definitiva)
 	{
@@ -504,10 +507,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 
 	/**
 	 * Metodo que permite valorar las jugadas hechas
-	 * @param Jugada realizada
-	 * @param Tablero logico
-	 * @param Numero por parte de Mariano
-	 * @param Numero del jugador blanco
+	 * @param jugada Jugada realizada
+	 * @param tablero Tablero logico
+	 * @param numero Numero por parte de Mariano
+	 * @param numeroblanquito Numero del jugador blanco
 	 * @return Int con la valoracion
 	 */
 	public int Valorar(clsJugada jugada,TableroLogicoMariano tablero, int numero,int numeroblanquito)
@@ -658,7 +661,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	
 	/**
 	 * Metodo para anyadir los movimientos disponibles a una lista de movimientos.
-	 * @param Lista de clsCasillas
+	 * @param lista Lista de clsCasillas
 	 */
 	public void dibujarmov(LinkedList<clsCasilla> lista)
 	{
@@ -679,7 +682,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	/**
 	 * Acciones que ocurren al pulsar en una casilla.
-	 * @param clsCasilla en la que ocurre la pulsación
+	 * @param casilla clsCasilla en la que ocurre la pulsación
 	 */
 	public void action(clsCasilla casilla) 
 	{
@@ -1043,8 +1046,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 
 	/**
 	 * Metodo para obtener los movimientos legales disponibles de una pieza.
-	 * @param Pieza afectada
-	 * @param Tablero logico
+	 * @param pieza Pieza afectada
+	 * @param tab Tablero logico
 	 * @return Lista con las clsCasillas disponibles
 	 */
 	public LinkedList<clsCasilla> legales(clsPieza pieza,TableroLogicoMariano tab) 

@@ -39,9 +39,9 @@ import LN.clsUsuario;
  * 1) Jugar partidas contra otro jugador. <br>
  * 2) Jugar partidas contra Mariano. <br>
  * 3) Visualizar datos de los jugadores: <br>
- * -> Lista. <br>
- * -> Histograma. <br>
- * -> Queso. <br>
+ *  Lista. <br>
+ *  Histograma. <br>
+ *  Queso. <br>
  * 4) Visualizar el historial de las partidas jugadas. <br>
  * 5) Modificar la cuenta del usuario que esta utilizando la aplicacion.
  * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Benat Galdos (Benny96)
@@ -111,7 +111,7 @@ public class clsEleccion extends JFrame
 
 	/**
 	 * Constructor del JFrame que genera la parte visual de la ventana, asi como los escuchadores requeridos para redirigir a cada funcionalidad de la aplicacion.
-	 * @param Usuario que esta logeado en el sistema.
+	 * @param usu Usuario que esta logeado en el sistema.
 	 */
 	public clsEleccion(clsUsuario usu) 
 	{

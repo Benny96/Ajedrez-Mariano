@@ -21,8 +21,8 @@ public class clsTorre extends clsPieza implements Serializable
 	
 	/**
 	 * Constructor de clsTorre con el que se construirán inicialmente las piezas.
-	 * @param Coordenada X del tablero.
-	 * @param Coordenada Y del tablero.
+	 * @param x Coordenada X del tablero.
+	 * @param y Coordenada Y del tablero.
 	 * @param color true = blanco; false = negro.
 	 */
 	public clsTorre(int x, int y, Boolean color) 
@@ -59,10 +59,10 @@ public class clsTorre extends clsPieza implements Serializable
 	
 	/**
 	 * Constructor de clsTorre usado para clonar una torre determinada.
-	 * @param Coordenada X del tablero.
-	 * @param Coordenada Y del tablero.
+	 * @param x Coordenada X del tablero.
+	 * @param y Coordenada Y del tablero.
 	 * @param color true = blanco; false = negro.
-	 * @param Flag distintivo del constructor.
+	 * @param na Flag distintivo del constructor.
 	 */
 	public clsTorre(int x, int y, Boolean color,Boolean na) 
 	{
@@ -166,8 +166,7 @@ public class clsTorre extends clsPieza implements Serializable
 	
 	/**
 	 * Método para obtener los movimientos que puede realizar una torre en un tablero dado.
-	 * @param Tablero con las casillas ocupadas y vacías.
-	 * @return LinkedList de casillas que indica a qué posiciones puede moverse la pieza.
+	 * @param tablero Tablero con las casillas ocupadas y vacías.
 	 */
 	public void mov(clsCasilla[][] tablero)
 	{

@@ -137,7 +137,7 @@ public class clsBinarios
 	 * Método que crea un objectInputStream para la lectura del fichero indicado previamente.
 	 * @param fichero: enumerado de la clase clsConstantes que indica el fichero del que se
 	 * 					va a leer. 
-	 * @throws IOException: excepción lanzada en caso de que se dé un error de lectura/escritura en fichero.
+	 * @throws IOException excepción lanzada en caso de que se dé un error de lectura/escritura en fichero.
 	 */		
 	public void ComenzarRead(enFicDatos fichero) throws IOException
 	{

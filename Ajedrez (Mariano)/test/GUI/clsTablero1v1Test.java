@@ -25,7 +25,7 @@ public class clsTablero1v1Test
 
 	/**
 	 * SetUp de los valores a utilizar.
-	 * @throws Exception: Excepción
+	 * @throws Exception Excepción
 	 */
 	@Before
 	public void setUp() throws Exception 
@@ -103,7 +103,7 @@ public class clsTablero1v1Test
 	
 	/**
 	 * Método que finaliza el testeo.
-	 * @throws Exception: Excepción
+	 * @throws Exception Excepción
 	 */
 	@After
 	public void tearDown() throws Exception 

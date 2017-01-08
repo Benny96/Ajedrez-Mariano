@@ -101,7 +101,7 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 	
 	/**
 	 * Constructor que recibe un clsUsuario que será el jugador blanco de la nueva partida contra Mariano.
-	 * @param Jugador blanco
+	 * @param aux Jugador blanco
 	 */
 	public TableroVisualMariano(clsUsuario aux) 
 	{
@@ -322,11 +322,18 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 		 String[] columnNames = {"Blanco",
 				                 "Negro",
 				                 };
+		 /**
+		  * Constructor del JPanel
+		  */
 	    public SimpleTableDemo() 
 	    {
 	        super(new GridLayout(1,0));
 	        data= new Object[100][2];
 	    }
+	    /**
+	     * Genera la JTable que utiliza los datos obtenidos del constructor
+	     * @param a Datos de las jugadas
+	     */
 	    public void createTable (Object [][]a)
 	    {
 	    	data = a;

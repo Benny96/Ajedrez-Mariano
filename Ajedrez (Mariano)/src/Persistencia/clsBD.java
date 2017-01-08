@@ -76,9 +76,9 @@ public class clsBD
 
 	/** Crea diferentes tablas en una base de datos, si no existía ya. <br>
 	 * Debe haberse inicializado la conexión correctamente. <br>
-	 * @param Tipo de tabla: Usuario o Partida.
+	 * @param tipo_tabla Tipo de tabla: Usuario o Partida.
 	 */
-	public static void crearTablaBD(String tipo_tabla) //TODO: Hay sobreescritura de BD aquí. En SQL tendríamos que mirar si ya existe la tabla creada. (Cláusula IF NOT EXISTS)
+	public static void crearTablaBD(String tipo_tabla)
 	{
 		if (statement==null) return;
 		switch (tipo_tabla)
@@ -113,7 +113,7 @@ public class clsBD
 	
 	/** Inserta un dato en las tablas previamente mencionadas. <br>
 	 * Debe haberse inicializado la conexión correctamente. <br>
-	 * @param Objeto a insertar: Usuario, partida 1v1 o partida vs Mariano.
+	 * @param obj Objeto a insertar: Usuario, partida 1v1 o partida vs Mariano.
 	 */
 	public static void insertarDatoTablaBD(Object obj)
 	{
@@ -207,7 +207,7 @@ public class clsBD
 	
 	/**
 	 * Lectura de los datos de una tabla determinada.
-	 * @param Tipo de tabla
+	 * @param tipo_tabla Tipo de tabla
 	 * @return Representación abstracta de los datos de la tabla de la BD: ResultSet
 	 */
 	public static ResultSet obtenerDatosTablaBD (String tipo_tabla)

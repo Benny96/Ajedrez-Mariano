@@ -89,7 +89,7 @@ public class clsAnyadirJugador extends JInternalFrame
 	
 	/**
 	 * Constructor de la JInternalFrame, que considera el usuario actual para evitar repeticiones.	
-	 * @param Usuario logeado en la aplicación.
+	 * @param usuactual Usuario logeado en la aplicación.
 	 */
 	public clsAnyadirJugador(clsUsuario usuactual) 
 	{

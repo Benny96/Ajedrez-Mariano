@@ -112,12 +112,12 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Constructor para gestionar los datos relevantes de una partida 1v1 de la Base de Datos.
-	 * @param ID de la partida
-	 * @param Nickname del jugador blanco
-	 * @param Nickname del jugador negro
-	 * @param Fecha de comienzo de la partida
-	 * @param Fecha de final de la partida
-	 * @param Nickname del ganador de la partida
+	 * @param a ID de la partida
+	 * @param b Nickname del jugador blanco
+	 * @param c Nickname del jugador negro
+	 * @param d Fecha de comienzo de la partida
+	 * @param e Fecha de final de la partida
+	 * @param f Nickname del ganador de la partida
 	 */
 	public TableroLogico1v1 (int a, String b, String c, long d, long e, String f)
 	{
@@ -132,7 +132,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Constructor para generar un tablero lógico 1v1 al iniciar una nueva partida.
-	 * @param Tablero visual con el que se corresponde el tablero lógico
+	 * @param TableroVisual1v1 Tablero visual con el que se corresponde el tablero lógico
 	 */
 	public TableroLogico1v1(TableroVisual1v1 TableroVisual1v1) 
 	{
@@ -248,24 +248,24 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}	
 	/**
 	 * Constructor que valdrá para cargar todos los datos relevantes del fichero serializado al nuevo tablero, al cargar la partida.
-	 * @param Torre blanca derecha
-	 * @param Torre blanca izquierda
-	 * @param Número de minutos blanco
-	 * @param Número de segundos blanco
-	 * @param Opciones de movimiento
-	 * @param Número de minutos negro
-	 * @param Número de segundos negro
-	 * @param Torre negra derecha
-	 * @param Torre negra izquierda
-	 * @param Lista de piezas blancas
-	 * @param Lista de piezas negras
-	 * @param Rey blanco
-	 * @param Rey negro
-	 * @param Datos de la JTable de las jugadas
-	 * @param Número de fila de impresión de los datos de la JTable
-	 * @param Jugador blanco
-	 * @param Jugador negro
-	 * @param Turno
+	 * @param btorrede Torre blanca derecha
+	 * @param btorreiz Torre blanca izquierda
+	 * @param bminu Número de minutos blanco
+	 * @param bsegu Número de segundos blanco
+	 * @param movacti Opciones de movimiento
+	 * @param nminu Número de minutos negro
+	 * @param nsegu Número de segundos negro
+	 * @param ntorrede Torre negra derecha
+	 * @param ntorreiz Torre negra izquierda
+	 * @param piblancas Lista de piezas blancas
+	 * @param pinegras Lista de piezas negras
+	 * @param reybl Rey blanco
+	 * @param reyne Rey negro
+	 * @param datos Datos de la JTable de las jugadas
+	 * @param numfila Número de fila de impresión de los datos de la JTable
+	 * @param ublanquito Jugador blanco
+	 * @param unegrito Jugador negro
+	 * @param turnoactual Turno
 	 */
 	public TableroLogico1v1 (clsTorre btorrede, clsTorre btorreiz, int bminu, int bsegu, LinkedList <clsCasilla> movacti, int nminu,
 			int nsegu, clsTorre ntorrede, clsTorre ntorreiz, LinkedList <clsPieza> piblancas, LinkedList <clsPieza> pinegras,
@@ -346,7 +346,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Método utilizado para clonar el tablero lógico a medida que se va jugando.
-	 * @param Tablero lógico a clonar
+	 * @param tab Tablero lógico a clonar
 	 * @return Tablero lógico clonado
 	 */
 	public TableroLogico1v1 clonar(TableroLogico1v1 tab)
@@ -391,7 +391,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Método para limpiar el tablero, para que después se actúe sobre él.
-	 * @param Lista de clsCasillas a borrar
+	 * @param borrar Lista de clsCasillas a borrar
 	 */
 	public void clear(LinkedList <clsCasilla> borrar)
 	{
@@ -420,7 +420,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Método para comprobar un jaquemate hecho por piezas negras.
-	 * @param Tablero lógico
+	 * @param tab Tablero lógico
 	 * @return Flag que indica si hay jaque o no
 	 */
 	public boolean jaquematen(TableroLogico1v1 tab)
@@ -436,7 +436,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Método para comprobar un jaquemate hecho por piezas blancas.
-	 * @param Tablero lógico
+	 * @param tab Tablero lógico
 	 * @return Flag que indica si hay jaque o no
 	 */
 	public boolean jaquemateb(TableroLogico1v1 tab)
@@ -452,8 +452,8 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Método para comprobar si un rey se encuentra en posición de jaque o no.
-	 * @param Rey afectado
-	 * @param Tablero lógico
+	 * @param rey Rey afectado
+	 * @param tab Tablero lógico
 	 * @return Flag indicando que está en jaque
 	 */
 	public boolean comprobarjaque(clsRey rey,TableroLogico1v1 tab)
@@ -480,7 +480,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	}
 	/**
 	 * Método para añadir los movimientos disponibles a una lista de movimientos.
-	 * @param Lista de clsCasillas
+	 * @param lista Lista de clsCasillas
 	 */
 	public void dibujarmov(LinkedList<clsCasilla> lista)
 	{
@@ -502,7 +502,7 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 	
 	/**
 	 * Acciones que ocurren al pulsar en una casilla.
-	 * @param clsCasilla en la que ocurre la pulsación
+	 * @param casilla clsCasilla en la que ocurre la pulsación
 	 */
 	public void action(clsCasilla casilla) 
 	{
@@ -774,8 +774,8 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 
 	/**
 	 * Método para obtener los movimientos legales disponibles de una pieza.
-	 * @param Pieza afectada
-	 * @param Tablero lógico
+	 * @param pieza Pieza afectada
+	 * @param tab Tablero lógico
 	 * @return Lista con las clsCasillas disponibles
 	 */
 	public LinkedList<clsCasilla> legales(clsPieza pieza,TableroLogico1v1 tab) 

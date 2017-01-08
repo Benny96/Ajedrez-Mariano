@@ -415,7 +415,7 @@ public class clsAltaUsuario extends JFrame
 	
 	/**
 	 * Método que coge la imagen de las piezas que se muestra en la ventana.
-	 * @param JLabel que contendrá la imagen.
+	 * @param l JLabel que contendrá la imagen.
 	 * @return JLabel con la imagen insertada.
 	 */
 	public JLabel CogerImagen(JLabel l)

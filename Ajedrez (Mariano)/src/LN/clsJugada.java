@@ -13,8 +13,8 @@ public class clsJugada
 	
 	/**
 	 * Constructor de clsJugada recibiendo una pieza y una casilla final.
-	 * @param pieza
-	 * @param cfinal
+	 * @param pieza Pieza a guardar
+	 * @param cfinal Casilla final
 	 */
 	public clsJugada(clsPieza pieza,clsCasilla cfinal)
 	{

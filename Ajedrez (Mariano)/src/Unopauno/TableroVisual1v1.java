@@ -129,8 +129,8 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	}
 	/**
 	 * Constructor que recibe 2 clsUsuarios que serán los jugadores de la nueva partida.
-	 * @param Jugador blanco
-	 * @param Jugador negro
+	 * @param a Jugador blanco
+	 * @param b Jugador negro
 	 */
 	public TableroVisual1v1 (clsUsuario a, clsUsuario b)
 	{
@@ -142,7 +142,7 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	}
 	/**
 	 * Constructor utilizado para el cargado, que toma los datos del tablero lógico guardado.
-	 * @param Tablero lógico cargado
+	 * @param tablog Tablero lógico cargado
 	 */
 	public TableroVisual1v1(TableroLogico1v1 tablog)
 	{
@@ -363,12 +363,12 @@ public class TableroVisual1v1 extends JFrame implements ActionListener, Serializ
 	}
 	/**
 	 * Método que inicia el movimiento visual de las piezas.
-	 * @param Coordenada X de origen
-	 * @param Coordenada Y de origen
-	 * @param Coordenada X de fin
-	 * @param Coordenada Y de fin
-	 * @param Ruta a tomar
-	 * @param Nueva casilla a la que debe ir la pieza
+	 * @param x_i Coordenada X de origen
+	 * @param y_i Coordenada Y de origen
+	 * @param x_f Coordenada X de fin
+	 * @param y_f Coordenada Y de fin
+	 * @param ruta Ruta a tomar
+	 * @param ncasilla2 Nueva casilla a la que debe ir la pieza
 	 */
 	public void EmpezarMovimiento(int x_i, int y_i, int x_f, int y_f, String ruta, clsCasilla ncasilla2)
 	{

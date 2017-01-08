@@ -19,8 +19,8 @@ public class clsAlfil extends clsPieza implements Serializable
 	
 	/**
 	 * Constructor de clsAlfil con el que se construirán inicialmente las piezas.
-	 * @param Coordenada X del tablero.
-	 * @param Coordenada Y del tablero.
+	 * @param x Coordenada X del tablero.
+	 * @param y Coordenada Y del tablero.
 	 * @param color true = blanco; false = negro.
 	 */
 	public clsAlfil(int x, int y, Boolean color) 
@@ -56,10 +56,10 @@ public class clsAlfil extends clsPieza implements Serializable
 	}
 	/**
 	 * Constructor de clsAlfil usado para clonar un alfil determinado.
-	 * @param Coordenada X del tablero.
-	 * @param Coordenada Y del tablero.
+	 * @param x Coordenada X del tablero.
+	 * @param y Coordenada Y del tablero.
 	 * @param color true = blanco; false = negro.
-	 * @param Flag distintivo del constructor.
+	 * @param na Flag distintivo del constructor.
 	 */
 	public clsAlfil(int x, int y, Boolean color,Boolean na) 
 	{
@@ -75,7 +75,7 @@ public class clsAlfil extends clsPieza implements Serializable
 	
 	/**
 	 * Método para obtener la influencia que ejerce un alfil sobre un tablero dado.
-	 * @param Tablero con las casillas ocupadas y vacías.
+	 * @param tablero Tablero con las casillas ocupadas y vacías.
 	 * @return LinkedList de casillas que indica a qué posiciones afecta la pieza.
 	 */
 	public LinkedList<clsCasilla> influencia (clsCasilla[][] tablero)
@@ -161,8 +161,7 @@ public class clsAlfil extends clsPieza implements Serializable
 	}
 	/**
 	 * Método para obtener los movimientos que puede realizar un alfil en un tablero dado.
-	 * @param Tablero con las casillas ocupadas y vacías.
-	 * @return LinkedList de casillas que indica a qué posiciones puede moverse la pieza.
+	 * @param tablero Tablero con las casillas ocupadas y vacías.
 	 */
 	public void mov(clsCasilla[][] tablero)
 	{

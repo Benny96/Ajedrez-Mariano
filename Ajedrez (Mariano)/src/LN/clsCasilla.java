@@ -49,7 +49,7 @@ public class clsCasilla extends JButton implements Serializable
 		}
 		/**
 		 * Setter que marca una posición como ocupada.
-		 * @param Pieza que ocupará la casilla
+		 * @param pieza Pieza que ocupará la casilla
 		 */
 		public void setOcupado(clsPieza pieza)
 		{
@@ -70,6 +70,7 @@ public class clsCasilla extends JButton implements Serializable
 		}
 		/**
 		 * Genera los círculos con los movimientos posibles.
+		 * @return boolean indicando el movimiento
 		 */
 		public boolean imov() 
 		{
@@ -102,7 +103,7 @@ public class clsCasilla extends JButton implements Serializable
 		}
 		/**
 		 * Borra los movimientos marcados por una casilla determinada.
-		 * @param Casilla cuyos marcas de movimientos han de ser borradas
+		 * @param borrar Casilla cuyos marcas de movimientos han de ser borradas
 		 */
 		public void clear(LinkedList <clsCasilla> borrar)
 		{

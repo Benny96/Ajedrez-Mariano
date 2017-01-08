@@ -28,8 +28,8 @@ import LN.clsUsuario;
 import Persistencia.clsBD;
 
 /**
- * Clase que soportará la parte lógica del tablero en una partida jugador vs Mariano (1vMariano).
- * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Beñat Galdós (Benny96)
+ * Clase que soportara la parte loica del tablero en una partida jugador vs Mariano (1vMariano).
+ * @author Garikoitz Bereciartua (garibere13), Imanol Echeverria (Echever), Benat Galdos (Benny96)
  */
 
 public class TableroLogicoMariano implements Cloneable, Serializable, Comparable <TableroLogicoMariano>
@@ -97,7 +97,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	HashSet<clsJugada> jugadasnegras;
 	
 	/**
-	 * Constructor sin parámetros para reutilizar durante el curso de la partida.
+	 * Constructor sin parametros para reutilizar durante el curso de la partida.
 	 */
 	public TableroLogicoMariano()
 	{
@@ -139,8 +139,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		ganadorString = f;
 	}
 	/**
-	 * Constructor para generar un tablero lógico 1vMariano al iniciar una nueva partida.
-	 * @param Tablero visual con el que se corresponde el tablero lógico
+	 * Constructor para generar un tablero logico 1vMariano al iniciar una nueva partida.
+	 * @param Tablero visual con el que se corresponde el tablero logico
 	 */
 	public TableroLogicoMariano(Boolean asd, TableroVisualMariano tablerovisual, Runnable myTimer, clsUsuario usu) 
 	{
@@ -268,9 +268,9 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}	
 	
 	/**
-	 * Método utilizado para clonar el tablero lógico a medida que se va jugando.
-	 * @param Tablero lógico a clonar
-	 * @return Tablero lógico clonado
+	 * Metodo utilizado para clonar el tablero logico a medida que se va jugando.
+	 * @param Tablero logico a clonar
+	 * @return Tablero logico clonado
 	 */
 	public TableroLogicoMariano clonar(TableroLogicoMariano tab)
 	{
@@ -313,7 +313,7 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	
 	/**
-	 * Método para limpiar el tablero, para que después se actúe sobre él.
+	 * Metodo para limpiar el tablero, para que despues se actue sobre el.
 	 * @param Lista de clsCasillas a borrar
 	 */
 	public void clear(LinkedList <clsCasilla> borrar)
@@ -344,8 +344,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 
 	/**
-	 * Método para comprobar un jaquemate hecho por piezas negras.
-	 * @param Tablero lógico
+	 * Metodo para comprobar un jaquemate hecho por piezas negras.
+	 * @param Tablero logico
 	 * @return Flag que indica si hay jaque o no
 	 */
 	public boolean jaquematen(TableroLogicoMariano tab)
@@ -360,8 +360,8 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 		return true;
 	}
 	/**
-	 * Método para comprobar un jaquemate hecho por piezas blancas.
-	 * @param Tablero lógico
+	 * Metodo para comprobar un jaquemate hecho por piezas blancas.
+	 * @param Tablero logico
 	 * @return Flag que indica si hay jaque o no
 	 */
 	public boolean jaquemateb(TableroLogicoMariano tab)
@@ -377,10 +377,10 @@ public class TableroLogicoMariano implements Cloneable, Serializable, Comparable
 	}
 	
 	/**
-	 * Método para comprobar si un rey se encuentra en posición de jaque o no.
+	 * Metodo para comprobar si un rey se encuentra en posicion de jaque o no.
 	 * @param Rey afectado
-	 * @param Tablero lógico
-	 * @return Flag indicando que está en jaque
+	 * @param Tablero logico
+	 * @return Flag indicando que esta en jaque
 	 */
 	public Boolean comprobarjaque(clsRey rey,TableroLogicoMariano tab)
 	{

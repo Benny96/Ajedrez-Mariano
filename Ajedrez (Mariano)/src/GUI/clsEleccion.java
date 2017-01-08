@@ -137,7 +137,7 @@ public class clsEleccion extends JFrame
 		
 		usuario = usu;
 
-		lblBienvenida = new JLabel("Bienvenid@, "+usuario.getNickname()+"! . Elige lo que desees hacer.");
+		lblBienvenida = new JLabel("¡Bienvenid@, "+usuario.getNickname()+"! Elige lo que desees hacer.");
 		lblBienvenida.setBounds(60, 35, 560, 34);
 		Font labelFont = lblBienvenida.getFont();
 		lblBienvenida.setFont(new Font(labelFont.getName(), Font.BOLD, 16));

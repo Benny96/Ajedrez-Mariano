@@ -299,45 +299,6 @@ public class TableroVisualMariano extends JFrame implements ActionListener
 			}
 		});	
 	}	
-	//TODO: Dafuq?
-	public TableroVisualMariano(TableroLogicoMariano tablerete) 
-	{
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setIconImage(new ImageIcon(getClass().getResource("/img/Rajoy.png")).getImage());
-		setBounds(0, 0, 1360, 720);
-		pPrincipal = new JPanel();
-		pPrincipal.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(pPrincipal);
-		pPrincipal.setLayout(null);
-		clsCasilla[][] ctablero = tablerete.getTablero();
-		
-		for(clsPieza aux: tablerete.getPblancas())
-		{
-			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
-		}
-		for(clsPieza aux:tablerete.getPnegras())
-		{
-			ctablero[aux.getY()][aux.getX()].setOcupado(aux);
-		}	
-		
-		for(int i=0;i<8;i++)
-		{
-			for(int j=0;j<8;j++)
-			{
-				ctablero[i][j].setText(Integer.toString(i)+Integer.toString(j));
-				if((i+j)%2==0)
-					ctablero[i][j].setBackground(Color.WHITE);
-				else
-					ctablero[i][j].setBackground(Color.GRAY);			
-				
-				ctablero[i][j].setBounds(500-j*60, 540-i*60, 60, 60);
-				ctablero[i][j].addActionListener(this);
-				pPrincipal.add(ctablero[i][j]);			
-			}
-		}	
-		pPrincipal.repaint();
-	}
-	
 	/**
 	 * Evento generado al hacer click en cualquiera de las casillas del tablero.
 	 */

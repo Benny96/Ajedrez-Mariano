@@ -418,43 +418,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		}
 		borrar.clear();
 	}
-	
-//	public void revisar(clsJugada jugada,TableroLogico1v1 tab)
-//	{
-//		LinkedList<clsPieza> todas = new LinkedList<clsPieza>();
-//		todas.addAll(tab.pblancas);
-//		todas.addAll(tab.pnegras);
-//	
-//		if(comprobarjaque(tab.reyb,tab))
-//		{
-//			for(clsPieza pieza: tab.pblancas)
-//			{
-//				pieza.setMovimientos(legales(pieza,tab));
-//			}
-//		}
-//		else if(comprobarjaque(tab.reyn,tab))
-//		{
-//			for(clsPieza pieza: tab.pnegras)
-//			{
-//				pieza.setMovimientos(legales(pieza,tab));
-//			}
-//		}
-//		else
-//		{
-//			System.out.println("pasoooooooo");
-//			for(clsPieza pieza: todas)
-//			{
-//				clsPieza hola=pieza.clonarTab1v1(pieza, tab);
-//				for(clsCasilla casilla: hola.getMovimientos())
-//				{
-//					if(casilla.equals(jugada.cfinal)|| (casilla.gety()==jugada.pieza.getY() && casilla.getx()==jugada.pieza.getX()))
-//					{
-//						pieza.setMovimientos(legales(pieza,tab));
-//					}			
-//				}
-//			}
-//		}
-//	}
 	/**
 	 * Método para comprobar un jaquemate hecho por piezas negras.
 	 * @param Tablero lógico
@@ -515,82 +478,6 @@ public class TableroLogico1v1 implements Cloneable, Serializable, Comparable <Ta
 		}
 		return false;
 	}
-//	public void Inteligencia()
-//	{
-//	clsJugada definitiva= new clsJugada();
-//	
-//	for(clsPieza p: this.pnegras)
-//	{
-//	
-//	System.out.println("wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww");
-//	System.out.println(p.getClass());
-//	System.out.println(p);
-//	int iy=p.getY();
-//	int ix=p.getX();
-//	
-//	
-//	//LinkedList<clsCasilla> candidatos=legales(p,this);
-//	
-//	clsPieza xc= p.clonarTab1v1(p, this);
-//	for(clsCasilla caux: xc.getMovimientos())
-//	{
-////	System.out.println("candidatos "+ caux);
-//	clsJugada aux= new clsJugada(p,caux);
-//	
-//	aux.valor=Valorar(aux,this,1);
-////	System.out.println(aux.valor);
-//	if(aux.valor>definitiva.valor)
-//	{
-//	definitiva=aux;
-//	}
-//	
-//	}
-//	
-//	}
-//	
-//	int x=definitiva.pieza.getX();
-//	int y=definitiva.pieza.getY();
-//	
-//	if(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado()!=null)
-//	{
-//	this.pblancas.remove(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado());
-//	}
-//	tablero[y][x].setOcupado(null);
-//	
-////	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setPieza(definitiva.pieza);
-////	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].mov=false;
-////	System.out.println("sssssssssssssssss " +definitiva.pieza.getClass());
-////	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setIcon(definitiva.pieza.getIcon());
-////	definitiva.pieza.setY(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].gety());
-////	definitiva.pieza.setX(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getx());
-////	
-////	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].paintComponents(tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getGraphics());
-//	
-//	//System.out.println(this.tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].getOcupado().getClass());
-//	//this.tablero[0][1].setOcupado(null);
-//	tablero[definitiva.cfinal.gety()][definitiva.cfinal.getx()].setOcupado(definitiva.pieza);
-//	if(definitiva.pieza.primera==false)
-//	definitiva.pieza.primera=true;
-//	
-//	revisar(definitiva,this);
-//	//definitiva.cfinal.setOcupado(definitiva.pieza);
-//	if(definitiva.pieza.getIcon()!=null)
-//	{
-//	System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
-//	}
-//	System.out.println(definitiva.cfinal.getOcupado().getClass());
-//	System.out.println("definitivo "+definitiva.valor);
-//	System.out.println(y);
-//	System.out.println(x);
-//	
-//	
-//	//pintar();
-////	jaquemate=jaquemateb(this);
-////	if(jaquemate)
-////	{
-////	visual.repaint();
-////	System.out.println("SoyDioooooooooooooooooooooooos");
-////	}
 	/**
 	 * Método para añadir los movimientos disponibles a una lista de movimientos.
 	 * @param Lista de clsCasillas

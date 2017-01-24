@@ -1,7 +1,5 @@
 # Ajedrez-Mariano
 
-a.k.a. Chess
-
 ## Spanish:
 
 Este proyecto, como bien dice su nombre, es un ajedrez. Los integrantes del grupo somos los siguientes: <br>

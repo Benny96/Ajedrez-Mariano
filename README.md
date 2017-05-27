@@ -2,7 +2,7 @@
 
 ## Spanish:
 
-Este proyecto, como bien dice su nombre, es un ajedrez. Los integrantes del grupo somos los siguientes: <br>
+Este proyecto, como bien dice su nombre, es **un ajedrez**. Los integrantes del grupo somos los siguientes: <br>
 
 Garikoitz Bereciartua (garibere13) <br>
 Imanol Echeverría (Echever) <br>
@@ -22,7 +22,7 @@ Y si se quieren utilizar las clases de testeo, se deberá implementar también J
 
 ## English:
 
-This project consists on a Chess game. It has been created by the following group: <br>
+This project consists on a **Chess**. It has been created by the following group: <br>
 
 Garikoitz Bereciartua (garibere13) <br>
 Imanol Echeverría (Echever) <br>
